@@ -9,9 +9,9 @@ import com.github.scribejava.core.model.OAuth1RequestToken;
 
 public class EventBriteApi extends DefaultApi10a {
 
-    private static final String AUTHORIZE_URL = "https://api.twitter.com/oauth/authorize?oauth_token=%s";
-    private static final String REQUEST_TOKEN_RESOURCE = "api.twitter.com/oauth/request_token";
-    private static final String ACCESS_TOKEN_RESOURCE = "api.twitter.com/oauth/access_token";
+    private static final String AUTHORIZE_URL = "https://www.eventbrite.com/oauth/authorize";
+    private static final String REQUEST_TOKEN_RESOURCE = "https://www.eventbrite.com/oauth/token";
+    private static final String ACCESS_TOKEN_RESOURCE = "https://www.eventbrite.com/oauth/token";
 
     protected EventBriteApi() {
     }
@@ -46,7 +46,7 @@ public class EventBriteApi extends DefaultApi10a {
      */
     public static class Authenticate extends EventBriteApi {
 
-        private static final String AUTHENTICATE_URL = "https://api.twitter.com/oauth/authenticate?oauth_token=%s";
+        private static final String AUTHENTICATE_URL = "https://www.eventbrite.com/oauth/authorize?response_type=code&client_id=";
 
         private Authenticate() {
         }
