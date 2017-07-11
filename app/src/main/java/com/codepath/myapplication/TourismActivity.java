@@ -10,4 +10,7 @@ public class TourismActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourism);
     }
+
+    // GET https://api.yelp.com/v3/businesses/search
+
 }
