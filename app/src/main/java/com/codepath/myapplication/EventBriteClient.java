@@ -9,8 +9,10 @@ import android.content.Context;
 import com.codepath.oauth.OAuthBaseClient;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.api.BaseApi;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
-// import com.codepath.apps.restclienttemplate.models.Tweet;
+//import com.codepath.apps.restclienttemplate.models.Tweet;
 
 /*
  *
@@ -43,5 +45,14 @@ public class EventBriteClient extends OAuthBaseClient {
                 REST_CONSUMER_SECRET,
                 String.format(REST_CALLBACK_URL_TEMPLATE, context.getString(R.string.intent_host),
                         context.getString(R.string.intent_scheme), context.getPackageName(), FALLBACK_URL));
+    }
+    public void getEvents(String query, String location, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/home_timeline.json");
+        // Can specify query string params directly or through RequestParams.
+        RequestParams params = new RequestParams();
+        params.put("q", query);
+        params.put("location.address", location);
+        params.put("sort_by", "date");
+        client.get(apiUrl, params, handler);
     }
 }
