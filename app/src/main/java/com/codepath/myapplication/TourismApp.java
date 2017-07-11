@@ -25,15 +25,15 @@ public class TourismApp extends Application {
 		TourismApp.context = this;
 	}
 
-	public static TourismClient getRestClient() {
+	public static TourismClient getTourismClient() {
 		return (TourismClient) TourismClient.getInstance(TourismClient.class, TourismApp.context);
 	}
 
-	public static FoodClient getRestClient() {
-		return (FoodClient) FoodClient.getInstance(FoodClient.class, TourismApp.context);
-	}
+//	public static FoodClient getFoodClient() {
+//		return (FoodClient) FoodClient.getInstance(FoodClient.class, TourismApp.context);
+//	}
 
-	public static EventBriteClient getRestClient() {
+	public static EventBriteClient getEventClient() {
 		return (EventBriteClient) EventBriteClient.getInstance(EventBriteClient.class, TourismApp.context);
 	}
 }
