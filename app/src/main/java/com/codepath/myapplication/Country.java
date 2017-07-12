@@ -14,9 +14,9 @@ public class Country {
     public Country(){}
 
     public Country(JSONObject object) throws JSONException{
-        name = object.getString("name");
-        continent = object.getString("continent");
-        language = object.getString("language");
+        name = object.getString("Name");
+        continent = object.getString("Region");
+        language = object.getString("NativeLanguage");
     }
 
 }
