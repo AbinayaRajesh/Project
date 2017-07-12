@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.Event;
 
 import android.os.Parcel;
 import android.os.Parcelable;

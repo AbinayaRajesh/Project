@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/java/com.codepath.myapplication/Event']
+        }
+    }
 }
 
 def dbflow_version = "4.0.3"

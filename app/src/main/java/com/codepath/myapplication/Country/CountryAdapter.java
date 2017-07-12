@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.Country;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.codepath.myapplication.R;
 
 import java.util.ArrayList;
 

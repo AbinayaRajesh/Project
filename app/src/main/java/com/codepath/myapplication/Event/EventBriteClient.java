@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.Event;
 
 /**
  * Created by eyobtefera on 7/11/17.
@@ -6,6 +6,7 @@ package com.codepath.myapplication;
 
 import android.content.Context;
 
+import com.codepath.myapplication.R;
 import com.codepath.oauth.OAuthBaseClient;
 import com.github.scribejava.apis.TwitterApi;
 import com.github.scribejava.core.builder.api.BaseApi;

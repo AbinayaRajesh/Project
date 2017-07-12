@@ -1,7 +1,9 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.Tourism;
 
 import android.app.Application;
 import android.content.Context;
+
+import com.codepath.myapplication.Event.EventBriteClient;
 
 /*
  * This is the Android application itself and is used to configure various settings
