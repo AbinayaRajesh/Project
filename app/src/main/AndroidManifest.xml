@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.codepath.myapplication">
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,11 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".TourismActivity"></activity>
-
-        <activity android:name=".FoodActivity"></activity>
-
+        <activity android:name=".TourismActivity" />
+        <activity android:name=".FoodActivity" />
+        <activity android:name=".OptionsAvailable"></activity>
     </application>
 
 </manifest>
