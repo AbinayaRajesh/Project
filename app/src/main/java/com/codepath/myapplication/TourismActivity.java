@@ -19,7 +19,7 @@ public class TourismActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourism);
 
-        client = TourismApp.getRestClient();
+        client = TourismApp.getTourismClient();
 
 
         client.getSearch( new JsonHttpResponseHandler() {

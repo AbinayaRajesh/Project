@@ -18,7 +18,7 @@
         </activity>
         <activity android:name=".TourismActivity" />
         <activity android:name=".FoodActivity" />
-        <activity android:name=".Options_Available"></activity>
+        <activity android:name=".OptionsAvailable"></activity>
     </application>
 
 </manifest>
