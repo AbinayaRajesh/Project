@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.codepath.myapplication.MainActivity">
 
+
     <Button
         android:id="@+id/bttnEvent"
         android:layout_width="wrap_content"
@@ -13,4 +14,19 @@
         android:text="EventActivity"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="188dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvCountry"
+        android:layout_width="138dp"
+        android:layout_height="495dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
+
+
 </RelativeLayout>
