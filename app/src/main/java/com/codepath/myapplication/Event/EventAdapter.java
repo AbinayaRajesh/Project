@@ -71,7 +71,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             tvEventName = (TextView) itemView.findViewById(R.id.tvEventName);
             tvEventCapacity = (TextView) itemView.findViewById(R.id.tvEventCapacity);
             tvEventDescription = (TextView) itemView.findViewById(R.id.tvEventDescription);
-            layout = (RelativeLayout) itemView.findViewById(R.id.detailView);
+            layout = (RelativeLayout) itemView.findViewById(R.id.detaillView);
 
         }
     }
