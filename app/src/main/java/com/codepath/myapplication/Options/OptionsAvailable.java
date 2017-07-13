@@ -1,10 +1,12 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.Options;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.GridView;
 
 import com.codepath.myapplication.Country.Country;
+import com.codepath.myapplication.ImageAdapter;
+import com.codepath.myapplication.R;
 
 import org.parceler.Parcels;
 

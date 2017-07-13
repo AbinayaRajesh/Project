@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.codepath.myapplication.OptionsAvailable;
+import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
 
 import org.parceler.Parcels;
@@ -79,7 +79,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.ViewHold
                 Country country = countries.get(position);
                 // create intent for the new activity
 
-                Intent intent = new Intent(context, OptionsAvailable.class);
+                Intent intent = new Intent(context, OptionsActivity.class);
                 // serialize the movie using parceler, use its short name as a key
                 intent.putExtra("country", Parcels.wrap(country));
                 // intent.putExtra(Country.class.getName(), Parcels.wrap(country));

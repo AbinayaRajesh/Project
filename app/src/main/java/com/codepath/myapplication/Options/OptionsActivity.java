@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.Options;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,20 +6,28 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
+import com.codepath.myapplication.Country.Country;
+import com.codepath.myapplication.R;
+
+import org.parceler.Parcels;
+
 import java.util.List;
 
 
 public class OptionsActivity extends AppCompatActivity {
     private RecyclerView rvOptions;
     private OptionsAdapter mAdapter;
-    private List<Contact> contacts;
+    private List<Option> options;
+    Country country;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_options);
 
+        setContentView(R.layout.activity_options);
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+        setTitle(country.getName());
         // Find RecyclerView and bind to adapter
         rvOptions = (RecyclerView) findViewById(R.id.rvOptions);
 
@@ -34,12 +42,12 @@ public class OptionsActivity extends AppCompatActivity {
         rvOptions.setLayoutManager(layout);
 
         // get data
-        contacts = Contact.getContacts();
+        options = Option.getContacts();
 
 
 
         // Create an adapter
-        mAdapter = new OptionsAdapter(OptionsActivity.this, contacts);
+        mAdapter = new OptionsAdapter(OptionsActivity.this, options);
 
         // Bind adapter to list
         rvOptions.setAdapter(mAdapter);
