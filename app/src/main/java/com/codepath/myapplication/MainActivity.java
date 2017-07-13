@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
         eventButton = (Button) findViewById(R.id.bttnEvent);
         context = this;
         eventButton.setOnClickListener(new View.OnClickListener() {
