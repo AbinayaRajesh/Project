@@ -21,7 +21,6 @@
         <activity android:name=".FoodActivity" />
         <activity android:name=".EventActivity" />
         <activity android:name=".Options.OptionsActivity">
-
         </activity>
     </application>
 
