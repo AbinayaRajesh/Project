@@ -2,11 +2,14 @@ package com.codepath.myapplication.Country;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 /**
  * Created by emilylroth on 7/11/17.
  */
 
+
+@Parcel
 public class Country {
     String name;
     String continent;

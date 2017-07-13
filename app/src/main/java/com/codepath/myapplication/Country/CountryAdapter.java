@@ -78,9 +78,11 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.ViewHold
                 // get the movie at the position, this won't work if the class is static
                 Country country = countries.get(position);
                 // create intent for the new activity
+
                 Intent intent = new Intent(context, OptionsAvailable.class);
                 // serialize the movie using parceler, use its short name as a key
-                intent.putExtra(Country.class.getName(), Parcels.wrap(country));
+                intent.putExtra("country", Parcels.wrap(country));
+                // intent.putExtra(Country.class.getName(), Parcels.wrap(country));
                 // show the activity
                 context.startActivity(intent);
             }

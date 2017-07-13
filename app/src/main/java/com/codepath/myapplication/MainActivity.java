@@ -5,12 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Button;
@@ -56,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
         rvCountries.setAdapter(adapter);
         getCountryList();
 
-        //startActivity(new Intent(this, OptionsAvailable.class));
+        // startActivity(new Intent(this, OptionsAvailable.class));
+
+
 
  /*       eventButton = (Button) findViewById(R.id.bttnEvent);
         context = this;
