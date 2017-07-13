@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.Event;
 
 /**
  * Created by eyobtefera on 7/11/17.

@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.GridView;
 
+import com.codepath.myapplication.Country.Country;
+
 import org.parceler.Parcels;
 
 public class OptionsAvailable extends AppCompatActivity {
-    Country country;
+        Country country;
 
 
     @Override

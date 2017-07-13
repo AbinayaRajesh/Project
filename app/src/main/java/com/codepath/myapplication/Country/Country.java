@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.Country;
 
 import org.json.JSONException;
 import org.json.JSONObject;

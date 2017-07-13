@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TourismActivity" />
+        <activity android:name=".Tourism.TourismActivity" />
         <activity android:name=".FoodActivity" />
         <activity android:name=".OptionsAvailable"></activity>
     </application>

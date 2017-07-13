@@ -1,8 +1,9 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.Tourism;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.codepath.myapplication.R;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
