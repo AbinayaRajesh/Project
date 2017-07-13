@@ -52,7 +52,9 @@ public class MainActivity extends AppCompatActivity {
         rvCountries.setAdapter(adapter);
         getCountryList();
 
-        //startActivity(new Intent(this, OptionsAvailable.class));
+
+
+
 
         eventButton = (Button) findViewById(R.id.bttnEvent);
         context = this;
