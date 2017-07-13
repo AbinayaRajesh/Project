@@ -4,13 +4,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.GridView;
 
+import org.parceler.Parcels;
+
 public class OptionsAvailable extends AppCompatActivity {
+    Country country;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options_available);
+        country = Parcels.unwrap(getIntent().getParcelableExtra(Country.class.getName()));
 
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
