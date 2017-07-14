@@ -3,7 +3,7 @@ package com.codepath.myapplication.Tourism;
 import android.content.Context;
 
 import com.codepath.myapplication.R;
-import com.codepath.myapplication.YelpApi;
+import com.codepath.myapplication.YelpApii;
 import com.codepath.oauth.OAuthBaseClient;
 import com.github.scribejava.core.builder.api.BaseApi;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -16,7 +16,7 @@ import com.loopj.android.http.RequestParams;
 
 public class TourismClient extends OAuthBaseClient {
 
-    public static final BaseApi REST_API_INSTANCE = YelpApi.instance(); // Change this
+    public static final BaseApi REST_API_INSTANCE = YelpApii.instance(); // Change this
     public static final String REST_URL = "https://api.yelp.com/v3"; // Change this, base API URL
     public static final String REST_CONSUMER_KEY = "nqSR8ScqNdLoWXauJendGg";       // Change this
     public static final String REST_CONSUMER_SECRET = "d4pD4AjRACmMhtiaedeJ8riJAua2RVp9f68b3QcZaEHeJPCROeppyTZCDPlIs5Jb"; // Change this

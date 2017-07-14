@@ -18,7 +18,7 @@ public class OptionsActivity extends AppCompatActivity {
     private RecyclerView rvOptions;
     private OptionsAdapter mAdapter;
     private List<Option> options;
-    Country country;
+    public Country country;
 
 
     @Override
@@ -48,6 +48,7 @@ public class OptionsActivity extends AppCompatActivity {
 
         // Create an adapter
         mAdapter = new OptionsAdapter(OptionsActivity.this, options);
+        mAdapter.optionsActivity = this;
 
         // Bind adapter to list
         rvOptions.setAdapter(mAdapter);

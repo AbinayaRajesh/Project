@@ -16,12 +16,15 @@ import com.codepath.myapplication.FoodActivity;
 import com.codepath.myapplication.R;
 import com.codepath.myapplication.Tourism.TourismActivity;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
 // Provide the underlying view for an individual list item.
 public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
     private Activity mContext;
     private List<Option> mOptions;
+    public OptionsActivity optionsActivity;
 
     public OptionsAdapter(Activity context, List<Option> options) {
         mContext = context;
@@ -88,6 +91,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
                         else if (option.getTitle()=="TOURISM") {
                             Intent i = new Intent(context, TourismActivity.class);
                             // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
+                            i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             context.startActivity(i); // brings up the second activity
                         }
 
