@@ -1,6 +1,12 @@
 package com.codepath.myapplication.Tourism;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +30,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class TourismActivity extends AppCompatActivity {
 
+    private static final int MY_PERMISSION_ACCESS_COURSE_LOCATION = 13;
     AsyncHttpClient client;
 
     ArrayList<Venue> venues;
@@ -35,8 +42,19 @@ public class TourismActivity extends AppCompatActivity {
     // parameter name for API key
     public final static String API_KEY_PARAM = "client_id";
     public final static String API_SECRET_PARAM = "client_secret";
+
     Country country;
     RecyclerView rvVenues;
+
+    double latitude;
+    double longitude;
+
+
+//    String lat = String.valueOf((int) latitude);
+//    String lng = String.valueOf((int) longitude);
+//    String ll = lat+","+lng;
+    String ll;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,42 +71,25 @@ public class TourismActivity extends AppCompatActivity {
 
         rvVenues = (RecyclerView) findViewById(R.id.rvVenues);
 
-                //resolve the recycler view and connect a layout manager and the adapter
+        //resolve the recycler view and connect a layout manager and the adapter
         //rvMovies = (RecyclerView) findViewById(rvMovies);
         rvVenues.setLayoutManager(new LinearLayoutManager(this));
         rvVenues.setAdapter(adapter);
 
-
-//        client.getSearch( new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//                super.onSuccess(statusCode, headers, response);
-//            }
-//
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-//                super.onSuccess(statusCode, headers, response);
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                super.onFailure(statusCode, headers, throwable, errorResponse);
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-//                super.onFailure(statusCode, headers, throwable, errorResponse);
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-//                super.onFailure(statusCode, headers, responseString, throwable);
-//            }
-//        });
-//
+        ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
+                MY_PERMISSION_ACCESS_COURSE_LOCATION );
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
+        String lat = String.valueOf((int) latitude);
+        String lng = String.valueOf((int) longitude);
+        ll = lat+","+lng;
 
 
+        // LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
+        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {}
 
         getNowPlaying();
 
@@ -101,10 +102,11 @@ public class TourismActivity extends AppCompatActivity {
         String url = API_BASE_URL+"/venues/search";
         // set the request parameters
         RequestParams params = new RequestParams();
-        params.put("ll", "40.7,-74");
+        params.put("ll", ll);
         params.put(API_KEY_PARAM, getString(R.string.api_key));  // Always needs API key
         params.put(API_SECRET_PARAM, getString(R.string.api_secret));
         params.put("v", "20170713");
+        // params.put("query", country.getName());
         // request a GET response expecting a JSON object response
         client.get(url,params, new JsonHttpResponseHandler() {
 
