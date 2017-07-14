@@ -20,8 +20,7 @@ public class Food {
         Food food = new Food();
         try {
             // Deserialize json into object fields
-
-            food.name = jsonObject.has("title") ? jsonObject.getString("title_suggest") : "";
+            food.name = jsonObject.has("matches") ? jsonObject.getJSONObject("matches").getString("recipeName") : "";
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

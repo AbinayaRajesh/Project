@@ -21,7 +21,7 @@ public class FoodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
-        fetchFood("indian");
+        fetchFood("");
     }
 
     private void fetchFood(String query){
@@ -33,7 +33,7 @@ public class FoodActivity extends AppCompatActivity {
 
                     try {
                         if(response != null) {
-                            docs = response.getJSONArray("results");
+                            docs = response.getJSONArray("matches");
                             final ArrayList<Food> recipes = Food.fromJson(docs);
                         }
                     } catch (JSONException e) {
