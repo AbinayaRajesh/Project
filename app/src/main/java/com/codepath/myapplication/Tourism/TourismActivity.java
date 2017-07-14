@@ -2,10 +2,13 @@ package com.codepath.myapplication.Tourism;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Models.Venue;
 import com.codepath.myapplication.R;
+import com.codepath.myapplication.VenueAdapter;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -25,12 +28,15 @@ public class TourismActivity extends AppCompatActivity {
 
     ArrayList<Venue> venues;
 
+    VenueAdapter adapter;
+
     // Base Url for API
     public final static String API_BASE_URL = "https://api.foursquare.com/v2";
     // parameter name for API key
     public final static String API_KEY_PARAM = "client_id";
     public final static String API_SECRET_PARAM = "client_secret";
     Country country;
+    RecyclerView rvVenues;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,18 @@ public class TourismActivity extends AppCompatActivity {
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         client = new AsyncHttpClient();
         venues = new ArrayList<>();
+
+        //initialize the adapter -- movies array cannot be reinitialized after this point
+        adapter = new VenueAdapter(venues);
+
+        // the recycler view
+
+        rvVenues = (RecyclerView) findViewById(R.id.rvVenues);
+
+                //resolve the recycler view and connect a layout manager and the adapter
+        //rvMovies = (RecyclerView) findViewById(rvMovies);
+        rvVenues.setLayoutManager(new LinearLayoutManager(this));
+        rvVenues.setAdapter(adapter);
 
 
 //        client.getSearch( new JsonHttpResponseHandler() {
@@ -101,10 +119,8 @@ public class TourismActivity extends AppCompatActivity {
                         Venue venue = new Venue(results.getJSONObject(i));
                         venues.add(venue);
 
-//                        Movie movie = new Movie(results.getJSONObject(i));
-//                        movies.add(movie);
-//                        //notify adapter that a row was added
-//                        adapter.notifyItemInserted(movies.size()-1);
+                        //notify adapter that a row was added
+                        adapter.notifyItemInserted(venues.size()-1);
 
                     }
                     // Log.i(TAG, String.format("Loaded %s movies", results.length()));

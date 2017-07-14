@@ -11,44 +11,25 @@ import org.parceler.Parcel;
 public class Venue {
 
     // values from API
-    String name;
-//    String overview;
-//    String posterPath; // only the path
-//    String backdropPath;
-//    double voteAverage;
-//    Integer id;
+    String title;
+    Location location;
+
 
     // initialize from JSON data
     public Venue(JSONObject object) throws JSONException {
-        name = object.getString("name");
-//        overview = object.getString("overview");
-//        posterPath = object.getString("poster_path");
-//        backdropPath = object.getString("backdrop_path");
-//        voteAverage = object.getDouble("vote_average");
-//        id = object.getInt("id");
+        title = object.getString("name");
+        location = Location.fromJSON(object.getJSONObject("location"));
+
+
     }
 
     public Venue() {}
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-//    public String getOverview() {
-//        return overview;
-//    }
-//
-//    public String getPosterPath() {
-//        return posterPath;
-//    }
-//
-//    public String getBackdropPath() { return backdropPath; }
-//
-//    public double getVoteAverage() {
-//        return voteAverage;
-//    }
-//
-//    public Integer getId() {
-//        return id;
-//    }
+    public Location getLocation() {
+        return location;
+    }
 }
