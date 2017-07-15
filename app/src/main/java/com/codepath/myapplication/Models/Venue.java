@@ -13,12 +13,16 @@ public class Venue {
     // values from API
     String title;
     Location location;
+    String id;
+    String imageUrl;
 
 
     // initialize from JSON data
     public Venue(JSONObject object) throws JSONException {
         title = object.getString("name");
         location = Location.fromJSON(object.getJSONObject("location"));
+        id = object.getString("id");
+        //imageUrl = "https://api.foursquare.com/v2/venues/"+id;
 
 
     }
@@ -31,5 +35,17 @@ public class Venue {
 
     public Location getLocation() {
         return location;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

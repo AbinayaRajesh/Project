@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Models.Location;
 import com.codepath.myapplication.Models.Venue;
 
@@ -52,6 +54,18 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
         holder.tvCity.setText(location.getCity());
         holder.tvState.setText(location.getState());
 
+        if(venue.getImageUrl()!="" && venue.getImageUrl()!=null) {
+            Glide.with(context)
+                    .load(venue.getImageUrl())
+                    .into(holder.ivImg);
+        }
+        else {
+            Glide.with(context) .load("") .error(R.drawable.ic_image_black_24dp) .into(holder.ivImg);
+//            Glide.with(context)
+//                    .load(ic_image_black_24dp.xml)
+//                    .into(holder.ivImg);
+        }
+
     }
 
     // returns total number of items in a list
@@ -65,6 +79,7 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
 
         // track view objects
         //@BindView(R.id.ivPosterImage) ImageView getIvPosterImage;
+        ImageView ivImg;
         TextView tvTitle;
         TextView tvCity;
         TextView tvState;
@@ -97,6 +112,7 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
             //lookup view objects by id
 
 
+            ivImg = (ImageView) itemView.findViewById(R.id.ivImg);
             tvCity = (TextView) itemView.findViewById(R.id.tvCity);
             tvState = (TextView) itemView.findViewById(R.id.tvState);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);

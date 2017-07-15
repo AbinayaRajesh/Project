@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Models.Venue;
@@ -34,6 +35,7 @@ public class TourismActivity extends AppCompatActivity {
     AsyncHttpClient client;
 
     ArrayList<Venue> venues;
+    ArrayList<String> venueIds;
 
     VenueAdapter adapter;
 
@@ -48,6 +50,8 @@ public class TourismActivity extends AppCompatActivity {
 
     double latitude;
     double longitude;
+    boolean b = false;
+    int j = 0;
 
 
 //    String lat = String.valueOf((int) latitude);
@@ -63,6 +67,7 @@ public class TourismActivity extends AppCompatActivity {
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         client = new AsyncHttpClient();
         venues = new ArrayList<>();
+        venueIds = new ArrayList<>();
 
         //initialize the adapter -- movies array cannot be reinitialized after this point
         adapter = new VenueAdapter(venues);
@@ -99,16 +104,16 @@ public class TourismActivity extends AppCompatActivity {
     // get the list of currently playing movies from the API
     private void getNowPlaying() {
         // create the url
-        String url = API_BASE_URL+"/venues/search";
+        String url = API_BASE_URL + "/venues/search";
         // set the request parameters
         RequestParams params = new RequestParams();
-        params.put("ll", ll);
+        params.put("ll", "40,-74");
         params.put(API_KEY_PARAM, getString(R.string.api_key));  // Always needs API key
         params.put(API_SECRET_PARAM, getString(R.string.api_secret));
         params.put("v", "20170713");
-        // params.put("query", country.getName());
+        //params.put("query", country.getName());
         // request a GET response expecting a JSON object response
-        client.get(url,params, new JsonHttpResponseHandler() {
+        client.get(url, params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -117,12 +122,16 @@ public class TourismActivity extends AppCompatActivity {
                 try {
                     JSONObject resp = response.getJSONObject("response");
                     JSONArray results = resp.getJSONArray("venues");
-                    for(int i=0; i<results.length(); i++){
+                    for (int i = 0; i < results.length(); i++) {
                         Venue venue = new Venue(results.getJSONObject(i));
                         venues.add(venue);
+                        venueIds.add(venue.getId());
+                        b = false;
+
 
                         //notify adapter that a row was added
-                        adapter.notifyItemInserted(venues.size()-1);
+                        adapter.notifyItemInserted(venues.size() - 1);
+
 
                     }
                     // Log.i(TAG, String.format("Loaded %s movies", results.length()));
@@ -131,11 +140,79 @@ public class TourismActivity extends AppCompatActivity {
                     // logError("Failed to pase now_playing endpoint", e, true);
                 }
 
+                Pics();
+
 
             }
 
-
         });
+
+
+    }
+
+    public void Pics(){
+
+
+
+            for (int i = 0; i < venueIds.size(); i++) {
+                String venueUrl = API_BASE_URL + "/venues/" + venueIds.get(i);
+                RequestParams params = new RequestParams();
+                params = new RequestParams();
+                //params.put("ll", ll);
+                params.put(API_KEY_PARAM, getString(R.string.api_key));  // Always needs API key
+                params.put(API_SECRET_PARAM, getString(R.string.api_secret));
+                params.put("v", "20170713");
+                client.get(venueUrl, params, new JsonHttpResponseHandler() {
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        // load the results into movies list
+                        Log.d("Heree", "woww");
+
+                        try {
+                            JSONObject resp = response.getJSONObject("response");
+                            JSONObject ven = resp.getJSONObject("venue");
+                            JSONObject photos = ven.getJSONObject("photos");
+                            JSONObject groups = photos.getJSONArray("groups").getJSONObject(0);
+                            JSONObject items = groups.getJSONArray("items").getJSONObject(0);
+                            String prefix = items.getString("prefix");
+                            String suffix = items.getString("suffix");
+                            String imgUrl = prefix + "300x300" + suffix;
+                            venues.get(j).setImageUrl(imgUrl);
+                            adapter.notifyDataSetChanged();
+                            j++;
+
+
+                        } catch (JSONException e) {
+                            venues.get(j).setImageUrl("");
+                            adapter.notifyDataSetChanged();
+                            j++;
+
+                            // logError("Failed to pase now_playing endpoint", e, true);
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        super.onFailure(statusCode, headers, responseString, throwable);
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        // super.onFailure(statusCode, headers, throwable, errorResponse);
+                        Log.d("whoops", "okay");
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                        super.onFailure(statusCode, headers, throwable, errorResponse);
+                    }
+                });
+            }
+
+
     }
 
 
