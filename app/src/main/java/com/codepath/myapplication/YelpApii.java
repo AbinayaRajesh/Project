@@ -7,20 +7,20 @@ package com.codepath.myapplication;
 import com.github.scribejava.core.builder.api.DefaultApi10a;
 import com.github.scribejava.core.model.OAuth1RequestToken;
 
-public class YelpApi extends DefaultApi10a {
+public class YelpApii extends DefaultApi10a {
 
     private static final String AUTHORIZE_URL = "https://api.twitter.com/oauth/authorize?oauth_token=%s";
     private static final String REQUEST_TOKEN_RESOURCE = "api.twitter.com/oauth/request_token";
     private static final String ACCESS_TOKEN_RESOURCE = "api.twitter.com/oauth/access_token";
 
-    protected YelpApi() {
+    protected YelpApii() {
     }
 
     private static class InstanceHolder {
-        private static final YelpApi INSTANCE = new YelpApi();
+        private static final YelpApii INSTANCE = new YelpApii();
     }
 
-    public static YelpApi instance() {
+    public static YelpApii instance() {
         return InstanceHolder.INSTANCE;
     }
 
@@ -40,7 +40,7 @@ public class YelpApi extends DefaultApi10a {
     }
 
 
-    public static class Authenticate extends YelpApi {
+    public static class Authenticate extends YelpApii {
 
         private static final String AUTHENTICATE_URL = "https://api.twitter.com/oauth/authenticate?oauth_token=%s";
 

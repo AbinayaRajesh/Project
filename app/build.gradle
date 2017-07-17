@@ -22,9 +22,14 @@ android {
             java.srcDirs = ['src/main/java', 'src/main/java/com.codepath.myapplication/Event']
         }
     }
+    packagingOptions { exclude 'META-INF/LICENSE' }
 }
 
 def dbflow_version = "4.0.3"
+
+repositories {
+    mavenCentral()
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -75,4 +80,13 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'org.parceler:parceler:1.1.6'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+
+    compile 'com.android.support:cardview-v7:26.+'
+    compile 'com.github.bumptech.glide:glide:3.8.0'
+    compile 'com.android.support:palette-v7:26.+'
+
+    compile 'com.yelp.clientlib:yelp-android:3.0.0'
+
+
 }

@@ -3,13 +3,17 @@ package com.codepath.myapplication;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+<<<<<<< HEAD
 import org.parceler.Parcel;
+=======
+>>>>>>> 2c032b7bf21d5da11df89e5f8ff2ac4f966cfaf0
 
 import java.util.ArrayList;
 
 /**
  * Created by emilylroth on 7/13/17.
  */
+<<<<<<< HEAD
 @Parcel
 public class Food {
     String name;
@@ -27,15 +31,29 @@ public class Food {
 
     public Food(){}
 
+=======
+
+public class Food {
+    String name;
+    public Food(JSONObject object) throws JSONException {
+        name = object.getString("title");
+    }
+    public Food(){}
+>>>>>>> 2c032b7bf21d5da11df89e5f8ff2ac4f966cfaf0
     public static Food fromJson(JSONObject jsonObject) {
         Food food = new Food();
         try {
             // Deserialize json into object fields
+<<<<<<< HEAD
             food.name = jsonObject.getString("recipeName");
             food.rating = jsonObject.getInt("rating");
             //food.imageUrl = jsonObject.getString("imageUrlsBySize");
             food.imageUrl = jsonObject.getJSONArray("smallImageUrls").getString(0);
 
+=======
+
+            food.name = jsonObject.has("title") ? jsonObject.getString("title_suggest") : "";
+>>>>>>> 2c032b7bf21d5da11df89e5f8ff2ac4f966cfaf0
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
@@ -64,6 +82,7 @@ public class Food {
         }
         return recipes;
     }
+<<<<<<< HEAD
 
     public String getImageUrl() {
         return imageUrl;
@@ -72,4 +91,6 @@ public class Food {
     public int getRating() {
         return rating;
     }
+=======
+>>>>>>> 2c032b7bf21d5da11df89e5f8ff2ac4f966cfaf0
 }
