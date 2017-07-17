@@ -2,11 +2,8 @@ package com.codepath.myapplication;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-<<<<<<< HEAD
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-=======
->>>>>>> 2c032b7bf21d5da11df89e5f8ff2ac4f966cfaf0
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -18,21 +15,20 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
+
+
 public class FoodActivity extends AppCompatActivity {
     FoodClient client;
     ArrayList<Food> afood;
-<<<<<<< HEAD
+
     FoodAdapter adapter;
     RecyclerView rvRecipes;
-
-=======
->>>>>>> 2c032b7bf21d5da11df89e5f8ff2ac4f966cfaf0
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
-<<<<<<< HEAD
+
         afood = new ArrayList<>();
         adapter = new FoodAdapter(afood);
         rvRecipes= (RecyclerView) findViewById(R.id.rvRecipes);
@@ -41,9 +37,9 @@ public class FoodActivity extends AppCompatActivity {
 
 
         fetchFood("");
-=======
+
         fetchFood("indian");
->>>>>>> 2c032b7bf21d5da11df89e5f8ff2ac4f966cfaf0
+
     }
 
     private void fetchFood(String query){
@@ -51,7 +47,7 @@ public class FoodActivity extends AppCompatActivity {
         client.getRecipes(query, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-<<<<<<< HEAD
+
 
                     try {
                         if(response != null) {
@@ -66,15 +62,11 @@ public class FoodActivity extends AppCompatActivity {
                             }
                         }
 
-=======
+
                 JSONArray docs;
 
-                    try {
-                        if(response != null) {
-                            docs = response.getJSONArray("results");
-                            final ArrayList<Food> recipes = Food.fromJson(docs);
-                        }
->>>>>>> 2c032b7bf21d5da11df89e5f8ff2ac4f966cfaf0
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
