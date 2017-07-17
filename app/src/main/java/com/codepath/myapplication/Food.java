@@ -3,16 +3,18 @@ package com.codepath.myapplication;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 
 /**
  * Created by emilylroth on 7/13/17.
  */
-
+@Parcel
 public class Food {
     String name;
     String imageUrl;
+    int rating;
 
     public Food(JSONObject object) throws JSONException {
         name = object.getString("title");
@@ -30,6 +32,7 @@ public class Food {
         try {
             // Deserialize json into object fields
             food.name = jsonObject.getString("recipeName");
+            food.rating = jsonObject.getInt("rating");
             //food.imageUrl = jsonObject.getString("imageUrlsBySize");
             food.imageUrl = jsonObject.getJSONArray("smallImageUrls").getString(0);
 
@@ -62,6 +65,11 @@ public class Food {
         return recipes;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-
+    public int getRating() {
+        return rating;
+    }
 }

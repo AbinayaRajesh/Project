@@ -76,6 +76,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
                 Intent intent = new Intent(context, FoodDetail.class);
                 // serialize the movie using parceler, use its short name as a key
                 intent.putExtra("recipe", Parcels.wrap(recipe));
+                //intent.putExtra(Food.class.getSimpleName(), Parcels.wrap(recipe));
                 // intent.putExtra(Country.class.getName(), Parcels.wrap(country));
                 // show the activity
                 context.startActivity(intent);
