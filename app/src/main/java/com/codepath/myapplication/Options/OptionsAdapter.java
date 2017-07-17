@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.myapplication.EventActivity;
 import com.codepath.myapplication.FoodActivity;
+import com.codepath.myapplication.LanguageActivity;
 import com.codepath.myapplication.R;
 import com.codepath.myapplication.Tourism.TourismActivity;
 
@@ -90,6 +91,12 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
                         }
                         else if (option.getTitle()=="TOURISM") {
                             Intent i = new Intent(context, TourismActivity.class);
+                            // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
+                            i.putExtra("country", Parcels.wrap(optionsActivity.country));
+                            context.startActivity(i); // brings up the second activity
+                        }
+                        else if (option.getTitle()=="SPORTS") {
+                            Intent i = new Intent(context, LanguageActivity.class);
                             // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             context.startActivity(i); // brings up the second activity

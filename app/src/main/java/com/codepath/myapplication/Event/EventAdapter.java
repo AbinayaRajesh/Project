@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.myapplication.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
@@ -25,6 +26,11 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     private List<Event> mEvents;
     Context context;
+
+    public EventAdapter(ArrayList<Event> events) {
+        this.mEvents = events;
+    }
+
     //pass in the Tweets array in the constructor
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,7 +49,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         Event event = mEvents.get(position);
         //populate the views according to this data
         holder.tvEventName.setText(event.eventName);
-        holder.tvEventCapacity.setText(event.eventCapacity);
+        holder.tvEventVenue.setText(event.eventVenue);
         holder.tvEventDescription.setText(event.eventDescription);
 
         Glide.with(context).
@@ -60,7 +66,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView ivEventImage;
         public TextView tvEventName;
-        public TextView tvEventCapacity;
+        public TextView tvEventVenue;
         public TextView tvEventDescription;
         public RelativeLayout layout;
         public ViewHolder(View itemView) {
@@ -69,7 +75,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             // perform findViewById lookups
             ivEventImage = (ImageView) itemView.findViewById(R.id.ivEventImage);
             tvEventName = (TextView) itemView.findViewById(R.id.tvEventName);
-            tvEventCapacity = (TextView) itemView.findViewById(R.id.tvEventCapacity);
+            tvEventVenue = (TextView) itemView.findViewById(R.id.tvEventVenue);
             tvEventDescription = (TextView) itemView.findViewById(R.id.tvEventDescription);
             layout = (RelativeLayout) itemView.findViewById(R.id.detailView);
 

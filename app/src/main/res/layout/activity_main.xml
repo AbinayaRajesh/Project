@@ -7,14 +7,6 @@
     tools:context="com.codepath.myapplication.MainActivity">
 
 
-    <Button
-        android:id="@+id/bttnEvent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="EventActivity"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="188dp" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvCountry"
         android:layout_width="138dp"

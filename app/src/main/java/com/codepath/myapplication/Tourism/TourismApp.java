@@ -3,6 +3,8 @@ package com.codepath.myapplication.Tourism;
 import android.app.Application;
 import android.content.Context;
 
+import com.codepath.myapplication.Event.EventClient;
+
 /*
  * This is the Android application itself and is used to configure various settings
  * including the image cache in memory and on disk. This also adds a singleton
@@ -32,6 +34,10 @@ public class TourismApp extends Application {
 //	public static FoodClient getFoodClient() {
 //		return (FoodClient) FoodClient.getInstance(FoodClient.class, TourismApp.context);
 //	}
+public static EventClient getEventClient() {
+	return (EventClient) EventClient.getInstance(EventClient.class, TourismApp.context);
+}
+
 
 }
 
