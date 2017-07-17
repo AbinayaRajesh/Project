@@ -11,22 +11,11 @@ public class Event  {
     public String eventName;
     public String eventDescription;
     public String eventUrl;
-    public Integer eventCapacity;
+    public String eventVenue;
 
     public Event(){
 
     }
-    public static Event fromJSON(JSONObject jsonObject) throws JSONException {
-        Event event = new Event();
-
-        //extract the values from JSON
-        event.eventName= jsonObject.getString("name");
-        event.eventDescription = jsonObject.getString("description");
-        event.eventUrl = jsonObject.getString("url");
-        event.eventCapacity = jsonObject.getInt("capacity");
-        return event;
-    }
-
 
     public String getEventName() {
         return eventName;
@@ -40,9 +29,19 @@ public class Event  {
         return eventUrl;
     }
 
-    public Integer getEventCapacity() {
-        return eventCapacity;
+    public String getEventVenue() {
+        return eventVenue;
     }
 
 
+    public static Event fromJson(JSONObject jsonObject) throws JSONException {
+        Event event = new Event();
+
+        //extract the values from JSON
+        event.eventName= jsonObject.getString("title");
+        event.eventDescription = jsonObject.getString("description");
+        event.eventUrl = jsonObject.getString("url");
+        event.eventVenue = jsonObject.getString("venue_name");
+        return event;
+    }
 }

@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("query", "food");
                 startActivity(i);
             }
+
         });
 
 

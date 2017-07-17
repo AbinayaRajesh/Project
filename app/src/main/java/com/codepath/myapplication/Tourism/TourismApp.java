@@ -3,7 +3,7 @@ package com.codepath.myapplication.Tourism;
 import android.app.Application;
 import android.content.Context;
 
-import com.codepath.myapplication.Event.EventBriteClient;
+import com.codepath.myapplication.Event.EventClient;
 
 /*
  * This is the Android application itself and is used to configure various settings
@@ -34,9 +34,10 @@ public class TourismApp extends Application {
 //	public static FoodClient getFoodClient() {
 //		return (FoodClient) FoodClient.getInstance(FoodClient.class, TourismApp.context);
 //	}
+public static EventClient getEventClient() {
+	return (EventClient) EventClient.getInstance(EventClient.class, TourismApp.context);
+}
 
-	public static EventBriteClient getEventClient() {
-		return (EventBriteClient) EventBriteClient.getInstance(EventBriteClient.class, TourismApp.context);
-	}
+
 }
 

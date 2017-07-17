@@ -2,6 +2,8 @@ package com.codepath.myapplication;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -13,15 +15,31 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
+
+
 public class FoodActivity extends AppCompatActivity {
     FoodClient client;
     ArrayList<Food> afood;
+
+    FoodAdapter adapter;
+    RecyclerView rvRecipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
+
+        afood = new ArrayList<>();
+        adapter = new FoodAdapter(afood);
+        rvRecipes= (RecyclerView) findViewById(R.id.rvRecipes);
+        rvRecipes.setLayoutManager(new LinearLayoutManager(this));
+        rvRecipes.setAdapter(adapter);
+
+
+        fetchFood("");
+
         fetchFood("indian");
+
     }
 
     private void fetchFood(String query){
@@ -29,13 +47,26 @@ public class FoodActivity extends AppCompatActivity {
         client.getRecipes(query, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                JSONArray docs;
+
 
                     try {
                         if(response != null) {
-                            docs = response.getJSONArray("results");
-                            final ArrayList<Food> recipes = Food.fromJson(docs);
+                            JSONArray results = response.getJSONArray("matches");
+                            for(int i =0; i<results.length(); i++){
+                                // Country country = new Country(results.getJSONObject(i));
+                                //final ArrayList<Food> recipes = Food.fromJson(results);
+                                Food recipe = Food.fromJson(results.getJSONObject(i));
+                                afood.add(recipe);
+                                //notify adapter
+                                adapter.notifyItemInserted(afood.size()-1);
+                            }
                         }
+
+
+                JSONArray docs;
+
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
