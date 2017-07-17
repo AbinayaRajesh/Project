@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.codepath.myapplication.FoodDetail">
+
+    <ImageView
+        android:id="@+id/tvRecipePic"
+        android:layout_width="360dp"
+        android:layout_height="100dp"
+        app:srcCompat="@color/cardview_dark_background"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="-2dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/tvDetailRecipeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_editor_absoluteY="98dp"
+        android:layout_marginLeft="135dp"
+        android:layout_marginStart="135dp"
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/tvRecipePic"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

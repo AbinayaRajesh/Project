@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.codepath.myapplication">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -20,8 +21,8 @@
         <activity android:name=".Tourism.TourismActivity" />
         <activity android:name=".FoodActivity" />
         <activity android:name=".EventActivity" />
-        <activity android:name=".Options.OptionsActivity">
-        </activity>
+        <activity android:name=".Options.OptionsActivity"></activity>
+        <activity android:name=".FoodDetail"></activity>
     </application>
 
 </manifest>

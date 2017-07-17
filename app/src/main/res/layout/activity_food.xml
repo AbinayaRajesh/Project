@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.codepath.myapplication.FoodActivity">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvRecipes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 </RelativeLayout>

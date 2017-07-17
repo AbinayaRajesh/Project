@@ -12,15 +12,27 @@ import java.util.ArrayList;
 
 public class Food {
     String name;
+    String imageUrl;
+
     public Food(JSONObject object) throws JSONException {
         name = object.getString("title");
+        imageUrl = object.getString("smallImageUrls");
     }
+
+    public String getName() {
+        return name;
+    }
+
     public Food(){}
+
     public static Food fromJson(JSONObject jsonObject) {
         Food food = new Food();
         try {
             // Deserialize json into object fields
-            food.name = jsonObject.has("matches") ? jsonObject.getJSONObject("matches").getString("recipeName") : "";
+            food.name = jsonObject.getString("recipeName");
+            //food.imageUrl = jsonObject.getString("imageUrlsBySize");
+            food.imageUrl = jsonObject.getJSONArray("smallImageUrls").getString(0);
+
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
@@ -49,4 +61,7 @@ public class Food {
         }
         return recipes;
     }
+
+
+
 }
