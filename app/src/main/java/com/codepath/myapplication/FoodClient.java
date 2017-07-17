@@ -1,68 +1,47 @@
 package com.codepath.myapplication;
 
-import com.github.scribejava.core.builder.api.DefaultApi10a;
-import com.github.scribejava.core.model.OAuth1RequestToken;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * Created by emilylroth on 7/11/17.
  */
 
 
-public class FoodClient extends DefaultApi10a {
+public class FoodClient {
 
-    private static final String AUTHORIZE_URL = "https://api.twitter.com/oauth/authorize?oauth_token=%s";
-    private static final String REQUEST_TOKEN_RESOURCE = "api.twitter.com/oauth/request_token";
-    private static final String ACCESS_TOKEN_RESOURCE = "api.twitter.com/oauth/access_token";
+    private static final String API_BASE_URL = "http://api.yummly.com/v1/api/recipes?";
+    private AsyncHttpClient client;
+    private static final String SPOON_API_BASE_URL = "";
+    private String API_KEY = "aa632d11f5f23f7744820c943c788fc0";
+    private String APP_ID = "f7fd02b6";
 
-    protected FoodClient() {
+
+    public FoodClient() {
+        this.client = new AsyncHttpClient();
     }
 
-    private static class InstanceHolder {
-        private static final FoodClient INSTANCE = new FoodClient();
+
+    private String getApiUrl(String relativeUrl) {
+        return API_BASE_URL + relativeUrl;
+    }
+    private String getApiSpoonUrl(String relativeUrl) {
+        return SPOON_API_BASE_URL + relativeUrl;
     }
 
-    public static FoodClient instance() {
-        return InstanceHolder.INSTANCE;
-    }
+    // Method for accessing the search API
+    public void getRecipes(final String query, JsonHttpResponseHandler handler) {
+        try {
 
-    @Override
-    public String getAccessTokenEndpoint() {
-        return "https://" + ACCESS_TOKEN_RESOURCE;
-    }
+            String url = getApiUrl("_app_id=" + APP_ID + "&_app_key=" + API_KEY + "&q=INDIAN&requirePictures=true");
 
-    @Override
-    public String getRequestTokenEndpoint() {
-        return "https://" + REQUEST_TOKEN_RESOURCE;
-    }
-
-    @Override
-    public String getAuthorizationUrl(OAuth1RequestToken requestToken) {
-        return String.format(AUTHORIZE_URL, requestToken.getToken());
-    }
-
-    /**
-     * Twitter 'friendlier' authorization endpoint for OAuth.
-     * <p>
-     * Uses SSL.
-     */
-    public static class Authenticate extends FoodClient {
-
-        private static final String AUTHENTICATE_URL = "https://api.twitter.com/oauth/authenticate?oauth_token=%s";
-
-        private Authenticate() {
-        }
-
-        private static class InstanceHolder {
-            private static final Authenticate INSTANCE = new Authenticate();
-        }
-
-        public static Authenticate instance() {
-            return InstanceHolder.INSTANCE;
-        }
-
-        @Override
-        public String getAuthorizationUrl(OAuth1RequestToken requestToken) {
-            return String.format(AUTHENTICATE_URL, requestToken.getToken());
+            client.get(url + URLEncoder.encode(query, "utf-8"), handler);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
     }
+
 }
