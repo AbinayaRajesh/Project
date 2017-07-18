@@ -65,7 +65,9 @@ public class MainActivity extends AppCompatActivity {
         eventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent i = new Intent(context, MarkerDemoActivity.class);
+
                 i.putExtra("query", "food");
                 startActivity(i);
             }

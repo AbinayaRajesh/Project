@@ -31,20 +31,14 @@ public class Food {
     public Food(){}
 
 
-
-
-
     public static Food fromJson(JSONObject jsonObject) {
         Food food = new Food();
         try {
             // Deserialize json into object fields
-
             food.name = jsonObject.getString("recipeName");
             food.rating = jsonObject.getInt("rating");
             //food.imageUrl = jsonObject.getString("imageUrlsBySize");
             food.imageUrl = jsonObject.getJSONArray("smallImageUrls").getString(0);
-
-
 
 
         } catch (JSONException e) {

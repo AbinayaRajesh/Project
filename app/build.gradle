@@ -37,6 +37,9 @@ def dbflow_version = "4.0.3"
 
 repositories {
     mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
@@ -44,6 +47,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     compile files('libs/YouTubeAndroidPlayerApi.jar')
     // compile files('libs/google-api-client-1.22.0.jar')
     compile files('libs/jackson-core-2.1.3.jar')
@@ -58,6 +62,8 @@ dependencies {
     compile 'org.parceler:parceler-api:1.1.6'
     compile 'org.parceler:parceler-api:1.1.6'
     compile 'com.android.support:recyclerview-v7:26.+'
+
+
     compile 'com.github.scribejava:scribejava-apis:4.1.1'
     compile 'com.google.apis:google-api-services-translate:v2-rev51-1.22.0'
     compile 'com.codepath.libraries:android-oauth-handler:1.2.5'
@@ -80,8 +86,45 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'org.parceler:parceler:1.1.6'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-}
 
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // This library handles authentication and authorization
+    compile 'com.spotify.android:auth:1.0.0-alpha'
+
+    // This library handles music playback
+    compile 'com.spotify.sdk:spotify-player-24-noconnect-2.20b@aar'
+
+
+    // All other dependencies for your app should also be here:
+
+
+    compile 'com.github.bumptech.glide:glide:3.8.0'
+    compile 'com.loopj.android:android-async-http:1.4.9'
+    compile 'com.github.scribejava:scribejava-apis:4.1.1'
+    compile 'com.codepath.libraries:android-oauth-handler:1.2.5'
+    compile 'com.android.support:recyclerview-v7:26.+'
+    compile 'com.android.support:support-v4:26.+'
+    compile 'jp.wasabeef:glide-transformations:2.0.2'
+    compile 'com.android.support:design:26.+'
+    compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
+    compile 'org.parceler:parceler-api:1.1.6'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'org.jsoup:jsoup:1.10.3'
+    compile 'com.android.support:cardview-v7:26.+'
+    compile 'com.android.support:palette-v7:26.+'
+    compile 'com.yelp.clientlib:yelp-android:3.0.0'
+    compile 'com.google.android.gms:play-services:9.8.0'
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.spotify.android:auth:1.0.0-alpha'
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'org.parceler:parceler:1.1.6'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+}
 
 
 
