@@ -4,6 +4,7 @@ package com.codepath.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
     Button eventButton;
     Context context;
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
