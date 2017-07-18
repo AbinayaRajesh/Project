@@ -36,15 +36,11 @@ public class Event  {
 
     public static Event fromJson(JSONObject jsonObject) throws JSONException {
         Event event = new Event();
-        JSONObject object;
-        JSONObject temp;
+
         //extract the values from JSON
         event.eventName= jsonObject.getString("title");
         event.eventDescription = jsonObject.getString("description");
-        object = jsonObject.getJSONObject("image");
-        temp = object.getJSONObject("medium");
-        event.eventUrl = temp.getString("url");
-        //if ()
+        event.eventUrl = jsonObject.getString("url");
         event.eventVenue = jsonObject.getString("venue_name");
         return event;
     }

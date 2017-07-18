@@ -12,8 +12,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.myapplication.R;
 
-import org.jsoup.Jsoup;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +50,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         //populate the views according to this data
         holder.tvEventName.setText(event.eventName);
         holder.tvEventVenue.setText(event.eventVenue);
-        holder.tvEventDescription.setText(Jsoup.parse(event.eventDescription).text());
+        holder.tvEventDescription.setText(event.eventDescription);
 
         Glide.with(context).
                 load(event.getEventUrl()).
