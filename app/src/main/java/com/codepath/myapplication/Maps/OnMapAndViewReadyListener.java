@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.currentplacedetailsonmap;
+package com.codepath.myapplication.Maps;
 
 import android.annotation.SuppressLint;
 import android.os.Build;

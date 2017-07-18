@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Country.CountryAdapter;
+import com.codepath.myapplication.Maps.MarkerDemoActivity;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         eventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, MapsMarkerActivity.class);
+                Intent i = new Intent(context, MarkerDemoActivity.class);
                 i.putExtra("query", "food");
                 startActivity(i);
             }

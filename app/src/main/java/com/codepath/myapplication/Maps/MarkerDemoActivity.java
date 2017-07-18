@@ -14,26 +14,35 @@
  * limitations under the License.
  */
 
-package com.example.currentplacedetailsonmap;
+package com.codepath.myapplication.Maps;
 
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.SeekBar;
@@ -41,17 +50,19 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.codepath.myapplication.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
-import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.GoogleMap.OnInfoWindowCloseListener;
-import com.google.android.gms.maps.GoogleMap.OnInfoWindowLongClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -65,13 +76,16 @@ import java.util.Random;
  * This shows how to place markers on a map.
  */
 public class MarkerDemoActivity extends AppCompatActivity implements
-        OnMarkerClickListener,
-        OnInfoWindowClickListener,
-        OnMarkerDragListener,
+        OnMapReadyCallback,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        GoogleMap.OnMarkerClickListener,
+        GoogleMap.OnInfoWindowClickListener,
+        GoogleMap.OnMarkerDragListener,
         OnSeekBarChangeListener,
-        OnInfoWindowLongClickListener,
-        OnInfoWindowCloseListener,
-        OnMapAndViewReadyListener.OnGlobalLayoutAndMapReadyListener {
+        GoogleMap.OnInfoWindowLongClickListener,
+        GoogleMap.OnInfoWindowCloseListener,
+        com.codepath.myapplication.Maps.OnMapAndViewReadyListener.OnGlobalLayoutAndMapReadyListener {
 
     private static final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
 
@@ -146,6 +160,45 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         }
     }
 
+    // HERE
+
+
+
+
+    private static final String TAG = MarkerDemoActivity.class.getSimpleName();
+    // private GoogleMap mMap;
+    private CameraPosition mCameraPosition;
+
+    // The entry point to Google Play services, used by the Places API and Fused Location Provider.
+    private GoogleApiClient mGoogleApiClient;
+
+    // A default location (Sydney, Australia) and default zoom to use when location permission is
+    // not granted.
+    private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
+    private static final int DEFAULT_ZOOM = 15;
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private boolean mLocationPermissionGranted;
+
+    // The geographical location where the device is currently located. That is, the last-known
+    // location retrieved by the Fused Location Provider.
+    private Location mLastKnownLocation;
+
+    // Keys for storing activity state.
+    private static final String KEY_CAMERA_POSITION = "camera_position";
+    private static final String KEY_LOCATION = "location";
+
+    // Used for selecting the current place.
+    private final int mMaxEntries = 5;
+    private String[] mLikelyPlaceNames = new String[mMaxEntries];
+    private String[] mLikelyPlaceAddresses = new String[mMaxEntries];
+    private String[] mLikelyPlaceAttributions = new String[mMaxEntries];
+    private LatLng[] mLikelyPlaceLatLngs = new LatLng[mMaxEntries];
+
+
+
+
+
+
     private GoogleMap mMap;
 
     private Marker mPerth;
@@ -203,6 +256,30 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         new OnMapAndViewReadyListener(mapFragment, this);
+
+
+
+
+
+        // Retrieve location and camera position from saved instance state.
+        if (savedInstanceState != null) {
+            mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+            mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
+        }
+
+
+
+        // Build the Play services client for use by the Fused Location Provider and the Places API.
+        // Use the addApi() method to request the Google Places API and the Fused Location Provider.
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */,
+                        this /* OnConnectionFailedListener */)
+                .addConnectionCallbacks(this)
+                .addApi(LocationServices.API)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .build();
+        mGoogleApiClient.connect();
     }
 
     @Override
@@ -215,9 +292,7 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         // Add lots of markers to the map.
         addMarkersToMap();
 
-        // Setting an info window adapter allows us to change the both the contents and look of the
-        // info window.
-        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
+
 
         // Set listeners for marker events.  See the bottom of this class for their behavior.
         mMap.setOnMarkerClickListener(this);
@@ -238,6 +313,41 @@ public class MarkerDemoActivity extends AppCompatActivity implements
                 .include(MELBOURNE)
                 .build();
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
+
+
+        // Use a custom info window adapter to handle multiple lines of text in the
+        // info window contents.
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            @Override
+            // Return null here, so that getInfoContents() is called next.
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                // Inflate the layouts for the info window, title and snippet.
+                View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents,
+                        (FrameLayout)findViewById(R.id.map), false);
+
+                TextView title = ((TextView) infoWindow.findViewById(R.id.title));
+                title.setText(marker.getTitle());
+
+                TextView snippet = ((TextView) infoWindow.findViewById(R.id.snippet));
+                snippet.setText(marker.getSnippet());
+
+                return infoWindow;
+            }
+        });
+
+        // Turn on the My Location layer and the related control on the map.
+        updateLocationUI();
+
+        // Get the current location of the device and set the position of the map.
+        getDeviceLocation();
+
+
     }
 
     private void addMarkersToMap() {
@@ -446,6 +556,171 @@ public class MarkerDemoActivity extends AppCompatActivity implements
     @Override
     public void onMarkerDrag(Marker marker) {
         mTopText.setText("onMarkerDrag.  Current Position: " + marker.getPosition());
+    }
+
+
+    // HERE
+
+    /**
+     * Saves the state of the map when the activity is paused.
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if (mMap != null) {
+            outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
+            outState.putParcelable(KEY_LOCATION, mLastKnownLocation);
+            super.onSaveInstanceState(outState);
+        }
+    }
+
+    /**
+     * Builds the map when the Google Play services client is successfully connected.
+     */
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        // Build the map.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+
+    /**
+     * Handles failure to connect to the Google Play services client.
+     */
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult result) {
+        // Refer to the reference doc for ConnectionResult to see what error codes might
+        // be returned in onConnectionFailed.
+        Log.d(TAG, "Play services connection failed: ConnectionResult.getErrorCode() = "
+                + result.getErrorCode());
+    }
+
+    /**
+     * Handles suspension of the connection to the Google Play services client.
+     */
+    @Override
+    public void onConnectionSuspended(int cause) {
+        Log.d(TAG, "Play services connection suspended");
+    }
+
+    /**
+     * Sets up the options menu.
+     * @param menu The options menu.
+     * @return Boolean.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        return true;
+    }
+
+    /**
+     * Handles a click on the menu option to get a place.
+     * @param item The menu item to handle.
+     * @return Boolean.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        return true;
+    }
+
+
+
+    /**
+     * Gets the current location of the device, and positions the map's camera.
+     */
+    private void getDeviceLocation() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true;
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+        /*
+         * Get the best and most recent location of the device, which may be null in rare
+         * cases when a location is not available.
+         */
+        if (mLocationPermissionGranted) {
+            mLastKnownLocation = LocationServices.FusedLocationApi
+                    .getLastLocation(mGoogleApiClient);
+        }
+
+        // Set the map's camera position to the current location of the device.
+        if (mCameraPosition != null) {
+            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(mCameraPosition));
+        } else if (mLastKnownLocation != null) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(mLastKnownLocation.getLatitude(),
+                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+        } else {
+            Log.d(TAG, "Current location is null. Using defaults.");
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
+            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        }
+    }
+
+    /**
+     * Handles the result of the request for location permissions.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        mLocationPermissionGranted = false;
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mLocationPermissionGranted = true;
+                }
+            }
+        }
+        updateLocationUI();
+    }
+
+
+
+    /**
+     * Updates the map's UI settings based on whether the user has granted location permission.
+     */
+    private void updateLocationUI() {
+        if (mMap == null) {
+            return;
+        }
+
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true;
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+
+        if (mLocationPermissionGranted) {
+            mMap.setMyLocationEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        } else {
+            mMap.setMyLocationEnabled(false);
+            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+            mLastKnownLocation = null;
+        }
     }
 
 }
