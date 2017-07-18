@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         eventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, MapsMarkerActivity.class);
+                Intent i = new Intent(context, MusicActivity.class);
                 i.putExtra("query", "food");
                 startActivity(i);
             }

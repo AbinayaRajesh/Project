@@ -37,7 +37,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Food recipe = recipes.get(position);
-        String name = recipe.getName();
+        String name = recipe.name;
         holder.tvRecipeName.setText(name);
 
         Glide.with(context)
