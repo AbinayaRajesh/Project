@@ -5,4 +5,5 @@
     <string name="intent_host">cprest</string>
     <string name="api_key">UCP0D5V1UQWS1UQ4SGPS01RG5GMZQBPVHHTT3WAFNOYJNENG</string>
     <string name="api_secret">TODN2YRWETE2SIJ5XWAABW0P1RBSLGCACJBZN11O3EPXEXJX</string>
+    <string name="title_activity_search">SearchActivity</string>
 </resources>

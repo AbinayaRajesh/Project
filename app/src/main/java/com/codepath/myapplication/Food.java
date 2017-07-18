@@ -46,7 +46,6 @@ public class Food {
 
 
 
-            food.name = jsonObject.has("title") ? jsonObject.getString("title_suggest") : "";
 
         } catch (JSONException e) {
             e.printStackTrace();
