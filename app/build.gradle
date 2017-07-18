@@ -32,6 +32,9 @@ def dbflow_version = "4.0.3"
 
 repositories {
     mavenCentral()
+    flatDir{
+        dirs 'libs'
+    }
 }
 
 dependencies {
@@ -93,5 +96,15 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'org.parceler:parceler:1.1.6'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // This library handles authentication and authorization
+    compile 'com.spotify.android:auth:1.0.0-alpha'
+
+    // This library handles music playback
+    compile 'com.spotify.sdk:spotify-player-24-noconnect-2.20b@aar'
+
+    // All other dependencies for your app should also be here:
 
 }
