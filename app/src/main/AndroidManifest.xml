@@ -17,6 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+    <activity android:name=".MainActivity">
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -28,7 +30,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB3seULQfjcIGvw8LoFjcRo2CSLinf_4No" />
 
-        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
