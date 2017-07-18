@@ -12,7 +12,9 @@
         android:id="@+id/ivFlag"
         android:layout_width="380dp"
         android:layout_height="300dp"
-        app:srcCompat="@android:color/black" />
+        app:srcCompat="@android:color/black"
+        android:layout_marginBottom="10dp"
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:layout_width="match_parent"

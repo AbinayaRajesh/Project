@@ -32,6 +32,7 @@
         <activity android:name=".Tourism.TourismActivity" />
         <activity android:name=".FoodActivity" />
         <activity android:name=".EventActivity" />
+
         <activity android:name=".Options.OptionsActivity" />
         <activity android:name=".MapsMarkerActivity" />
         <activity android:name=".LanguageActivity" />
@@ -40,6 +41,9 @@
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <activity android:name=".Maps.MarkerDemoActivity"></activity>
+
 
     </application>
 
