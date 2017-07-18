@@ -81,20 +81,33 @@ public class TourismActivity extends AppCompatActivity {
         rvVenues.setLayoutManager(new LinearLayoutManager(this));
         rvVenues.setAdapter(adapter);
 
-        ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
-                MY_PERMISSION_ACCESS_COURSE_LOCATION );
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();
-        String lat = String.valueOf((int) latitude);
-        String lng = String.valueOf((int) longitude);
-        ll = lat+","+lng;
+
 
 
         // LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {}
+        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+            ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
+                    MY_PERMISSION_ACCESS_COURSE_LOCATION );
+            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+            String lat = String.valueOf((int) latitude);
+            String lng = String.valueOf((int) longitude);
+            ll = lat+","+lng;
+        }
+        else {
+            ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
+                    MY_PERMISSION_ACCESS_COURSE_LOCATION );
+            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+            String lat = String.valueOf((int) latitude);
+            String lng = String.valueOf((int) longitude);
+            ll = lat+","+lng;
+        }
 
         getNowPlaying();
 
