@@ -40,7 +40,6 @@
         <activity android:name=".FoodActivity" />
         <activity android:name=".EventActivity" />
         <activity android:name=".Options.OptionsActivity"></activity>
-
         <activity android:name=".Maps.MarkerDemoActivity"></activity>
         <activity android:name=".MapsMarkerActivity"></activity>
         <activity android:name=".LanguageActivity"></activity>
