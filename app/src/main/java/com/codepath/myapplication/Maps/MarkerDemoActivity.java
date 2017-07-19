@@ -50,6 +50,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.codepath.myapplication.Event.Event;
 import com.codepath.myapplication.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -71,6 +72,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static com.codepath.myapplication.R.drawable.arrow;
 
 /**
  * This shows how to place markers on a map.
@@ -212,6 +215,11 @@ public class MarkerDemoActivity extends AppCompatActivity implements
 
     private Marker mMelbourne;
 
+    ArrayList<Event> Sevents;
+    ArrayList<Event> Mevents;
+    ArrayList<Event> Fevents;
+
+
     /**
      * Keeps track of the last selected marker (though it may no longer be selected).  This is
      * useful for refreshing the info window.
@@ -235,9 +243,9 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.marker_demo);
 
-
-
-
+        Sevents = getIntent().getParcelableArrayListExtra("Sevents");
+        Mevents = getIntent().getParcelableArrayListExtra("Mevents");
+        Fevents = getIntent().getParcelableArrayListExtra("Fevents");
 
 
 
@@ -313,13 +321,43 @@ public class MarkerDemoActivity extends AppCompatActivity implements
 //            }
 //        });
 
+
+        for (int i=0; i<Sevents.size(); i++){
+            Event event = Sevents.get(i);
+            float lat = event.getLatitude();
+            float lng = event.getLongitude();
+            LatLng pos = new LatLng(lat, lng);
+            mMap.addMarker(new MarkerOptions()
+                    .position(pos)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_sports))
+                    .title(event.getEventName()));
+        }
+
+        for (int i=0; i<Fevents.size(); i++){
+            Event event = Fevents.get(i);
+            float lat = event.getLatitude();
+            float lng = event.getLongitude();
+            LatLng pos = new LatLng(lat, lng);
+            mMap.addMarker(new MarkerOptions()
+                    .position(pos)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_festival))
+                    .title(event.getEventName()));
+        }
+
+        for (int i=0; i<Mevents.size(); i++){
+            Event event = Mevents.get(i);
+            float lat = event.getLatitude();
+            float lng = event.getLongitude();
+            LatLng pos = new LatLng(lat, lng);
+            mMap.addMarker(new MarkerOptions()
+                    .position(pos)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_music))
+                    .title(event.getEventName()));
+        }
+
+
         // Hide the zoom controls as the button panel will cover it.
         mMap.getUiSettings().setZoomControlsEnabled(false);
-
-        // Add lots of markers to the map.
-        addMarkersToMap();
-
-
 
         // Set listeners for marker events.  See the bottom of this class for their behavior.
         mMap.setOnMarkerClickListener(this);
@@ -391,7 +429,7 @@ public class MarkerDemoActivity extends AppCompatActivity implements
                 .position(SYDNEY)
                 .title("Sydney")
                 .snippet("Population: 4,627,300")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.arrow))
+                .icon(BitmapDescriptorFactory.fromResource(arrow))
                 .infoWindowAnchor(0.5f, 0.5f));
 
         // Creates a draggable marker. Long press to drag.

@@ -39,10 +39,7 @@ public class Event implements Parcelable {
     }
 
 
-    public Event(){
-
-
-    }
+    public Event(){}
 
     public String getEventName() {
         return eventName;

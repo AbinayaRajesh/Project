@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.codepath.myapplication.Event.Event;
 import com.codepath.myapplication.Event.EventAdapter;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -34,7 +35,7 @@ public class temp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         setTitle("Events");
-        events = new ArrayList<>();
+        //events = new ArrayList<>();
         adapter = new EventAdapter(events);
         //resolve the recycler view and connect a layout manager and the adapter
         rvEvents = (RecyclerView) findViewById(R.id.rvMovies);
