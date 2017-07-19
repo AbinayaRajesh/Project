@@ -44,7 +44,6 @@ import android.view.animation.Interpolator;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -119,20 +118,14 @@ public class MarkerDemoActivity extends AppCompatActivity implements
 
         @Override
         public View getInfoWindow(Marker marker) {
-            if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_window) {
-                // This means that getInfoContents will be called.
-                return null;
-            }
+
             render(marker, mWindow);
             return mWindow;
         }
 
         @Override
         public View getInfoContents(Marker marker) {
-            if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_contents) {
-                // This means that the default info contents will be used.
-                return null;
-            }
+
             render(marker, mContents);
             return mContents;
         }
@@ -248,25 +241,12 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         Fevents = getIntent().getParcelableArrayListExtra("Fevents");
 
 
-
-        mTopText = (TextView) findViewById(R.id.top_text);
-
-        mRotationBar = (SeekBar) findViewById(R.id.rotationSeekBar);
-        mRotationBar.setMax(360);
-        mRotationBar.setOnSeekBarChangeListener(this);
-
-        mFlatBox = (CheckBox) findViewById(R.id.flat);
-
-        mOptions = (RadioGroup) findViewById(R.id.custom_info_window_options);
-        mOptions.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (mLastSelectedMarker != null && mLastSelectedMarker.isInfoWindowShown()) {
                     // Refresh the info window when the info window's content has changed.
                     mLastSelectedMarker.showInfoWindow();
                 }
-            }
-        });
+
+
 
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
