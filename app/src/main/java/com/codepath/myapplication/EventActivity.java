@@ -1,69 +1,34 @@
 package com.codepath.myapplication;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
-import com.codepath.myapplication.Event.Event;
-import com.codepath.myapplication.Event.EventAdapter;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
-import cz.msebera.android.httpclient.Header;
+import com.codepath.myapplication.Fragments.EventsPagerAdapter;
 
 public class EventActivity extends AppCompatActivity {
-    //base url for API call
-    public final static String API_BASE_URL = "http://api.eventful.com/json/";
-    //API key parameter name
-    public final static String API_KEY_PARAM = "95JSGDKWtDtWRRgx";
-    AsyncHttpClient client = new AsyncHttpClient();
-    ArrayList<Event> events;
-    RecyclerView rvEvents;
-    //the adapter wired to the recycler view
-    EventAdapter adapter;
-    //image config
+
+    Context context;
+    private SwipeRefreshLayout swipeContainer;
+    ViewPager vpPager;
+    EventsPagerAdapter pageAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-        setTitle("Events");
-        events = new ArrayList<>();
-        adapter = new EventAdapter(events);
-        //resolve the recycler view and connect a layout manager and the adapter
-        rvEvents = (RecyclerView) findViewById(R.id.rvMovies);
-        rvEvents.setLayoutManager(new LinearLayoutManager(this));
-        rvEvents.setAdapter(adapter);
-        //new EventRetriever().execute();
-        String url = API_BASE_URL + "events/search?";
-        RequestParams params = new RequestParams();
-        params.put("app_key", API_KEY_PARAM);
-        params.put("keywords", "food");
-        client.get(url, params, new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    JSONObject eventsonline = response.getJSONObject("events");
-                    JSONArray eventArray = eventsonline.getJSONArray("event");
-                    for (int i = 0; i < 10; i++){
-                        Event event = Event.fromJson(eventArray.getJSONObject(i));
-                        events.add(event);
-                        //notify adapter that a row was added
-                        adapter.notifyItemChanged(events.size()-1);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-//http://api.eventful.com/rest/events/search?app_key=95JSGDKWtDtWRRgx&keywords=fun
+        pageAdapter = new EventsPagerAdapter(getSupportFragmentManager(), this);
+        context = this;
+        // get the view pager
+        vpPager = (ViewPager) findViewById(R.id.viewpager);
+        // set the adapter for the pager
+        vpPager.setAdapter(pageAdapter);
+        // setup the TabLayout to use the view pager
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(vpPager);
+        vpPager.setOffscreenPageLimit(3);
+
     }
 }

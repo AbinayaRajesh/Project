@@ -40,7 +40,11 @@
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <activity android:name=".NearbyActivity"></activity>
+
+        <activity android:name=".Fragments.EventsListFragment"></activity>
+
     </application>
 
 </manifest>

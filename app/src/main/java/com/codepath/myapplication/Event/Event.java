@@ -42,10 +42,15 @@ public class Event  {
         //extract the values from JSON
         event.eventName= jsonObject.getString("title");
         event.eventDescription = jsonObject.getString("description");
-        object = jsonObject.getJSONObject("image");
-        temp = object.getJSONObject("medium");
-        event.eventUrl = temp.getString("url");
-        //if ()
+        try{
+            object = jsonObject.getJSONObject("image");
+            temp = object.getJSONObject("medium");
+            event.eventUrl = temp.getString("url");
+        } catch (org.json.JSONException exception )
+        {
+            event.eventUrl = "http://s3.amazonaws.com/churchplantmedia-cms/grace_community_church_tucson_az/events_medium.jpg";
+        }
+
         event.eventVenue = jsonObject.getString("venue_name");
         return event;
     }

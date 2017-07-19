@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codepath.myapplication.R;
 
 import org.jsoup.Jsoup;
@@ -57,6 +58,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         Glide.with(context).
                 load(event.getEventUrl()).
                 bitmapTransform(new RoundedCornersTransformation(context, 15, 0)).
+                diskCacheStrategy(DiskCacheStrategy.ALL).
                 into(holder.ivEventImage);
     }
     @Override
