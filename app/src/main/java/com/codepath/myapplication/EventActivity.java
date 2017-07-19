@@ -9,7 +9,20 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.codepath.myapplication.Fragments.EventsPagerAdapter;
 
+import java.util.Calendar;
+
+
 public class EventActivity extends AppCompatActivity {
+
+
+    Calendar c = Calendar.getInstance();
+    int seconds = c.get(Calendar.SECOND);
+    String dateString = c.get(Calendar.YEAR) + "-" +
+            c.get(Calendar.MONTH) + "-" +
+            c.get(Calendar.DAY_OF_MONTH) + " " +
+            c.get(Calendar.HOUR) + ":" +
+            c.get(Calendar.MINUTE) + ":" +
+            c.get(Calendar.SECOND);
 
     Context context;
     private SwipeRefreshLayout swipeContainer;

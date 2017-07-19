@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Country.CountryAdapter;
-import com.codepath.myapplication.Maps.MarkerDemoActivity;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -48,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         MultiDex.install(this);
     }
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         client = new AsyncHttpClient();
@@ -66,13 +66,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent(context, MarkerDemoActivity.class);
+                Intent i = new Intent(context, NearbyActivity.class);
 
                 i.putExtra("query", "food");
                 startActivity(i);
             }
 
         });
+
+
+
 
 
 
@@ -134,3 +137,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }// log error
 }
+
+
+
+// NOTIFICATION CODE
+
+//    NotificationCompat.Builder mBuilder =
+//            new NotificationCompat.Builder(this)
+//                    .setSmallIcon(R.drawable.ic_android)
+//                    .setContentTitle("My notification")
+//                    .setContentText("Hello World!");
+//
+//    // NotificationCompat.Builder mBuilder;
+//
+//    // Sets an ID for the notification
+//    int mNotificationId = 001;
+//    // Gets an instance of the NotificationManager service
+//    NotificationManager mNotifyMgr =
+//            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//    // Builds the notification and issues it.
+//    mNotifyMgr.notify(mNotificationId, mBuilder.build());

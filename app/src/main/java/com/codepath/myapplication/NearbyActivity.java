@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Event.Event;
@@ -33,7 +32,7 @@ public class NearbyActivity extends AppCompatActivity {
     //API key parameter name
     public final static String API_KEY_PARAM = "95JSGDKWtDtWRRgx";
     AsyncHttpClient client = new AsyncHttpClient();
-    ArrayList<Event> events;
+    public ArrayList<Event> events;
 
     //image config
     @Override
@@ -62,12 +61,14 @@ public class NearbyActivity extends AppCompatActivity {
                         Event event = Event.fromJson(eventArray.getJSONObject(i));
                         events.add(event);
 
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
+
 
         // TOURISM
 
@@ -111,7 +112,7 @@ public class NearbyActivity extends AppCompatActivity {
 
 
     ArrayList<Venue> venues;
-    ArrayList<String> venueIds;
+
 
 
     // Base Url for API
@@ -121,7 +122,7 @@ public class NearbyActivity extends AppCompatActivity {
     public final static String API_SECRET_PARAM = "client_secret";
 
     Country country;
-    RecyclerView rvVenues;
+
 
     double latitude;
     double longitude;
@@ -171,7 +172,7 @@ public class NearbyActivity extends AppCompatActivity {
         });
 
 
-    }
+  }
 
 
 

@@ -235,6 +235,12 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.marker_demo);
 
+
+
+
+
+
+
         mTopText = (TextView) findViewById(R.id.top_text);
 
         mRotationBar = (SeekBar) findViewById(R.id.rotationSeekBar);
