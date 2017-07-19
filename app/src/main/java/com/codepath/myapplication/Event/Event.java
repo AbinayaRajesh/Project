@@ -15,9 +15,31 @@ public class Event implements Parcelable {
     public String eventDescription;
     public String eventUrl;
     public String eventVenue;
+    public String startTime;
+    public String stopTime;
+
+    public float latitude;
+    public float longitude;
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public String getStopTime() {
+        return stopTime;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
 
 
     public Event(){
+
 
     }
 
@@ -43,8 +65,12 @@ public class Event implements Parcelable {
         JSONObject object;
         JSONObject temp;
         //extract the values from JSON
-        event.eventName= jsonObject.getString("title");
+        event.eventName = jsonObject.getString("title");
+        event.latitude = (float) jsonObject.getDouble("latitude");
+        event.longitude = (float) jsonObject.getDouble("longitude");
         event.eventDescription = jsonObject.getString("description");
+        event.startTime = jsonObject.getString("start_time");
+        event.stopTime = jsonObject.getString("stop_time");
         try{
             object = jsonObject.getJSONObject("image");
             temp = object.getJSONObject("medium");
@@ -69,6 +95,10 @@ public class Event implements Parcelable {
         dest.writeString(this.eventDescription);
         dest.writeString(this.eventUrl);
         dest.writeString(this.eventVenue);
+        dest.writeString(this.startTime);
+        dest.writeString(this.stopTime);
+        dest.writeFloat(this.latitude);
+        dest.writeFloat(this.longitude);
     }
 
     protected Event(Parcel in) {
@@ -76,9 +106,13 @@ public class Event implements Parcelable {
         this.eventDescription = in.readString();
         this.eventUrl = in.readString();
         this.eventVenue = in.readString();
+        this.startTime = in.readString();
+        this.stopTime = in.readString();
+        this.latitude = in.readFloat();
+        this.longitude = in.readFloat();
     }
 
-    public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {
+    public static final Creator<Event> CREATOR = new Creator<Event>() {
         @Override
         public Event createFromParcel(Parcel source) {
             return new Event(source);
