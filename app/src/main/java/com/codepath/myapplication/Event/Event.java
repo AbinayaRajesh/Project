@@ -1,13 +1,16 @@
 package com.codepath.myapplication.Event;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Created by eyobtefera on 7/11/17.
  */
-@org.parceler.Parcel
-public class Event  {
+
+public class Event implements Parcelable {
     public String eventName;
     public String eventDescription;
     public String eventUrl;
@@ -54,4 +57,36 @@ public class Event  {
         event.eventVenue = jsonObject.getString("venue_name");
         return event;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.eventName);
+        dest.writeString(this.eventDescription);
+        dest.writeString(this.eventUrl);
+        dest.writeString(this.eventVenue);
+    }
+
+    protected Event(Parcel in) {
+        this.eventName = in.readString();
+        this.eventDescription = in.readString();
+        this.eventUrl = in.readString();
+        this.eventVenue = in.readString();
+    }
+
+    public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {
+        @Override
+        public Event createFromParcel(Parcel source) {
+            return new Event(source);
+        }
+
+        @Override
+        public Event[] newArray(int size) {
+            return new Event[size];
+        }
+    };
 }
