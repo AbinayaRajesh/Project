@@ -10,7 +10,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.codepath.myapplication.Country.Country;
-import com.codepath.myapplication.Event.Event;
 import com.codepath.myapplication.Models.Venue;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;

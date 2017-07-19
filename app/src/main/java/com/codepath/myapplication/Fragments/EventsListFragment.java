@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.codepath.myapplication.Event.Event;
 import com.codepath.myapplication.Event.EventAdapter;
 import com.codepath.myapplication.R;
 import com.loopj.android.http.AsyncHttpClient;
