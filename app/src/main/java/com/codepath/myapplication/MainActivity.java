@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Country.CountryAdapter;
-import com.codepath.myapplication.Maps.MarkerDemoActivity;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -66,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent(context, MarkerDemoActivity.class);
+                Intent i = new Intent(context, MusicActivity.class);
 
-                i.putExtra("query", "food");
+                i.putExtra("query", "Music");
                 startActivity(i);
             }
 

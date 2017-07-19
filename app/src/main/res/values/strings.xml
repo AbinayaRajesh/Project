@@ -6,4 +6,7 @@
     <string name="api_key">UCP0D5V1UQWS1UQ4SGPS01RG5GMZQBPVHHTT3WAFNOYJNENG</string>
     <string name="api_secret">TODN2YRWETE2SIJ5XWAABW0P1RBSLGCACJBZN11O3EPXEXJX</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="warning_need_token">You need to request an access token first</string>
+    <string name="code">Code: %1$s</string>
+    <string name="token">Access Token: %1$s</string>
 </resources>
