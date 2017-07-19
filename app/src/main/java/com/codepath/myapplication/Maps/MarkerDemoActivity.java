@@ -76,6 +76,7 @@ import java.util.Random;
  * This shows how to place markers on a map.
  */
 public class MarkerDemoActivity extends AppCompatActivity implements
+        GoogleMap.OnMyLocationButtonClickListener,
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -280,11 +281,31 @@ public class MarkerDemoActivity extends AppCompatActivity implements
                 .addApi(Places.PLACE_DETECTION_API)
                 .build();
         mGoogleApiClient.connect();
+
+
+
+
     }
 
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
+
+        // if you wanna click to add a marker
+
+//        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//
+//            @Override
+//            public void onMapClick(LatLng point) {
+//
+//                MarkerOptions marker = new MarkerOptions().position(
+//                        new LatLng(point.latitude, point.longitude)).title("New Marker");
+//
+//                mMap.addMarker(marker);
+//
+//                System.out.println(point.latitude+"---"+ point.longitude);
+//            }
+//        });
 
         // Hide the zoom controls as the button panel will cover it.
         mMap.getUiSettings().setZoomControlsEnabled(false);
@@ -300,6 +321,7 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         mMap.setOnMarkerDragListener(this);
         mMap.setOnInfoWindowCloseListener(this);
         mMap.setOnInfoWindowLongClickListener(this);
+
 
         // Override the default content description on the view, for accessibility mode.
         // Ideally this string would be localised.
@@ -558,6 +580,14 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         mTopText.setText("onMarkerDrag.  Current Position: " + marker.getPosition());
     }
 
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false;
+    }
 
     // HERE
 

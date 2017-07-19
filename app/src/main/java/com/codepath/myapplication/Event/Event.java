@@ -13,6 +13,7 @@ public class Event  {
     public String eventUrl;
     public String eventVenue;
 
+
     public Event(){
 
     }
