@@ -23,6 +23,7 @@ import cz.msebera.android.httpclient.Header;
  */
 
 public class NearbyActivity extends AppCompatActivity {
+
     AsyncHttpClient client;
     public final static String API_BASE_URL = "http://api.eventful.com/json/";
     //API key parameter name
@@ -32,6 +33,7 @@ public class NearbyActivity extends AppCompatActivity {
     public ArrayList<Event> Fevents;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_nearby);
         Sevents = new ArrayList<Event>();
         Mevents = new ArrayList<Event>();
         Fevents = new ArrayList<Event>();

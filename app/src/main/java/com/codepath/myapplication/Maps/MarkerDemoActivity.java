@@ -236,6 +236,7 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.marker_demo);
 
+
         Sevents = getIntent().getParcelableArrayListExtra("Sevents");
         Mevents = getIntent().getParcelableArrayListExtra("Mevents");
         Fevents = getIntent().getParcelableArrayListExtra("Fevents");
