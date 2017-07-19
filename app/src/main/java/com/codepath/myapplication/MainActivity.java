@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         MultiDex.install(this);
     }
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         client = new AsyncHttpClient();
@@ -67,11 +68,15 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent i = new Intent(context, MusicActivity.class);
 
+
                 i.putExtra("query", "Music");
                 startActivity(i);
             }
 
         });
+
+
+
 
 
 
@@ -133,3 +138,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }// log error
 }
+
+
+
+// NOTIFICATION CODE
+
+//    NotificationCompat.Builder mBuilder =
+//            new NotificationCompat.Builder(this)
+//                    .setSmallIcon(R.drawable.ic_android)
+//                    .setContentTitle("My notification")
+//                    .setContentText("Hello World!");
+//
+//    // NotificationCompat.Builder mBuilder;
+//
+//    // Sets an ID for the notification
+//    int mNotificationId = 001;
+//    // Gets an instance of the NotificationManager service
+//    NotificationManager mNotifyMgr =
+//            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//    // Builds the notification and issues it.
+//    mNotifyMgr.notify(mNotificationId, mBuilder.build());

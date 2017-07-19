@@ -44,12 +44,12 @@ import android.view.animation.Interpolator;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.codepath.myapplication.Event.Event;
 import com.codepath.myapplication.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -72,10 +72,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.codepath.myapplication.R.drawable.arrow;
+
 /**
  * This shows how to place markers on a map.
  */
 public class MarkerDemoActivity extends AppCompatActivity implements
+        GoogleMap.OnMyLocationButtonClickListener,
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -115,20 +118,14 @@ public class MarkerDemoActivity extends AppCompatActivity implements
 
         @Override
         public View getInfoWindow(Marker marker) {
-            if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_window) {
-                // This means that getInfoContents will be called.
-                return null;
-            }
+
             render(marker, mWindow);
             return mWindow;
         }
 
         @Override
         public View getInfoContents(Marker marker) {
-            if (mOptions.getCheckedRadioButtonId() != R.id.custom_info_contents) {
-                // This means that the default info contents will be used.
-                return null;
-            }
+
             render(marker, mContents);
             return mContents;
         }
@@ -211,6 +208,11 @@ public class MarkerDemoActivity extends AppCompatActivity implements
 
     private Marker mMelbourne;
 
+    ArrayList<Event> Sevents;
+    ArrayList<Event> Mevents;
+    ArrayList<Event> Fevents;
+
+
     /**
      * Keeps track of the last selected marker (though it may no longer be selected).  This is
      * useful for refreshing the info window.
@@ -234,24 +236,18 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.marker_demo);
 
-        mTopText = (TextView) findViewById(R.id.top_text);
 
-        mRotationBar = (SeekBar) findViewById(R.id.rotationSeekBar);
-        mRotationBar.setMax(360);
-        mRotationBar.setOnSeekBarChangeListener(this);
+        Sevents = getIntent().getParcelableArrayListExtra("Sevents");
+        Mevents = getIntent().getParcelableArrayListExtra("Mevents");
+        Fevents = getIntent().getParcelableArrayListExtra("Fevents");
 
-        mFlatBox = (CheckBox) findViewById(R.id.flat);
 
-        mOptions = (RadioGroup) findViewById(R.id.custom_info_window_options);
-        mOptions.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if (mLastSelectedMarker != null && mLastSelectedMarker.isInfoWindowShown()) {
                     // Refresh the info window when the info window's content has changed.
                     mLastSelectedMarker.showInfoWindow();
                 }
-            }
-        });
+
+
 
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -280,19 +276,69 @@ public class MarkerDemoActivity extends AppCompatActivity implements
                 .addApi(Places.PLACE_DETECTION_API)
                 .build();
         mGoogleApiClient.connect();
+
+
+
+
     }
 
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
 
+        // if you wanna click to add a marker
+
+//        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//
+//            @Override
+//            public void onMapClick(LatLng point) {
+//
+//                MarkerOptions marker = new MarkerOptions().position(
+//                        new LatLng(point.latitude, point.longitude)).title("New Marker");
+//
+//                mMap.addMarker(marker);
+//
+//                System.out.println(point.latitude+"---"+ point.longitude);
+//            }
+//        });
+
+
+        for (int i=0; i<Sevents.size(); i++){
+            Event event = Sevents.get(i);
+            float lat = event.getLatitude();
+            float lng = event.getLongitude();
+            LatLng pos = new LatLng(lat, lng);
+            mMap.addMarker(new MarkerOptions()
+                    .position(pos)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_sports))
+                    .title(event.getEventName()));
+        }
+
+        for (int i=0; i<Fevents.size(); i++){
+            Event event = Fevents.get(i);
+            float lat = event.getLatitude();
+            float lng = event.getLongitude();
+            LatLng pos = new LatLng(lat, lng);
+            mMap.addMarker(new MarkerOptions()
+                    .position(pos)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_festival))
+                    .title(event.getEventName()));
+        }
+
+        for (int i=0; i<Mevents.size(); i++){
+            Event event = Mevents.get(i);
+            float lat = event.getLatitude();
+            float lng = event.getLongitude();
+            LatLng pos = new LatLng(lat, lng);
+            mMap.addMarker(new MarkerOptions()
+                    .position(pos)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_music))
+                    .title(event.getEventName()));
+        }
+
+
         // Hide the zoom controls as the button panel will cover it.
         mMap.getUiSettings().setZoomControlsEnabled(false);
-
-        // Add lots of markers to the map.
-        addMarkersToMap();
-
-
 
         // Set listeners for marker events.  See the bottom of this class for their behavior.
         mMap.setOnMarkerClickListener(this);
@@ -300,6 +346,7 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         mMap.setOnMarkerDragListener(this);
         mMap.setOnInfoWindowCloseListener(this);
         mMap.setOnInfoWindowLongClickListener(this);
+
 
         // Override the default content description on the view, for accessibility mode.
         // Ideally this string would be localised.
@@ -363,7 +410,7 @@ public class MarkerDemoActivity extends AppCompatActivity implements
                 .position(SYDNEY)
                 .title("Sydney")
                 .snippet("Population: 4,627,300")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.arrow))
+                .icon(BitmapDescriptorFactory.fromResource(arrow))
                 .infoWindowAnchor(0.5f, 0.5f));
 
         // Creates a draggable marker. Long press to drag.
@@ -558,6 +605,14 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         mTopText.setText("onMarkerDrag.  Current Position: " + marker.getPosition());
     }
 
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false;
+    }
 
     // HERE
 
