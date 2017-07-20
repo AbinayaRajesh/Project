@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import com.codepath.myapplication.Fragments.EventsPagerAdapter;
@@ -25,7 +24,6 @@ public class EventActivity extends AppCompatActivity {
             c.get(Calendar.SECOND);
 
     Context context;
-    private SwipeRefreshLayout swipeContainer;
     ViewPager vpPager;
     EventsPagerAdapter pageAdapter;
     @Override

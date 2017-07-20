@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.codepath.myapplication.Country.Country;
+import com.codepath.myapplication.Event.Event;
 import com.codepath.myapplication.Models.Venue;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -59,8 +60,6 @@ public class NearbyActivity extends AppCompatActivity {
                     for (int i = 0; i < 10; i++){
                         Event event = Event.fromJson(eventArray.getJSONObject(i));
                         events.add(event);
-
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

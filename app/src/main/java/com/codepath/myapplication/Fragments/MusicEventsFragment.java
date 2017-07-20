@@ -2,6 +2,7 @@ package com.codepath.myapplication.Fragments;
 
 import android.os.Bundle;
 
+import com.codepath.myapplication.Event.Event;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
