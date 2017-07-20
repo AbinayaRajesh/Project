@@ -41,9 +41,12 @@
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".NearbyActivity" />
+
         <fragment android:name=".Fragments.EventsListFragment" />
-        <fragment android:name=".FoodFragments.FoodListFragment"/>
-        <activity android:name=".DetailPlaceActivity"/>
+        <fragment android:name=".FoodFragments.FoodListFragment" />
+
+        <activity android:name=".DetailPlaceActivity" />
+        <activity android:name=".TourismFragments.TourismListFragment"></activity>
     </application>
 
 </manifest>

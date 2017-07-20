@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class TourismActivity extends AppCompatActivity {
+public class tempTourism extends AppCompatActivity {
 
     private static final int MY_PERMISSION_ACCESS_COURSE_LOCATION = 13;
     AsyncHttpClient client;
