@@ -76,10 +76,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
     }
     private void getCountryList(){
         String url = API_BASE_URL;
