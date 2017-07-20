@@ -46,9 +46,12 @@
         <fragment android:name=".FoodFragments.FoodListFragment" />
 
         <activity android:name=".DetailPlaceActivity" />
-        <fragment android:name=".TourismFragments.TourismListFragment"></fragment>
-        <activity android:name=".Event.EventDetail"></activity>
->>>>>>> e17d77e102c95a06ec23f23b6558b480caff8978
+
+        <fragment android:name=".TourismFragments.TourismListFragment" />
+
+        <activity android:name=".Event.EventDetail" />
+        >>>>>>> e17d77e102c95a06ec23f23b6558b480caff8978
+        <activity android:name=".FoodMainPage"></activity>
     </application>
 
 </manifest>
