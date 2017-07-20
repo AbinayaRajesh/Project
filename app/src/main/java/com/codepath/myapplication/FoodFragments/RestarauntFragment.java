@@ -10,5 +10,6 @@ public class RestarauntFragment extends FoodListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getRestaraunt("indian");
+
     }
 }

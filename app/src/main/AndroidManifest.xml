@@ -46,7 +46,14 @@
         <fragment android:name=".FoodFragments.FoodListFragment" />
 
         <activity android:name=".DetailPlaceActivity" />
-        <activity android:name=".Event.EventDetail"></activity>
+
+        <fragment android:name=".TourismFragments.TourismListFragment" />
+
+        <activity android:name=".Event.EventDetail" />
+        <activity android:name=".tempFOOD"></activity>
+        <activity android:name=".Tourism.tempTourism"></activity>
+
+        <activity android:name=".FoodMainPage"></activity>
     </application>
 
 </manifest>

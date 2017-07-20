@@ -39,7 +39,7 @@ public class Option implements Serializable {
         List<Option> options = new ArrayList<>();
         options.add(new Option("India", R.drawable.sample_events, "EVENTS"));
         options.add(new Option("India", R.drawable.sample_food, "FOOD"));
-        options.add(new Option("India", R.drawable.sample_sports, "SPORTS"));
+        options.add(new Option("India", R.drawable.sample_translate, "TRANSLATE"));
         options.add(new Option("India", R.drawable.sample_tourism, "TOURISM"));
         return options;
     }

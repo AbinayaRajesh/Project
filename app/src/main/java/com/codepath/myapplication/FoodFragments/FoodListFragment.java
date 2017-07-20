@@ -53,12 +53,14 @@ public class FoodListFragment extends Fragment {
         rvRecipes = (RecyclerView) v.findViewById(R.id.rvRecipes);
         rvRecipes.setLayoutManager(new LinearLayoutManager(getContext()));
         rvRecipes.setAdapter(adapter);
+
         rvVenues = (RecyclerView) v.findViewById(R.id.rvVenues);
         rvVenues.setLayoutManager(new LinearLayoutManager(getContext()));
         rvVenues.setAdapter(adapterVenue);
         return v;
     }
     public void fetchFood(String query){
+
         client = new FoodClient();
         client.getRecipes(query, new JsonHttpResponseHandler(){
             @Override
@@ -69,7 +71,7 @@ public class FoodListFragment extends Fragment {
                         for(int i =0; i<results.length(); i++){
                             // Country country = new Country(results.getJSONObject(i));
                             //final ArrayList<Food> recipes = Food.fromJson(results);
-                            Food recipe = Food.fromJson(results.getJSONObject(i));
+                            Food recipe = Food.fromJson(i, results.getJSONObject(i));
                             afood.add(recipe);
                             //notify adapter
                             adapter.notifyItemInserted(afood.size()-1);

@@ -478,34 +478,7 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         return true;
     }
 
-    /** Called when the Clear button is clicked. */
-    public void onClearMap(View view) {
-        if (!checkReady()) {
-            return;
-        }
-        mMap.clear();
-    }
 
-    /** Called when the Reset button is clicked. */
-    public void onResetMap(View view) {
-        if (!checkReady()) {
-            return;
-        }
-        // Clear the map because we don't want duplicates of the markers.
-        mMap.clear();
-        addMarkersToMap();
-    }
-
-    /** Called when the Reset button is clicked. */
-    public void onToggleFlat(View view) {
-        if (!checkReady()) {
-            return;
-        }
-        boolean flat = mFlatBox.isChecked();
-        for (Marker marker : mMarkerRainbow) {
-            marker.setFlat(flat);
-        }
-    }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -577,7 +550,10 @@ public class MarkerDemoActivity extends AppCompatActivity implements
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+//        Intent i = new Intent(MarkerDemoActivity.this, EventDetail.class);
+//        i.putExtra("event", Sevents.get(0));
         Toast.makeText(this, "Click Info Window", Toast.LENGTH_SHORT).show();
+//        startActivity(i);
     }
 
     @Override

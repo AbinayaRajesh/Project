@@ -1,4 +1,4 @@
-package com.codepath.myapplication.Options;
+package com.codepath.myapplication;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,23 +11,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.codepath.myapplication.EventActivity;
-import com.codepath.myapplication.FoodMainPage;
-import com.codepath.myapplication.LanguageActivity;
-import com.codepath.myapplication.R;
-import com.codepath.myapplication.Tourism.TourismActivity;
 
 import org.parceler.Parcels;
 
-import java.util.List;
+import java.util.ArrayList;
 
 // Provide the underlying view for an individual list item.
-public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
+public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardAdapter.VH> {
     private Activity mContext;
-    private List<Option> mOptions;
-    public OptionsActivity optionsActivity;
+    private ArrayList<Food> mOptions;
+    public tempFOOD optionsActivity;
 
-    public OptionsAdapter(Activity context, List<Option> options) {
+    public FoodCardAdapter(Activity context, ArrayList<Food> options) {
         mContext = context;
         if (options == null) {
             throw new IllegalArgumentException("options must not be null");
@@ -45,10 +40,10 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
     // Display data at the specified position
     @Override
     public void onBindViewHolder(VH holder, int position) {
-        Option option = mOptions.get(position);
+        Food option = mOptions.get(position);
         holder.rootView.setTag(option);
-        holder.tvTitle.setText(option.getTitle());
-        Glide.with(mContext).load(option.getThumbnailDrawable()).centerCrop().into(holder.ivProfile);
+        holder.tvTitle.setText(option.getName());
+        Glide.with(mContext).load(option.getImageUrl()).centerCrop().into(holder.ivProfile);
     }
 
     @Override
@@ -74,33 +69,19 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final Option option = (Option)v.getTag();
+                    final Food option = (Food)v.getTag();
                     if (option != null) {
                         // Fire an intent when a option is selected
                         // Pass option object in the bundle and populate details activity.
                         // first parameter is the context, second is the class of the activity to launch
-                        if (option.getTitle()=="FOOD") {
-                            Intent i = new Intent(context, FoodMainPage.class);
-                            // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
-                            context.startActivity(i); // brings up the second activity
-                        }
-                        else if (option.getTitle()=="EVENTS") {
-                            Intent i = new Intent(context, EventActivity.class);
-                            // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
-                            context.startActivity(i); // brings up the second activity
-                        }
-                        else if (option.getTitle()=="TOURISM") {
-                            Intent i = new Intent(context, TourismActivity.class);
-                            // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
-                            i.putExtra("country", Parcels.wrap(optionsActivity.country));
-                            context.startActivity(i); // brings up the second activity
-                        }
-                        else if (option.getTitle()=="SPORTS") {
-                            Intent i = new Intent(context, LanguageActivity.class);
-                            // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
-                            i.putExtra("country", Parcels.wrap(optionsActivity.country));
-                            context.startActivity(i); // brings up the second activity
-                        }
+
+                        Intent i = new Intent(context, FoodDetail.class);
+                        Food recipe = mOptions.get(option.getId());
+
+                        i.putExtra("recipe", Parcels.wrap(recipe));
+                        context.startActivity(i); // brings up the second activity
+
+
 
 
                     }
