@@ -11,33 +11,28 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class TourismPagerAdapter extends FragmentPagerAdapter {
     private Context context;
-    //private EntertainmentTourismFragment etf;
-    //private StaycationTourismFragment stf;
-    //private ShoppingTourismFragment shtf;
-    private String tableTitle[] = new String[]{"Music", "Sports", "Festivals"};
+    private EntertainmentTourismFragment etf;
+    private StaycationTourismFragment stf;
+    private ShoppingTourismFragment shtf;
+    private String tableTitle[] = new String[]{"Entertainment", "Shopping", "Staycation"};
     public TourismPagerAdapter(FragmentManager fm, Context Context) {
         super(fm);
-        //etf = new EntertainmentTourismFragment();
-        //stf = new StaycationTourismFragment();
-        //shtf = new ShoppingTourismFragment();
+        etf = new EntertainmentTourismFragment();
+        stf = new StaycationTourismFragment();
+        shtf = new ShoppingTourismFragment();
     }
-
-
     public Fragment getItem(int position) {
         if (position == 0) {
-            //return etf;
+            return etf;
         } else if (position == 1)
         {
-           //return stf;
+           return shtf;
         } else if (position == 2) {
-            //return shtf;
+            return stf;
         } else {
-            //return null;
+            return null;
         }
-        return null;
     }
-
-
     @Override
     public int getCount() {
         return 3;
