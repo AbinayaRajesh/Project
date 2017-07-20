@@ -550,7 +550,10 @@ public class MarkerDemoActivity extends AppCompatActivity implements
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+//        Intent i = new Intent(MarkerDemoActivity.this, EventDetail.class);
+//        i.putExtra("event", Sevents.get(0));
         Toast.makeText(this, "Click Info Window", Toast.LENGTH_SHORT).show();
+//        startActivity(i);
     }
 
     @Override
