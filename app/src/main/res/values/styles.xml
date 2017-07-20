@@ -8,8 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/cardview_dark_background</item>
         <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="android:textColorPrimaryInverse">@color/cast_expanded_controller_ad_label_background_color</item>
+        <item name="android:textColorPrimaryInverse">@android:color/darker_gray</item>
         <item name="android:textColorSecondary">@color/colorPrimary</item>
+        <item name="android:textColorSecondaryInverse">@color/cardview_light_background</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
