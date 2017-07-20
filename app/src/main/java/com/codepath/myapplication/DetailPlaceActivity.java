@@ -1,8 +1,12 @@
 package com.codepath.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -84,6 +88,15 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
                 .title(venue.getTitle()));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(placeLocation));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 1000, null);
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menumain, menu);
+        return true;
+    }
+    public void onMaps(MenuItem item) {
+        Intent i = new Intent(this, NearbyActivity.class);
+        startActivity(i);
     }
 
 
