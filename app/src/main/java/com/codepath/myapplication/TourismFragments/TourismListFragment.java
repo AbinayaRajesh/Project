@@ -27,7 +27,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class TourismListFragment extends Fragment {
 
-    AsyncHttpClient client;
+    AsyncHttpClient client = new AsyncHttpClient();;
     ArrayList<Venue> venues;
     RecyclerView rvVenues;
     ArrayList<String> venueIds;
@@ -43,7 +43,6 @@ public class TourismListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_tourism_list_fragment, container, false);
-        client = new AsyncHttpClient();
         venues = new ArrayList<>();
         venueIds = new ArrayList<>();
         //initialize the adapter -- movies array cannot be reinitialized after this point
@@ -81,7 +80,7 @@ public class TourismListFragment extends Fragment {
 //            ll = lat+","+lng;
 //        }
     }
-    public void getRestaraunt(String categoryID, String query){
+    public void getVenue(String categoryID, String query){
         // create the url
         String url = API_BASE_URL + "/venues/search";
         // set the request parameters
@@ -90,6 +89,8 @@ public class TourismListFragment extends Fragment {
         params.put(API_KEY_PARAM, getString(R.string.api_key));  // Always needs API key
         params.put(API_SECRET_PARAM, getString(R.string.api_secret));
         params.put("v", "20170713");
+        params.put("query", query);
+        params.put("categoryId", categoryID);
         //params.put("query", country.getName());
         // request a GET response expecting a JSON object response
         client.get(url, params, new JsonHttpResponseHandler() {
