@@ -1,14 +1,19 @@
 package com.codepath.myapplication;
 
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -57,6 +62,20 @@ public class MainActivity extends AppCompatActivity {
         rvCountries.setLayoutManager(new LinearLayoutManager(this));
         rvCountries.setAdapter(adapter);
         getCountryList();
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.drawable.ic_android)
+                    .setContentTitle("My notification")
+                    .setContentText("Hello World!");
+
+    // NotificationCompat.Builder mBuilder;
+
+    // Sets an ID for the notification
+    int mNotificationId = 001;
+    // Gets an instance of the NotificationManager service
+    NotificationManager mNotifyMgr =
+            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+    // Builds the notification and issues it.
+    mNotifyMgr.notify(mNotificationId, mBuilder.build());
 
 
 
@@ -137,6 +156,15 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
         }
     }// log error
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menumain, menu);
+        return true;
+    }
+    public void onMaps(MenuItem item) {
+        Intent i = new Intent(this, NearbyActivity.class);
+        startActivity(i);
+    }
 }
 
 

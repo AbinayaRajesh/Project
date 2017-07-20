@@ -1,6 +1,10 @@
 package com.codepath.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -32,5 +36,14 @@ public class PlayerActivity extends YouTubeBaseActivity implements YouTubePlayer
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
         Toast.makeText(this, "Initialization Failed", Toast.LENGTH_LONG).show();
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menumain, menu);
+        return true;
+    }
+    public void onMaps(MenuItem item) {
+        Intent i = new Intent(this, NearbyActivity.class);
+        startActivity(i);
     }
 }

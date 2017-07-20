@@ -11,16 +11,9 @@ public class OptionsAvailable extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options_available);
-
-
         GridView gridview = (GridView) findViewById(R.id.gridview);
         // gridview.setLayoutParams(new GridView.LayoutParams(300, 300));
         gridview.setAdapter(new ImageAdapter(this));
-
-
-
     }
-
-
 
 }

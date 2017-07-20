@@ -80,7 +80,7 @@ public class OptionsActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_countries, menu);
+        getMenuInflater().inflate(R.menu.menumain, menu);
 
         return true;
 
