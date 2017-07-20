@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.myapplication.EventActivity;
-import com.codepath.myapplication.FoodActivity;
+import com.codepath.myapplication.FoodMainPage;
 import com.codepath.myapplication.LanguageActivity;
 import com.codepath.myapplication.R;
 import com.codepath.myapplication.Tourism.TourismActivity;
@@ -80,7 +80,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
                         // Pass option object in the bundle and populate details activity.
                         // first parameter is the context, second is the class of the activity to launch
                         if (option.getTitle()=="FOOD") {
-                            Intent i = new Intent(context, FoodActivity.class);
+                            Intent i = new Intent(context, FoodMainPage.class);
                             // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
                             context.startActivity(i); // brings up the second activity
                         }
