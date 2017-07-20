@@ -14,12 +14,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codepath.myapplication.R;
 
-<<<<<<< HEAD
-import org.jsoup.Jsoup;
-=======
-import org.parceler.Parcels;
->>>>>>> f626715d2acc203e9b66a6e4a61b03f519faa6c7
-
 import java.util.ArrayList;
 import java.util.List;
 
