@@ -2,6 +2,7 @@ package com.codepath.myapplication;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -21,22 +22,44 @@ public class tempFOOD extends AppCompatActivity {
     ArrayList<Food> afood;
     FoodAdapter adapter;
     RecyclerView rvRecipes;
+    FoodCardAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R.layout.activity_food_temp);
 
         afood = new ArrayList<>();
-        adapter = new FoodAdapter(afood);
+        // adapter = new FoodAdapter(afood);
+
         rvRecipes= (RecyclerView) findViewById(R.id.rvRecipes);
         rvRecipes.setLayoutManager(new LinearLayoutManager(this));
         rvRecipes.setAdapter(adapter);
-
-
-        fetchFood("");
-
         fetchFood("indian");
+
+        // allows for optimizations
+        rvRecipes.setHasFixedSize(true);
+
+        // Define 2 column grid layout
+        final GridLayoutManager layout = new GridLayoutManager(tempFOOD.this, 2);
+
+        // Unlike ListView, you have to explicitly give a LayoutManager to the RecyclerView to position items on the screen.
+        // There are three LayoutManager provided at the moment: GridLayoutManager, StaggeredGridLayoutManager and LinearLayoutManager.
+        rvRecipes.setLayoutManager(layout);
+
+        // get data
+        // options = Option.getContacts();
+
+
+
+        // Create an adapter
+        mAdapter = new FoodCardAdapter(tempFOOD.this, afood);
+        // mAdapter.tempFOOD = this;
+
+        // Bind adapter to list
+        rvRecipes.setAdapter(mAdapter);
+
+
 
     }
 
@@ -53,14 +76,12 @@ public class tempFOOD extends AppCompatActivity {
                             for(int i =0; i<results.length(); i++){
                                 // Country country = new Country(results.getJSONObject(i));
                                 //final ArrayList<Food> recipes = Food.fromJson(results);
-                                Food recipe = Food.fromJson(results.getJSONObject(i));
+                                Food recipe = Food.fromJson(i, results.getJSONObject(i));
                                 afood.add(recipe);
                                 //notify adapter
-                                adapter.notifyItemInserted(afood.size()-1);
+                                mAdapter.notifyItemInserted(afood.size()-1);
                             }
                         }
-
-
                 JSONArray docs;
 
 

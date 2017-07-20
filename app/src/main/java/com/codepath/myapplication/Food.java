@@ -3,9 +3,7 @@ package com.codepath.myapplication;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import org.parceler.Parcel;
-
 
 import java.util.ArrayList;
 
@@ -18,6 +16,7 @@ public class Food {
     String name;
     String imageUrl;
     int rating;
+    int id;
 
     public Food(JSONObject object) throws JSONException {
         name = object.getString("title");
@@ -31,10 +30,11 @@ public class Food {
     public Food(){}
 
 
-    public static Food fromJson(JSONObject jsonObject) {
+    public static Food fromJson(int i, JSONObject jsonObject) {
         Food food = new Food();
         try {
             // Deserialize json into object fields
+            food.id = i;
             food.name = jsonObject.getString("recipeName");
             food.rating = jsonObject.getInt("rating");
             //food.imageUrl = jsonObject.getString("imageUrlsBySize");
@@ -62,7 +62,7 @@ public class Food {
                 e.printStackTrace();
                 continue;
             }
-            Food book = Food.fromJson(foodJson);
+            Food book = Food.fromJson(i, foodJson);
             if (book != null) {
                 recipes.add(book);
             }
@@ -70,6 +70,9 @@ public class Food {
         return recipes;
     }
 
+    public int getId() {
+        return id;
+    }
 
     public String getImageUrl() {
         return imageUrl;
