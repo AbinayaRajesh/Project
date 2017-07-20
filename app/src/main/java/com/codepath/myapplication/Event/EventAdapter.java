@@ -1,6 +1,7 @@
 package com.codepath.myapplication.Event;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codepath.myapplication.R;
 
 import org.jsoup.Jsoup;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +70,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     }
     //create ViewHolder class
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView ivEventImage;
         public TextView tvEventName;
         public TextView tvEventVenue;
@@ -83,7 +85,27 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             tvEventVenue = (TextView) itemView.findViewById(R.id.tvEventVenue);
             tvEventDescription = (TextView) itemView.findViewById(R.id.tvEventDescription);
             layout = (RelativeLayout) itemView.findViewById(R.id.detailView);
+            itemView.setOnClickListener(this);
 
+        }
+        public void onClick(View v) {
+            // gets item position
+            int position = getAdapterPosition();
+            // make sure the position is valid, i.e. actually exists in the view
+            if (position != RecyclerView.NO_POSITION) {
+
+                // get the movie at the position, this won't work if the class is static
+                Event event = mEvents.get(position);
+                // create intent for the new activity
+
+                Intent intent = new Intent(context, EventDetail.class);
+                // serialize the movie using parceler, use its short name as a key
+                intent.putExtra("event", Parcels.wrap(event));
+                //intent.putExtra(Food.class.getSimpleName(), Parcels.wrap(recipe));
+                // intent.putExtra(Country.class.getName(), Parcels.wrap(country));
+                // show the activity
+                context.startActivity(intent);
+            }
         }
     }
 }

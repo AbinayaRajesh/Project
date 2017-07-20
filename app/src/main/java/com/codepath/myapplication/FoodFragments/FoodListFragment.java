@@ -53,12 +53,14 @@ public class FoodListFragment extends Fragment {
         rvRecipes = (RecyclerView) v.findViewById(R.id.rvRecipes);
         rvRecipes.setLayoutManager(new LinearLayoutManager(getContext()));
         rvRecipes.setAdapter(adapter);
+
         rvVenues = (RecyclerView) v.findViewById(R.id.rvVenues);
         rvVenues.setLayoutManager(new LinearLayoutManager(getContext()));
         rvVenues.setAdapter(adapterVenue);
         return v;
     }
     public void fetchFood(String query){
+
         client = new FoodClient();
         client.getRecipes(query, new JsonHttpResponseHandler(){
             @Override
