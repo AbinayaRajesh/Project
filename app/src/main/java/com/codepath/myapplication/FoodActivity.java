@@ -1,10 +1,14 @@
 package com.codepath.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.codepath.myapplication.FoodFragments.FoodPagerAdapter;
 
@@ -28,5 +32,14 @@ public class FoodActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabsFood);
         tabLayout.setupWithViewPager(vpPager);
         vpPager.setOffscreenPageLimit(2);
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menumain, menu);
+        return true;
+    }
+    public void onMaps(MenuItem item) {
+        Intent i = new Intent(this, NearbyActivity.class);
+        startActivity(i);
     }
 }
