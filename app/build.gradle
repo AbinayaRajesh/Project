@@ -75,7 +75,7 @@ dependencies {
     // All other dependencies for your app should also be here:
 
 
-    compile 'com.android.support:recyclerview-v7:26.+'
+    compile 'com.android.sgit pupport:recyclerview-v7:26.+'
     compile 'org.parceler:parceler-api:1.1.6'
 
     compile fileTree(dir: 'libs', include: [
