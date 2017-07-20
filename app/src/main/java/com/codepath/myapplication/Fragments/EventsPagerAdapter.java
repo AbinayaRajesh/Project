@@ -23,7 +23,6 @@ public class EventsPagerAdapter extends FragmentPagerAdapter {
         fef = new FestivalsEventsFragment();
     }
 
-
     public Fragment getItem(int position) {
         if (position == 0) {
             return mef;

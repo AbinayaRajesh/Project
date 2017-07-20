@@ -30,10 +30,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="TextView"
         android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/ivRecipeImage"
         android:layout_toRightOf="@+id/ivRecipeImage"
-        android:layout_toEndOf="@+id/ivRecipeImage" />
+        android:text="TextView"
+        android:textColor="@color/white" />
 
 
 

@@ -71,7 +71,7 @@ public class FoodListFragment extends Fragment {
                         for(int i =0; i<results.length(); i++){
                             // Country country = new Country(results.getJSONObject(i));
                             //final ArrayList<Food> recipes = Food.fromJson(results);
-                            Food recipe = Food.fromJson(results.getJSONObject(i));
+                            Food recipe = Food.fromJson(i, results.getJSONObject(i));
                             afood.add(recipe);
                             //notify adapter
                             adapter.notifyItemInserted(afood.size()-1);

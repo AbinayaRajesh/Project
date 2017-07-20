@@ -50,7 +50,9 @@
         <fragment android:name=".TourismFragments.TourismListFragment" />
 
         <activity android:name=".Event.EventDetail" />
-        >>>>>>> e17d77e102c95a06ec23f23b6558b480caff8978
+        <activity android:name=".tempFOOD"></activity>
+        <activity android:name=".Tourism.tempTourism"></activity>
+
         <activity android:name=".FoodMainPage"></activity>
     </application>
 

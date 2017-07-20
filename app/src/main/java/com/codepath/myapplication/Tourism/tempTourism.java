@@ -57,7 +57,7 @@ public class tempTourism extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tourism);
+        setContentView(R.layout.activity_restaurants_temp);
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         client = new AsyncHttpClient();
         venues = new ArrayList<>();
