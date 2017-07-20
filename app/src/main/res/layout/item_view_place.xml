@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_marginTop="10dp"
-    android:background="@color/lightest_purple">
+    android:layout_marginTop="10dp">
 
 
     <ImageView
@@ -14,7 +13,6 @@
         android:layout_height="match_parent"
         android:layout_marginRight="5dp"
         android:layout_weight="1"
-        android:background="@color/lightest_purple"
         android:src="@drawable/flag_af" />
 
     <LinearLayout
@@ -26,7 +24,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/purple">
+            >
 
 
             <TextView
@@ -36,7 +34,6 @@
                 android:layout_weight="1"
                 android:lines="2"
                 android:textColor="#ffffff"
-                android:background="@color/purple"
                 android:text="TextView" />
 
             <TextView
@@ -45,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:textColor="#ffffff"
-                android:background="@color/purple"
+
                 android:text="Text" />
 
         </LinearLayout>
@@ -61,8 +58,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@color/purple"
-                android:background="@color/light_purple"
                 android:text="TextView" />
 
             <TextView
@@ -70,8 +65,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@color/purple"
-                android:background="@color/light_purple"
                 android:text="TextView" />
 
             <TextView
@@ -79,8 +72,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@color/purple"
-                android:background="@color/light_purple"
                 android:text="TextView" />
 
         </LinearLayout>

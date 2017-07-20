@@ -95,7 +95,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             context.startActivity(i); // brings up the second activity
                         }
-                        else if (option.getTitle()=="SPORTS") {
+                        else if (option.getTitle()=="TRANSLATE") {
                             Intent i = new Intent(context, LanguageActivity.class);
                             // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
