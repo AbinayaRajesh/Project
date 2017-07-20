@@ -35,7 +35,7 @@ public class temp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         setTitle("Events");
-        events = new ArrayList<>();
+        //events = new ArrayList<>();
         adapter = new EventAdapter(events);
         //resolve the recycler view and connect a layout manager and the adapter
         rvEvents = (RecyclerView) findViewById(R.id.rvMovies);

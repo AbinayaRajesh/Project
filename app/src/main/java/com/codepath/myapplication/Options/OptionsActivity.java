@@ -1,12 +1,15 @@
 package com.codepath.myapplication.Options;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
+import com.codepath.myapplication.NearbyActivity;
 import com.codepath.myapplication.R;
 
 import org.parceler.Parcels;
@@ -64,5 +67,24 @@ public class OptionsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void onMaps(MenuItem item) {
+
+
+        Intent i = new Intent(this, NearbyActivity.class);
+        startActivity(i);
+
+
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_countries, menu);
+
+        return true;
+
+    }
+
 
 }

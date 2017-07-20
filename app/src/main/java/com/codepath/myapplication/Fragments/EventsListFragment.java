@@ -31,7 +31,7 @@ public class EventsListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_events_list_fragment, container, false);
-        events = new ArrayList<>();
+
         adapter = new EventAdapter(events);
         //resolve the recycler view and connect a layout manager and the adapter
         rvEvents = (RecyclerView) v.findViewById(R.id.rvMovies);
