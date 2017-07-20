@@ -18,11 +18,13 @@ import java.util.ArrayList;
 
 public class EventsListFragment extends Fragment {
 
+    ArrayList<Event> events = new ArrayList<>();
+
     public final static String API_BASE_URL = "http://api.eventful.com/json/";
     //API key parameter name
     public final static String API_KEY_PARAM = "95JSGDKWtDtWRRgx";
     AsyncHttpClient client = new AsyncHttpClient();
-    ArrayList<Event> events;
+    //ArrayList<Event> events;
     RecyclerView rvEvents;
     //the adapter wired to the recycler view
     EventAdapter adapter;

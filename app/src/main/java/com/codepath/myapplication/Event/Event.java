@@ -82,6 +82,7 @@ public class Event implements Parcelable {
         return event;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
