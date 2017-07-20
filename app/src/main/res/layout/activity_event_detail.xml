@@ -56,15 +56,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivEventImage"
         android:layout_marginTop="29dp"
-        android:layout_toEndOf="@+id/imageView3"
-        android:layout_toRightOf="@+id/imageView3"
+        android:layout_toEndOf="@+id/calender"
+        android:layout_toRightOf="@+id/calender"
         android:paddingLeft="5dp"
         android:text="TextView"
         android:textColor="@color/white"/>
 
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/calender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_insert_invitation_black_24dp"
