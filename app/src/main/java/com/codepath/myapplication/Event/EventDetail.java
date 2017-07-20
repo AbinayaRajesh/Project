@@ -53,7 +53,7 @@ public class EventDetail extends AppCompatActivity {
 
         Glide.with(context).
                 load(event.getEventUrl()).
-                bitmapTransform(new RoundedCornersTransformation(context, 15, 0)).
+                bitmapTransform(new RoundedCornersTransformation(context, 20, 0)).
                 diskCacheStrategy(DiskCacheStrategy.ALL).
                 into(ivEventImage);
 

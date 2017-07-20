@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codepath.myapplication.R;
 
-import org.jsoup.Jsoup;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         //populate the views according to this data
         holder.tvEventName.setText(event.eventName);
         holder.tvEventVenue.setText(event.eventVenue);
-        holder.tvEventDescription.setText(Jsoup.parse(event.eventDescription).text());
+       // holder.tvEventDescription.setText(Jsoup.parse(event.eventDescription).text());
 
         Glide.with(context).
                 load(event.getEventUrl()).
@@ -74,7 +73,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         public ImageView ivEventImage;
         public TextView tvEventName;
         public TextView tvEventVenue;
-        public TextView tvEventDescription;
+       // public TextView tvEventDescription;
         public RelativeLayout layout;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -83,7 +82,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             ivEventImage = (ImageView) itemView.findViewById(R.id.ivEventImage);
             tvEventName = (TextView) itemView.findViewById(R.id.tvEventName);
             tvEventVenue = (TextView) itemView.findViewById(R.id.tvEventVenue);
-            tvEventDescription = (TextView) itemView.findViewById(R.id.tvEventDescription);
+           // tvEventDescription = (TextView) itemView.findViewById(R.id.tvEventDescription);
             layout = (RelativeLayout) itemView.findViewById(R.id.detailView);
             itemView.setOnClickListener(this);
 
