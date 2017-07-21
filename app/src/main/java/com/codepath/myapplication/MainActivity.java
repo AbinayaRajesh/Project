@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent(context, FoodMainPage.class);
+                Intent i = new Intent(context, MusicActivity.class);
 
 
                 i.putExtra("query", "Music");

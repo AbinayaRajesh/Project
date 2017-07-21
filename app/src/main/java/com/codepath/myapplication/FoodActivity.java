@@ -10,17 +10,22 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.FoodFragments.FoodPagerAdapter;
 
+import org.parceler.Parcels;
 
 
 public class FoodActivity extends AppCompatActivity {
     Context context;
     ViewPager vpPager;
     FoodPagerAdapter pageAdapter;
+    public Country country;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         setContentView(R.layout.activity_food);
         pageAdapter = new FoodPagerAdapter(getSupportFragmentManager(), this);
         context = this;
@@ -28,6 +33,7 @@ public class FoodActivity extends AppCompatActivity {
         vpPager = (ViewPager) findViewById(R.id.viewpagerFood);
         // set the adapter for the pager
         vpPager.setAdapter(pageAdapter);
+
         // setup the TabLayout to use the view pager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabsFood);
         tabLayout.setupWithViewPager(vpPager);
@@ -42,4 +48,6 @@ public class FoodActivity extends AppCompatActivity {
         Intent i = new Intent(this, NearbyActivity.class);
         startActivity(i);
     }
+
+
 }

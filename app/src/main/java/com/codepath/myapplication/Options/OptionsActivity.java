@@ -72,6 +72,7 @@ public class OptionsActivity extends AppCompatActivity {
 
 
         Intent i = new Intent(this, NearbyActivity.class);
+       // i.putExtra("country", Parcels.wrap(country));
         startActivity(i);
 
 
