@@ -4,19 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context="com.codepath.myapplication.MainActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/bttnEvent"
-        android:text="TESTING"/>
+    <!--<Button-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/bttnEvent"-->
+    <!--android:text="TESTING"/>-->
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvCountry"
-        android:layout_width="138dp"
-        android:layout_height="495dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
         tools:layout_editor_absoluteY="8dp"
         tools:layout_editor_absoluteX="8dp"
         android:layout_alignParentTop="true"

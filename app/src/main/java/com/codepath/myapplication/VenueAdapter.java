@@ -1,6 +1,7 @@
 package com.codepath.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Models.Location;
 import com.codepath.myapplication.Models.Venue;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -53,6 +56,8 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
         holder.tvDistance.setText(String.valueOf(location.getDistance()));
         holder.tvCity.setText(location.getCity());
         holder.tvState.setText(location.getState());
+        // holder.tvAddress.setText(location.getState());
+
 
         if(venue.getImageUrl()!="" && venue.getImageUrl()!=null) {
             Glide.with(context)
@@ -84,6 +89,7 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
         TextView tvCity;
         TextView tvState;
         TextView tvDistance;
+        TextView tvAddress;
 
 
 
@@ -91,20 +97,20 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
         @Override
         public void onClick(View v) {
 
-//            // gets item position
-//            int position = getAdapterPosition();
-//            // make sure the position is valid, i.e. actually exists in the view
-//            if (position != RecyclerView.NO_POSITION) {
-//                // get the movie at the position, this won't work if the class is static
-//                Movie movie = movies.get(position);
-//                // create intent for the new activity
-//                Intent intent = new Intent(context, MovieDetailsActivity.class);
-//                // serialize the movie using parceler, use its short name as a key
-//                intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
-//                intent.putExtra(Config.class.getSimpleName(), Parcels.wrap(config));
-//                // show the activity
-//                context.startActivity(intent);
-//            }
+            // gets item position
+            int position = getAdapterPosition();
+            // make sure the position is valid, i.e. actually exists in the view
+            if (position != RecyclerView.NO_POSITION) {
+                // get the movie at the position, this won't work if the class is static
+                Venue venue = venues.get(position);
+                // create intent for the new activity
+                Intent intent = new Intent(context, DetailPlaceActivity.class);
+                // serialize the movie using parceler, use its short name as a key
+                intent.putExtra("venue", Parcels.wrap(venue));
+
+                // show the activity
+                context.startActivity(intent);
+            }
         }
 
         public ViewHolder(View itemView) {
@@ -117,6 +123,7 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
             tvState = (TextView) itemView.findViewById(R.id.tvState);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             tvDistance = (TextView) itemView.findViewById(R.id.tvDistance);
+            tvAddress = (TextView) itemView.findViewById(R.id.textView) ;
 
             // add this as the itemView's OnClickListener
             itemView.setOnClickListener(this);

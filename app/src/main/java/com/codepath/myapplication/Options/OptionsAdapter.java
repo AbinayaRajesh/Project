@@ -13,9 +13,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.myapplication.EventActivity;
 import com.codepath.myapplication.FoodMainPage;
-import com.codepath.myapplication.LanguageActivity;
 import com.codepath.myapplication.R;
 import com.codepath.myapplication.Tourism.TourismActivity;
+import com.codepath.myapplication.LanguageActivity;
 
 import org.parceler.Parcels;
 

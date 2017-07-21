@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -79,20 +78,20 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        eventButton = (Button) findViewById(R.id.bttnEvent);
-        context = this;
-        eventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent i = new Intent(context, FoodMainPage.class);
-
-
-                i.putExtra("query", "Music");
-                startActivity(i);
-            }
-
-        });
+//        eventButton = (Button) findViewById(R.id.bttnEvent);
+//        context = this;
+//        eventButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Intent i = new Intent(context, FoodMainPage.class);
+//
+//
+//                i.putExtra("query", "Music");
+//                startActivity(i);
+//            }
+//
+//        });
 
 
     }
