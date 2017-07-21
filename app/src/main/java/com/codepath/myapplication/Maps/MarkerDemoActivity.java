@@ -16,6 +16,7 @@
 
 package com.codepath.myapplication.Maps;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -50,6 +51,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.myapplication.Event.Event;
+import com.codepath.myapplication.Event.EventDetail;
 import com.codepath.myapplication.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -308,10 +310,11 @@ public class MarkerDemoActivity extends AppCompatActivity implements
             float lat = event.getLatitude();
             float lng = event.getLongitude();
             LatLng pos = new LatLng(lat, lng);
-            mMap.addMarker(new MarkerOptions()
+            Marker m = mMap.addMarker(new MarkerOptions()
                     .position(pos)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_sports))
                     .title(event.getEventName()));
+            m.setTag(event);
         }
 
         for (int i=0; i<Fevents.size(); i++){
@@ -319,10 +322,11 @@ public class MarkerDemoActivity extends AppCompatActivity implements
             float lat = event.getLatitude();
             float lng = event.getLongitude();
             LatLng pos = new LatLng(lat, lng);
-            mMap.addMarker(new MarkerOptions()
+            Marker m = mMap.addMarker(new MarkerOptions()
                     .position(pos)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_festival))
                     .title(event.getEventName()));
+            m.setTag(event);
         }
 
         for (int i=0; i<Mevents.size(); i++){
@@ -330,10 +334,11 @@ public class MarkerDemoActivity extends AppCompatActivity implements
             float lat = event.getLatitude();
             float lng = event.getLongitude();
             LatLng pos = new LatLng(lat, lng);
-            mMap.addMarker(new MarkerOptions()
+            Marker m = mMap.addMarker(new MarkerOptions()
                     .position(pos)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_music))
                     .title(event.getEventName()));
+            m.setTag(event);
         }
 
 
@@ -550,10 +555,11 @@ public class MarkerDemoActivity extends AppCompatActivity implements
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-//        Intent i = new Intent(MarkerDemoActivity.this, EventDetail.class);
-//        i.putExtra("event", Sevents.get(0));
+        Event e = (Event) marker.getTag();
+        Intent i = new Intent(MarkerDemoActivity.this, EventDetail.class);
+        i.putExtra("event", e);
         Toast.makeText(this, "Click Info Window", Toast.LENGTH_SHORT).show();
-//        startActivity(i);
+        startActivity(i);
     }
 
     @Override

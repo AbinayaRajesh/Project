@@ -14,7 +14,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codepath.myapplication.R;
 
 import org.jsoup.Jsoup;
-import org.parceler.Parcels;
 
 import java.text.DateFormatSymbols;
 import java.util.logging.Handler;
@@ -47,7 +46,7 @@ public class EventDetail extends AppCompatActivity {
         tvMonth = (TextView) findViewById(R.id.tvMonth);
         ivCalender = (ImageView) findViewById(R.id.calender);
 
-        event = (Event) Parcels.unwrap(getIntent().getParcelableExtra("event"));
+        event = (Event) getIntent().getParcelableExtra("event");
 
         tvEventName.setText(event.getEventName());
         tvDescription.setText(Jsoup.parse(event.getEventDescription()).text());

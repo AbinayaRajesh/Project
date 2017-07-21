@@ -14,8 +14,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codepath.myapplication.R;
 
-import org.parceler.Parcels;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,7 +97,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
                 Intent intent = new Intent(context, EventDetail.class);
                 // serialize the movie using parceler, use its short name as a key
-                intent.putExtra("event", Parcels.wrap(event));
+                intent.putExtra("event", event);
                 //intent.putExtra(Food.class.getSimpleName(), Parcels.wrap(recipe));
                 // intent.putExtra(Country.class.getName(), Parcels.wrap(country));
                 // show the activity
