@@ -111,6 +111,7 @@ public class LanguageMainActivity extends Fragment {
                     if (translated !=null ){
                         translated = translated.substring(translated.indexOf("t\":\""));
                         translated = translated.substring(4, translated.length()-4);
+                        translatedLanguage.setText(translated);
                     }
                 }
                 catch (Exception ex) {
@@ -118,7 +119,6 @@ public class LanguageMainActivity extends Fragment {
                 }
             }
         }).start();
-        translatedLanguage.setText(translated);
     }
 
 
