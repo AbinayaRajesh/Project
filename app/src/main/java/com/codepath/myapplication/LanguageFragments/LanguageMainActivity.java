@@ -3,6 +3,8 @@ package com.codepath.myapplication.LanguageFragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +37,8 @@ public class LanguageMainActivity extends Fragment {
     TranslateTextRequest queryTranslate;
     String translated;
     int i;
+    RecyclerView rvPhrases;
+    PhrasesAdapter adapter;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -64,6 +68,24 @@ public class LanguageMainActivity extends Fragment {
             }
             case 1: {
                 rootView = inflater.inflate(R.layout.activity_common_phrases, container, false);
+                ArrayList<Phrase> phrases = new ArrayList<Phrase>();
+                Phrase p1 = new Phrase("How are you? / How is it going? ", "Comment allez-vous?");
+                phrases.add(p1);
+                Phrase p2 = new Phrase("Where is the restroom?", "Où sont les toilettes?");
+                phrases.add(p2);
+                Phrase p3 = new Phrase("How much does the magazine cost?", "Combien coûte le magazine?");
+                phrases.add(p3);
+                Phrase p4 = new Phrase("What time is it? ", "Quelle heure est-il?");
+                phrases.add(p4);
+                Phrase p5 = new Phrase("I am visiting family. ", "Je visite la famille");
+                phrases.add(p5);
+                Phrase p6 = new Phrase("Where is the currency exchange? ", "Où est l'échange de devises?");
+                phrases.add(p6);
+                adapter = new PhrasesAdapter(phrases);
+                //resolve the recycler view and connect a layout manager and the adapter
+                rvPhrases = (RecyclerView) rootView.findViewById(R.id.rvPhrases);
+                rvPhrases.setLayoutManager(new LinearLayoutManager(getContext()));
+                rvPhrases.setAdapter(adapter);
                 break;
             }
         }
