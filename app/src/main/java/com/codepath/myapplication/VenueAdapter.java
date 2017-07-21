@@ -53,6 +53,8 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
         holder.tvDistance.setText(String.valueOf(location.getDistance()));
         holder.tvCity.setText(location.getCity());
         holder.tvState.setText(location.getState());
+        // holder.tvAddress.setText(location.getState());
+
 
         if(venue.getImageUrl()!="" && venue.getImageUrl()!=null) {
             Glide.with(context)
@@ -84,6 +86,7 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
         TextView tvCity;
         TextView tvState;
         TextView tvDistance;
+        TextView tvAddress;
 
 
 
@@ -117,6 +120,7 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
             tvState = (TextView) itemView.findViewById(R.id.tvState);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             tvDistance = (TextView) itemView.findViewById(R.id.tvDistance);
+            tvAddress = (TextView) itemView.findViewById(R.id.textView) ;
 
             // add this as the itemView's OnClickListener
             itemView.setOnClickListener(this);
