@@ -129,7 +129,7 @@ public class tempTourism extends AppCompatActivity {
                     JSONObject resp = response.getJSONObject("response");
                     JSONArray results = resp.getJSONArray("venues");
                     for (int i = 0; i < results.length(); i++) {
-                        Venue venue = new Venue(results.getJSONObject(i));
+                        Venue venue = new Venue(i, results.getJSONObject(i));
                         venues.add(venue);
                         venueIds.add(venue.getId());
                         b = false;
