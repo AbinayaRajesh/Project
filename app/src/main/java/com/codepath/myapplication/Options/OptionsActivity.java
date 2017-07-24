@@ -84,7 +84,6 @@ public class OptionsActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menumain, menu);
 
         return true;
-
     }
 
 

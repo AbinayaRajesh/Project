@@ -74,13 +74,10 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.VH> 
                         // Fire an intent when a option is selected
                         // Pass option object in the bundle and populate details activity.
                         // first parameter is the context, second is the class of the activity to launch
-
                         Intent i = new Intent(context, EventDetail.class);
                         Event event = mEvents.get(e.getId());
                         i.putExtra("event", event);
                         context.startActivity(i); // brings up the second activity
-
-
                     }
                 }
             });
