@@ -49,7 +49,8 @@ public class EventDetail extends AppCompatActivity {
         event = (Event) getIntent().getParcelableExtra("event");
 
         tvEventName.setText(event.getEventName());
-        tvDescription.setText(Jsoup.parse(event.getEventDescription()).text());
+        String text = Jsoup.parse(event.getEventDescription()).text();
+        tvDescription.setText(text);
         date = event.getDate().split("-");
         month = new DateFormatSymbols().getMonths()[(Integer.parseInt(date[1]))-1];
         tvMonth.setText(month + " " + date[2] + ", " + date[0]);

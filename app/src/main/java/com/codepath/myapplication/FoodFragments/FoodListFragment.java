@@ -3,6 +3,7 @@ package com.codepath.myapplication.FoodFragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,7 +16,7 @@ import com.codepath.myapplication.FoodAdapter;
 import com.codepath.myapplication.FoodClient;
 import com.codepath.myapplication.Models.Venue;
 import com.codepath.myapplication.R;
-import com.codepath.myapplication.VenueAdapter;
+import com.codepath.myapplication.VenueCardAdapter;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -32,7 +33,7 @@ public class FoodListFragment extends Fragment {
     FoodClient client;
     ArrayList<Food> afood;
     FoodAdapter adapter;
-    VenueAdapter adapterVenue;
+    VenueCardAdapter adapterVenue;
     RecyclerView rvRecipes;
     RecyclerView rvVenues;
     AsyncHttpClient clientRest = new AsyncHttpClient();
@@ -48,14 +49,14 @@ public class FoodListFragment extends Fragment {
         View v = inflater.inflate(R.layout.activity_food_list_fragment, container, false);
         afood = new ArrayList<>();
         adapter = new FoodAdapter(afood);
-        adapterVenue = new VenueAdapter(venues);
+        adapterVenue = new VenueCardAdapter(getActivity(), venues);
         //resolve the recycler view and connect a layout manager and the adapter
         rvRecipes = (RecyclerView) v.findViewById(R.id.rvRecipes);
         rvRecipes.setLayoutManager(new LinearLayoutManager(getContext()));
         rvRecipes.setAdapter(adapter);
 
         rvVenues = (RecyclerView) v.findViewById(R.id.rvVenues);
-        rvVenues.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvVenues.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         rvVenues.setAdapter(adapterVenue);
         return v;
     }
@@ -123,7 +124,7 @@ public class FoodListFragment extends Fragment {
                         JSONObject resp = response.getJSONObject("response");
                         JSONArray results = resp.getJSONArray("venues");
                         for (int i = 0; i < results.length(); i++) {
-                            Venue venue = new Venue(results.getJSONObject(i));
+                            Venue venue = new Venue(i, results.getJSONObject(i));
                             venues.add(venue);
                             venueIds.add(venue.getId());
                             b = false;

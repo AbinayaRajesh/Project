@@ -4,21 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="#000000"
     tools:context="com.codepath.myapplication.MainActivity">
 
     <!--<Button-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/bttnEvent"-->
-    <!--android:text="TESTING"/>-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/bttnEvent"-->
+        <!--android:text="TESTING"/>-->
 
 
     <android.support.v7.widget.RecyclerView
+        android:paddingTop="10dp"
+        android:background="@color/cardview_dark_background"
         android:id="@+id/rvCountry"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
+        android:layout_width="138dp"
+        android:layout_height="495dp"
         tools:layout_editor_absoluteY="8dp"
         tools:layout_editor_absoluteX="8dp"
         android:layout_alignParentTop="true"

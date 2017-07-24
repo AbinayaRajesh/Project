@@ -10,19 +10,25 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.NearbyActivity;
 import com.codepath.myapplication.R;
 import com.codepath.myapplication.TourismFragments.TourismPagerAdapter;
+
+import org.parceler.Parcels;
 
 public class TourismActivity extends AppCompatActivity {
 
     Context context;
     ViewPager vpPager;
     TourismPagerAdapter pageAdapter;
+    Country country;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourism);
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         pageAdapter = new TourismPagerAdapter(getSupportFragmentManager(), this);
         context = this;
         // get the view pager

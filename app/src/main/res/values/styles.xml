@@ -6,9 +6,9 @@
         <item name="colorPrimary">@color/cast_expanded_controller_background_color</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/cardview_shadow_start_color</item>
+        <item name="android:colorBackground">@color/cardview_dark_background</item>
         <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="android:textColorPrimaryInverse">@android:color/tab_indicator_text</item>
+        <item name="android:textColorPrimaryInverse">@android:color/darker_gray</item>
         <item name="android:textColorSecondary">@color/colorPrimary</item>
         <item name="android:textColorSecondaryInverse">@color/cardview_light_background</item>
     </style>
@@ -21,5 +21,7 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="th" parent="AppTheme" />
 
 </resources>

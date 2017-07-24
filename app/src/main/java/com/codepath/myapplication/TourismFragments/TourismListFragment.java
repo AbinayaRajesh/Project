@@ -3,7 +3,7 @@ package com.codepath.myapplication.TourismFragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.codepath.myapplication.Models.Venue;
 import com.codepath.myapplication.R;
-import com.codepath.myapplication.VenueAdapter;
+import com.codepath.myapplication.VenueCardAdapter;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -31,7 +31,7 @@ public class TourismListFragment extends Fragment {
     ArrayList<Venue> venues;
     RecyclerView rvVenues;
     ArrayList<String> venueIds;
-    VenueAdapter adapter;
+    VenueCardAdapter adapter;
     boolean b = false;
     int j = 0;
     // Base Url for API
@@ -46,13 +46,13 @@ public class TourismListFragment extends Fragment {
         venues = new ArrayList<>();
         venueIds = new ArrayList<>();
         //initialize the adapter -- movies array cannot be reinitialized after this point
-        adapter = new VenueAdapter(venues);
+        adapter = new VenueCardAdapter(getActivity(), venues);
         // the recycler view
         rvVenues = (RecyclerView) v.findViewById(R.id.rvVenues);
 
         //resolve the recycler view and connect a layout manager and the adapter
         //rvMovies = (RecyclerView) findViewById(rvMovies);
-        rvVenues.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvVenues.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         rvVenues.setAdapter(adapter);
         return v;
         // LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -101,7 +101,7 @@ public class TourismListFragment extends Fragment {
                     JSONObject resp = response.getJSONObject("response");
                     JSONArray results = resp.getJSONArray("venues");
                     for (int i = 0; i < results.length(); i++) {
-                        Venue venue = new Venue(results.getJSONObject(i));
+                        Venue venue = new Venue(i, results.getJSONObject(i));
                         venues.add(venue);
                         venueIds.add(venue.getId());
                         b = false;

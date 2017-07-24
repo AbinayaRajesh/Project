@@ -59,7 +59,7 @@ public class NearbyActivity extends AppCompatActivity {
                     JSONObject eventsonline = response.getJSONObject("events");
                     JSONArray eventArray = eventsonline.getJSONArray("event");
                     for (int i = 0; i < 10; i++){
-                        Event event = Event.fromJson(eventArray.getJSONObject(i));
+                        Event event = Event.fromJson(i, eventArray.getJSONObject(i));
                         Sevents.add(event);
                         //notify adapter that a row was added
                     }
@@ -86,7 +86,7 @@ public class NearbyActivity extends AppCompatActivity {
                     JSONObject eventsonline = response.getJSONObject("events");
                     JSONArray eventArray = eventsonline.getJSONArray("event");
                     for (int i = 0; i < 10; i++){
-                        Event event = Event.fromJson(eventArray.getJSONObject(i));
+                        Event event = Event.fromJson(i, eventArray.getJSONObject(i));
                         Mevents.add(event);
                     }
                     getFestivalsEvents();
@@ -113,7 +113,7 @@ public class NearbyActivity extends AppCompatActivity {
                     JSONObject eventsonline = response.getJSONObject("events");
                     JSONArray eventArray = eventsonline.getJSONArray("event");
                     for (int i = 0; i < 10; i++){
-                        Event event = Event.fromJson(eventArray.getJSONObject(i));
+                        Event event = Event.fromJson(i, eventArray.getJSONObject(i));
                         Fevents.add(event);
                     }
                 } catch (JSONException e) {

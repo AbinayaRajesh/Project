@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        eventButton = (Button) findViewById(R.id.bttnEvent);
+       // eventButton = (Button) findViewById(R.id.bttnEvent);
         context = this;
 
 

@@ -31,6 +31,7 @@ public class tempFOOD extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_temp);
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
 
         afood = new ArrayList<>();
         // adapter = new FoodAdapter(afood);
@@ -38,7 +39,10 @@ public class tempFOOD extends AppCompatActivity {
         rvRecipes= (RecyclerView) findViewById(R.id.rvRecipes);
         rvRecipes.setLayoutManager(new LinearLayoutManager(this));
         rvRecipes.setAdapter(adapter);
+<<<<<<< HEAD
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+=======
+>>>>>>> ca378f062adeafefb11aa921c4ce336160a5141b
         fetchFood(country.getName());
 
         // allows for optimizations

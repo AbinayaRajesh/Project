@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Tourism.tempTourism;
 
 import org.parceler.Parcels;
@@ -18,14 +19,17 @@ public class FoodMainPage extends AppCompatActivity {
 
     ImageView recipes;
     ImageView restaurants;
-    String country;
+
     Context context;
+
+    Country country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_main_page);
-        country = Parcels.unwrap(getIntent().getParcelableExtra("country"));
+
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
 
         recipes = (ImageView) findViewById(R.id.recipesPic);
         restaurants = (ImageView) findViewById(R.id.restaurantsPic);
@@ -36,7 +40,9 @@ public class FoodMainPage extends AppCompatActivity {
 
                 Intent i = new Intent(FoodMainPage.this, tempFOOD.class);
                 i.putExtra("country", Parcels.wrap(country));
-                context.startActivity(i);
+
+                startActivity(i);
+
 
             }
         });

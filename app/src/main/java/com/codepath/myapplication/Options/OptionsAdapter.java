@@ -84,12 +84,14 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
                             i.putExtra("country", Parcels.wrap(optionsActivity.country.getName()));
 //                            i.putExtra("country", optionsActivity.country.getName());
                             // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
+                            i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             context.startActivity(i); // brings up the second activity
                         }
                         else if (option.getTitle()=="EVENTS") {
                             Intent i = new Intent(context, EventActivity.class);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
+                            i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             context.startActivity(i); // brings up the second activity
                         }
                         else if (option.getTitle()=="TOURISM") {

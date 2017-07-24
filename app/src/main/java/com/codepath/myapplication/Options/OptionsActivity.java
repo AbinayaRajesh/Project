@@ -27,6 +27,7 @@ public class OptionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_options);
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         setTitle(country.getName());
@@ -71,7 +72,8 @@ public class OptionsActivity extends AppCompatActivity {
 
 
         Intent i = new Intent(this, NearbyActivity.class);
-       // i.putExtra("country", Parcels.wrap(country));
+
+        i.putExtra("country", Parcels.wrap(country));
         startActivity(i);
 
 

@@ -1,24 +1,28 @@
 package com.codepath.myapplication.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.parceler.Parcel;
 
 /**
  * Created by arajesh on 6/22/17.
  */
-@Parcel
-public class Venue {
+
+public class Venue implements Parcelable{
 
     // values from API
     String title;
+    int num;
     Location location;
     String id;
     String imageUrl;
 
 
     // initialize from JSON data
-    public Venue(JSONObject object) throws JSONException {
+    public Venue(int n, JSONObject object) throws JSONException {
+        num = n;
         title = object.getString("name");
         location = Location.fromJSON(object.getJSONObject("location"));
         id = object.getString("id");
@@ -28,6 +32,36 @@ public class Venue {
     }
 
     public Venue() {}
+
+    protected Venue(Parcel in) {
+        title = in.readString();
+        id = in.readString();
+        imageUrl = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(id);
+        dest.writeString(imageUrl);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Venue> CREATOR = new Creator<Venue>() {
+        @Override
+        public Venue createFromParcel(Parcel in) {
+            return new Venue(in);
+        }
+
+        @Override
+        public Venue[] newArray(int size) {
+            return new Venue[size];
+        }
+    };
 
     public String getTitle() {
         return title;
