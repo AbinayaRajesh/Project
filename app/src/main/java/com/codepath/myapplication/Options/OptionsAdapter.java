@@ -63,6 +63,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
         final TextView tvTitle;
         final View vPalette;
 
+
         public VH(View itemView, final Context context) {
             super(itemView);
             rootView = itemView;
