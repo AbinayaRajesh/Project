@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menu file for `activity_movies.xml` is located in a file
+     such as `res/menu/menu_movies.xml`  -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/searchBar"
+        android:actionViewClass="android.widget.SearchView"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="Search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/miProfile"
+        android:icon="@drawable/ic_map"
+        android:onClick="onMaps"
+        android:title="Item"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_refresh"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_calendar_icon"
+        android:title="TripPlanner"/>
+    <item
+        android:id="@+id/action_settings"
+        android:title="Settings"></item>\
+</menu>
