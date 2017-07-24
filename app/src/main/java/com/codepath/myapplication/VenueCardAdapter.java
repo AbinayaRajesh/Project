@@ -42,7 +42,20 @@ public class VenueCardAdapter extends RecyclerView.Adapter<VenueCardAdapter.VH> 
         Venue venue = mVenues.get(position);
         holder.rootView.setTag(venue);
         holder.tvTitle.setText(venue.getTitle());
-        Glide.with(mContext).load(venue.getImageUrl()).centerCrop().into(holder.ivProfile);
+        if (venue.getImageUrl()=="") {
+            int i = (int) ((Math. random() * 50 + 1) % 5);
+            switch (i) {
+                case 0: {holder.ivProfile.setImageResource(R.mipmap.red);break;}
+                case 1: {holder.ivProfile.setImageResource(R.mipmap.blue); break;}
+                case 2: {holder.ivProfile.setImageResource(R.mipmap.green); break;}
+                case 3: {holder.ivProfile.setImageResource(R.mipmap.violet); break;}
+                case 4: {holder.ivProfile.setImageResource(R.mipmap.pink); break;}
+            }
+            // holder.ivProfile.setImageResource(R.drawable.ic_music);
+        }
+        else {
+            Glide.with(mContext).load(venue.getImageUrl()).centerCrop().into(holder.ivProfile);
+        }
     }
 
     @Override
