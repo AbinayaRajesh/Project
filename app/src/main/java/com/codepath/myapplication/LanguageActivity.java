@@ -49,6 +49,6 @@ public class LanguageActivity extends AppCompatActivity{
         vpPager.setOffscreenPageLimit(2);
     }
 
-
-
 }
+
+
