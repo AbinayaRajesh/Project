@@ -12,4 +12,8 @@
     <dimen name="contact_details_phone_margin_top">8dp</dimen>
     <dimen name="fab_elevation">8dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+
+    <!-- Common margin value used throughout the app -->
+    <dimen name="activity_margin">16dp</dimen>
 </resources>
