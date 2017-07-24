@@ -68,6 +68,7 @@ public final class EventContract {
 
         public final static String COLUMN_EVENT_START_TIME = "start";
         public final static String COLUMN_EVENT_STOP_TIME = "stop";
+        public final static String COLUMN_EVENT_UNIQUE_KEY = "key";
 
 
     }

@@ -1,17 +1,24 @@
 package com.codepath.myapplication.Event;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.codepath.myapplication.CatalogActivity;
 import com.codepath.myapplication.R;
+import com.codepath.myapplication.data.EventContract.EventEntry;
+import com.codepath.myapplication.data.EventDbHelper;
 
 import org.jsoup.Jsoup;
 
@@ -50,7 +57,12 @@ public class EventDetail extends AppCompatActivity {
 
         tvEventName.setText(event.getEventName());
         String text = Jsoup.parse(event.getEventDescription()).text();
-        tvDescription.setText(text);
+        if (text==null) {
+            tvDescription.setText("No description available");
+        }
+        else {
+            tvDescription.setText(text);
+        }
         date = event.getDate().split("-");
         month = new DateFormatSymbols().getMonths()[Integer.parseInt(date[1])-1];
         tvMonth.setText(month + " " + date[2] + ", " + date[0]);
@@ -71,6 +83,24 @@ public class EventDetail extends AppCompatActivity {
             }
         });
 
+        final ToggleButton tB = (ToggleButton) findViewById(R.id.toggleButton);
+        tB.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                if(tB.isChecked()){
+                    insertEvent(event);
+                    Intent i = new  Intent(EventDetail.this, CatalogActivity.class);
+                    startActivity(i);
+                }
+                else {
+                    deleteEvent(event);
+                    Intent i = new  Intent(EventDetail.this, CatalogActivity.class);
+                    startActivity(i);
+                }
+            }
+        });
+
 
 
     }
@@ -88,4 +118,71 @@ public class EventDetail extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+
+    private void insertEvent(Event event) {
+
+        // Read from input fields
+        // Use trim to eliminate leading or trailing white space
+        // mNameEditText.getText().toString().trim();
+        String nameString = event.getEventName();
+        String descriptionString = event.getEventDescription();
+        String urlString = event.getEventUrl();
+        String venueString = event.getEventVenue();
+        String startString = event.getStartTime();
+        String stopString = event.getStopTime();
+        int key = event.getId();
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(this);
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        // Create a ContentValues object where column names are the keys,
+        // and pet attributes from the editor are the values.
+        ContentValues values = new ContentValues();
+        values.put(EventEntry.COLUMN_EVENT_NAME, nameString);
+        values.put(EventEntry.COLUMN_EVENT_DESCRIPTION, descriptionString);
+        values.put(EventEntry.COLUMN_EVENT_URL, urlString);
+        values.put(EventEntry.COLUMN_EVENT_VENUE, venueString);
+        values.put(EventEntry.COLUMN_EVENT_START_TIME, startString);
+        values.put(EventEntry.COLUMN_EVENT_STOP_TIME, stopString);
+        values.put(EventEntry.COLUMN_EVENT_UNIQUE_KEY, key);
+
+        // Insert a new row for pet in the database, returning the ID of that new row.
+        long newRowId = db.insert(EventEntry.TABLE_NAME, null, values);
+
+        // Show a toast message depending on whether or not the insertion was successful
+        if (newRowId == -1) {
+            // If the row ID is -1, then there was an error with insertion.
+            Toast.makeText(this, "Error with saving event", Toast.LENGTH_SHORT).show();
+        } else {
+            // Otherwise, the insertion was successful and we can display a toast with the row ID.
+            Toast.makeText(this, "Event saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void deleteEvent(Event event) {
+
+        String num = String.valueOf(event.getId());
+        String mun = EventEntry._ID;
+
+        // Create a String that contains the SQL statement to create the pets table
+        String SQL_CREATE_EVENTS_TABLE =  "DELETE FROM " + EventEntry.TABLE_NAME +
+                " WHERE " + EventEntry.COLUMN_EVENT_UNIQUE_KEY + " = " + String.valueOf(event.getId()) + ";";
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(this);
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+
+        // Execute the SQL statement
+        db.execSQL(SQL_CREATE_EVENTS_TABLE);
+
+    }
+
+
 }

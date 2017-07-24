@@ -82,7 +82,8 @@ public class CatalogActivity extends AppCompatActivity {
                 EventEntry.COLUMN_EVENT_URL,
                 EventEntry.COLUMN_EVENT_VENUE,
                 EventEntry.COLUMN_EVENT_START_TIME,
-                EventEntry.COLUMN_EVENT_STOP_TIME};
+                EventEntry.COLUMN_EVENT_STOP_TIME,
+                EventEntry.COLUMN_EVENT_UNIQUE_KEY};
 
         // Perform a query on the pets table
         Cursor cursor = db.query(
@@ -111,7 +112,8 @@ public class CatalogActivity extends AppCompatActivity {
                     EventEntry.COLUMN_EVENT_URL + " - " +
                     EventEntry.COLUMN_EVENT_VENUE + " - " +
                     EventEntry.COLUMN_EVENT_START_TIME + " - " +
-                    EventEntry.COLUMN_EVENT_STOP_TIME + "\n");
+                    EventEntry.COLUMN_EVENT_STOP_TIME + " - " +
+                    EventEntry.COLUMN_EVENT_UNIQUE_KEY + "\n");
 
             // Figure out the index of each column
             int idColumnIndex = cursor.getColumnIndex(EventEntry._ID);
@@ -121,6 +123,7 @@ public class CatalogActivity extends AppCompatActivity {
             int venueColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_VENUE);
             int startColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_START_TIME);
             int stopColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_STOP_TIME);
+            int keyColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_UNIQUE_KEY);
 
             // Iterate through all the returned rows in the cursor
             while (cursor.moveToNext()) {
@@ -133,6 +136,7 @@ public class CatalogActivity extends AppCompatActivity {
                 String currentVenue = cursor.getString(venueColumnIndex);
                 String currentStart = cursor.getString(startColumnIndex);
                 String currentStop = cursor.getString(stopColumnIndex);
+                int currentKey = cursor.getInt(keyColumnIndex);
                 // Display the values from each column of the current row in the cursor in the TextView
                 displayView.append(("\n" + currentID + " - " +
                         currentName + " - " +
@@ -140,7 +144,8 @@ public class CatalogActivity extends AppCompatActivity {
                         currentUrl + " - " +
                         currentVenue + " - " +
                         currentStart + " - " +
-                        currentStop));
+                        currentStop + " - " +
+                        currentKey));
             }
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its
@@ -229,6 +234,7 @@ public class CatalogActivity extends AppCompatActivity {
         values.put(EventEntry.COLUMN_EVENT_VENUE, venueString);
         values.put(EventEntry.COLUMN_EVENT_START_TIME, startString);
         values.put(EventEntry.COLUMN_EVENT_STOP_TIME, stopString);
+        values.put(EventEntry.COLUMN_EVENT_UNIQUE_KEY, 1);
 
         // Insert a new row for pet in the database, returning the ID of that new row.
         long newRowId = db.insert(EventEntry.TABLE_NAME, null, values);

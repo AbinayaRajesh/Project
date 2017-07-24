@@ -58,7 +58,8 @@ public class EventDbHelper extends SQLiteOpenHelper {
                 + EventEntry.COLUMN_EVENT_URL + " TEXT NOT NULL, "
                 + EventEntry.COLUMN_EVENT_VENUE + " TEXT NOT NULL, "
                 + EventEntry.COLUMN_EVENT_START_TIME + " TEXT NOT NULL, "
-                + EventEntry.COLUMN_EVENT_STOP_TIME + " TEXT NOT NULL);";
+                + EventEntry.COLUMN_EVENT_STOP_TIME + " TEXT NOT NULL, "
+                + EventEntry.COLUMN_EVENT_UNIQUE_KEY + " INTEGER NOT NULL DEFAULT 0);";
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_EVENTS_TABLE);
