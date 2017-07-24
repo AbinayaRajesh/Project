@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
     <ImageView
         android:id="@+id/recipesPic"
-        android:layout_width="fill_parent"
-        android:layout_height="250dp"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:scaleType="fitXY"
@@ -16,36 +22,43 @@
     <TextView
         android:id="@+id/recipes"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="20dp"
+        android:layout_height="fill_parent"
+        android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:textColor="#FFFFFF"
         android:textSize="50sp"
         android:text="RECIPES"/>
 
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
     <ImageView
         android:id="@+id/restaurantsPic"
         android:layout_width="fill_parent"
-        android:layout_height="250dp"
-        android:layout_below="@+id/recipesPic"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
+        android:layout_height="fill_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/restaurants" />
+        android:src="@drawable/restaurants"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/restaurants"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
-        android:layout_below="@+id/recipesPic"
-        android:layout_marginTop="320dp"
+        android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:textColor="#FFFFFF"
         android:textSize="50sp"
         android:text="RESTAURANTS"/>
 
+    </RelativeLayout>
 
-</RelativeLayout>
+
+</LinearLayout>

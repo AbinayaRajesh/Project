@@ -38,7 +38,7 @@ public class MusicEventsFragment extends EventsListFragment {
                     JSONObject eventsonline = response.getJSONObject("events");
                     JSONArray eventArray = eventsonline.getJSONArray("event");
                     for (int i = 0; i < 10; i++){
-                        Event event = Event.fromJson(eventArray.getJSONObject(i));
+                        Event event = Event.fromJson(i, eventArray.getJSONObject(i));
                         events.add(event);
                         //notify adapter that a row was added
                         adapter.notifyItemChanged(events.size()-1);

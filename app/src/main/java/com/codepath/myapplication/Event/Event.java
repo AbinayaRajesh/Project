@@ -19,6 +19,7 @@ public class Event implements Parcelable {
     public String startTime;
     public String stopTime;
     public String [] date;
+    public int id;
 
 
     public float latitude;
@@ -40,6 +41,9 @@ public class Event implements Parcelable {
         return longitude;
     }
 
+    public int getId() {
+        return id;
+    }
 
     public Event(){}
 
@@ -66,11 +70,12 @@ public class Event implements Parcelable {
 
 
 
-    public static Event fromJson(JSONObject jsonObject) throws JSONException {
+    public static Event fromJson(int i, JSONObject jsonObject) throws JSONException {
         Event event = new Event();
         JSONObject object;
         JSONObject temp;
         //extract the values from JSON
+        event.id = i;
         event.eventName = jsonObject.getString("title");
         event.latitude = (float) jsonObject.getDouble("latitude");
         event.longitude = (float) jsonObject.getDouble("longitude");

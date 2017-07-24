@@ -79,17 +79,10 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.ViewHold
                 Country country = countries.get(position);
                 // create intent for the new activity
 
-
-
                 Intent intent = new Intent(context, OptionsActivity.class);
                 // serialize the movie using parceler, use its short name as a key
                 intent.putExtra("country", Parcels.wrap(country));
                 // intent.putExtra(Country.class.getName(), Parcels.wrap(country));
-
-//                ActivityOptionsCompat options = ActivityOptionsCompat.
-//                        makeSceneTransitionAnimation((Activity) context, (View) ivFlag, "profile");
-//
-
                 // show the activity
                 context.startActivity(intent);
             }
