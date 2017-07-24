@@ -57,6 +57,10 @@
         <fragment android:name=".LanguageFragments.TranslateFragment" />
         <fragment android:name=".LanguageFragments.LanguageMainActivity"/>
         <activity android:name=".LanguageActivity"></activity>
+
+
+        <activity android:name=".CatalogActivity"/>
+        <activity android:name=".EditorActivity"/>
     </application>
 
 </manifest>

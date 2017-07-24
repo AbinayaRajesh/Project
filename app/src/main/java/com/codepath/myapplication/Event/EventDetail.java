@@ -52,7 +52,9 @@ public class EventDetail extends AppCompatActivity {
         String text = Jsoup.parse(event.getEventDescription()).text();
         tvDescription.setText(text);
         date = event.getDate().split("-");
+
         month = new DateFormatSymbols().getMonths()[(Integer.parseInt(date[1]))-1];
+
         tvMonth.setText(month + " " + date[2] + ", " + date[0]);
 
 

@@ -43,14 +43,14 @@ public class VenueCardAdapter extends RecyclerView.Adapter<VenueCardAdapter.VH> 
         holder.rootView.setTag(venue);
         holder.tvTitle.setText(venue.getTitle());
         if (venue.getImageUrl()=="") {
-            int i = (int) ((Math. random() * 50 + 1) % 5);
-            switch (i) {
-                case 0: {holder.ivProfile.setImageResource(R.mipmap.red);break;}
-                case 1: {holder.ivProfile.setImageResource(R.mipmap.blue); break;}
-                case 2: {holder.ivProfile.setImageResource(R.mipmap.green); break;}
-                case 3: {holder.ivProfile.setImageResource(R.mipmap.violet); break;}
-                case 4: {holder.ivProfile.setImageResource(R.mipmap.pink); break;}
-            }
+//            int i = (int) ((Math. random() * 50 + 1) % 5);
+//            switch (i) {
+//                case 0: {holder.ivProfile.setImageResource(R.mipmap.red);break;}
+//                case 1: {holder.ivProfile.setImageResource(R.mipmap.blue); break;}
+//                case 2: {holder.ivProfile.setImageResource(R.mipmap.green); break;}
+//                case 3: {holder.ivProfile.setImageResource(R.mipmap.violet); break;}
+//                case 4: {holder.ivProfile.setImageResource(R.mipmap.pink); break;}
+//            }
             // holder.ivProfile.setImageResource(R.drawable.ic_music);
         }
         else {

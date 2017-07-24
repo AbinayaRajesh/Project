@@ -38,7 +38,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
     // Inflate the view based on the viewType provided.
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contact, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contactoptions, parent, false);
         return new VH(itemView, mContext);
     }
 
