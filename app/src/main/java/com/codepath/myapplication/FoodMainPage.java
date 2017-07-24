@@ -1,5 +1,6 @@
 package com.codepath.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,14 +19,17 @@ public class FoodMainPage extends AppCompatActivity {
 
     ImageView recipes;
     ImageView restaurants;
+
+    Context context;
+
     Country country;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_main_page);
-        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
 
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
 
         recipes = (ImageView) findViewById(R.id.recipesPic);
         restaurants = (ImageView) findViewById(R.id.restaurantsPic);
@@ -36,7 +40,9 @@ public class FoodMainPage extends AppCompatActivity {
 
                 Intent i = new Intent(FoodMainPage.this, tempFOOD.class);
                 i.putExtra("country", Parcels.wrap(country));
+
                 startActivity(i);
+
 
             }
         });

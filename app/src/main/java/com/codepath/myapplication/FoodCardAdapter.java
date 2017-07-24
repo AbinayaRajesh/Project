@@ -81,8 +81,6 @@ public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardAdapter.VH> {
                         context.startActivity(i); // brings up the second activity
 
 
-
-
                     }
                 }
             });

@@ -63,6 +63,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
         final TextView tvTitle;
         final View vPalette;
 
+
         public VH(View itemView, final Context context) {
             super(itemView);
             rootView = itemView;
@@ -81,12 +82,15 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
                         // first parameter is the context, second is the class of the activity to launch
                         if (option.getTitle()=="FOOD") {
                             Intent i = new Intent(context, FoodMainPage.class);
+                            i.putExtra("country", Parcels.wrap(optionsActivity.country.getName()));
+//                            i.putExtra("country", optionsActivity.country.getName());
                             // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             context.startActivity(i); // brings up the second activity
                         }
                         else if (option.getTitle()=="EVENTS") {
                             Intent i = new Intent(context, EventActivity.class);
+                            i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             context.startActivity(i); // brings up the second activity

@@ -6,16 +6,16 @@
     tools:context=".CardsActivity">
 
     <ImageView
-        android:id="@+id/img"
+        android:id="@+id/ivOptionsImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:adjustViewBounds="true"
-        android:src="@drawable/paris"/>
+        android:scaleType="centerCrop" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/rvOptions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/img"/>
+        android:layout_below="@+id/ivOptionsImage"/>
 </RelativeLayout>

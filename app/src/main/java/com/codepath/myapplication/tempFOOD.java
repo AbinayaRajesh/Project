@@ -39,6 +39,9 @@ public class tempFOOD extends AppCompatActivity {
         rvRecipes= (RecyclerView) findViewById(R.id.rvRecipes);
         rvRecipes.setLayoutManager(new LinearLayoutManager(this));
         rvRecipes.setAdapter(adapter);
+
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+
         fetchFood(country.getName());
 
         // allows for optimizations
