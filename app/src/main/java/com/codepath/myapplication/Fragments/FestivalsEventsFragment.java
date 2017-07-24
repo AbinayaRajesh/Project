@@ -28,7 +28,7 @@ public class FestivalsEventsFragment extends EventsListFragment {
         String url = API_BASE_URL + "events/search?";
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
-        params.put("keywords", "china");
+        params.put("keywords", "China");
         params.put("category", "festivals_parades");
         client.get(url, params, new JsonHttpResponseHandler(){
             @Override

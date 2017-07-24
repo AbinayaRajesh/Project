@@ -10,12 +10,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Fragments.EventsPagerAdapter;
+
+import org.parceler.Parcels;
 
 import java.util.Calendar;
 
 
 public class EventActivity extends AppCompatActivity {
+
+    Country country;
 
 
     Calendar c = Calendar.getInstance();
@@ -34,6 +39,7 @@ public class EventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         pageAdapter = new EventsPagerAdapter(getSupportFragmentManager(), this);
         context = this;
         // get the view pager

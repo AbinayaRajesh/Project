@@ -6,11 +6,13 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.codepath.myapplication.Country.Country;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -23,11 +25,13 @@ public class tempFOOD extends AppCompatActivity {
     FoodAdapter adapter;
     RecyclerView rvRecipes;
     FoodCardAdapter mAdapter;
+    Country country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_temp);
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
 
         afood = new ArrayList<>();
         // adapter = new FoodAdapter(afood);
@@ -35,7 +39,7 @@ public class tempFOOD extends AppCompatActivity {
         rvRecipes= (RecyclerView) findViewById(R.id.rvRecipes);
         rvRecipes.setLayoutManager(new LinearLayoutManager(this));
         rvRecipes.setAdapter(adapter);
-        fetchFood("indian");
+        fetchFood(country.getName());
 
         // allows for optimizations
         rvRecipes.setHasFixedSize(true);

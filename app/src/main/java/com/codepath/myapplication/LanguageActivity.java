@@ -6,7 +6,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.LanguageFragments.LanguagePagerAdapter;
+
+import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -21,10 +24,13 @@ public class LanguageActivity extends AppCompatActivity{
     Context context;
     ViewPager vpPager;
     LanguagePagerAdapter pageAdapter;
+    Country country;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         try {
             pageAdapter = new LanguagePagerAdapter(getSupportFragmentManager(), this);
         } catch (GeneralSecurityException e) {

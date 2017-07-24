@@ -19,15 +19,14 @@ import java.util.ArrayList;
 // Provide the underlying view for an individual list item.
 public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardAdapter.VH> {
     private Activity mContext;
-    private ArrayList<Food> mOptions;
-    public tempFOOD optionsActivity;
+    private ArrayList<Food> mFood;
 
     public FoodCardAdapter(Activity context, ArrayList<Food> options) {
         mContext = context;
         if (options == null) {
             throw new IllegalArgumentException("options must not be null");
         }
-        mOptions = options;
+        mFood = options;
     }
 
     // Inflate the view based on the viewType provided.
@@ -40,15 +39,15 @@ public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardAdapter.VH> {
     // Display data at the specified position
     @Override
     public void onBindViewHolder(VH holder, int position) {
-        Food option = mOptions.get(position);
-        holder.rootView.setTag(option);
-        holder.tvTitle.setText(option.getName());
-        Glide.with(mContext).load(option.getImageUrl()).centerCrop().into(holder.ivProfile);
+        Food f = mFood.get(position);
+        holder.rootView.setTag(f);
+        holder.tvTitle.setText(f.getName());
+        Glide.with(mContext).load(f.getImageUrl()).centerCrop().into(holder.ivProfile);
     }
 
     @Override
     public int getItemCount() {
-        return mOptions.size();
+        return mFood.size();
     }
 
     // Provide a reference to the views for each contact item
@@ -69,14 +68,14 @@ public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardAdapter.VH> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final Food option = (Food)v.getTag();
-                    if (option != null) {
+                    final Food food = (Food)v.getTag();
+                    if (food != null) {
                         // Fire an intent when a option is selected
                         // Pass option object in the bundle and populate details activity.
                         // first parameter is the context, second is the class of the activity to launch
 
                         Intent i = new Intent(context, FoodDetail.class);
-                        Food recipe = mOptions.get(option.getId());
+                        Food recipe = mFood.get(food.getId());
 
                         i.putExtra("recipe", Parcels.wrap(recipe));
                         context.startActivity(i); // brings up the second activity

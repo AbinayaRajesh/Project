@@ -2,14 +2,14 @@ package com.codepath.myapplication.Tourism;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Models.Venue;
 import com.codepath.myapplication.R;
-import com.codepath.myapplication.VenueAdapter;
+import com.codepath.myapplication.VenueCardAdapter;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -31,7 +31,7 @@ public class tempTourism extends AppCompatActivity {
     ArrayList<Venue> venues;
     ArrayList<String> venueIds;
 
-    VenueAdapter adapter;
+    VenueCardAdapter adapter;
 
     // Base Url for API
     public final static String API_BASE_URL = "https://api.foursquare.com/v2";
@@ -64,7 +64,7 @@ public class tempTourism extends AppCompatActivity {
         venueIds = new ArrayList<>();
 
         //initialize the adapter -- movies array cannot be reinitialized after this point
-        adapter = new VenueAdapter(venues);
+        adapter = new VenueCardAdapter(tempTourism.this, venues);
 
         // the recycler view
 
@@ -72,7 +72,7 @@ public class tempTourism extends AppCompatActivity {
 
         //resolve the recycler view and connect a layout manager and the adapter
         //rvMovies = (RecyclerView) findViewById(rvMovies);
-        rvVenues.setLayoutManager(new LinearLayoutManager(this));
+        rvVenues.setLayoutManager(new GridLayoutManager(tempTourism.this, 2));
         rvVenues.setAdapter(adapter);
 
 
@@ -114,7 +114,7 @@ public class tempTourism extends AppCompatActivity {
         String url = API_BASE_URL + "/venues/search";
         // set the request parameters
         RequestParams params = new RequestParams();
-        params.put("ll", "40,-74");
+        params.put("ll", ll);
         params.put(API_KEY_PARAM, getString(R.string.api_key));  // Always needs API key
         params.put(API_SECRET_PARAM, getString(R.string.api_secret));
         params.put("v", "20170713");
