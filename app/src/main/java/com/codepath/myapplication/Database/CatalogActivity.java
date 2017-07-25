@@ -164,7 +164,6 @@ public class CatalogActivity extends AppCompatActivity {
 //                        currentStart + "    " +
 //                        currentStop + " \n " +
 //                        currentKey));
-
                 Event e = new Event(currentName, currentDescription, currentUrl, currentVenue, currentStart,
                         currentStop, 0, 0, (byte) 0);
                 aEvent.add(e);
