@@ -125,6 +125,19 @@ public class Event implements Parcelable {
         return object;
     }
 
+    public Event (String name, String des, String url, String venue, String startTime, String stopTime, float lat, float lng, byte fav) {
+        Event e = new Event();
+        e.eventName  = name;
+        e.eventDescription = des;
+        e.eventUrl = url;
+        e.eventVenue = venue;
+        e.startTime = startTime;
+        e.stopTime = stopTime;
+        e.latitude = lat;
+        e.longitude = lng;
+        e.favourite = fav;
+    }
+
 
 
     @Override

@@ -22,14 +22,20 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.codepath.myapplication.R;
 import com.codepath.myapplication.Database.EventContract.EventEntry;
+import com.codepath.myapplication.Event.Event;
+import com.codepath.myapplication.Event.EventAdapter;
+import com.codepath.myapplication.R;
+
+import java.util.ArrayList;
 
 /**
  * Displays list of pets that were entered and stored in the app.
@@ -39,10 +45,21 @@ public class CatalogActivity extends AppCompatActivity {
     /** Database helper that will provide us access to the database */
     private EventDbHelper mDbHelper;
 
+    EventAdapter adapter;
+    RecyclerView rvEvents;
+    ArrayList<Event> aEvent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
+
+        aEvent = new ArrayList<>();
+        adapter = new EventAdapter(aEvent);
+
+        rvEvents= (RecyclerView) findViewById(R.id.rvEvents);
+        rvEvents.setLayoutManager(new LinearLayoutManager(this));
+        rvEvents.setAdapter(adapter);
+
 
         // Setup FAB to open EditorActivity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -137,15 +154,22 @@ public class CatalogActivity extends AppCompatActivity {
                 String currentStart = cursor.getString(startColumnIndex);
                 String currentStop = cursor.getString(stopColumnIndex);
                 int currentKey = cursor.getInt(keyColumnIndex);
+
                 // Display the values from each column of the current row in the cursor in the TextView
-                displayView.append(("\n" + currentID + "    " +
-                        currentName + " \n " +
-                        currentDescription + " \n " +
-                        currentUrl + " \n " +
-                        currentVenue + " \n " +
-                        currentStart + "    " +
-                        currentStop + " \n " +
-                        currentKey));
+//                displayView.append(("\n" + currentID + "    " +
+//                        currentName + " \n " +
+//                        currentDescription + " \n " +
+//                        currentUrl + " \n " +
+//                        currentVenue + " \n " +
+//                        currentStart + "    " +
+//                        currentStop + " \n " +
+//                        currentKey));
+
+                Event e = new Event(currentName, currentDescription, currentUrl, currentVenue, currentStart,
+                        currentStop, 0, 0, (byte) 0);
+                aEvent.add(e);
+                //notify adapter
+                adapter.notifyItemInserted(aEvent.size()-1);
             }
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its
@@ -154,30 +178,6 @@ public class CatalogActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Helper method to insert hardcoded pet data into the database. For debugging purposes only.
-     */
-//    private void insertPet() {
-//        // Gets the database in write mode
-//        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-//
-//        // Create a ContentValues object where column names are the keys,
-//        // and Toto's pet attributes are the values.
-//        ContentValues values = new ContentValues();
-//        values.put(EventEntry.COLUMN_EVENT_NAME, "Toto");
-//        values.put(EventEntry.COLUMN_EVENT_DESCRIPTION, "Terrier");
-//        values.put(EventEntry.COLUMN_EVENT_URL, EventEntry.GENDER_MALE);
-//        values.put(EventEntry.COLUMN_EVENT_VENUE, 7);
-//
-//        // Insert a new row for Toto in the database, returning the ID of that new row.
-//        // The first argument for db.insert() is the pets table name.
-//        // The second argument provides the name of a column in which the framework
-//        // can insert NULL in the event that the ContentValues is empty (if
-//        // this is set to "null", then the framework will not insert a row when
-//        // there are no values).
-//        // The third argument is the ContentValues object containing the info for Toto.
-//        long newRowId = db.insert(EventEntry.TABLE_NAME, null, values);
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

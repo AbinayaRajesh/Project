@@ -55,11 +55,12 @@ public class EventDetail extends AppCompatActivity {
         ivCalender = (ImageView) findViewById(R.id.calender);
 
         i = (ImageButton) findViewById(R.id.add);
+        i.setImageResource(R.drawable.add_white);
 
         event = (Event) getIntent().getParcelableExtra("event");
 
-        if (event.isFavourite()==0)  i.setImageResource(R.drawable.ic_add);
-        else i.setImageResource(R.drawable.ic_remove);
+        if (event.isFavourite()==0)  i.setImageResource(R.drawable.add_white);
+        else i.setImageResource(R.drawable.remove_white);
 
 
         tvEventName.setText(event.getEventName());
@@ -97,14 +98,15 @@ public class EventDetail extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 if(event.favourite==0){
-                    i.setImageResource(R.drawable.ic_remove);
+
+                    i.setImageResource(R.drawable.remove_white);
                     insertEvent(event);
                     event.favourite=1;
                     Intent in = new  Intent(EventDetail.this, CatalogActivity.class);
                     startActivity(in);
                 }
                 else {
-                    i.setImageResource(R.drawable.ic_add);
+                    i.setImageResource(R.drawable.add_white);
                     deleteEvent(event);
                     event.favourite=0;
                     Intent in = new  Intent(EventDetail.this, CatalogActivity.class);
