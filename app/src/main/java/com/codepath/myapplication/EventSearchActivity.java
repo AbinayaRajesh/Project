@@ -64,7 +64,9 @@ public class EventSearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // perform query here
-                getSportsEvents(query);
+                Intent i = new Intent(context, EventSearchActivity.class);
+                i.putExtra("search", query);
+                startActivity(i);
                 searchView.clearFocus();
                 return true;
             }
