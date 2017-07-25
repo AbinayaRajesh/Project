@@ -17,7 +17,8 @@
     <!-- Primary dark color for the editor -->
     <color name="editorColorPrimaryDark">#394450</color>
 
-    <color name="sea_blue">#c2dfff</color>
+    <color name="sea_blue">#000000</color>
     <color name="nice_blue">#1da1f2</color>
+    <color name="text">#FFFFFF</color>
 
 </resources>

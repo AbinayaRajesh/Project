@@ -100,6 +100,31 @@ public class Event implements Parcelable {
         return event;
     }
 
+    public static JSONObject toJson(Event e) throws JSONException {
+        JSONObject object = new JSONObject();
+        //extract the values from JSON
+//        object.put("title", e.getEventName());
+//        event.id = i;
+//        event.favourite=0;
+//        event.eventName = jsonObject.getString("title");
+//        event.latitude = (float) jsonObject.getDouble("latitude");
+//        event.longitude = (float) jsonObject.getDouble("longitude");
+//        event.eventDescription = jsonObject.getString("description");
+//        event.startTime = jsonObject.getString("start_time");
+//        event.stopTime = jsonObject.getString("stop_time");
+//        try{
+//            object = jsonObject.getJSONObject("image");
+//            temp = object.getJSONObject("medium");
+//            event.eventUrl = temp.getString("url");
+//        } catch (org.json.JSONException exception )
+//        {
+//            event.eventUrl = "http://s3.amazonaws.com/churchplantmedia-cms/grace_community_church_tucson_az/events_medium.jpg";
+//        }
+//
+//        event.eventVenue = jsonObject.getString("venue_name");
+        return object;
+    }
+
 
 
     @Override
