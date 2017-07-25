@@ -6,7 +6,6 @@ import android.widget.GridView;
 
 public class OptionsAvailable extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

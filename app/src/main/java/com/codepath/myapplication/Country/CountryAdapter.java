@@ -44,9 +44,9 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.ViewHold
         holder.tvContinent.setText(country.getContinent());
         holder.tvTransName.setText(country.getNativeName());
         Glide.with(context)
-                .load(country.getFlagUrl())
-                .into(holder.ivFlag);
-    }
+            .load(country.getFlagUrl())
+            .into(holder.ivFlag);
+}
 
     @Override
     public int getItemCount() {

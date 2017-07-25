@@ -33,7 +33,6 @@
         <activity android:name=".Options.OptionsActivity" />
         <activity android:name=".Maps.MarkerDemoActivity" />
         <activity android:name=".MapsMarkerActivity" />
-
         <activity android:name=".FoodDetail" />
         <activity android:name=".PlayerActivity" />
         <activity android:name=".MusicActivity" />
@@ -53,14 +52,18 @@
         <activity android:name=".tempFOOD" />
         <activity android:name=".Tourism.tempTourism" />
         <activity android:name=".FoodMainPage" />
+
         <fragment android:name=".LanguageFragments.CommonPhrasesFragment" />
         <fragment android:name=".LanguageFragments.TranslateFragment" />
-        <fragment android:name=".LanguageFragments.LanguageMainActivity"/>
-        <activity android:name=".LanguageActivity"></activity>
+        <fragment android:name=".LanguageFragments.LanguageMainActivity" />
 
-
-        <activity android:name=".CatalogActivity"/>
-        <activity android:name=".EditorActivity"/>
+        <activity android:name=".LanguageActivity" />
+        <activity android:name=".CatalogActivity" />
+        <activity android:name=".EditorActivity" />
+        <activity android:name=".EventSearchActivity" />
+        <activity android:name=".FoodSearchActivity" />
+        <activity android:name=".TourismSearchActivity" />
+        <activity android:name=".RestarauntSearchActivity"></activity>
     </application>
 
 </manifest>

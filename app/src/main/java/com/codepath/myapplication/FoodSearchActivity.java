@@ -13,69 +13,42 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.codepath.myapplication.Country.Country;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
+public class FoodSearchActivity extends AppCompatActivity {
 
-public class tempFOOD extends AppCompatActivity {
     FoodClient client;
     ArrayList<Food> afood;
-    FoodAdapter adapter;
-    RecyclerView rvRecipes;
-    FoodCardAdapter mAdapter;
-    Country country;
+    FoodCardAdapter adapter;
+    RecyclerView rvFood;
     Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food_temp);
-        context = getBaseContext();
-        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
-
-        afood = new ArrayList<>();
-        // adapter = new FoodAdapter(afood);
-
-        rvRecipes= (RecyclerView) findViewById(R.id.rvRecipes);
-        rvRecipes.setLayoutManager(new LinearLayoutManager(this));
-        rvRecipes.setAdapter(adapter);
-
-        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
-
-        fetchFood(country.getName());
-
+        setContentView(R.layout.activity_food_search);
+        String query = getIntent().getExtras().getString("search");
         // allows for optimizations
-        rvRecipes.setHasFixedSize(true);
-
+        context = getBaseContext();
+        rvFood = (RecyclerView) findViewById(R.id.rvFood);
+        rvFood.setLayoutManager(new LinearLayoutManager(this));
+        rvFood.setAdapter(adapter);
+        rvFood.setHasFixedSize(true);
+        afood = new ArrayList<>();
         // Define 2 column grid layout
-        final GridLayoutManager layout = new GridLayoutManager(tempFOOD.this, 2);
-
-        // Unlike ListView, you have to explicitly give a LayoutManager to the RecyclerView to position items on the screen.
-        // There are three LayoutManager provided at the moment: GridLayoutManager, StaggeredGridLayoutManager and LinearLayoutManager.
-        rvRecipes.setLayoutManager(layout);
-
-        // get data
-        // options = Option.getContacts();
-
-
-
-        // Create an adapter
-        mAdapter = new FoodCardAdapter(tempFOOD.this, afood);
-        // mAdapter.tempFOOD = this;
-
+        final GridLayoutManager layout = new GridLayoutManager(FoodSearchActivity.this, 2);
+        rvFood.setLayoutManager(layout);
+        adapter = new FoodCardAdapter(FoodSearchActivity.this, afood);
         // Bind adapter to list
-        rvRecipes.setAdapter(mAdapter);
-
-
-
+        rvFood.setAdapter(adapter);
+        fetchFood("indian", query);
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -100,65 +73,51 @@ public class tempFOOD extends AppCompatActivity {
         return true;
     }
     public void onMaps(MenuItem item) {
-        Intent i = new Intent(context, NearbyActivity.class);
+        Intent i = new Intent(this, NearbyActivity.class);
         startActivity(i);
     }
-    private void fetchFood(String query){
+    public void fetchFood(String query, String querytwo){
+
         client = new FoodClient();
-        client.getRecipes(query, new JsonHttpResponseHandler(){
+        client.getRecipes(query, querytwo, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-
-                    try {
-                        if(response != null) {
-                            JSONArray results = response.getJSONArray("matches");
-                            for(int i =0; i<results.length(); i++){
-                                // Country country = new Country(results.getJSONObject(i));
-                                //final ArrayList<Food> recipes = Food.fromJson(results);
-                                Food recipe = Food.fromJson(i, results.getJSONObject(i));
-                                afood.add(recipe);
-                                //notify adapter
-                                mAdapter.notifyItemInserted(afood.size()-1);
-                            }
+                try {
+                    if(response != null) {
+                        JSONArray results = response.getJSONArray("matches");
+                        for(int i =0; i<results.length(); i++){
+                            // Country country = new Country(results.getJSONObject(i));
+                            //final ArrayList<Food> recipes = Food.fromJson(results);
+                            Food recipe = Food.fromJson(i, results.getJSONObject(i));
+                            afood.add(recipe);
+                            //notify adapter
+                            adapter.notifyItemInserted(afood.size()-1);
                         }
-                JSONArray docs;
-
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-
+            }
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
             }
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, String responseString) {
                 super.onSuccess(statusCode, headers, responseString);
             }
-
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
-
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
             }
-
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
                 super.onFailure(statusCode, headers, throwable, errorResponse);
             }
         });
-
     }
-    //fetch cuisine
-    //
 }
