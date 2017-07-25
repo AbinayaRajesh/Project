@@ -9,7 +9,7 @@
         android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="#1da1f2"
+        app:tabIndicatorColor="#0c5fdc"
         app:tabMode="fixed" />
 
     <android.support.v4.view.ViewPager
@@ -17,6 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
-        android:background="@color/cardview_dark_background" />
+        android:background="@color/sea_blue" />
 
 </LinearLayout>

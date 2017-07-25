@@ -106,13 +106,13 @@ public class CatalogActivity extends AppCompatActivity {
             // In the while loop below, iterate through the rows of the cursor and display
             // the information from each column in this order.
             displayView.setText("The pets table contains " + cursor.getCount() + " pets.\n\n");
-            displayView.append(EventEntry._ID + " - " +
-                    EventEntry.COLUMN_EVENT_NAME + " - " +
-                    EventEntry.COLUMN_EVENT_DESCRIPTION + " - " +
-                    EventEntry.COLUMN_EVENT_URL + " - " +
-                    EventEntry.COLUMN_EVENT_VENUE + " - " +
-                    EventEntry.COLUMN_EVENT_START_TIME + " - " +
-                    EventEntry.COLUMN_EVENT_STOP_TIME + " - " +
+            displayView.append(EventEntry._ID + "    " +
+                    EventEntry.COLUMN_EVENT_NAME + " \n " +
+                    EventEntry.COLUMN_EVENT_DESCRIPTION + " \n " +
+                    EventEntry.COLUMN_EVENT_URL + " \n " +
+                    EventEntry.COLUMN_EVENT_VENUE + " \n " +
+                    EventEntry.COLUMN_EVENT_START_TIME + "    " +
+                    EventEntry.COLUMN_EVENT_STOP_TIME + " \n " +
                     EventEntry.COLUMN_EVENT_UNIQUE_KEY + "\n");
 
             // Figure out the index of each column
@@ -138,13 +138,13 @@ public class CatalogActivity extends AppCompatActivity {
                 String currentStop = cursor.getString(stopColumnIndex);
                 int currentKey = cursor.getInt(keyColumnIndex);
                 // Display the values from each column of the current row in the cursor in the TextView
-                displayView.append(("\n" + currentID + " - " +
-                        currentName + " - " +
-                        currentDescription + " - " +
-                        currentUrl + " - " +
-                        currentVenue + " - " +
-                        currentStart + " - " +
-                        currentStop + " - " +
+                displayView.append(("\n" + currentID + "    " +
+                        currentName + " \n " +
+                        currentDescription + " \n " +
+                        currentUrl + " \n " +
+                        currentVenue + " \n " +
+                        currentStart + "    " +
+                        currentStop + " \n " +
                         currentKey));
             }
         } finally {

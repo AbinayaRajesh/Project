@@ -38,6 +38,7 @@
 
             <TextView
                 android:id="@+id/tvTitle"
+                android:layout_gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -48,15 +49,16 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
-            <ToggleButton
-                android:id="@+id/tbEvents"
-                android:layout_width="32dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:textOff="+"
-                android:textOn="-" />
+                <ImageButton
+                    android:id="@+id/add"
+                    android:background="#FFFFFF"
+                    android:layout_width="32dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_add"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"/>
 
             </LinearLayout>
 

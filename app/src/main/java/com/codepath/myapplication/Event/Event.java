@@ -19,6 +19,7 @@ public class Event implements Parcelable {
     public String startTime;
     public String stopTime;
     public String [] date;
+    byte favourite;
     public int id;
 
 
@@ -69,6 +70,9 @@ public class Event implements Parcelable {
     }
 
 
+    public byte isFavourite() {
+        return favourite;
+    }
 
     public static Event fromJson(int i, JSONObject jsonObject) throws JSONException {
         Event event = new Event();
@@ -76,6 +80,7 @@ public class Event implements Parcelable {
         JSONObject temp;
         //extract the values from JSON
         event.id = i;
+        event.favourite=0;
         event.eventName = jsonObject.getString("title");
         event.latitude = (float) jsonObject.getDouble("latitude");
         event.longitude = (float) jsonObject.getDouble("longitude");
@@ -112,6 +117,7 @@ public class Event implements Parcelable {
         dest.writeString(this.stopTime);
         dest.writeFloat(this.latitude);
         dest.writeFloat(this.longitude);
+        dest.writeByte(this.favourite);
     }
 
     protected Event(Parcel in) {
@@ -123,6 +129,7 @@ public class Event implements Parcelable {
         this.stopTime = in.readString();
         this.latitude = in.readFloat();
         this.longitude = in.readFloat();
+        this.favourite = in.readByte();
     }
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {

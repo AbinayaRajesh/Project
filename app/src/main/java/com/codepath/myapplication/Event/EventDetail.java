@@ -8,10 +8,10 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -37,6 +37,7 @@ public class EventDetail extends AppCompatActivity {
     TextView tvDay;
     String month;
     ImageView ivCalender;
+    ImageButton i;
 
     String [] date;
 
@@ -53,7 +54,13 @@ public class EventDetail extends AppCompatActivity {
         tvMonth = (TextView) findViewById(R.id.tvMonth);
         ivCalender = (ImageView) findViewById(R.id.calender);
 
+        i = (ImageButton) findViewById(R.id.add);
+
         event = (Event) getIntent().getParcelableExtra("event");
+
+        if (event.isFavourite()==0)  i.setImageResource(R.drawable.ic_add);
+        else i.setImageResource(R.drawable.ic_remove);
+
 
         tvEventName.setText(event.getEventName());
         String text = Jsoup.parse(event.getEventDescription()).text();
@@ -83,20 +90,23 @@ public class EventDetail extends AppCompatActivity {
             }
         });
 
-        final ToggleButton tB = (ToggleButton) findViewById(R.id.toggleButton);
-        tB.setOnClickListener(new View.OnClickListener() {
+        i.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                if(tB.isChecked()){
+                if(event.favourite==0){
+                    i.setImageResource(R.drawable.ic_remove);
                     insertEvent(event);
-                    Intent i = new  Intent(EventDetail.this, CatalogActivity.class);
-                    startActivity(i);
+                    event.favourite=1;
+                    Intent in = new  Intent(EventDetail.this, CatalogActivity.class);
+                    startActivity(in);
                 }
                 else {
+                    i.setImageResource(R.drawable.ic_add);
                     deleteEvent(event);
-                    Intent i = new  Intent(EventDetail.this, CatalogActivity.class);
-                    startActivity(i);
+                    event.favourite=0;
+                    Intent in = new  Intent(EventDetail.this, CatalogActivity.class);
+                    startActivity(in);
                 }
             }
         });
@@ -126,7 +136,8 @@ public class EventDetail extends AppCompatActivity {
         // Use trim to eliminate leading or trailing white space
         // mNameEditText.getText().toString().trim();
         String nameString = event.getEventName();
-        String descriptionString = event.getEventDescription();
+        String tex = Jsoup.parse(event.getEventDescription()).text();
+        String descriptionString = tex;
         String urlString = event.getEventUrl();
         String venueString = event.getEventVenue();
         String startString = event.getStartTime();
@@ -170,7 +181,7 @@ public class EventDetail extends AppCompatActivity {
 
         // Create a String that contains the SQL statement to create the pets table
         String SQL_CREATE_EVENTS_TABLE =  "DELETE FROM " + EventEntry.TABLE_NAME +
-                " WHERE " + EventEntry.COLUMN_EVENT_UNIQUE_KEY + " = " + String.valueOf(event.getId()) + ";";
+                " WHERE " + EventEntry.COLUMN_EVENT_NAME + " = \'" + event.getEventName() + "\';";
 
         // Create database helper
         EventDbHelper mDbHelper = new EventDbHelper(this);

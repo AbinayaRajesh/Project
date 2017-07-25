@@ -16,7 +16,6 @@
 
     <android.support.v7.widget.RecyclerView
         android:paddingTop="10dp"
-        android:background="@color/cardview_dark_background"
         android:id="@+id/rvCountry"
         android:layout_width="138dp"
         android:layout_height="495dp"
