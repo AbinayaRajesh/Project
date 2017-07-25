@@ -16,8 +16,7 @@
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/recipes" />
+        android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/recipes"
@@ -42,7 +41,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/restaurants"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />

@@ -8,14 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.myapplication.EventActivity;
 import com.codepath.myapplication.FoodMainPage;
+import com.codepath.myapplication.LanguageActivity;
 import com.codepath.myapplication.R;
 import com.codepath.myapplication.Tourism.TourismActivity;
-import com.codepath.myapplication.LanguageActivity;
 
 import org.parceler.Parcels;
 
@@ -47,7 +46,6 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
     public void onBindViewHolder(VH holder, int position) {
         Option option = mOptions.get(position);
         holder.rootView.setTag(option);
-        holder.tvTitle.setText(option.getTitle());
         Glide.with(mContext).load(option.getThumbnailDrawable()).centerCrop().into(holder.ivProfile);
     }
 
@@ -60,16 +58,13 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
     public class VH extends RecyclerView.ViewHolder {
         final View rootView;
         final ImageView ivProfile;
-        final TextView tvTitle;
-        final View vPalette;
 
 
         public VH(View itemView, final Context context) {
             super(itemView);
             rootView = itemView;
             ivProfile = (ImageView)itemView.findViewById(R.id.ivProfile);
-            tvTitle = (TextView)itemView.findViewById(R.id.tvTitle);
-            vPalette = itemView.findViewById(R.id.vPalette);
+
 
             // Navigate to contact details activity on click of card view.
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +75,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
                         // Fire an intent when a option is selected
                         // Pass option object in the bundle and populate details activity.
                         // first parameter is the context, second is the class of the activity to launch
-                        if (option.getTitle()=="FOOD") {
+                        if (option.getmId()==2) {
                             Intent i = new Intent(context, FoodMainPage.class);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country.getName()));
 //                            i.putExtra("country", optionsActivity.country.getName());
@@ -88,20 +83,20 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             context.startActivity(i); // brings up the second activity
                         }
-                        else if (option.getTitle()=="EVENTS") {
+                        else if (option.getmId()==1) {
                             Intent i = new Intent(context, EventActivity.class);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             context.startActivity(i); // brings up the second activity
                         }
-                        else if (option.getTitle()=="TOURISM") {
+                        else if (option.getmId()==4) {
                             Intent i = new Intent(context, TourismActivity.class);
                             // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             context.startActivity(i); // brings up the second activity
                         }
-                        else if (option.getTitle()=="TRANSLATE") {
+                        else if (option.getmId()==3) {
                             Intent i = new Intent(context, LanguageActivity.class);
                             // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
