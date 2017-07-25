@@ -58,8 +58,8 @@
         <fragment android:name=".LanguageFragments.LanguageMainActivity" />
 
         <activity android:name=".LanguageActivity" />
-        <activity android:name=".CatalogActivity" />
-        <activity android:name=".EditorActivity" />
+        <activity android:name=".Database.CatalogActivity" />
+        <activity android:name=".Database.EditorActivity" />
         <activity android:name=".EventSearchActivity" />
         <activity android:name=".FoodSearchActivity" />
         <activity android:name=".TourismSearchActivity" />

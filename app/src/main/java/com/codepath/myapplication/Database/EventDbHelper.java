@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.codepath.myapplication.data;
+package com.codepath.myapplication.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.codepath.myapplication.data.EventContract.EventEntry;
+import com.codepath.myapplication.Database.EventContract.EventEntry;
 
 /**
  * Database helper for Pets app. Manages database creation and version management.

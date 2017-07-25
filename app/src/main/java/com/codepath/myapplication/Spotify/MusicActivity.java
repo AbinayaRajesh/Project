@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.Spotify;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.codepath.myapplication.NearbyActivity;
+import com.codepath.myapplication.R;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;

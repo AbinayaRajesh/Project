@@ -15,10 +15,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.codepath.myapplication.CatalogActivity;
+import com.codepath.myapplication.Database.CatalogActivity;
 import com.codepath.myapplication.R;
-import com.codepath.myapplication.data.EventContract.EventEntry;
-import com.codepath.myapplication.data.EventDbHelper;
+import com.codepath.myapplication.Database.EventContract.EventEntry;
+import com.codepath.myapplication.Database.EventDbHelper;
 
 import org.jsoup.Jsoup;
 
