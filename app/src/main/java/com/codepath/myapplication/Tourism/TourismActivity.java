@@ -16,6 +16,7 @@ import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.NearbyActivity;
 import com.codepath.myapplication.R;
 import com.codepath.myapplication.TourismFragments.TourismPagerAdapter;
+import com.codepath.myapplication.TourismSearchActivity;
 
 import org.parceler.Parcels;
 
@@ -51,8 +52,9 @@ public class TourismActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // perform query here
-                //Intent i = new Intent(context, SearchActivity.class);
-
+                Intent i = new Intent(context, TourismSearchActivity.class);
+                i.putExtra("search", query);
+                startActivity(i);
                 searchView.clearFocus();
                 return true;
             }

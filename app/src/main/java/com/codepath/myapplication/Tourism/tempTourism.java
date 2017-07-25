@@ -1,14 +1,23 @@
 package com.codepath.myapplication.Tourism;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Models.Venue;
+import com.codepath.myapplication.NearbyActivity;
 import com.codepath.myapplication.R;
+import com.codepath.myapplication.RestarauntSearchActivity;
 import com.codepath.myapplication.VenueCardAdapter;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -27,7 +36,7 @@ public class tempTourism extends AppCompatActivity {
 
     private static final int MY_PERMISSION_ACCESS_COURSE_LOCATION = 13;
     AsyncHttpClient client;
-
+    Context context;
     ArrayList<Venue> venues;
     ArrayList<String> venueIds;
 
@@ -62,7 +71,7 @@ public class tempTourism extends AppCompatActivity {
         client = new AsyncHttpClient();
         venues = new ArrayList<>();
         venueIds = new ArrayList<>();
-
+        context = getBaseContext();
         //initialize the adapter -- movies array cannot be reinitialized after this point
         adapter = new VenueCardAdapter(tempTourism.this, venues);
 
@@ -106,7 +115,32 @@ public class tempTourism extends AppCompatActivity {
         getNowPlaying();
 
     }
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menusearch, menu);
+        MenuItem searchItem = menu.findItem(R.id.searchBar);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // perform query here
+                Intent i = new Intent(context, RestarauntSearchActivity.class);
+                i.putExtra("search", query);
+                startActivity(i);
+                searchView.clearFocus();
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return true;
+    }
+    public void onMaps(MenuItem item) {
+        Intent i = new Intent(this, NearbyActivity.class);
+        startActivity(i);
+    }
 
     // get the list of currently playing movies from the API
     private void getNowPlaying() {

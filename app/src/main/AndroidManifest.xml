@@ -60,7 +60,10 @@
         <activity android:name=".LanguageActivity" />
         <activity android:name=".CatalogActivity" />
         <activity android:name=".EditorActivity" />
-        <activity android:name=".EventSearchActivity"></activity>
+        <activity android:name=".EventSearchActivity" />
+        <activity android:name=".FoodSearchActivity" />
+        <activity android:name=".TourismSearchActivity" />
+        <activity android:name=".RestarauntSearchActivity"></activity>
     </application>
 
 </manifest>

@@ -43,5 +43,15 @@ public class FoodClient {
             e.printStackTrace();
         }
     }
+    public void getRecipes(final String query, final String querytwo, JsonHttpResponseHandler handler) {
+        try {
+
+            String url = getApiUrl("_app_id=" + APP_ID + "&_app_key=" + API_KEY + "&q="+query+"&requirePictures=true");
+
+            client.get(url + URLEncoder.encode(query+"&"+query, "utf-8"), handler);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
