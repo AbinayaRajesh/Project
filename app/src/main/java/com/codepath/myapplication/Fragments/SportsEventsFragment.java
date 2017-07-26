@@ -22,11 +22,8 @@ import cz.msebera.android.httpclient.Header;
 
 public class SportsEventsFragment extends EventsListFragment {
     AsyncHttpClient client;
-<<<<<<< HEAD
     Byte y;
-=======
     String countryName;
->>>>>>> 232ccd76565d2c3f9b497040ee62ffe41dddaa1a
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

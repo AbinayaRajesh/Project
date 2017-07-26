@@ -19,7 +19,7 @@ public class EventsPagerAdapter extends FragmentPagerAdapter {
     private SportsEventsFragment sef;
     private FestivalsEventsFragment fef;
     private String tableTitle[] = new String[]{"Music", "Sports", "Festivals"};
-    int temp = EventActivity.temp;
+
 
 
     public EventsPagerAdapter(FragmentManager fm, Context Context) {
