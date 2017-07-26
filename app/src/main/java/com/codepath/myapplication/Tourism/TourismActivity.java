@@ -25,7 +25,7 @@ public class TourismActivity extends AppCompatActivity {
     Context context;
     ViewPager vpPager;
     TourismPagerAdapter pageAdapter;
-    Country country;
+    public static Country country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

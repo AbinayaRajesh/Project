@@ -32,6 +32,7 @@ public class TourismListFragment extends Fragment {
     RecyclerView rvVenues;
     ArrayList<String> venueIds;
     VenueCardAdapter adapter;
+    String countryName;
     boolean b = false;
     int j = 0;
     // Base Url for API
@@ -49,6 +50,10 @@ public class TourismListFragment extends Fragment {
         adapter = new VenueCardAdapter(getActivity(), venues);
         // the recycler view
         rvVenues = (RecyclerView) v.findViewById(R.id.rvVenues);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            countryName = bundle.getString("country", "");
+        }
 
         //resolve the recycler view and connect a layout manager and the adapter
         //rvMovies = (RecyclerView) findViewById(rvMovies);
@@ -89,7 +94,7 @@ public class TourismListFragment extends Fragment {
         params.put(API_KEY_PARAM, getString(R.string.api_key));  // Always needs API key
         params.put(API_SECRET_PARAM, getString(R.string.api_secret));
         params.put("v", "20170713");
-        params.put("query", query);
+        params.put("query", countryName + " " + query);
         params.put("categoryId", categoryID);
         //params.put("query", country.getName());
         // request a GET response expecting a JSON object response

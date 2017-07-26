@@ -13,6 +13,7 @@ import com.codepath.myapplication.EventActivity;
  */
 
 public class EventsPagerAdapter extends FragmentPagerAdapter {
+    String country = EventActivity.country.getName();
     private Context context;
     private MusicEventsFragment mef;
     private SportsEventsFragment sef;
@@ -27,9 +28,10 @@ public class EventsPagerAdapter extends FragmentPagerAdapter {
         sef = new SportsEventsFragment();
         fef = new FestivalsEventsFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("temp", temp);
+        bundle.putString("country", country);
         mef.setArguments(bundle);
-
+        sef.setArguments(bundle);
+        fef.setArguments(bundle);
     }
 
     public Fragment getItem(int position) {

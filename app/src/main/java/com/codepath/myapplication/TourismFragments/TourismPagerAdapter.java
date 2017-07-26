@@ -5,11 +5,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.codepath.myapplication.Tourism.TourismActivity;
+
 /**
  * Created by eyobtefera on 7/20/17.
  */
 
 public class TourismPagerAdapter extends FragmentPagerAdapter {
+    public String country = TourismActivity.country.getName();
     private Context context;
     private EntertainmentTourismFragment etf;
     private StaycationTourismFragment stf;

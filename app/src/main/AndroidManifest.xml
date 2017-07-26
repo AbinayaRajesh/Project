@@ -63,7 +63,8 @@
         <activity android:name=".EventSearchActivity" />
         <activity android:name=".FoodSearchActivity" />
         <activity android:name=".TourismSearchActivity" />
-        <activity android:name=".RestarauntSearchActivity"></activity>
+        <activity android:name=".RestarauntSearchActivity" />
+        <activity android:name=".CountrySearchActivity"></activity>
     </application>
 
 </manifest>

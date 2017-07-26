@@ -7,12 +7,22 @@ import java.security.GeneralSecurityException;
 
 
 public class TranslateFragment extends LanguageMainActivity {
-
+    static String language;
     public TranslateFragment() throws GeneralSecurityException, IOException {
     }
 
+
+
     public void onCreate(Bundle savedInstanceState) {
+        Bundle args = this.getArguments();
+        if (args != null) {
+            language = args.getString("language", "");
+        }
         super.onCreate(savedInstanceState);
+
+
+
+
         // setContentView(R.layout.activity_language);
 //        translateText = new ArrayList<>();
 //        queryTranslate = new TranslateTextRequest();

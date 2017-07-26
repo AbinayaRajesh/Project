@@ -22,19 +22,27 @@ import cz.msebera.android.httpclient.Header;
 
 public class MusicEventsFragment extends EventsListFragment {
     AsyncHttpClient client;
+
     Byte y;
     public final static String COLUMN_EVENT_VENUE = "venue";
+
+    String countryName;
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client = new AsyncHttpClient();
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            countryName = bundle.getString("country", "");
+        }
         getSportsEvents();
     }
     private void getSportsEvents(){
         String url = API_BASE_URL + "events/search?";
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
-        params.put("keywords", "china");
+        params.put("keywords", countryName);
         params.put("category", "music");
         client.get(url, params, new JsonHttpResponseHandler(){
             @Override

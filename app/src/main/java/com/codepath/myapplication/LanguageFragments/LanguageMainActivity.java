@@ -28,6 +28,7 @@ public class LanguageMainActivity extends Fragment {
     HttpTransport httpTransport =  new com.google.api.client.http.javanet.NetHttpTransport();
     JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 
+    String language;
     View rootView;
 
     EditText input;
@@ -42,6 +43,7 @@ public class LanguageMainActivity extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+
         try {
             i = getArguments().getInt("f");
         }
@@ -51,7 +53,8 @@ public class LanguageMainActivity extends Fragment {
 
         switch (i)
         {
-            case 0: {
+            case 1: {
+                language=TranslateFragment.language;
                 rootView = inflater.inflate(R.layout.activity_translate, container, false);
                 translateText = new ArrayList<>();
                 queryTranslate = new TranslateTextRequest();
@@ -66,7 +69,7 @@ public class LanguageMainActivity extends Fragment {
                 });
                 break;
             }
-            case 1: {
+            case 0: {
                 rootView = inflater.inflate(R.layout.activity_common_phrases, container, false);
                 ArrayList<Phrase> phrases = new ArrayList<Phrase>();
                 Phrase p1 = new Phrase("How are you? / How is it going? ", "Comment allez-vous?");
@@ -98,7 +101,9 @@ public class LanguageMainActivity extends Fragment {
         translateText.add(query);
         queryTranslate.setQ(translateText);
         queryTranslate.setSource("en");
-        queryTranslate.setTarget("fr");
+        queryTranslate.setTarget(language);
+
+        // queryTranslate.setTarget("fr");
         final Translate translate = new Translate.Builder(httpTransport, jsonFactory, null)
                 .setApplicationName("My First Project")
                 .setTranslateRequestInitializer(API_KEY)
@@ -107,7 +112,7 @@ public class LanguageMainActivity extends Fragment {
             @Override
             public void run() {
                 try {
-                    translated = String.valueOf(translate.translations().list(translateText, "fr").execute());
+                    translated = String.valueOf(translate.translations().list(translateText, language).execute());
                     if (translated !=null ){
                         translated = translated.substring(translated.indexOf("t\":\""));
                         translated = translated.substring(4, translated.length()-4);
@@ -120,8 +125,6 @@ public class LanguageMainActivity extends Fragment {
             }
         }).start();
     }
-
-
 
 
 }

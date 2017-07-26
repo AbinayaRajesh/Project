@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView rvCountries;
     CountryAdapter adapter;
     AsyncHttpClient client;
+    ArrayList<Country> popularCountries;
 
 
     Button eventButton;
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        popularCountries = new ArrayList<>();
 //        Intent i = new  Intent(MainActivity.this, CatalogActivity.class);
 //        startActivity(i);
 
@@ -100,8 +103,24 @@ public class MainActivity extends AppCompatActivity {
                        // Country country = new Country(results.getJSONObject(i));
                         Country country = Country.fromJSON(results.getJSONObject(i));
                         countries.add(country);
+                        if (countries.get(i).getName().equals("France") || countries.get(i).getName().equals("China") || countries.get(i).getName().equals("Japan") ||
+                        countries.get(i).getName().equals("Italy") || countries.get(i).getName().equals("India") ||  countries.get(i).getName().equals("Spain")
+                                ||  countries.get(i).getName().equals("Turkey") ||  countries.get(i).getName().equals("United Kingdom") ||  countries.get(i).getName().equals("Mexico") ||
+                                countries.get(i).getName().equals("Germany") || countries.get(i).getName().equals("Brazil") ||  countries.get(i).getName().equals("Egypt") ||
+                                        countries.get(i).getName().equals("Greece") ||  countries.get(i).getName().equals("Australia") || countries.get(i).getName().equals("Vietnam")
+                                || countries.get(i).getName().equals("Morocco") ||  countries.get(i).getName().equals("South Korea") ||  countries.get(i).getName().equals("Singapore") ||
+                                countries.get(i).getName().equals("Saudi Arabia") ||  countries.get(i).getName().equals("Austria") || countries.get(i).getName().equals("United States of America"))
+                        {
+                            popularCountries.add(countries.get(i));
+                            //countries.add(0,popularCountries.get(popularCountries.size()-1));
+                            //adapter.notifyItemInserted(0);
+                        }
                         //notify adapter
                         adapter.notifyItemInserted(countries.size()-1);
+                    }
+                    for (int i = popularCountries.size()-1; i > 0; i--){
+                        countries.add(0,popularCountries.get(i));
+                        adapter.notifyItemInserted(0);
                     }
                 } catch (JSONException e) {
                     logError("Failed to parse now playing movies", e, true);
@@ -145,7 +164,24 @@ public class MainActivity extends AppCompatActivity {
     }// log error
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menumain, menu);
+        inflater.inflate(R.menu.menusearch, menu);
+        MenuItem searchItem = menu.findItem(R.id.searchBar);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // perform query here
+                Intent i = new Intent(context, CountrySearchActivity.class);
+                i.putExtra("search", query);
+                startActivity(i);
+                searchView.clearFocus();
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
     }
     public void onMaps(MenuItem item) {
