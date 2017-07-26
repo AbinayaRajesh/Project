@@ -128,8 +128,9 @@ public class Event implements Parcelable {
         return object;
     }
 
-    public static Event consEvent (String name, String des, String url, String venue, String startTime, String stopTime, float lat, float lng, byte fav) {
+    public static Event consEvent (String name, String des, String url, String venue, String startTime, String stopTime, float lat, float lng, byte fav, int id) {
         Event e = new Event();
+        e.id = id;
         e.eventName  = name;
         e.eventDescription = des;
         e.eventUrl = url;
@@ -151,6 +152,7 @@ public class Event implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
         dest.writeString(this.eventName);
         dest.writeString(this.eventDescription);
         dest.writeString(this.eventUrl);
@@ -163,6 +165,7 @@ public class Event implements Parcelable {
     }
 
     protected Event(Parcel in) {
+        this.id = in.readInt();
         this.eventName = in.readString();
         this.eventDescription = in.readString();
         this.eventUrl = in.readString();

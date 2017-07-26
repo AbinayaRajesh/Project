@@ -17,6 +17,8 @@ import com.codepath.myapplication.Event.EventDetail;
 
 import java.util.ArrayList;
 
+import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
+
 // Provide the underlying view for an individual list item.
 public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.VH> {
     private Activity mContext;
@@ -45,6 +47,13 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.VH> 
         holder.rootView.setTag(event);
         holder.tvTitle.setText(event.getEventName());
         Glide.with(mContext).load(event.getEventUrl()).centerCrop().into(holder.ivProfile);
+
+        if (event.isFavourite()==1) {
+            Glide.with(mContext) .load("") .error(R.drawable.ic_remove) .into(holder.add);
+        }
+        else {
+            Glide.with(mContext) .load("") .error(R.drawable.ic_add) .into(holder.add);
+        }
     }
 
     @Override
@@ -52,13 +61,14 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.VH> 
         return mEvents.size();
     }
 
+
     // Provide a reference to the views for each contact item
     public class VH extends RecyclerView.ViewHolder {
         final View rootView;
         final ImageView ivProfile;
         final TextView tvTitle;
         final View vPalette;
-        ImageButton add;
+        final ImageButton add;
 
         public VH(View itemView, final Context context) {
             super(itemView);
@@ -86,7 +96,8 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.VH> 
                             Intent i = new Intent(context, EventDetail.class);
                             Event event = mEvents.get(e.getId());
                             i.putExtra("event", event);
-                            context.startActivity(i); // brings up the second activity
+                            mContext.startActivityForResult(i, REQUEST_CODE);
+                            // context.startActivity(i); // brings up the second activity
                         }
                     }
                 }

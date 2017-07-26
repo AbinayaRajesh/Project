@@ -166,7 +166,7 @@ public class CatalogActivity extends AppCompatActivity {
 //                        currentKey));
 
                     Event e = Event.consEvent(currentName, currentDescription, currentUrl, currentVenue, currentStart,
-                            currentStop, 0, 0, (byte) 0);
+                            currentStop, 0, 0, (byte) 0, currentKey);
                     aEvent.add(e);
                     //notify adapter
                     adapter.notifyItemInserted(aEvent.size() - 1);

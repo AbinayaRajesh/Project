@@ -1,9 +1,12 @@
 package com.codepath.myapplication.Fragments;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.codepath.myapplication.EventActivity;
 
 /**
  * Created by eyobtefera on 7/18/17.
@@ -15,12 +18,18 @@ public class EventsPagerAdapter extends FragmentPagerAdapter {
     private SportsEventsFragment sef;
     private FestivalsEventsFragment fef;
     private String tableTitle[] = new String[]{"Music", "Sports", "Festivals"};
+    int temp = EventActivity.temp;
+
 
     public EventsPagerAdapter(FragmentManager fm, Context Context) {
         super(fm);
         mef = new MusicEventsFragment();
         sef = new SportsEventsFragment();
         fef = new FestivalsEventsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("temp", temp);
+        mef.setArguments(bundle);
+
     }
 
     public Fragment getItem(int position) {

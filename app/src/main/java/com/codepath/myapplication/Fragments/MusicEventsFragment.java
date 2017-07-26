@@ -1,7 +1,10 @@
 package com.codepath.myapplication.Fragments;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.Event.Event;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -19,6 +22,9 @@ import cz.msebera.android.httpclient.Header;
 
 public class MusicEventsFragment extends EventsListFragment {
     AsyncHttpClient client;
+    Byte y;
+    public final static String COLUMN_EVENT_VENUE = "venue";
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client = new AsyncHttpClient();
@@ -39,6 +45,14 @@ public class MusicEventsFragment extends EventsListFragment {
                     JSONArray eventArray = eventsonline.getJSONArray("event");
                     for (int i = 0; i < 10; i++){
                         Event event = Event.fromJson(i, eventArray.getJSONObject(i));
+                        if (CheckIsDataAlreadyInDBorNot("events", "venue", "\""+event.getEventVenue()+ "\"")) {
+                            y = 0;
+                            event.setFavourite(y);
+                        }
+                        else {
+                            y = 1;
+                            event.setFavourite(y);
+                        }
                         events.add(event);
                         //notify adapter that a row was added
                         adapter.notifyItemChanged(events.size()-1);
@@ -50,4 +64,24 @@ public class MusicEventsFragment extends EventsListFragment {
         });
 //http://api.eventful.com/rest/events/search?app_key=95JSGDKWtDtWRRgx&keywords=fun
     }
+
+    public boolean CheckIsDataAlreadyInDBorNot(String TableName,
+                                               String dbfield, String fieldValue) {
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(getContext());
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        String Query = "Select * from " + TableName + " where " + dbfield + " = " + fieldValue;
+        Cursor cursor = db.rawQuery(Query, null);
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+    }
+
 }

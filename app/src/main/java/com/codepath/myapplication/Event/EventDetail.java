@@ -16,9 +16,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.codepath.myapplication.Database.CatalogActivity;
-import com.codepath.myapplication.R;
 import com.codepath.myapplication.Database.EventContract.EventEntry;
 import com.codepath.myapplication.Database.EventDbHelper;
+import com.codepath.myapplication.R;
 
 import org.jsoup.Jsoup;
 
@@ -64,18 +64,19 @@ public class EventDetail extends AppCompatActivity {
 
 
         tvEventName.setText(event.getEventName());
-        String text = Jsoup.parse(event.getEventDescription()).text();
-        if (text==null) {
+
+        if (event.getEventDescription()==null) {
             tvDescription.setText("No description available");
         }
         else {
+            String text = Jsoup.parse(event.getEventDescription()).text();
             tvDescription.setText(text);
         }
-        date = event.getDate().split("-");
-
-        month = new DateFormatSymbols().getMonths()[(Integer.parseInt(date[1]))-1];
-
-        tvMonth.setText(month + " " + date[2] + ", " + date[0]);
+        if (event.getStartTime()!=null) {
+            date = event.getDate().split("-");
+            month = new DateFormatSymbols().getMonths()[(Integer.parseInt(date[1])) - 1];
+            tvMonth.setText(month + " " + date[2] + ", " + date[0]);
+        }
 
 
         Glide.with(context).
@@ -178,6 +179,18 @@ public class EventDetail extends AppCompatActivity {
             // Otherwise, the insertion was successful and we can display a toast with the row ID.
             Toast.makeText(this, "Event saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
         }
+
+        // pass back data
+
+        // Prepare data intent
+        Intent data = new Intent();
+        // Pass relevant data back as a result
+        int t = event.getId();
+        data.putExtra("num", t);
+        // Activity finished ok, return the data
+        setResult(RESULT_OK, data); // set result code and bundle data for response
+        finish(); // closes the activity, pass data to parent
+
     }
 
     private void deleteEvent(Event event) {
@@ -200,6 +213,7 @@ public class EventDetail extends AppCompatActivity {
         db.execSQL(SQL_CREATE_EVENTS_TABLE);
 
     }
+
 
 
 }

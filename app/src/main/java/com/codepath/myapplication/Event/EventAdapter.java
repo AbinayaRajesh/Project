@@ -62,6 +62,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                     bitmapTransform(new RoundedCornersTransformation(context, 15, 0)).
                     diskCacheStrategy(DiskCacheStrategy.ALL).
                     into(holder.ivEventImage);
+
+
         //}
     }
     @Override

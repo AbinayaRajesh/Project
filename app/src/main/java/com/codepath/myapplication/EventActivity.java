@@ -11,6 +11,7 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Fragments.EventsPagerAdapter;
@@ -19,10 +20,13 @@ import org.parceler.Parcels;
 
 import java.util.Calendar;
 
+import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
+
 
 public class EventActivity extends AppCompatActivity {
 
     Country country;
+    public static int temp;
 
 
     Calendar c = Calendar.getInstance();
@@ -81,4 +85,20 @@ public class EventActivity extends AppCompatActivity {
         Intent i = new Intent(this, NearbyActivity.class);
         startActivity(i);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // REQUEST_CODE is defined above
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            // Extract name value from result extras\
+            int i = data.getExtras().getInt("num", 0);
+            temp = i;
+            // Event event = data.getExtras().getParcelable("event", event);
+            // Toast the name to display temporarily on screen
+            Toast.makeText(this, String.valueOf(i), Toast.LENGTH_SHORT).show();
+            // startActivity(new Intent(EventActivity.this, ))
+        }
+    }
+
+
 }
