@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -57,6 +58,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.VH> 
         final ImageView ivProfile;
         final TextView tvTitle;
         final View vPalette;
+        ImageButton add;
 
         public VH(View itemView, final Context context) {
             super(itemView);
@@ -64,20 +66,45 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.VH> 
             ivProfile = (ImageView)itemView.findViewById(R.id.ivProfile);
             tvTitle = (TextView)itemView.findViewById(R.id.tvTitle);
             vPalette = itemView.findViewById(R.id.vPalette);
+            add = (ImageButton) itemView.findViewById(R.id.add);
 
             // Navigate to contact details activity on click of card view.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final Event e = (Event)v.getTag();
-                    if (e != null) {
-                        // Fire an intent when a option is selected
-                        // Pass option object in the bundle and populate details activity.
-                        // first parameter is the context, second is the class of the activity to launch
-                        Intent i = new Intent(context, EventDetail.class);
-                        Event event = mEvents.get(e.getId());
-                        i.putExtra("event", event);
-                        context.startActivity(i); // brings up the second activity
+                    int position = getAdapterPosition();
+                    final Event e = (Event) mEvents.get(position);
+                    if (v.getId() == R.id.add) {
+
+                    }
+                    else {
+
+                        if (e != null) {
+                            // Fire an intent when a option is selected
+                            // Pass option object in the bundle and populate details activity.
+                            // first parameter is the context, second is the class of the activity to launch
+                            Intent i = new Intent(context, EventDetail.class);
+                            Event event = mEvents.get(e.getId());
+                            i.putExtra("event", event);
+                            context.startActivity(i); // brings up the second activity
+                        }
+                    }
+                }
+            });
+            add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    final Event e = (Event) mEvents.get(position);
+                    if (e.isFavourite()==0) {
+                        add.setImageResource(R.drawable.ic_remove);
+                        Byte i = 1;
+                        e.setFavourite(i);
+                    }
+                    else {
+                        add.setImageResource(R.drawable.ic_add);
+                        Byte i = 0;
+                        e.setFavourite(i);
                     }
                 }
             });

@@ -53,6 +53,7 @@ public class EventActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(vpPager);
         vpPager.setOffscreenPageLimit(3);
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menusearch, menu);
@@ -75,6 +76,7 @@ public class EventActivity extends AppCompatActivity {
         });
         return true;
     }
+
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, NearbyActivity.class);
         startActivity(i);

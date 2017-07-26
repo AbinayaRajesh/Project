@@ -101,14 +101,16 @@ public class EventDetail extends AppCompatActivity {
 
                     i.setImageResource(R.drawable.remove_white);
                     insertEvent(event);
-                    event.favourite=1;
+                    Byte y = 1;
+                    event.setFavourite(y);
                     Intent in = new  Intent(EventDetail.this, CatalogActivity.class);
                     startActivity(in);
                 }
                 else {
                     i.setImageResource(R.drawable.add_white);
                     deleteEvent(event);
-                    event.favourite=0;
+                    Byte y = 0;
+                    event.setFavourite(y);
                     Intent in = new  Intent(EventDetail.this, CatalogActivity.class);
                     startActivity(in);
                 }

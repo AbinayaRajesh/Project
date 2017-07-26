@@ -69,6 +69,9 @@ public class Event implements Parcelable {
         return date[0];
     }
 
+    public void setFavourite(byte favourite) {
+        this.favourite = favourite;
+    }
 
     public byte isFavourite() {
         return favourite;
@@ -125,7 +128,7 @@ public class Event implements Parcelable {
         return object;
     }
 
-    public Event (String name, String des, String url, String venue, String startTime, String stopTime, float lat, float lng, byte fav) {
+    public static Event consEvent (String name, String des, String url, String venue, String startTime, String stopTime, float lat, float lng, byte fav) {
         Event e = new Event();
         e.eventName  = name;
         e.eventDescription = des;
@@ -136,6 +139,7 @@ public class Event implements Parcelable {
         e.latitude = lat;
         e.longitude = lng;
         e.favourite = fav;
+        return e;
     }
 
 

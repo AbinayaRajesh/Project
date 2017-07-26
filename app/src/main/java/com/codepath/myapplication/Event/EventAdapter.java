@@ -51,15 +51,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         //get the data according to position
         Event event = mEvents.get(position);
         //populate the views according to this data
-        holder.tvEventName.setText(event.eventName);
-        holder.tvEventVenue.setText(event.eventVenue);
+        String eventName = event.getEventName();
+        holder.tvEventName.setText(event.getEventName());
+        holder.tvEventVenue.setText(event.getEventVenue());
        // holder.tvEventDescription.setText(Jsoup.parse(event.eventDescription).text());
 
-        Glide.with(context).
-                load(event.getEventUrl()).
-                bitmapTransform(new RoundedCornersTransformation(context, 15, 0)).
-                diskCacheStrategy(DiskCacheStrategy.ALL).
-                into(holder.ivEventImage);
+        //if (!event.getEventUrl().equals("URL")) {
+            Glide.with(context).
+                    load(event.getEventUrl()).
+                    bitmapTransform(new RoundedCornersTransformation(context, 15, 0)).
+                    diskCacheStrategy(DiskCacheStrategy.ALL).
+                    into(holder.ivEventImage);
+        //}
     }
     @Override
     public int getItemCount() {

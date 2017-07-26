@@ -27,7 +27,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.myapplication.Database.EventContract.EventEntry;
@@ -55,6 +54,7 @@ public class CatalogActivity extends AppCompatActivity {
 
         aEvent = new ArrayList<>();
         adapter = new EventAdapter(aEvent);
+        adapter.notifyDataSetChanged();
 
         rvEvents= (RecyclerView) findViewById(R.id.rvEvents);
         rvEvents.setLayoutManager(new LinearLayoutManager(this));
@@ -112,7 +112,7 @@ public class CatalogActivity extends AppCompatActivity {
                 null,                  // Don't filter by row groups
                 null);                   // The sort order
 
-        TextView displayView = (TextView) findViewById(R.id.text_view_pet);
+        //TextView displayView = (TextView) findViewById(R.id.text_view_pet);
 
         try {
             // Create a header in the Text View that looks like this:
@@ -122,15 +122,15 @@ public class CatalogActivity extends AppCompatActivity {
             //
             // In the while loop below, iterate through the rows of the cursor and display
             // the information from each column in this order.
-            displayView.setText("The pets table contains " + cursor.getCount() + " pets.\n\n");
-            displayView.append(EventEntry._ID + "    " +
-                    EventEntry.COLUMN_EVENT_NAME + " \n " +
-                    EventEntry.COLUMN_EVENT_DESCRIPTION + " \n " +
-                    EventEntry.COLUMN_EVENT_URL + " \n " +
-                    EventEntry.COLUMN_EVENT_VENUE + " \n " +
-                    EventEntry.COLUMN_EVENT_START_TIME + "    " +
-                    EventEntry.COLUMN_EVENT_STOP_TIME + " \n " +
-                    EventEntry.COLUMN_EVENT_UNIQUE_KEY + "\n");
+//            displayView.setText("The pets table contains " + cursor.getCount() + " pets.\n\n");
+//            displayView.append(EventEntry._ID + "    " +
+//                    EventEntry.COLUMN_EVENT_NAME + " \n " +
+//                    EventEntry.COLUMN_EVENT_DESCRIPTION + " \n " +
+//                    EventEntry.COLUMN_EVENT_URL + " \n " +
+//                    EventEntry.COLUMN_EVENT_VENUE + " \n " +
+//                    EventEntry.COLUMN_EVENT_START_TIME + "    " +
+//                    EventEntry.COLUMN_EVENT_STOP_TIME + " \n " +
+//                    EventEntry.COLUMN_EVENT_UNIQUE_KEY + "\n");
 
             // Figure out the index of each column
             int idColumnIndex = cursor.getColumnIndex(EventEntry._ID);
@@ -155,7 +155,7 @@ public class CatalogActivity extends AppCompatActivity {
                 String currentStop = cursor.getString(stopColumnIndex);
                 int currentKey = cursor.getInt(keyColumnIndex);
 
-                // Display the values from each column of the current row in the cursor in the TextView
+//                // Display the values from each column of the current row in the cursor in the TextView
 //                displayView.append(("\n" + currentID + "    " +
 //                        currentName + " \n " +
 //                        currentDescription + " \n " +
@@ -164,11 +164,13 @@ public class CatalogActivity extends AppCompatActivity {
 //                        currentStart + "    " +
 //                        currentStop + " \n " +
 //                        currentKey));
-                Event e = new Event(currentName, currentDescription, currentUrl, currentVenue, currentStart,
-                        currentStop, 0, 0, (byte) 0);
-                aEvent.add(e);
-                //notify adapter
-                adapter.notifyItemInserted(aEvent.size()-1);
+
+                    Event e = Event.consEvent(currentName, currentDescription, currentUrl, currentVenue, currentStart,
+                            currentStop, 0, 0, (byte) 0);
+                    aEvent.add(e);
+                    //notify adapter
+                    adapter.notifyItemInserted(aEvent.size() - 1);
+
             }
         } finally {
             // Always close the cursor when you're done reading from it. This releases all its
@@ -193,7 +195,7 @@ public class CatalogActivity extends AppCompatActivity {
             // Respond to a click on the "Insert dummy data" menu option
             case R.id.action_insert_dummy_data:
                 // insertPet();
-                insertEvent();
+                // insertEvent();
                 displayDatabaseInfo();
                 return true;
             // Respond to a click on the "Delete all entries" menu option
