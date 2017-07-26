@@ -93,7 +93,7 @@ public class Event implements Parcelable {
             event.eventUrl = temp.getString("url");
         } catch (org.json.JSONException exception )
         {
-            event.eventUrl = "http://s3.amazonaws.com/churchplantmedia-cms/grace_community_church_tucson_az/events_medium.jpg";
+            event.eventUrl = "https://static1.squarespace.com/static/533353a3e4b0429a548a8446/t/54a78bede4b057f9e3964d76/1420266478889/lights_events_1366x768_68503.jpg?format=1500w";
         }
 
         event.eventVenue = jsonObject.getString("venue_name");

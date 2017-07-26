@@ -19,8 +19,14 @@ import cz.msebera.android.httpclient.Header;
 
 public class SportsEventsFragment extends EventsListFragment {
     AsyncHttpClient client;
+    String countryName;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            countryName = bundle.getString("country", "");
+        }
         client = new AsyncHttpClient();
         getSportsEvents();
     }
@@ -28,7 +34,7 @@ public class SportsEventsFragment extends EventsListFragment {
         String url = API_BASE_URL + "events/search?";
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
-        params.put("keywords", "china");
+        params.put("keywords", countryName);
         params.put("category", "sports");
         client.get(url, params, new JsonHttpResponseHandler(){
             @Override

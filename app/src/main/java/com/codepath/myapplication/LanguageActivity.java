@@ -24,7 +24,7 @@ public class LanguageActivity extends AppCompatActivity{
     Context context;
     ViewPager vpPager;
     LanguagePagerAdapter pageAdapter;
-    Country country;
+    public static Country country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

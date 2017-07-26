@@ -1,15 +1,19 @@
 package com.codepath.myapplication.Fragments;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.codepath.myapplication.EventActivity;
 
 /**
  * Created by eyobtefera on 7/18/17.
  */
 
 public class EventsPagerAdapter extends FragmentPagerAdapter {
+    String country = EventActivity.country.getName();
     private Context context;
     private MusicEventsFragment mef;
     private SportsEventsFragment sef;
@@ -21,6 +25,11 @@ public class EventsPagerAdapter extends FragmentPagerAdapter {
         mef = new MusicEventsFragment();
         sef = new SportsEventsFragment();
         fef = new FestivalsEventsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("country", country);
+        mef.setArguments(bundle);
+        sef.setArguments(bundle);
+        fef.setArguments(bundle);
     }
 
     public Fragment getItem(int position) {

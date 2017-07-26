@@ -22,7 +22,7 @@ import java.util.Calendar;
 
 public class EventActivity extends AppCompatActivity {
 
-    Country country;
+    public static Country country;
 
 
     Calendar c = Calendar.getInstance();

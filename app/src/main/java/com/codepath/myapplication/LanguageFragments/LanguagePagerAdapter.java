@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.codepath.myapplication.LanguageActivity;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
@@ -17,6 +19,7 @@ public class LanguagePagerAdapter extends FragmentPagerAdapter {
     private Context context;
     private TranslateFragment tf;
     private CommonPhrasesFragment cpf;
+    String countryCode = LanguageActivity.country.getLanguage();
 
     private String tableTitle[] = new String[]{"Translate", "Common Phrases"};
 
@@ -24,8 +27,6 @@ public class LanguagePagerAdapter extends FragmentPagerAdapter {
         super(fm);
         cpf = new CommonPhrasesFragment();
         tf = new TranslateFragment();
-
-
     }
 
     public Fragment getItem(int position) {
@@ -33,22 +34,18 @@ public class LanguagePagerAdapter extends FragmentPagerAdapter {
 
             Bundle args1 = new Bundle();
             args1.putInt("f", 1);
+            args1.putString("language", countryCode);
             cpf.setArguments(args1);
             return cpf;
         } else
         {
-
-
                 Bundle args = new Bundle();
                 args.putInt("f", 0);
-                cpf.setArguments(args);
-
-
+                args.putString("language", countryCode);
+                tf.setArguments(args);
             return tf;
-
         }
     }
-
 
     @Override
     public int getCount() {
