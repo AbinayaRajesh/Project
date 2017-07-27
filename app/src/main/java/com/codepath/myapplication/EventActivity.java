@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.codepath.myapplication.Country.Country;
+import com.codepath.myapplication.Fragments.EventsListFragment;
 import com.codepath.myapplication.Fragments.EventsPagerAdapter;
 
 import org.parceler.Parcels;
@@ -25,7 +26,10 @@ import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
 
 public class EventActivity extends AppCompatActivity {
 
+
     public static Country country;
+
+
 
 
     Calendar c = Calendar.getInstance();
@@ -36,16 +40,20 @@ public class EventActivity extends AppCompatActivity {
             c.get(Calendar.HOUR) + ":" +
             c.get(Calendar.MINUTE) + ":" +
             c.get(Calendar.SECOND);
-
     Context context;
     ViewPager vpPager;
     EventsPagerAdapter pageAdapter;
+    String filter;
+    Bundle bundle;
+    EventsListFragment fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+        pageAdapter = new EventsPagerAdapter(getSupportFragmentManager(), context);
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
-        pageAdapter = new EventsPagerAdapter(getSupportFragmentManager(), this);
+        bundle = new Bundle();
+        fragment = new EventsListFragment();
         context = this;
         // get the view pager
         vpPager = (ViewPager) findViewById(R.id.viewpager);
@@ -59,7 +67,7 @@ public class EventActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menusearch, menu);
+        inflater.inflate(R.menu.menufilter, menu);
         MenuItem searchItem = menu.findItem(R.id.searchBar);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -85,6 +93,7 @@ public class EventActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // REQUEST_CODE is defined above
@@ -105,4 +114,37 @@ public class EventActivity extends AppCompatActivity {
     }
 
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        bundle.clear();
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_dropdown1: {
+                bundle.putString("filter", "popularity");
+                fragment.setArguments(bundle);
+                filter = "popularity";
+                pageAdapter.notifyDataSetChanged();
+                break;
+            }
+            case R.id.action_dropdown2: {
+                bundle.putString("filter", "date");
+                fragment.setArguments(bundle);
+                filter = "date";
+                pageAdapter.notifyDataSetChanged();
+                break;
+            }
+            case R.id.action_dropdown3: {
+                bundle.putString("filter", "relevance");
+                fragment.setArguments(bundle);
+                filter = "relevance";
+                pageAdapter.notifyDataSetChanged();
+                break;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+    public String getFilter(){
+        return filter;
+    }
 }
