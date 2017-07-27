@@ -38,7 +38,7 @@ import java.util.ArrayList;
 /**
  * Displays list of pets that were entered and stored in the app.
  */
-public class SavedEventsActivity extends AppCompatActivity {
+public class SavedRecipesActivity extends AppCompatActivity {
 
     /** Database helper that will provide us access to the database */
     private EventDbHelper mDbHelper;

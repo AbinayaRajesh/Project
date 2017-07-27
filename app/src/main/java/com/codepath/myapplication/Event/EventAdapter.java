@@ -2,6 +2,7 @@ package com.codepath.myapplication.Event;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,10 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
 
     private List<Event> mEvents;
+    ViewGroup pview;
     Context context;
+    Event curE;
+    int curI;
 
     public EventAdapter(ArrayList<Event> events) {
         this.mEvents = events;
@@ -37,6 +41,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
+        pview = parent;
         LayoutInflater inflater = LayoutInflater.from(context);
         View eventView = inflater.inflate(R.layout.item_event, parent, false);
         ViewHolder viewHolder = new ViewHolder(eventView);
@@ -78,6 +83,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         public TextView tvEventVenue;
        // public TextView tvEventDescription;
         public RelativeLayout layout;
+
+
+
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -89,7 +97,37 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             layout = (RelativeLayout) itemView.findViewById(R.id.detailView);
             itemView.setOnClickListener(this);
 
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    int pos = getAdapterPosition();
+                    Event event = mEvents.get(pos);
+                    mEvents.remove(pos);
+                    curE = event;
+                    curI = pos;
+                    notifyDataSetChanged();
+                    //Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(pview, R.string.snackbar_text, Snackbar.LENGTH_LONG)
+                            .setAction(R.string.snackbar_action, myOnClickListener)
+                            .show(); // Don’t forget to show!
+
+                    return true;
+                }
+            });
+
+
         }
+
+        View.OnClickListener myOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               mEvents.add(curI, curE);
+                notifyDataSetChanged();
+            }
+        };
+
+
         public void onClick(View v) {
             // gets item position
             int position = getAdapterPosition();
@@ -109,5 +147,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                 context.startActivity(intent);
             }
         }
-    }
+
+
+        }
 }
