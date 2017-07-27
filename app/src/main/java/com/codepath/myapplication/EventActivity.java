@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
+import com.codepath.myapplication.Fragments.EventsListFragment;
 import com.codepath.myapplication.Fragments.EventsPagerAdapter;
 
 import org.parceler.Parcels;
@@ -23,8 +24,6 @@ import java.util.Calendar;
 public class EventActivity extends AppCompatActivity {
 
     Country country;
-
-
     Calendar c = Calendar.getInstance();
     int seconds = c.get(Calendar.SECOND);
     String dateString = c.get(Calendar.YEAR) + "-" +
@@ -33,16 +32,20 @@ public class EventActivity extends AppCompatActivity {
             c.get(Calendar.HOUR) + ":" +
             c.get(Calendar.MINUTE) + ":" +
             c.get(Calendar.SECOND);
-
     Context context;
     ViewPager vpPager;
     EventsPagerAdapter pageAdapter;
+    String filter;
+    Bundle bundle;
+    EventsListFragment fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         pageAdapter = new EventsPagerAdapter(getSupportFragmentManager(), this);
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+        bundle = new Bundle();
+        fragment = new EventsListFragment();
         context = this;
         // get the view pager
         vpPager = (ViewPager) findViewById(R.id.viewpager);
@@ -55,7 +58,7 @@ public class EventActivity extends AppCompatActivity {
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menusearch, menu);
+        inflater.inflate(R.menu.menufilter, menu);
         MenuItem searchItem = menu.findItem(R.id.searchBar);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -78,5 +81,38 @@ public class EventActivity extends AppCompatActivity {
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, NearbyActivity.class);
         startActivity(i);
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        bundle.clear();
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_dropdown1: {
+                bundle.putString("filter", "popularity");
+                fragment.setArguments(bundle);
+                filter = "popularity";
+                pageAdapter.notifyDataSetChanged();
+                break;
+            }
+            case R.id.action_dropdown2: {
+                bundle.putString("filter", "date");
+                fragment.setArguments(bundle);
+                filter = "date";
+                pageAdapter.notifyDataSetChanged();
+                break;
+            }
+            case R.id.action_dropdown3: {
+                bundle.putString("filter", "relevance");
+                fragment.setArguments(bundle);
+                filter = "relevance";
+                pageAdapter.notifyDataSetChanged();
+                break;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+    public String getFilter(){
+        return filter;
     }
 }

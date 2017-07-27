@@ -3,13 +3,13 @@ package com.codepath.myapplication.Fragments;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
  * Created by eyobtefera on 7/18/17.
  */
 
-public class EventsPagerAdapter extends FragmentPagerAdapter {
+public class EventsPagerAdapter extends FragmentStatePagerAdapter {
     private Context context;
     private MusicEventsFragment mef;
     private SportsEventsFragment sef;
@@ -26,8 +26,7 @@ public class EventsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         if (position == 0) {
             return mef;
-        } else if (position == 1)
-        {
+        } else if (position == 1) {
             return sef;
         } else if (position == 2) {
             return fef;
@@ -35,8 +34,11 @@ public class EventsPagerAdapter extends FragmentPagerAdapter {
             return null;
         }
     }
+    @Override
+    public int getItemPosition(Object object) {
 
-
+        return POSITION_NONE;
+    }
     @Override
     public int getCount() {
         return 3;
