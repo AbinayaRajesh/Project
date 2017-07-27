@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.codepath.myapplication.Database.CatalogActivity;
+import com.codepath.myapplication.Database.SavedEventsActivity;
 import com.codepath.myapplication.Database.EventContract.EventEntry;
 import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.R;
@@ -59,9 +59,15 @@ public class EventDetail extends AppCompatActivity {
 
         event = (Event) getIntent().getParcelableExtra("event");
 
-        if (event.isFavourite()==0)  i.setImageResource(R.drawable.add_white);
-        else i.setImageResource(R.drawable.remove_white);
+//        if (event.isFavourite()==0)  i.setImageResource(R.drawable.add_white);
+//        else i.setImageResource(R.drawable.remove_white);
 
+        if (event.isFavourite()==1) {
+            Glide.with(context) .load("") .error(R.drawable.add_white) .into(i);
+        }
+        else {
+            Glide.with(context) .load("") .error(R.drawable.remove_white) .into(i);
+        }
 
         tvEventName.setText(event.getEventName());
 
@@ -98,21 +104,21 @@ public class EventDetail extends AppCompatActivity {
 
             @Override
             public void onClick(View arg0) {
-                if(event.favourite==0){
+                if(event.favourite==1){
 
                     i.setImageResource(R.drawable.remove_white);
                     insertEvent(event);
-                    Byte y = 1;
+                    Byte y = 0;
                     event.setFavourite(y);
-                    Intent in = new  Intent(EventDetail.this, CatalogActivity.class);
+                    Intent in = new  Intent(EventDetail.this, SavedEventsActivity.class);
                     startActivity(in);
                 }
                 else {
                     i.setImageResource(R.drawable.add_white);
                     deleteEvent(event);
-                    Byte y = 0;
+                    Byte y = 1;
                     event.setFavourite(y);
-                    Intent in = new  Intent(EventDetail.this, CatalogActivity.class);
+                    Intent in = new  Intent(EventDetail.this, SavedEventsActivity.class);
                     startActivity(in);
                 }
             }
@@ -138,6 +144,8 @@ public class EventDetail extends AppCompatActivity {
 
 
     private void insertEvent(Event event) {
+
+        deleteEvent(event);
 
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
@@ -195,12 +203,10 @@ public class EventDetail extends AppCompatActivity {
 
     private void deleteEvent(Event event) {
 
-        String num = String.valueOf(event.getId());
-        String mun = EventEntry._ID;
 
         // Create a String that contains the SQL statement to create the pets table
         String SQL_CREATE_EVENTS_TABLE =  "DELETE FROM " + EventEntry.TABLE_NAME +
-                " WHERE " + EventEntry.COLUMN_EVENT_NAME + " = \'" + event.getEventName() + "\';";
+                " WHERE " + EventEntry.COLUMN_EVENT_VENUE + " = \"" + event.getEventVenue() + "\";";
 
         // Create database helper
         EventDbHelper mDbHelper = new EventDbHelper(this);

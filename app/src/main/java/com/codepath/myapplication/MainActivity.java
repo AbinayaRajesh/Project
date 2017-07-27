@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         popularCountries = new ArrayList<>();
-//        Intent i = new  Intent(MainActivity.this, CatalogActivity.class);
+//        Intent i = new  Intent(MainActivity.this, SavedEventsActivity.class);
 //        startActivity(i);
 
         client = new AsyncHttpClient();

@@ -39,7 +39,7 @@ import java.util.ArrayList;
 /**
  * Displays list of pets that were entered and stored in the app.
  */
-public class CatalogActivity extends AppCompatActivity {
+public class SavedEventsActivity extends AppCompatActivity {
 
     /** Database helper that will provide us access to the database */
     private EventDbHelper mDbHelper;
@@ -66,7 +66,7 @@ public class CatalogActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
+                Intent intent = new Intent(SavedEventsActivity.this, EditorActivity.class);
                 startActivity(intent);
             }
         });

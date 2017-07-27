@@ -88,14 +88,19 @@ public class EventActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // REQUEST_CODE is defined above
+
+        Intent p = new Intent(EventActivity.this, EventActivity.class );
+        p.putExtra("country", Parcels.wrap(country));
+        startActivity(p);
+
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
             // Extract name value from result extras\
-            int i = data.getExtras().getInt("num", 0);
+            int i = data.getExtras().getInt("num", -1);
 
             // Event event = data.getExtras().getParcelable("event", event);
             // Toast the name to display temporarily on screen
             Toast.makeText(this, String.valueOf(i), Toast.LENGTH_SHORT).show();
-            // startActivity(new Intent(EventActivity.this, ))
+
         }
     }
 

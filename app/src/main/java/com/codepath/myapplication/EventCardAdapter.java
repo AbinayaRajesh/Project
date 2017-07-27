@@ -1,8 +1,10 @@
 package com.codepath.myapplication;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +12,16 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.codepath.myapplication.Database.EventContract;
+import com.codepath.myapplication.Database.EventContract.EventEntry;
+import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.Event.Event;
 import com.codepath.myapplication.Event.EventDetail;
+
+import org.jsoup.Jsoup;
 
 import java.util.ArrayList;
 
@@ -49,16 +57,93 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.VH> 
         Glide.with(mContext).load(event.getEventUrl()).centerCrop().into(holder.ivProfile);
 
         if (event.isFavourite()==1) {
-            Glide.with(mContext) .load("") .error(R.drawable.ic_remove) .into(holder.add);
+            Glide.with(mContext) .load("") .error(R.drawable.ic_add) .into(holder.add);
         }
         else {
-            Glide.with(mContext) .load("") .error(R.drawable.ic_add) .into(holder.add);
+            Glide.with(mContext) .load("") .error(R.drawable.ic_remove) .into(holder.add);
         }
     }
 
     @Override
     public int getItemCount() {
         return mEvents.size();
+    }
+
+    private void insertEvent(Event event) {
+
+        deleteEvent(event);
+
+        // Read from input fields
+        // Use trim to eliminate leading or trailing white space
+        // mNameEditText.getText().toString().trim();
+        String nameString = event.getEventName();
+        String tex = Jsoup.parse(event.getEventDescription()).text();
+        String descriptionString = tex;
+        String urlString = event.getEventUrl();
+        String venueString = event.getEventVenue();
+        String startString = event.getStartTime();
+        String stopString = event.getStopTime();
+        int key = event.getId();
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(mContext);
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        // Create a ContentValues object where column names are the keys,
+        // and pet attributes from the editor are the values.
+        ContentValues values = new ContentValues();
+        values.put(EventEntry.COLUMN_EVENT_NAME, nameString);
+        values.put(EventEntry.COLUMN_EVENT_DESCRIPTION, descriptionString);
+        values.put(EventEntry.COLUMN_EVENT_URL, urlString);
+        values.put(EventEntry.COLUMN_EVENT_VENUE, venueString);
+        values.put(EventEntry.COLUMN_EVENT_START_TIME, startString);
+        values.put(EventEntry.COLUMN_EVENT_STOP_TIME, stopString);
+        values.put(EventEntry.COLUMN_EVENT_UNIQUE_KEY, key);
+
+        // Insert a new row for pet in the database, returning the ID of that new row.
+        long newRowId = db.insert(EventEntry.TABLE_NAME, null, values);
+
+        // Show a toast message depending on whether or not the insertion was successful
+        if (newRowId == -1) {
+            // If the row ID is -1, then there was an error with insertion.
+            Toast.makeText(mContext, "Error with saving event", Toast.LENGTH_SHORT).show();
+        } else {
+            // Otherwise, the insertion was successful and we can display a toast with the row ID.
+            Toast.makeText(mContext, "Event saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
+        }
+
+//        // pass back data
+//
+//        // Prepare data intent
+//        Intent data = new Intent();
+//        // Pass relevant data back as a result
+//        int t = event.getId();
+//        data.putExtra("num", t);
+//        // Activity finished ok, return the data
+//        setResult(RESULT_OK, data); // set result code and bundle data for response
+//        finish(); // closes the activity, pass data to parent
+
+    }
+
+    private void deleteEvent(Event event) {
+
+
+        // Create a String that contains the SQL statement to create the pets table
+        String SQL_CREATE_EVENTS_TABLE =  "DELETE FROM " + EventContract.EventEntry.TABLE_NAME +
+                " WHERE " + EventContract.EventEntry.COLUMN_EVENT_VENUE + " = \"" + event.getEventVenue() + "\";";
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(mContext);
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+
+        // Execute the SQL statement
+        db.execSQL(SQL_CREATE_EVENTS_TABLE);
+
     }
 
 
@@ -111,11 +196,13 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.VH> 
                         add.setImageResource(R.drawable.ic_remove);
                         Byte i = 1;
                         e.setFavourite(i);
+                        insertEvent(e);
                     }
                     else {
                         add.setImageResource(R.drawable.ic_add);
                         Byte i = 0;
                         e.setFavourite(i);
+                        deleteEvent(e);
                     }
                 }
             });

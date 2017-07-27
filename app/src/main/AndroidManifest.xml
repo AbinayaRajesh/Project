@@ -58,7 +58,7 @@
         <fragment android:name=".LanguageFragments.LanguageMainActivity" />
 
         <activity android:name=".LanguageActivity" />
-        <activity android:name=".Database.CatalogActivity" />
+        <activity android:name=".Database.SavedEventsActivity" />
         <activity android:name=".Database.EditorActivity" />
         <activity android:name=".EventSearchActivity" />
         <activity android:name=".FoodSearchActivity" />
