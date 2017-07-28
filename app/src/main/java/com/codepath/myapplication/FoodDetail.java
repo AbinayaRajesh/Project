@@ -1,7 +1,9 @@
 package com.codepath.myapplication;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -9,12 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.codepath.myapplication.Database.EventDbHelper;
+import com.codepath.myapplication.Database.FoodContract.FoodEntry;
+import com.codepath.myapplication.Database.SavedRecipesActivity;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -29,6 +36,7 @@ public class FoodDetail extends AppCompatActivity {
     ImageView tvRecipePic;
     RatingBar rbRating;
     Context context = this;
+    ImageButton i;
 
     // private EditText searchInput;
     private ListView videosFound;
@@ -74,6 +82,45 @@ public class FoodDetail extends AppCompatActivity {
         searchOnYoutube(recipe.getName());
 
         addClickListener();
+
+
+
+        // Food database stuff
+
+        i = (ImageButton) findViewById(R.id.add);
+        i.setImageResource(R.drawable.add_white);
+        if (recipe.isFavourite()==1) {
+            Glide.with(context) .load("") .error(R.drawable.add_white) .into(i);
+        }
+        else {
+            Glide.with(context) .load("") .error(R.drawable.remove_white) .into(i);
+        }
+
+        i.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                if(recipe.favourite==1){
+
+                    i.setImageResource(R.drawable.remove_white);
+                    insertRecipe(recipe);
+                    Byte y = 0;
+                    recipe.setFavourite(y);
+                    Intent in = new  Intent(FoodDetail.this, SavedRecipesActivity.class);
+                    startActivity(in);
+                }
+                else {
+                    i.setImageResource(R.drawable.add_white);
+                    deleteFood(recipe);
+                    Byte y = 1;
+                    recipe.setFavourite(y);
+                    Intent in = new  Intent(FoodDetail.this, SavedRecipesActivity.class);
+                    startActivity(in);
+                }
+            }
+        });
+
+
     }
 
     private void searchOnYoutube(final String keywords) {
@@ -125,6 +172,73 @@ public class FoodDetail extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void insertRecipe(Food recipe) {
+
+        deleteFood(recipe);
+
+        String nameString = recipe.getName();
+        String urlString = recipe.getImageUrl();
+        int ratingInt = recipe.getRating();
+        int idInt = recipe.getId();
+
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(this);
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        // Create a ContentValues object where column names are the keys,
+        // and pet attributes from the editor are the values.
+        ContentValues values = new ContentValues();
+        values.put(FoodEntry.COLUMN_FOOD_NAME, nameString);
+        values.put(FoodEntry.COLUMN_FOOD_URL, urlString);
+        values.put(FoodEntry.COLUMN_FOOD_RATING, ratingInt);
+
+        // Insert a new row for pet in the database, returning the ID of that new row.
+        long newRowId = db.insert(FoodEntry.TABLE_NAME, null, values);
+
+        // Show a toast message depending on whether or not the insertion was successful
+        if (newRowId == -1) {
+            // If the row ID is -1, then there was an error with insertion.
+            Toast.makeText(this, "Error with saving event", Toast.LENGTH_SHORT).show();
+        } else {
+            // Otherwise, the insertion was successful and we can display a toast with the row ID.
+            Toast.makeText(this, "Event saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
+        }
+
+        // pass back data
+
+        // Prepare data intent
+        Intent data = new Intent();
+        // Pass relevant data back as a result
+        int t = recipe.getId();
+        data.putExtra("num", t);
+        // Activity finished ok, return the data
+        setResult(RESULT_OK, data); // set result code and bundle data for response
+        finish(); // closes the activity, pass data to parent
+
+    }
+
+    private void deleteFood(Food recipe) {
+
+
+        // Create a String that contains the SQL statement to create the pets table
+        String SQL_CREATE_FOOD_TABLE =  "DELETE FROM " + FoodEntry.TABLE_NAME +
+                " WHERE " + FoodEntry.COLUMN_FOOD_URL + " = \"" + recipe.getImageUrl() + "\";";
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(this);
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+
+        // Execute the SQL statement
+        db.execSQL(SQL_CREATE_FOOD_TABLE);
+
     }
 
 

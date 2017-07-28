@@ -20,7 +20,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.codepath.myapplication.Database.EventContract.EventEntry;
-
+import com.codepath.myapplication.Database.FoodContract.FoodEntry;
 /**
  * Database helper for Pets app. Manages database creation and version management.
  */
@@ -50,7 +50,7 @@ public class EventDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create a String that contains the SQL statement to create the pets table
+        // Create a String that contains the SQL statement to create the events table
         String SQL_CREATE_EVENTS_TABLE =  "CREATE TABLE " + EventEntry.TABLE_NAME + " ("
                 + EventEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + EventEntry.COLUMN_EVENT_NAME + " TEXT NOT NULL, "
@@ -63,6 +63,16 @@ public class EventDbHelper extends SQLiteOpenHelper {
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_EVENTS_TABLE);
+
+        // Create a String that contains the SQL statement to create the food table
+        String SQL_CREATE_FOOD_TABLE =  "CREATE TABLE " + FoodEntry.TABLE_NAME + " ("
+                + FoodEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + FoodEntry.COLUMN_FOOD_NAME + " TEXT NOT NULL, "
+                + FoodEntry.COLUMN_FOOD_URL + " TEXT NOT NULL, "
+                + FoodEntry.COLUMN_FOOD_RATING + " INTEGER NOT NULL DEFAULT 0);";
+
+        // Execute the SQL statement
+        db.execSQL(SQL_CREATE_FOOD_TABLE);
     }
 
     /**

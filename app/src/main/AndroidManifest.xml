@@ -25,8 +25,11 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -76,23 +79,21 @@
 
         <activity android:name=".LanguageActivity" />
         <activity android:name=".Database.SavedEventsActivity" />
+        <activity android:name=".Database.SavedRecipesActivity" />
         <activity android:name=".Database.EditorActivity" />
         <activity android:name=".EventSearchActivity" />
         <activity android:name=".FoodSearchActivity" />
         <activity android:name=".TourismSearchActivity" />
         <activity android:name=".RestarauntSearchActivity" />
         <activity android:name=".CountrySearchActivity" />
-        <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".LoginActivity"></activity>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <provider android:authorities="com.facebook.app.FacebookContentProvider155418675023687"
+        <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
+            android:authorities="com.facebook.app.FacebookContentProvider155418675023687"
+            android:exported="true" />
+
+        <activity android:name=".Options.FavouriteActivity"></activity>
     </application>
 
 </manifest>
