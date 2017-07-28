@@ -109,32 +109,11 @@ public class Event implements Parcelable {
         return event;
     }
 
-    public static JSONObject toJson(Event e) throws JSONException {
-        JSONObject object = new JSONObject();
-        //extract the values from JSON
-//        object.put("title", e.getEventName());
-//        event.id = i;
-//        event.favourite=0;
-//        event.eventName = jsonObject.getString("title");
-//        event.latitude = (float) jsonObject.getDouble("latitude");
-//        event.longitude = (float) jsonObject.getDouble("longitude");
-//        event.eventDescription = jsonObject.getString("description");
-//        event.startTime = jsonObject.getString("start_time");
-//        event.stopTime = jsonObject.getString("stop_time");
-//        try{
-//            object = jsonObject.getJSONObject("image");
-//            temp = object.getJSONObject("medium");
-//            event.eventUrl = temp.getString("url");
-//        } catch (org.json.JSONException exception )
-//        {
-//            event.eventUrl = "http://s3.amazonaws.com/churchplantmedia-cms/grace_community_church_tucson_az/events_medium.jpg";
-//        }
-//
-//        event.eventVenue = jsonObject.getString("venue_name");
-        return object;
-    }
 
-    public static Event consEvent (String name, String des, String url, String venue, String startTime, String stopTime, float lat, float lng, byte fav, int id) {
+
+    public static Event consEvent (String name, String des, String url, String venue,
+                                   String startTime, String stopTime, float lat, float lng,
+                                   byte fav, int id) {
         Event e = new Event();
         e.id = id;
         e.eventName  = name;
@@ -159,6 +138,7 @@ public class Event implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
+        dest.writeString(this.eventLink);
         dest.writeString(this.eventName);
         dest.writeString(this.eventDescription);
         dest.writeString(this.eventUrl);
@@ -172,6 +152,7 @@ public class Event implements Parcelable {
 
     protected Event(Parcel in) {
         this.id = in.readInt();
+        this.eventLink = in.readString();
         this.eventName = in.readString();
         this.eventDescription = in.readString();
         this.eventUrl = in.readString();
