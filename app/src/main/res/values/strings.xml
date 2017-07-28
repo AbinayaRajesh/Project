@@ -65,5 +65,8 @@
     <!-- Label for dropdown menu option if the pet is female [CHAR LIMIT=20] -->
     <string name="gender_female">Female</string>
 
+    <string name="facebook_app_id">155418675023687</string>
+    <string name="fb_login_protocol_scheme">fb155418675023687</string>
+
 
 </resources>

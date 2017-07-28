@@ -28,9 +28,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.codepath.myapplication.Database.EventContract.EventEntry;
-import com.codepath.myapplication.Event.Event;
-import com.codepath.myapplication.Event.EventAdapter;
+import com.codepath.myapplication.Database.FoodContract.FoodEntry;
+import com.codepath.myapplication.Food;
+import com.codepath.myapplication.FoodAdapter;
 import com.codepath.myapplication.R;
 
 import java.util.ArrayList;
@@ -43,21 +43,21 @@ public class SavedRecipesActivity extends AppCompatActivity {
     /** Database helper that will provide us access to the database */
     private EventDbHelper mDbHelper;
 
-    EventAdapter adapter;
-    RecyclerView rvEvents;
-    ArrayList<Event> aEvent;
+    FoodAdapter adapter;
+    RecyclerView rvRecipes;
+    ArrayList<Food> aFood;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_catalog);
+        setContentView(R.layout.activity_food_favourites);
 
-        aEvent = new ArrayList<>();
-        adapter = new EventAdapter(aEvent);
+        aFood = new ArrayList<>();
+        adapter = new FoodAdapter(aFood);
         adapter.notifyDataSetChanged();
 
-        rvEvents= (RecyclerView) findViewById(R.id.rvEvents);
-        rvEvents.setLayoutManager(new LinearLayoutManager(this));
-        rvEvents.setAdapter(adapter);
+        rvRecipes= (RecyclerView) findViewById(R.id.rvRecipes);
+        rvRecipes.setLayoutManager(new LinearLayoutManager(this));
+        rvRecipes.setAdapter(adapter);
 
 
         // Setup FAB to open EditorActivity
@@ -92,18 +92,15 @@ public class SavedRecipesActivity extends AppCompatActivity {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
-                EventEntry._ID,
-                EventEntry.COLUMN_EVENT_NAME,
-                EventEntry.COLUMN_EVENT_DESCRIPTION,
-                EventEntry.COLUMN_EVENT_URL,
-                EventEntry.COLUMN_EVENT_VENUE,
-                EventEntry.COLUMN_EVENT_START_TIME,
-                EventEntry.COLUMN_EVENT_STOP_TIME,
-                EventEntry.COLUMN_EVENT_UNIQUE_KEY};
+                FoodEntry._ID,
+                FoodEntry.COLUMN_FOOD_NAME,
+                FoodEntry.COLUMN_FOOD_RATING,
+                FoodEntry.COLUMN_FOOD_URL};
+
 
         // Perform a query on the pets table
         Cursor cursor = db.query(
-                EventEntry.TABLE_NAME,   // The table to query
+                FoodEntry.TABLE_NAME,   // The table to query
                 projection,            // The columns to return
                 null,                  // The columns for the WHERE clause
                 null,                  // The values for the WHERE clause
@@ -115,14 +112,10 @@ public class SavedRecipesActivity extends AppCompatActivity {
         try {
 
             // Figure out the index of each column
-            int idColumnIndex = cursor.getColumnIndex(EventEntry._ID);
-            int nameColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_NAME);
-            int descriptionColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_DESCRIPTION);
-            int urlColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_URL);
-            int venueColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_VENUE);
-            int startColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_START_TIME);
-            int stopColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_STOP_TIME);
-            int keyColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_UNIQUE_KEY);
+            int idColumnIndex = cursor.getColumnIndex(FoodEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(FoodEntry.COLUMN_FOOD_NAME);
+            int ratingColumnIndex = cursor.getColumnIndex(FoodEntry.COLUMN_FOOD_RATING);
+            int urlColumnIndex = cursor.getColumnIndex(FoodEntry.COLUMN_FOOD_URL);
 
             // Iterate through all the returned rows in the cursor
             while (cursor.moveToNext()) {
@@ -130,19 +123,14 @@ public class SavedRecipesActivity extends AppCompatActivity {
                 // at the current row the cursor is on.
                 int currentID = cursor.getInt(idColumnIndex);
                 String currentName = cursor.getString(nameColumnIndex);
-                String currentDescription = cursor.getString(descriptionColumnIndex);
+                int currentRating = cursor.getInt(ratingColumnIndex);
                 String currentUrl = cursor.getString(urlColumnIndex);
-                String currentVenue = cursor.getString(venueColumnIndex);
-                String currentStart = cursor.getString(startColumnIndex);
-                String currentStop = cursor.getString(stopColumnIndex);
-                int currentKey = cursor.getInt(keyColumnIndex);
 
 
-                    Event e = Event.consEvent(currentName, currentDescription, currentUrl, currentVenue, currentStart,
-                            currentStop, 0, 0, (byte) 0, currentKey);
-                    aEvent.add(e);
+                    Food f = Food.consFood(currentName, currentRating, currentUrl, 0);
+                    aFood.add(f);
                     //notify adapter
-                    adapter.notifyItemInserted(aEvent.size() - 1);
+                    adapter.notifyItemInserted(aFood.size() - 1);
 
             }
         } finally {
@@ -187,11 +175,8 @@ public class SavedRecipesActivity extends AppCompatActivity {
         // Use trim to eliminate leading or trailing white space
         // mNameEditText.getText().toString().trim();
         String nameString = "NAME";
-        String descriptionString = "DES";
+        int ratingString = 5;
         String urlString = "URL";
-        String venueString = "VENUE";
-        String startString = "START";
-        String stopString = "STOP";
 
         // Create database helper
         EventDbHelper mDbHelper = new EventDbHelper(this);
@@ -202,24 +187,21 @@ public class SavedRecipesActivity extends AppCompatActivity {
         // Create a ContentValues object where column names are the keys,
         // and pet attributes from the editor are the values.
         ContentValues values = new ContentValues();
-        values.put(EventEntry.COLUMN_EVENT_NAME, nameString);
-        values.put(EventEntry.COLUMN_EVENT_DESCRIPTION, descriptionString);
-        values.put(EventEntry.COLUMN_EVENT_URL, urlString);
-        values.put(EventEntry.COLUMN_EVENT_VENUE, venueString);
-        values.put(EventEntry.COLUMN_EVENT_START_TIME, startString);
-        values.put(EventEntry.COLUMN_EVENT_STOP_TIME, stopString);
-        values.put(EventEntry.COLUMN_EVENT_UNIQUE_KEY, 1);
+        values.put(FoodEntry.COLUMN_FOOD_NAME, nameString);
+        values.put(FoodEntry.COLUMN_FOOD_RATING, ratingString);
+        values.put(FoodEntry.COLUMN_FOOD_URL, urlString);
+
 
         // Insert a new row for pet in the database, returning the ID of that new row.
-        long newRowId = db.insert(EventEntry.TABLE_NAME, null, values);
+        long newRowId = db.insert(FoodEntry.TABLE_NAME, null, values);
 
         // Show a toast message depending on whether or not the insertion was successful
         if (newRowId == -1) {
             // If the row ID is -1, then there was an error with insertion.
-            Toast.makeText(this, "Error with saving pet", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error with saving food", Toast.LENGTH_SHORT).show();
         } else {
             // Otherwise, the insertion was successful and we can display a toast with the row ID.
-            Toast.makeText(this, "Pet saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Food saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
         }
     }
 

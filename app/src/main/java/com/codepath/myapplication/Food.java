@@ -29,6 +29,16 @@ public class Food {
 
     public Food(){}
 
+    public static Food consFood (String name, int rating, String url, int id) {
+        Food f = new Food();
+        f.id = id;
+        f.rating = rating;
+        f.imageUrl = url;
+        f.name = name;
+        return f;
+    }
+
+
 
     public static Food fromJson(int i, JSONObject jsonObject) {
         Food food = new Food();

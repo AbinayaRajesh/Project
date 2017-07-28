@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
@@ -15,13 +17,20 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.codepath.myapplication.Database.SavedEventsActivity;
 import com.codepath.myapplication.Database.EventContract.EventEntry;
 import com.codepath.myapplication.Database.EventDbHelper;
+import com.codepath.myapplication.Database.SavedEventsActivity;
 import com.codepath.myapplication.R;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareButton;
 
 import org.jsoup.Jsoup;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.DateFormatSymbols;
 import java.util.logging.Handler;
 
@@ -38,6 +47,7 @@ public class EventDetail extends AppCompatActivity {
     String month;
     ImageView ivCalender;
     ImageButton i;
+    Bitmap icon;
 
     String [] date;
 
@@ -125,8 +135,51 @@ public class EventDetail extends AppCompatActivity {
         });
 
 
+        // FACEBOOK SHARING
+
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                    icon = getBitmapFromURL(event.getEventUrl());
+                    ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
+                    SharePhoto photo = new SharePhoto.Builder()
+                            .setBitmap(icon)
+                            .build();
+                    SharePhotoContent content = new SharePhotoContent.Builder()
+                            .addPhoto(photo)
+                            .build();
+                    shareButton.setShareContent(content);
+                }
+                catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }).start();
+
 
     }
+
+
+
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+
 
     public void addToCalender (Event event) {
         Intent intent = new Intent(Intent.ACTION_EDIT);
@@ -219,6 +272,8 @@ public class EventDetail extends AppCompatActivity {
         db.execSQL(SQL_CREATE_EVENTS_TABLE);
 
     }
+
+
 
 
 
