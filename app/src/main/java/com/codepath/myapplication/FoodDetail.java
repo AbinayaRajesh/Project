@@ -90,21 +90,20 @@ public class FoodDetail extends AppCompatActivity {
         i = (ImageButton) findViewById(R.id.add);
         i.setImageResource(R.drawable.add_white);
         if (recipe.isFavourite()==1) {
-            Glide.with(context) .load("") .error(R.drawable.add_white) .into(i);
+            Glide.with(context) .load("") .error(R.drawable.remove_white) .into(i);
         }
         else {
-            Glide.with(context) .load("") .error(R.drawable.remove_white) .into(i);
+            Glide.with(context) .load("") .error(R.drawable.add_white) .into(i);
         }
 
         i.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-                if(recipe.favourite==1){
-
+                if(recipe.favourite==0){
                     i.setImageResource(R.drawable.remove_white);
                     insertRecipe(recipe);
-                    Byte y = 0;
+                    Byte y = 1;
                     recipe.setFavourite(y);
                     Intent in = new  Intent(FoodDetail.this, SavedRecipesActivity.class);
                     startActivity(in);
@@ -112,7 +111,7 @@ public class FoodDetail extends AppCompatActivity {
                 else {
                     i.setImageResource(R.drawable.add_white);
                     deleteFood(recipe);
-                    Byte y = 1;
+                    Byte y = 0;
                     recipe.setFavourite(y);
                     Intent in = new  Intent(FoodDetail.this, SavedRecipesActivity.class);
                     startActivity(in);
@@ -203,10 +202,10 @@ public class FoodDetail extends AppCompatActivity {
         // Show a toast message depending on whether or not the insertion was successful
         if (newRowId == -1) {
             // If the row ID is -1, then there was an error with insertion.
-            Toast.makeText(this, "Error with saving event", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error with saving recipe", Toast.LENGTH_SHORT).show();
         } else {
             // Otherwise, the insertion was successful and we can display a toast with the row ID.
-            Toast.makeText(this, "Event saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Recipe saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
         }
 
         // pass back data
@@ -227,7 +226,7 @@ public class FoodDetail extends AppCompatActivity {
 
         // Create a String that contains the SQL statement to create the pets table
         String SQL_CREATE_FOOD_TABLE =  "DELETE FROM " + FoodEntry.TABLE_NAME +
-                " WHERE " + FoodEntry.COLUMN_FOOD_URL + " = \"" + recipe.getImageUrl() + "\";";
+                " WHERE " + FoodEntry.COLUMN_FOOD_NAME + " = \"" + recipe.getName() + "\";";
 
         // Create database helper
         EventDbHelper mDbHelper = new EventDbHelper(this);

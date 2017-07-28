@@ -30,13 +30,13 @@ public class Food {
 
     public Food(){}
 
-    public static Food consFood (String name, int rating, String url, int id) {
+    public static Food consFood (String name, int rating, String url, int id, Byte fav) {
         Food f = new Food();
         f.id = id;
         f.rating = rating;
         f.imageUrl = url;
         f.name = name;
-        f.favourite = 0;
+        f.favourite = fav;
         return f;
     }
 

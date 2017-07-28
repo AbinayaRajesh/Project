@@ -45,6 +45,19 @@ public class Location {
 
     }
 
+    public static Location consLocation (float lat, float lng,
+                                   String city, String state, int dist) {
+        Location l = new Location();
+
+        l.distance = dist;
+        l.city = city;
+        l.state =state;
+        l.lat = lat;
+        l.lng = lng;
+
+        return l;
+    }
+
     public Location() {}
 
     public double getLat() {

@@ -1,5 +1,7 @@
 package com.codepath.myapplication.FoodFragments;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.Food;
 import com.codepath.myapplication.FoodAdapter;
 import com.codepath.myapplication.FoodClient;
@@ -43,6 +46,7 @@ public class FoodListFragment extends Fragment {
     public final static String API_KEY_PARAM = "client_id";
     public final static String API_SECRET_PARAM = "client_secret";
     int j = 0;
+    Byte y;
     boolean b = false;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,12 +77,20 @@ public class FoodListFragment extends Fragment {
                             // Country country = new Country(results.getJSONObject(i));
                             //final ArrayList<Food> recipes = Food.fromJson(results);
                             Food recipe = Food.fromJson(i, results.getJSONObject(i));
+                            if (CheckIsRecipeAlreadyInDBorNot("recipes", "name", "\""+recipe.getName()+ "\"")) {
+                                y = 0;
+                                recipe.setFavourite(y);
+                            }
+                            else {
+                                y = 1;
+                                recipe.setFavourite(y);
+                            }
                             afood.add(recipe);
                             //notify adapter
                             adapter.notifyItemInserted(afood.size()-1);
                         }
                     }
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -178,6 +190,25 @@ public class FoodListFragment extends Fragment {
 
             });
         }
+    }
+    public boolean CheckIsRecipeAlreadyInDBorNot(String TableName,
+                                               String dbfield, String fieldValue) {
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(getContext());
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        String Query = "Select * from " + TableName + " where " + dbfield + " = " + fieldValue;
+        Cursor cursor = db.rawQuery(Query, null);
+        if (cursor.getCount() <= 0) {
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+
     }
 }
 

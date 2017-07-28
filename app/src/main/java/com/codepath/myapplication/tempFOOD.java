@@ -2,6 +2,8 @@ package com.codepath.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
+import com.codepath.myapplication.Database.EventDbHelper;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -34,6 +37,7 @@ public class tempFOOD extends AppCompatActivity {
     FoodCardAdapter mAdapter;
     Country country;
     Context context;
+    Byte y;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,6 +121,14 @@ public class tempFOOD extends AppCompatActivity {
                                 // Country country = new Country(results.getJSONObject(i));
                                 //final ArrayList<Food> recipes = Food.fromJson(results);
                                 Food recipe = Food.fromJson(i, results.getJSONObject(i));
+                                if (CheckIsRecipeAlreadyInDBorNot("recipes", "name", "\""+recipe.getName()+ "\"")) {
+                                    y = 1;
+                                    recipe.setFavourite(y);
+                                }
+                                else {
+                                    y = 0;
+                                    recipe.setFavourite(y);
+                                }
                                 afood.add(recipe);
                                 //notify adapter
                                 mAdapter.notifyItemInserted(afood.size()-1);
@@ -159,6 +171,27 @@ public class tempFOOD extends AppCompatActivity {
         });
 
     }
+
+    public boolean CheckIsRecipeAlreadyInDBorNot(String TableName,
+                                                 String dbfield, String fieldValue) {
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(context);
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        String Query = "Select * from " + TableName + " where " + dbfield + " = " + fieldValue;
+        Cursor cursor = db.rawQuery(Query, null);
+        if (cursor.getCount() <= 0) {
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+
+    }
+
     //fetch cuisine
     //
 }
