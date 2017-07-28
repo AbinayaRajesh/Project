@@ -17,7 +17,7 @@ public class PhotoClient {
     private static final String FLICKR_GET_SIZES_STRING = "flickr.photos.getSizes";
     private static final int FLICKR_PHOTOS_SEARCH_ID = 1;
     private static final int FLICKR_GET_SIZES_ID = 2;
-    private static final int NUMBER_OF_PHOTOS = 1;
+    private static final int NUMBER_OF_PHOTOS = 5;
 
     //You can set here your API_KEY
     private static final String APIKEY_SEARCH_STRING = "&api_key=3ac9faaab5afd4886063f4f90a52fd0e";

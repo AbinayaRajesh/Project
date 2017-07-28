@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     android:background="#000000"
     tools:context=".CardsActivity">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+
+    </android.support.v4.view.ViewPager>
 
     <ImageView
         android:id="@+id/ivOptionsImage"

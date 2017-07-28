@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
@@ -21,8 +22,8 @@ import com.codepath.myapplication.Database.EventContract.EventEntry;
 import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.Database.SavedEventsActivity;
 import com.codepath.myapplication.R;
-import com.facebook.share.model.SharePhoto;
-import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.model.ShareHashtag;
+import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
 
 import org.jsoup.Jsoup;
@@ -141,15 +142,23 @@ public class EventDetail extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    icon = getBitmapFromURL(event.getEventUrl());
+//                    icon = getBitmapFromURL(event.getEventUrl());
                     ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
-                    SharePhoto photo = new SharePhoto.Builder()
-                            .setBitmap(icon)
+//                    SharePhoto photo = new SharePhoto.Builder()
+//                            .setBitmap(icon)
+//                            .build();
+////                    SharePhotoContent content = new SharePhotoContent.Builder()
+////                            .addPhoto(photo)
+////                            .build();
+                    ShareLinkContent Content = new ShareLinkContent.Builder()
+                            .setContentUrl(Uri.parse(event.getEventLink()))
+                            .setShareHashtag(new ShareHashtag.Builder()
+                                    .setHashtag("#Staycation")
+                                    .build())
+
                             .build();
-                    SharePhotoContent content = new SharePhotoContent.Builder()
-                            .addPhoto(photo)
-                            .build();
-                    shareButton.setShareContent(content);
+
+                    shareButton.setShareContent(Content);
                 }
                 catch (Exception ex) {
                     ex.printStackTrace();

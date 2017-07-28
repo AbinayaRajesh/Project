@@ -24,6 +24,7 @@ import java.util.List;
 public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
     private Activity mContext;
     private List<Option> mOptions;
+
     public OptionsActivity optionsActivity;
 
     public OptionsAdapter(Activity context, List<Option> options) {
