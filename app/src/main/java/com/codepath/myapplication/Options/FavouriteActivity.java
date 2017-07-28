@@ -27,10 +27,6 @@ public class FavouriteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
-
-
-        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
-
         events = (ImageView) findViewById(R.id.eventsPic);
         food = (ImageView) findViewById(R.id.foodPic);
         tourism = (ImageView) findViewById(R.id.TourismPic);

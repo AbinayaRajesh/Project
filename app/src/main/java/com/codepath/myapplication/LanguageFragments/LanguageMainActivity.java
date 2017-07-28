@@ -1,10 +1,12 @@
 package com.codepath.myapplication.LanguageFragments;
 
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import com.google.api.services.translate.TranslateRequestInitializer;
 import com.google.api.services.translate.model.TranslateTextRequest;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class LanguageMainActivity extends Fragment {
 
@@ -37,9 +40,12 @@ public class LanguageMainActivity extends Fragment {
     ArrayList<String> translateText;
     TranslateTextRequest queryTranslate;
     String translated;
+    TextToSpeech textTalk;
     int i;
     RecyclerView rvPhrases;
     PhrasesAdapter adapter;
+    Button tts;
+    String textToBeSpoken;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -61,10 +67,34 @@ public class LanguageMainActivity extends Fragment {
                 input = (EditText) rootView.findViewById(R.id.etInputText);
                 translateButton = (Button) rootView.findViewById(R.id.btnTranslate);
                 translatedLanguage = (TextView) rootView.findViewById(R.id.tvTranslatedText);
+                tts = (Button) rootView.findViewById(R.id.btnTTS);
+                textTalk = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
+                    @Override
+                    public void onInit(int i) {
+                        if(i == TextToSpeech.SUCCESS)
+                        {
+                           int result = textTalk.setLanguage(Locale.US);
+                            if(result==TextToSpeech.LANG_MISSING_DATA ||
+                                    result==TextToSpeech.LANG_NOT_SUPPORTED){
+                                Log.e("error", "This Language is not supported");
+                            }
+                            else{
+                                SpeechSynthesis();
+                            }
+                        }
+                    }
+                });
                 translateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         TranslateText(view);
+                    }
+                });
+                tts.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        SpeechSynthesis();
                     }
                 });
                 break;
@@ -117,6 +147,8 @@ public class LanguageMainActivity extends Fragment {
                         translated = translated.substring(translated.indexOf("t\":\""));
                         translated = translated.substring(4, translated.length()-4);
                         translatedLanguage.setText(translated);
+                        textToBeSpoken = translated;
+                        //textToBeSpoken = translatedLanguage.getText().toString();
                     }
                 }
                 catch (Exception ex) {
@@ -124,6 +156,16 @@ public class LanguageMainActivity extends Fragment {
                 }
             }
         }).start();
+    }
+    public void SpeechSynthesis(){
+        textToBeSpoken = translatedLanguage.getText().toString();
+        if (textToBeSpoken==null || "".equals(textToBeSpoken)){
+            textToBeSpoken = "Type something to be translated";
+            textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
+        }
+        else{
+            textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
+        }
     }
 
 

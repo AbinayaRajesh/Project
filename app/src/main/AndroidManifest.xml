@@ -88,6 +88,7 @@
         <activity android:name=".CountrySearchActivity" />
         <activity android:name=".LoginActivity"></activity>
 
+
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider155418675023687"

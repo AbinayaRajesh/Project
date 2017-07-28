@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Country.CountryAdapter;
+import com.codepath.myapplication.Options.FavouriteActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.share.model.SharePhoto;
@@ -226,6 +227,12 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, NearbyActivity.class);
         startActivity(i);
     }
+
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
+        startActivity(i);
+    }
+
 }
 
 

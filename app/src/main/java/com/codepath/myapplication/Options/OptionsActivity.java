@@ -3,15 +3,17 @@ package com.codepath.myapplication.Options;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Country.Country;
+import com.codepath.myapplication.EventActivity;
+import com.codepath.myapplication.ImageAdapterSwipe;
+
 import com.codepath.myapplication.NearbyActivity;
 import com.codepath.myapplication.Photo;
 import com.codepath.myapplication.PhotoClient;
@@ -37,7 +39,9 @@ public class OptionsActivity extends AppCompatActivity {
     public Country country;
     public ArrayList<Photo> photos;
     AsyncHttpClient client;
+    public static List<String> urls;
     Context context;
+    ImageAdapterSwipe sAdapter;
 
   //  public PhotoClient photoClient;
     String url;
@@ -46,6 +50,8 @@ public class OptionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         photos = new ArrayList<>();
+        urls = new ArrayList<>();
+
         context = this;
 
         setContentView(R.layout.activity_options);
@@ -86,13 +92,23 @@ public class OptionsActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        if (id == R.id.miProfile) {
+            Intent i = new Intent(this, EventActivity.class);
+            i.putExtra("country", Parcels.wrap(country));
+            startActivity(i);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, NearbyActivity.class);
         i.putExtra("country", Parcels.wrap(country));
+        startActivity(i);
+    }
+
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
     }
 
@@ -110,16 +126,21 @@ public class OptionsActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
                     JSONObject results = response.getJSONObject("photos");
-                    JSONArray photoStream = results.getJSONArray("photo");
+                    for (int i=0; i<5; i++) {
+                        JSONArray photoStream = results.getJSONArray("photo");
+                        Photo photo = Photo.fromJson(photoStream.getJSONObject(i));
 
-                    Photo photo = Photo.fromJson(photoStream.getJSONObject(0));
-
-                    photos.add(photo);
-                    //notify adapter
-                    // adapter.notifyItemInserted(countries.size()-1);
-                    Glide.with(context)
-                            .load("https://farm"+ photo.getFarm() +".staticflickr.com/" + photo.getServer()+ "/" + photo.getId() +"_" +photo.getSecret()+".jpg")
-                            .into((ImageView) findViewById(R.id.ivOptionsImage));
+                        photos.add(photo);
+                        urls.add("https://farm" + photo.getFarm() + ".staticflickr.com/" + photo.getServer() + "/" + photo.getId() + "_" + photo.getSecret() + ".jpg");
+                        //notify adapter
+                        // adapter.notifyItemInserted(countries.size()-1);
+                        //      Glide.with(context)
+                        //              .load("https://farm" + photo.getFarm() + ".staticflickr.com/" + photo.getServer() + "/" + photo.getId() + "_" + photo.getSecret() + ".jpg")
+                        //              .into((ImageView) findViewById(R.id.ivOptionsImage));
+                    }
+                    ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+                    sAdapter = new ImageAdapterSwipe(OptionsActivity.this);
+                    viewPager.setAdapter(sAdapter);
                 } catch (JSONException e) {
                     // logError("Failed to parse now playing movies", e, true);
                 }

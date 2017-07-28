@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Random;
+
 /**
  * Created by arajesh on 7/19/17.
  */
@@ -19,6 +21,7 @@ public class Event implements Parcelable {
     public String startTime;
     public String stopTime;
     public String [] date;
+    public static String [] alternateUrls = {"http://www.scpevents.com/images/creative_event_design-01.jpg","http://2.bp.blogspot.com/-CfoVwTOBp2Y/VI_PGcOsI_I/AAAAAAAAAHM/rYrDssJr5Qk/s1600/image.jpg", "https://creativelightingsf.com/img/carousel/car-01.jpg", "https://mindfuldesignconsulting.com/wp-content/uploads/2011/10/creative-lighting-design-outdoor-party-2.jpg", "http://kennedycreativeevents.com/wp-content/uploads/2014/01/green-people.jpg", "https://static1.squarespace.com/static/533353a3e4b0429a548a8446/t/54a78bede4b057f9e3964d76/1420266478889/lights_events_1366x768_68503.jpg?format=1500w", "https://www.mobilecause.com/wp-content/uploads/2015/12/event-fundraising-idea_50-50-raffle.png","https://www.edmonton.ca/homepage-background_canada-150.jpg", "http://www.photolakedistrict.co.uk/wp-content/uploads/events-FIREWORKS.jpg", "https://www.visit-hannover.com/var/storage/images/media/01-data-neu/bilder/hmtg/feuerwerkswettbewerb/2017/feuerwerkswettbewerb-titelbild-2017/14278480-1-ger-DE/Feuerwerkswettbewerb-Titelbild-2017_alias_300x225px.jpg"};
     public String eventLink;
     byte favourite;
     public int id;
@@ -102,7 +105,9 @@ public class Event implements Parcelable {
             event.eventUrl = temp.getString("url");
         } catch (org.json.JSONException exception )
         {
-            event.eventUrl = "https://static1.squarespace.com/static/533353a3e4b0429a548a8446/t/54a78bede4b057f9e3964d76/1420266478889/lights_events_1366x768_68503.jpg?format=1500w";
+            int rnd = new Random().nextInt(alternateUrls.length);
+            event.eventUrl = alternateUrls[rnd];
+        //    event.eventUrl = "https://static1.squarespace.com/static/533353a3e4b0429a548a8446/t/54a78bede4b057f9e3964d76/1420266478889/lights_events_1366x768_68503.jpg?format=1500w";
         }
 
         event.eventVenue = jsonObject.getString("venue_name");
