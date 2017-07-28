@@ -1,6 +1,10 @@
 package com.codepath.myapplication.LanguageFragments;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codepath.myapplication.R;
 import com.google.api.client.http.HttpTransport;
@@ -25,6 +30,9 @@ import com.google.api.services.translate.model.TranslateTextRequest;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import static android.app.Activity.RESULT_OK;
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class LanguageMainActivity extends Fragment {
 
     final TranslateRequestInitializer API_KEY = new TranslateRequestInitializer("AIzaSyC2FnmN0yck7fkTgtWLi1D6WfXpMZDfw30");
@@ -33,7 +41,7 @@ public class LanguageMainActivity extends Fragment {
 
     String language;
     View rootView;
-
+    private final int REQ_CODE_SPEECH_INPUT = 100;
     EditText input;
     TextView translatedLanguage;
     Button translateButton;
@@ -46,6 +54,8 @@ public class LanguageMainActivity extends Fragment {
     PhrasesAdapter adapter;
     Button tts;
     String textToBeSpoken;
+    Button speechToText;
+    SpeechRecognizer sr;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -67,7 +77,9 @@ public class LanguageMainActivity extends Fragment {
                 input = (EditText) rootView.findViewById(R.id.etInputText);
                 translateButton = (Button) rootView.findViewById(R.id.btnTranslate);
                 translatedLanguage = (TextView) rootView.findViewById(R.id.tvTranslatedText);
+
                 tts = (Button) rootView.findViewById(R.id.btnTTS);
+                speechToText = (Button) rootView.findViewById(R.id.btnSTT);
                 textTalk = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
                     @Override
                     public void onInit(int i) {
@@ -87,7 +99,7 @@ public class LanguageMainActivity extends Fragment {
                 translateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        TranslateText(view);
+                        TranslateText();
                     }
                 });
                 tts.setOnClickListener(new View.OnClickListener(){
@@ -95,6 +107,12 @@ public class LanguageMainActivity extends Fragment {
                     @Override
                     public void onClick(View view) {
                         SpeechSynthesis();
+                    }
+                });
+                speechToText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        promptSpeechInput();
                     }
                 });
                 break;
@@ -125,7 +143,7 @@ public class LanguageMainActivity extends Fragment {
         return rootView;
     }
 
-    public void TranslateText(View view) {
+    public void TranslateText() {
         translateText.clear();
         String query = String.valueOf(input.getText());
         translateText.add(query);
@@ -167,6 +185,39 @@ public class LanguageMainActivity extends Fragment {
             textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
         }
     }
+    private void promptSpeechInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                "Say less");
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(),
+                    "speech not supported sorry friend",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+                    final ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    input.setText(result.get(0));
+
+                    result.clear();
+                }
+                break;
+            }
+
+        }
+    }
+
 
 
 }
