@@ -24,13 +24,16 @@ public class TourismActivity extends AppCompatActivity {
 
     Context context;
     ViewPager vpPager;
+    Bundle bundle;
     TourismPagerAdapter pageAdapter;
+    String filter;
     public static Country country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourism);
+        bundle = new Bundle();
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         pageAdapter = new TourismPagerAdapter(getSupportFragmentManager(), this);
         context = this;
@@ -45,7 +48,7 @@ public class TourismActivity extends AppCompatActivity {
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menusearch, menu);
+        inflater.inflate(R.menu.menufilter, menu);
         MenuItem searchItem = menu.findItem(R.id.searchBar);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -68,5 +71,36 @@ public class TourismActivity extends AppCompatActivity {
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, NearbyActivity.class);
         startActivity(i);
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        bundle.clear();
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_dropdown1: {
+                bundle.putString("filter", "popularity");
+
+                filter = "popularity";
+                pageAdapter.notifyDataSetChanged();
+                break;
+            }
+            case R.id.action_dropdown2: {
+                bundle.putString("filter", "date");
+                filter = "date";
+                pageAdapter.notifyDataSetChanged();
+                break;
+            }
+            case R.id.action_dropdown3: {
+                bundle.putString("filter", "relevance");
+                filter = "relevance";
+                pageAdapter.notifyDataSetChanged();
+                break;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+    public String getFilter(){
+        return filter;
     }
 }

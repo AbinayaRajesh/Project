@@ -17,6 +17,7 @@ import com.codepath.myapplication.EventActivity;
 
 
 public class EventsPagerAdapter extends FragmentStatePagerAdapter {
+
     String country = EventActivity.country.getName();
     private Context context;
     private MusicEventsFragment mef;

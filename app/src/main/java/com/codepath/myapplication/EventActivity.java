@@ -50,8 +50,8 @@ public class EventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-        pageAdapter = new EventsPagerAdapter(getSupportFragmentManager(), context);
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+        pageAdapter = new EventsPagerAdapter(getSupportFragmentManager(), context);
         bundle = new Bundle();
         fragment = new EventsListFragment();
         context = this;
