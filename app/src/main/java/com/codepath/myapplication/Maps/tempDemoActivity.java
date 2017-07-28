@@ -1,9 +1,26 @@
-package com.codepath.myapplication;
+/*
+ * Copyright (C) 2012 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.codepath.myapplication.Maps;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
@@ -17,6 +34,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,19 +46,20 @@ import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.myapplication.Event.Event;
 import com.codepath.myapplication.Event.EventDetail;
-import com.codepath.myapplication.Maps.MarkerDemoActivity;
-import com.codepath.myapplication.Maps.OnMapAndViewReadyListener;
+import com.codepath.myapplication.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
@@ -49,35 +69,29 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import cz.msebera.android.httpclient.Header;
+import static com.codepath.myapplication.R.drawable.arrow;
 
 /**
- * Created by eyobtefera on 7/18/17.
+ * This shows how to place markers on a map.
  */
-
-public class NearbyActivity extends AppCompatActivity implements GoogleMap.OnMyLocationButtonClickListener,
+public class tempDemoActivity extends AppCompatActivity implements
+        GoogleMap.OnMyLocationButtonClickListener,
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         GoogleMap.OnMarkerClickListener,
         GoogleMap.OnInfoWindowClickListener,
         GoogleMap.OnMarkerDragListener,
-        SeekBar.OnSeekBarChangeListener,
+        OnSeekBarChangeListener,
         GoogleMap.OnInfoWindowLongClickListener,
         GoogleMap.OnInfoWindowCloseListener,
-        com.codepath.myapplication.Maps.OnMapAndViewReadyListener.OnGlobalLayoutAndMapReadyListener {
+        OnMapAndViewReadyListener.OnGlobalLayoutAndMapReadyListener {
+
     private static final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
 
     private static final LatLng MELBOURNE = new LatLng(-37.81319, 144.96298);
@@ -90,9 +104,67 @@ public class NearbyActivity extends AppCompatActivity implements GoogleMap.OnMyL
 
     private static final LatLng ALICE_SPRINGS = new LatLng(-24.6980, 133.8807);
 
+    /** Demonstrates customizing the info window and/or its contents. */
+    class CustomInfoWindowAdapter implements InfoWindowAdapter {
+
+        // These are both viewgroups containing an ImageView with id "badge" and two TextViews with id
+        // "title" and "snippet".
+        private final View mWindow;
+
+        private final View mContents;
+
+        CustomInfoWindowAdapter() {
+            mWindow = getLayoutInflater().inflate(R.layout.custom_info_window, null);
+            mContents = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+        }
+
+        @Override
+        public View getInfoWindow(Marker marker) {
+
+            render(marker, mWindow);
+            return mWindow;
+        }
+
+        @Override
+        public View getInfoContents(Marker marker) {
+
+            render(marker, mContents);
+            return mContents;
+        }
+
+        private void render(Marker marker, View view) {
+
+
+            String title = marker.getTitle();
+            TextView titleUi = ((TextView) view.findViewById(R.id.title));
+            if (title != null) {
+                // Spannable string allows us to edit the formatting of the text.
+                SpannableString titleText = new SpannableString(title);
+                titleText.setSpan(new ForegroundColorSpan(Color.RED), 0, titleText.length(), 0);
+                titleUi.setText(titleText);
+            } else {
+                titleUi.setText("");
+            }
+
+            String snippet = marker.getSnippet();
+            TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+            if (snippet != null && snippet.length() > 12) {
+                SpannableString snippetText = new SpannableString(snippet);
+                snippetText.setSpan(new ForegroundColorSpan(Color.MAGENTA), 0, 10, 0);
+                snippetText.setSpan(new ForegroundColorSpan(Color.BLUE), 12, snippet.length(), 0);
+                snippetUi.setText(snippetText);
+            } else {
+                snippetUi.setText("");
+            }
+        }
+    }
+
     // HERE
 
-    private static final String TAG = MarkerDemoActivity.class.getSimpleName();
+
+
+
+    private static final String TAG = tempDemoActivity.class.getSimpleName();
     // private GoogleMap mMap;
     private CameraPosition mCameraPosition;
 
@@ -119,6 +191,12 @@ public class NearbyActivity extends AppCompatActivity implements GoogleMap.OnMyL
     private String[] mLikelyPlaceNames = new String[mMaxEntries];
     private String[] mLikelyPlaceAddresses = new String[mMaxEntries];
     private String[] mLikelyPlaceAttributions = new String[mMaxEntries];
+    private LatLng[] mLikelyPlaceLatLngs = new LatLng[mMaxEntries];
+
+
+
+
+
 
     private GoogleMap mMap;
 
@@ -131,6 +209,11 @@ public class NearbyActivity extends AppCompatActivity implements GoogleMap.OnMyL
     private Marker mAdelaide;
 
     private Marker mMelbourne;
+
+    ArrayList<Event> Sevents;
+    ArrayList<Event> Mevents;
+    ArrayList<Event> Fevents;
+
 
     /**
      * Keeps track of the last selected marker (though it may no longer be selected).  This is
@@ -149,35 +232,43 @@ public class NearbyActivity extends AppCompatActivity implements GoogleMap.OnMyL
     private RadioGroup mOptions;
 
     private final Random mRandom = new Random();
-    AsyncHttpClient client;
-    public final static String API_BASE_URL = "http://api.eventful.com/json/";
-    //API key parameter name
-    public final static String API_KEY_PARAM = "95JSGDKWtDtWRRgx";
-    public ArrayList<Event> Sevents;
-    public ArrayList<Event> Mevents;
-    public ArrayList<Event> Fevents;
-    public void onCreate(Bundle savedInstanceState) {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.marker_demo);
-        Sevents = new ArrayList<Event>();
-        Mevents = new ArrayList<Event>();
-        Fevents = new ArrayList<Event>();
-        client = new AsyncHttpClient();
-        if (mLastSelectedMarker != null && mLastSelectedMarker.isInfoWindowShown()) {
-            // Refresh the info window when the info window's content has changed.
-            mLastSelectedMarker.showInfoWindow();
-        }
+
+
+        Sevents = getIntent().getParcelableArrayListExtra("Sevents");
+        Mevents = getIntent().getParcelableArrayListExtra("Mevents");
+        Fevents = getIntent().getParcelableArrayListExtra("Fevents");
+
+
+                if (mLastSelectedMarker != null && mLastSelectedMarker.isInfoWindowShown()) {
+                    // Refresh the info window when the info window's content has changed.
+                    mLastSelectedMarker.showInfoWindow();
+                }
+
+
+
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         new OnMapAndViewReadyListener(mapFragment, this);
+
+
+
+
+
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
             mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
+
+
+
         // Build the Play services client for use by the Fused Location Provider and the Places API.
         // Use the addApi() method to request the Google Places API and the Fused Location Provider.
-        getSportsEvents();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */,
                         this /* OnConnectionFailedListener */)
@@ -186,88 +277,14 @@ public class NearbyActivity extends AppCompatActivity implements GoogleMap.OnMyL
                 .addApi(Places.GEO_DATA_API)
                 .addApi(Places.PLACE_DETECTION_API)
                 .build();
-
         mGoogleApiClient.connect();
 
-    }
-    private void getSportsEvents(){
-        String url = API_BASE_URL + "events/search?";
-        RequestParams params = new RequestParams();
-        params.put("app_key", API_KEY_PARAM);
-        params.put("keywords", "china");
-        params.put("category", "sports");
-        client.get(url, params, new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    JSONObject eventsonline = response.getJSONObject("events");
-                    JSONArray eventArray = eventsonline.getJSONArray("event");
-                    for (int i = 0; i < 10; i++){
-                        Event event = Event.fromJson(i, eventArray.getJSONObject(i));
-                        Sevents.add(event);
-                        //notify adapter that a row was added
-                    }
 
-                    getMusicEvents();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+
+
     }
 
-    private void getMusicEvents(){
-        String url = API_BASE_URL + "events/search?";
-        RequestParams params = new RequestParams();
-        params.put("app_key", API_KEY_PARAM);
-        params.put("keywords", "china");
-        params.put("category", "music");
-        client.get(url, params, new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    JSONObject eventsonline = response.getJSONObject("events");
-                    JSONArray eventArray = eventsonline.getJSONArray("event");
-                    for (int i = 0; i < 10; i++){
-                        Event event = Event.fromJson(i, eventArray.getJSONObject(i));
-                        Mevents.add(event);
-                    }
-                    getFestivalsEvents();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        });
-    }
-
-    private void getFestivalsEvents(){
-        String url = API_BASE_URL + "events/search?";
-        RequestParams params = new RequestParams();
-        params.put("app_key", API_KEY_PARAM);
-        params.put("keywords", "china");
-        params.put("category", "festivals_parades");
-        client.get(url, params, new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    JSONObject eventsonline = response.getJSONObject("events");
-                    JSONArray eventArray = eventsonline.getJSONArray("event");
-                    for (int i = 0; i < 10; i++){
-                        Event event = Event.fromJson(i, eventArray.getJSONObject(i));
-                        Fevents.add(event);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-    }
+    @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
 
@@ -352,7 +369,7 @@ public class NearbyActivity extends AppCompatActivity implements GoogleMap.OnMyL
 
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
-        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+        mMap.setInfoWindowAdapter(new InfoWindowAdapter() {
 
             @Override
             // Return null here, so that getInfoContents() is called next.
@@ -384,6 +401,69 @@ public class NearbyActivity extends AppCompatActivity implements GoogleMap.OnMyL
 
 
     }
+
+    private void addMarkersToMap() {
+        // Uses a colored icon.
+        mBrisbane = mMap.addMarker(new MarkerOptions()
+                .position(BRISBANE)
+                .title("Brisbane")
+                .snippet("Population: 2,074,200")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+        // Uses a custom icon with the info window popping out of the center of the icon.
+        mSydney = mMap.addMarker(new MarkerOptions()
+                .position(SYDNEY)
+                .title("Sydney")
+                .snippet("Population: 4,627,300")
+                .icon(BitmapDescriptorFactory.fromResource(arrow))
+                .infoWindowAnchor(0.5f, 0.5f));
+
+        // Creates a draggable marker. Long press to drag.
+        mMelbourne = mMap.addMarker(new MarkerOptions()
+                .position(MELBOURNE)
+                .title("Melbourne")
+                .snippet("Population: 4,137,400")
+                .draggable(true));
+
+        // A few more markers for good measure.
+        mPerth = mMap.addMarker(new MarkerOptions()
+                .position(PERTH)
+                .title("Perth")
+                .snippet("Population: 1,738,800"));
+        mAdelaide = mMap.addMarker(new MarkerOptions()
+                .position(ADELAIDE)
+                .title("Adelaide")
+                .snippet("Population: 1,213,000"));
+
+        // Vector drawable resource as a marker icon.
+        mMap.addMarker(new MarkerOptions()
+                .position(ALICE_SPRINGS)
+                .icon(vectorToBitmap(R.drawable.ic_android, Color.parseColor("#A4C639")))
+                .title("Alice Springs"));
+
+        // Creates a marker rainbow demonstrating how to create default marker icons of different
+        // hues (colors).
+        float rotation = mRotationBar.getProgress();
+        boolean flat = mFlatBox.isChecked();
+
+        int numMarkersInRainbow = 12;
+        for (int i = 0; i < numMarkersInRainbow; i++) {
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(
+                            -30 + 10 * Math.sin(i * Math.PI / (numMarkersInRainbow - 1)),
+                            135 - 10 * Math.cos(i * Math.PI / (numMarkersInRainbow - 1))))
+                    .title("Marker " + i)
+                    .icon(BitmapDescriptorFactory.defaultMarker(i * 360 / numMarkersInRainbow))
+                    .flat(flat)
+                    .rotation(rotation));
+            mMarkerRainbow.add(marker);
+        }
+    }
+
+    /**
+     * Demonstrates converting a {@link Drawable} to a {@link BitmapDescriptor},
+     * for use as a marker icon.
+     */
     private BitmapDescriptor vectorToBitmap(@DrawableRes int id, @ColorInt int color) {
         Drawable vectorDrawable = ResourcesCompat.getDrawable(getResources(), id, null);
         Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
@@ -402,9 +482,18 @@ public class NearbyActivity extends AppCompatActivity implements GoogleMap.OnMyL
         }
         return true;
     }
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
+
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (!checkReady()) {
+            return;
+        }
+        float rotation = seekBar.getProgress();
+        for (Marker marker : mMarkerRainbow) {
+            marker.setRotation(rotation);
+        }
     }
 
     @Override
@@ -467,7 +556,7 @@ public class NearbyActivity extends AppCompatActivity implements GoogleMap.OnMyL
     @Override
     public void onInfoWindowClick(Marker marker) {
         Event e = (Event) marker.getTag();
-        Intent i = new Intent(NearbyActivity.this, EventDetail.class);
+        Intent i = new Intent(tempDemoActivity.this, EventDetail.class);
         i.putExtra("event", e);
         Toast.makeText(this, "Click Info Window", Toast.LENGTH_SHORT).show();
         startActivity(i);
@@ -670,8 +759,9 @@ public class NearbyActivity extends AppCompatActivity implements GoogleMap.OnMyL
             mLastKnownLocation = null;
         }
     }
-    public void onMaps(MenuItem item) {
-        Intent i = new Intent(this, NearbyActivity.class);
-        startActivity(i);
-    }
+
+
 }
+
+
+

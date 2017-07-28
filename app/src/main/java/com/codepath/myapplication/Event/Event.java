@@ -19,6 +19,7 @@ public class Event implements Parcelable {
     public String startTime;
     public String stopTime;
     public String [] date;
+    public String eventLink;
     byte favourite;
     public int id;
 
@@ -64,6 +65,10 @@ public class Event implements Parcelable {
         return eventVenue;
     }
 
+    public String getEventLink() {
+        return eventLink;
+    }
+
     public String getDate(){
         date = startTime.split(" ");
         return date[0];
@@ -90,6 +95,7 @@ public class Event implements Parcelable {
         event.eventDescription = jsonObject.getString("description");
         event.startTime = jsonObject.getString("start_time");
         event.stopTime = jsonObject.getString("stop_time");
+        event.eventLink = jsonObject.getString("url");
         try{
             object = jsonObject.getJSONObject("image");
             temp = object.getJSONObject("medium");
