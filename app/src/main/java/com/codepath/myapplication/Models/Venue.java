@@ -18,6 +18,7 @@ public class Venue implements Parcelable{
     Location location;
     String id;
     String imageUrl;
+    Byte favourite;
 
 
     // initialize from JSON data
@@ -26,26 +27,41 @@ public class Venue implements Parcelable{
         title = object.getString("name");
         location = Location.fromJSON(object.getJSONObject("location"));
         id = object.getString("id");
+        Byte y = 0;
+        favourite = y;
         //imageUrl = "https://api.foursquare.com/v2/venues/"+id;
 
 
     }
 
+    public Byte isFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(Byte favourite) {
+        this.favourite = favourite;
+    }
 
     public static Venue consVenue (String name, String url, float lat, float lng,
-                                   String city, String state, int dist) {
+                                   String city, String state, int dist, Byte fav) {
         Venue v = new Venue();
         Location l = Location.consLocation(lat, lng, city, state, dist);
         v.title = name;
         v.imageUrl = url;
         v.location = l;
+        v.favourite = fav;
         return v;
     }
 
 
     public Venue() {}
 
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
     protected Venue(Parcel in) {
+        favourite = in.readByte();
         title = in.readString();
         id = in.readString();
         imageUrl = in.readString();
@@ -56,6 +72,7 @@ public class Venue implements Parcelable{
         dest.writeString(title);
         dest.writeString(id);
         dest.writeString(imageUrl);
+        dest.writeByte(favourite);
     }
 
     @Override
@@ -93,5 +110,9 @@ public class Venue implements Parcelable{
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public int getNum() {
+        return num;
     }
 }
