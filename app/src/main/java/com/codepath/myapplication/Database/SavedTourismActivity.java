@@ -124,9 +124,10 @@ public class SavedTourismActivity extends AppCompatActivity {
                 String currentState = cursor.getString(stateColumnIndex);
                 int currentDist = cursor.getInt(distColumnIndex);
 
+                Byte y = 1;
 
                     Venue v = Venue.consVenue(currentName, currentUrl, currentLat, currentLng, currentCity,
-                            currentState, currentDist);
+                            currentState, currentDist, y);
                     aVenue.add(v);
                     //notify adapter
                     adapter.notifyItemInserted(aVenue.size() - 1);
