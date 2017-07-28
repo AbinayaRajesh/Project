@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.Event.Event;
+import com.codepath.myapplication.EventActivity;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -20,7 +21,7 @@ import cz.msebera.android.httpclient.Header;
  * Created by eyobtefera on 7/18/17.
  */
 
-public class FestivalsEventsFragment extends EventsListFragment {
+public class FestivalsEventsFragment extends EventsListFragment  {
     AsyncHttpClient client;
 
     Byte y;
@@ -33,6 +34,7 @@ public class FestivalsEventsFragment extends EventsListFragment {
             countryName = bundle.getString("country", "");
         }
         client = new AsyncHttpClient();
+        filter = ((EventActivity) getActivity()).getFilter();
         getSportsEvents();
     }
     private void getSportsEvents(){
@@ -41,14 +43,24 @@ public class FestivalsEventsFragment extends EventsListFragment {
         params.put("app_key", API_KEY_PARAM);
         params.put("keywords", countryName);
         params.put("category", "festivals_parades");
+        if(filter != null) {
+            if (filter.equals("popularity")) {
+                params.put("sort_order", "popularity");
+            } else if (filter.equals("date")) {
+                params.put("sort_order", "date");
+            } else if (filter.equals("relevance")) {
+                params.put("sort_order", "relevance");
+            }
+        }
         client.get(url, params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 try {
+                    events.clear();
                     JSONObject eventsonline = response.getJSONObject("events");
                     JSONArray eventArray = eventsonline.getJSONArray("event");
-                    for (int i = 0; i < 10; i++){
+                    for (int i = 0; i < eventArray.length(); i++){
                         Event event = Event.fromJson(i, eventArray.getJSONObject(i));
                         if (CheckIsDataAlreadyInDBorNot("events", "venue", "\""+event.getEventVenue()+ "\"")) {
                             y = 0;
@@ -70,6 +82,7 @@ public class FestivalsEventsFragment extends EventsListFragment {
 //http://api.eventful.com/rest/events/search?app_key=95JSGDKWtDtWRRgx&keywords=fun
     }
 
+
     public boolean CheckIsDataAlreadyInDBorNot(String TableName,
                                                String dbfield, String fieldValue) {
 
@@ -81,11 +94,12 @@ public class FestivalsEventsFragment extends EventsListFragment {
 
         String Query = "Select * from " + TableName + " where " + dbfield + " = " + fieldValue;
         Cursor cursor = db.rawQuery(Query, null);
-        if(cursor.getCount() <= 0){
+        if (cursor.getCount() <= 0) {
             cursor.close();
             return false;
         }
         cursor.close();
         return true;
+
     }
-}
+    }

@@ -36,7 +36,7 @@ public class NearbyActivity extends AppCompatActivity {
     public ArrayList<Event> Fevents;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nearby);
+        setContentView(R.layout.marker_demo);
         Sevents = new ArrayList<Event>();
         Mevents = new ArrayList<Event>();
         Fevents = new ArrayList<Event>();
