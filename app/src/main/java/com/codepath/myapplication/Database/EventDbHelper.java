@@ -20,7 +20,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.codepath.myapplication.Database.EventContract.EventEntry;
-
+import com.codepath.myapplication.Database.FoodContract.FoodEntry;
+import com.codepath.myapplication.Database.TourismContract.TourismEntry;
 /**
  * Database helper for Pets app. Manages database creation and version management.
  */
@@ -29,7 +30,7 @@ public class EventDbHelper extends SQLiteOpenHelper {
     public static final String LOG_TAG = EventDbHelper.class.getSimpleName();
 
     /** Name of the database file */
-    private static final String DATABASE_NAME = "shelter.db";
+    private static final String DATABASE_NAME = "staycation.db";
 
     /**
      * Database version. If you change the database schema, you must increment the database version.
@@ -50,7 +51,7 @@ public class EventDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create a String that contains the SQL statement to create the pets table
+        // Create a String that contains the SQL statement to create the events table
         String SQL_CREATE_EVENTS_TABLE =  "CREATE TABLE " + EventEntry.TABLE_NAME + " ("
                 + EventEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + EventEntry.COLUMN_EVENT_NAME + " TEXT NOT NULL, "
@@ -63,6 +64,30 @@ public class EventDbHelper extends SQLiteOpenHelper {
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_EVENTS_TABLE);
+
+        // Create a String that contains the SQL statement to create the food table
+        String SQL_CREATE_FOOD_TABLE =  "CREATE TABLE " + FoodEntry.TABLE_NAME + " ("
+                + FoodEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + FoodEntry.COLUMN_FOOD_NAME + " TEXT NOT NULL, "
+                + FoodEntry.COLUMN_FOOD_URL + " TEXT NOT NULL, "
+                + FoodEntry.COLUMN_FOOD_RATING + " INTEGER NOT NULL DEFAULT 0);";
+
+        // Execute the SQL statement
+        db.execSQL(SQL_CREATE_FOOD_TABLE);
+
+        // Create a String that contains the SQL statement to create the tourism table
+        String SQL_CREATE_TOURISM_TABLE =  "CREATE TABLE " + FoodEntry.TABLE_NAME + " ("
+                + TourismEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + TourismEntry.COLUMN_TOURISM_NAME + " TEXT NOT NULL, "
+                + TourismEntry.COLUMN_TOURISM_URL + " TEXT NOT NULL, "
+                + TourismEntry.COLUMN_TOURISM_STATE + " TEXT NOT NULL, "
+                + TourismEntry.COLUMN_TOURISM_CITY + " TEXT NOT NULL, "
+                + TourismEntry.COLUMN_TOURISM_LAT + " REAL NOT NULL, "
+                + TourismEntry.COLUMN_TOURISM_LNG + " REAL NOT NULL, "
+                + TourismEntry.COLUMN_TOURISM_DISTANCE + " INTEGER NOT NULL DEFAULT 0);";
+
+        // Execute the SQL statement
+        db.execSQL(SQL_CREATE_TOURISM_TABLE);
     }
 
     /**

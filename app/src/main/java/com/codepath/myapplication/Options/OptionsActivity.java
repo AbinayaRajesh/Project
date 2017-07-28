@@ -107,6 +107,11 @@ public class OptionsActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
+        startActivity(i);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

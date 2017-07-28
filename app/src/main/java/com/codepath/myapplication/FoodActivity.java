@@ -11,11 +11,14 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.FoodFragments.FoodPagerAdapter;
 
 import org.parceler.Parcels;
+
+import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
 
 
 public class FoodActivity extends AppCompatActivity {
@@ -65,6 +68,26 @@ public class FoodActivity extends AppCompatActivity {
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, NearbyActivity.class);
         startActivity(i);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // REQUEST_CODE is defined above
+
+        Intent p = new Intent(FoodActivity.this, FoodActivity.class );
+        p.putExtra("country", Parcels.wrap(country));
+        startActivity(p);
+
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+            // Extract name value from result extras\
+            int i = data.getExtras().getInt("num", -1);
+
+            // Event event = data.getExtras().getParcelable("event", event);
+            // Toast the name to display temporarily on screen
+            Toast.makeText(this, String.valueOf(i), Toast.LENGTH_SHORT).show();
+
+        }
     }
 
 

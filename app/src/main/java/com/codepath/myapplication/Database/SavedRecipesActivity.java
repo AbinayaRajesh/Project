@@ -19,13 +19,11 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.myapplication.Database.FoodContract.FoodEntry;
@@ -50,6 +48,7 @@ public class SavedRecipesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_favourites);
+        setTitle("Saved Recipes");
 
         aFood = new ArrayList<>();
         adapter = new FoodAdapter(aFood);
@@ -58,16 +57,6 @@ public class SavedRecipesActivity extends AppCompatActivity {
         rvRecipes= (RecyclerView) findViewById(R.id.rvRecipes);
         rvRecipes.setLayoutManager(new LinearLayoutManager(this));
         rvRecipes.setAdapter(adapter);
-
-
-        // Setup FAB to open EditorActivity
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         // To access our database, we instantiate our subclass of SQLiteOpenHelper
         // and pass the context, which is the current activity.
@@ -126,11 +115,11 @@ public class SavedRecipesActivity extends AppCompatActivity {
                 int currentRating = cursor.getInt(ratingColumnIndex);
                 String currentUrl = cursor.getString(urlColumnIndex);
 
-
-                    Food f = Food.consFood(currentName, currentRating, currentUrl, 0);
-                    aFood.add(f);
-                    //notify adapter
-                    adapter.notifyItemInserted(aFood.size() - 1);
+                Byte y = 1;
+                Food f = Food.consFood(currentName, currentRating, currentUrl, 0, y);
+                aFood.add(f);
+                //notify adapter
+                adapter.notifyItemInserted(aFood.size() - 1);
 
             }
         } finally {

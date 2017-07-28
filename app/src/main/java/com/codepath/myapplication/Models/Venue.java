@@ -31,6 +31,18 @@ public class Venue implements Parcelable{
 
     }
 
+
+    public static Venue consVenue (String name, String url, float lat, float lng,
+                                   String city, String state, int dist) {
+        Venue v = new Venue();
+        Location l = Location.consLocation(lat, lng, city, state, dist);
+        v.title = name;
+        v.imageUrl = url;
+        v.location = l;
+        return v;
+    }
+
+
     public Venue() {}
 
     protected Venue(Parcel in) {
