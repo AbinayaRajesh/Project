@@ -61,10 +61,10 @@ public class Venue implements Parcelable{
     }
 
     protected Venue(Parcel in) {
-        favourite = in.readByte();
         title = in.readString();
         id = in.readString();
         imageUrl = in.readString();
+        favourite = in.readByte();
     }
 
     @Override

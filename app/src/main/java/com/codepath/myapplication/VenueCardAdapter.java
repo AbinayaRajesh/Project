@@ -13,8 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Models.Venue;
 
-import org.parceler.Parcels;
-
 import java.util.ArrayList;
 
 // Provide the underlying view for an individual list item.
@@ -91,7 +89,7 @@ public class VenueCardAdapter extends RecyclerView.Adapter<VenueCardAdapter.VH> 
 
                         Intent i = new Intent(context, DetailPlaceActivity.class);
                         Venue venue = mVenues.get(ven.getNum());
-                        i.putExtra("location", Parcels.wrap(venue.getLocation()));
+                        i.putExtra("location", venue.getLocation());
                         i.putExtra("venue", venue);
                         context.startActivity(i); // brings up the second activity
 

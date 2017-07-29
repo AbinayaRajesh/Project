@@ -54,9 +54,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
         tvDistance = (TextView) findViewById(R.id.tvDistance);
         tvAddress = (TextView) findViewById(R.id.tvAddress);
         ivImg = (ImageView) findViewById(R.id.ivImg);
-        //location = (Location) Parcels.unwrap(getIntent().getParcelableExtra("location"));
-
-
+        location = (Location) getIntent().getParcelableExtra("location");
         venue = (Venue) getIntent().getParcelableExtra("venue");
 
 
@@ -64,7 +62,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
         venue.setLocation(location);
 
         tvTitle.setText(venue.getTitle());
-        tvDistance.setText(venue.getLocation().getDistance());
+        tvDistance.setText(String.valueOf(location.getDistance()));
         tvAddress.setText(venue.getLocation().getCity());
 
         Glide.with(context)
