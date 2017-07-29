@@ -136,11 +136,13 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(placeLocation));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 1000, null);
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menumain, menu);
         return true;
     }
+
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, NearbyActivity.class);
         startActivity(i);

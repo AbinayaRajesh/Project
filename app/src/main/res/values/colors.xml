@@ -20,5 +20,6 @@
     <color name="sea_blue">#000000</color>
     <color name="nice_blue">#1da1f2</color>
     <color name="text">#FFFFFF</color>
+    <color name="grey">#909090</color>
 
 </resources>

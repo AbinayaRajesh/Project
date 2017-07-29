@@ -120,8 +120,10 @@ public class LanguageMainActivity extends Fragment {
             case 0: {
                 rootView = inflater.inflate(R.layout.activity_common_phrases, container, false);
                 ArrayList<Phrase> phrases = new ArrayList<Phrase>();
-                Phrase p1 = new Phrase("How are you? / How is it going? ", "Comment allez-vous?");
-                phrases.add(p1);
+                //String s1 = "How are you? / How is it going? ";
+                //String t1 = Translate(s1);
+                //Phrase p1 = new Phrase(s1,t1);
+                //phrases.add(p1);
                 Phrase p2 = new Phrase("Where is the restroom?", "Où sont les toilettes?");
                 phrases.add(p2);
                 Phrase p3 = new Phrase("How much does the magazine cost?", "Combien coûte le magazine?");
@@ -132,6 +134,7 @@ public class LanguageMainActivity extends Fragment {
                 phrases.add(p5);
                 Phrase p6 = new Phrase("Where is the currency exchange? ", "Où est l'échange de devises?");
                 phrases.add(p6);
+
                 adapter = new PhrasesAdapter(phrases);
                 //resolve the recycler view and connect a layout manager and the adapter
                 rvPhrases = (RecyclerView) rootView.findViewById(R.id.rvPhrases);
@@ -142,6 +145,8 @@ public class LanguageMainActivity extends Fragment {
         }
         return rootView;
     }
+
+
 
     public void TranslateText() {
         translateText.clear();
@@ -175,6 +180,37 @@ public class LanguageMainActivity extends Fragment {
             }
         }).start();
     }
+
+//    public String Translate(String query) {
+//        translateText.clear();
+//        translateText.add(query);
+//        queryTranslate.setQ(translateText);
+//        queryTranslate.setSource("en");
+//        queryTranslate.setTarget(language);
+//
+//        final Translate translate = new Translate.Builder(httpTransport, jsonFactory, null)
+//                .setApplicationName("My First Project")
+//                .setTranslateRequestInitializer(API_KEY)
+//                .build();
+//        new Thread(new Runnable(){
+//            @Override
+//            public void run() {
+//                try {
+//                    translated = String.valueOf(translate.translations().list(translateText, language).execute());
+//                    if (translated !=null ){
+//                        translated = translated.substring(translated.indexOf("t\":\""));
+//                        translated = translated.substring(4, translated.length()-4);
+//                    }
+//                }
+//                catch (Exception ex) {
+//                    ex.printStackTrace();
+//                }
+//            }
+//        }).start();
+//
+//        return translated;
+//    }
+
     public void SpeechSynthesis(){
         textToBeSpoken = translatedLanguage.getText().toString();
         if (textToBeSpoken==null || "".equals(textToBeSpoken)){
