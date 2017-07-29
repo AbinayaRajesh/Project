@@ -30,12 +30,12 @@ public class EventDbHelper extends SQLiteOpenHelper {
     public static final String LOG_TAG = EventDbHelper.class.getSimpleName();
 
     /** Name of the database file */
-    private static final String DATABASE_NAME = "staycation.db";
+    private static final String DATABASE_NAME = "shelter.db";
 
     /**
      * Database version. If you change the database schema, you must increment the database version.
      */
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     /**
      * Constructs a new instance of {@link EventDbHelper}.
@@ -76,7 +76,7 @@ public class EventDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_FOOD_TABLE);
 
         // Create a String that contains the SQL statement to create the tourism table
-        String SQL_CREATE_TOURISM_TABLE =  "CREATE TABLE " + FoodEntry.TABLE_NAME + " ("
+        String SQL_CREATE_TOURISM_TABLE =  "CREATE TABLE " + TourismEntry.TABLE_NAME + " ("
                 + TourismEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + TourismEntry.COLUMN_TOURISM_NAME + " TEXT NOT NULL, "
                 + TourismEntry.COLUMN_TOURISM_URL + " TEXT NOT NULL, "

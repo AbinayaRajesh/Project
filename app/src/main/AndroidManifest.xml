@@ -82,6 +82,7 @@
         <activity android:name=".LanguageActivity" />
         <activity android:name=".Database.SavedEventsActivity" />
         <activity android:name=".Database.SavedRecipesActivity" />
+        <activity android:name=".Database.SavedTourismActivity" />
         <activity android:name=".EventSearchActivity" />
         <activity android:name=".FoodSearchActivity" />
         <activity android:name=".TourismSearchActivity" />
