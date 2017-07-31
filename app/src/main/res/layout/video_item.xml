@@ -3,28 +3,13 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:padding="16dp" >
 
-    <com.google.android.youtube.player.YouTubePlayerView
-        android:id="@+id/pvYoutube"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
 
-
-    <TextView
-        android:id="@+id/video_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/pvYoutube"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"/>
 
     <TextView
         android:id="@+id/video_description"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/pvYoutube"
+
         android:textSize="15sp"
         android:textColor="#FFFFFF"/>
 

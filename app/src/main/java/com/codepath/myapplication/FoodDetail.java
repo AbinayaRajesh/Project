@@ -37,6 +37,7 @@ public class FoodDetail extends YouTubeBaseActivity implements YouTubePlayer.OnI
     TextView tvDetailRecipeName;
     ImageView tvRecipePic;
     RatingBar rbRating;
+    TextView tvIngredients;
     Context context = this;
     int count = 0;
     ImageButton i;
@@ -54,6 +55,7 @@ public class FoodDetail extends YouTubeBaseActivity implements YouTubePlayer.OnI
         tvDetailRecipeName = (TextView) findViewById(R.id.tvDetailRecipeName);
         tvRecipePic = (ImageView) findViewById(R.id.tvRecipePic);
         rbRating = (RatingBar) findViewById(R.id.rbRating);
+        tvIngredients = (TextView) findViewById(R.id.tvIngredients);
         YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.pvYoutube);
 
 
@@ -61,9 +63,10 @@ public class FoodDetail extends YouTubeBaseActivity implements YouTubePlayer.OnI
 
         tvDetailRecipeName.setText(recipe.getName());
         rbRating.setRating(recipe.getRating());
+        tvIngredients.setText(recipe.getIngredients());
         Glide.with(context)
                 .load(recipe.getImageUrl())
-                .bitmapTransform(new RoundedCornersTransformation(context, 35, 0))
+                .bitmapTransform(new RoundedCornersTransformation(context, 10, 0))
                 .into(tvRecipePic);
 
 
@@ -137,7 +140,7 @@ public class FoodDetail extends YouTubeBaseActivity implements YouTubePlayer.OnI
             public void run() {
                 YoutubeConnector yc = new YoutubeConnector(FoodDetail.this);
                 searchResults = yc.search(keywords);
-                searchResults=searchResults.subList(0,3);
+                searchResults=searchResults.subList(0,1);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -155,13 +158,10 @@ public class FoodDetail extends YouTubeBaseActivity implements YouTubePlayer.OnI
                 if (convertView == null) {
                     convertView = getLayoutInflater().inflate(R.layout.video_item, parent, false);
                 }
-
-                TextView title = (TextView) convertView.findViewById(R.id.video_title);
                 TextView description = (TextView) convertView.findViewById(R.id.video_description);
 
                 VideoItem searchResult = searchResults.get(position);
 
-                title.setText(searchResult.getDescription());
                 description.setText(searchResult.getDescription());
 
                 return convertView;
@@ -254,9 +254,10 @@ public class FoodDetail extends YouTubeBaseActivity implements YouTubePlayer.OnI
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
         if(!b) {
-            for(int i =0; i<70000000; i++){} //needed to delay to give time for youtube player to load and not crash
+            for(int j = 0; j<100000000; j++){} //needed to delay to give time for youtube player to load and not crash
 
-            youTubePlayer.cueVideo(searchResults.get(1).getId());
+         //   youTubePlayer.cueVideo(searchResults.get(0).getId());
+            youTubePlayer.loadVideo(searchResults.get(0).getId()); //allows autoplay rather than clicking to play
         }
     }
 

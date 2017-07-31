@@ -8,55 +8,39 @@
 
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/pvYoutube"
-        android:layout_below="@+id/rbRating"
+        android:layout_below="@+id/tvRecipeName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         />
 
-    <ImageView
-        android:id="@+id/tvRecipePic"
-        android:layout_width="360dp"
-        android:layout_height="100dp"
-        app:srcCompat="@color/cardview_dark_background"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="-2dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/tvDetailRecipeName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvRecipePic"
-        android:layout_marginLeft="135dp"
-        android:layout_marginStart="135dp"
-        android:layout_marginTop="17dp"
+        android:layout_alignEnd="@+id/add"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/add"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
         android:text="TextView"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:textStyle="bold"
         tools:layout_editor_absoluteY="98dp" />
 
     <RatingBar
         android:id="@+id/rbRating"
+        style="@style/Widget.AppCompat.RatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvDetailRecipeName"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
-
-
-    <ListView
-        android:id="@+id/videos_found"
-        android:layout_below="@+id/pvYoutube"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:dividerHeight="5dp"></ListView>
-
+        android:progressBackgroundTint="@color/com_facebook_blue"
+        android:progressTint="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <ImageButton
         android:id="@+id/add"
         android:background="@color/sea_blue"
@@ -67,6 +51,82 @@
         android:layout_marginTop="4dp"
         android:layout_alignParentRight="true"
         android:src="@drawable/add_white"/>
+
+
+    <ListView
+        android:id="@+id/videos_found"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:dividerHeight="5dp"
+        android:layout_below="@+id/pvYoutube"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"></ListView>
+
+    <com.facebook.share.widget.ShareButton
+        android:id="@+id/fb_share_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/rbRating"
+        android:layout_alignRight="@+id/add"
+        android:layout_alignEnd="@+id/add"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp" />
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/llImageIngredients"
+        android:layout_below="@+id/videos_found"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:id="@+id/tvIngredientTitle"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:text="Ingredients"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvIngredients"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tvIngredientTitle"
+            android:layout_marginLeft="30dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/white" />
+
+
+        <ImageView
+            android:id="@+id/tvRecipePic"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            app:srcCompat="@color/cardview_dark_background"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="-2dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/tvIngredients"
+            android:layout_toEndOf="@+id/tvIngredients" />
+
+
+
+    </RelativeLayout>
+
+
 
 
 </RelativeLayout>
