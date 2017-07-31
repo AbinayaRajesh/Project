@@ -6,13 +6,22 @@
     android:layout_height="match_parent"
     tools:context="com.codepath.myapplication.LanguageFragments.CommonPhrasesFragment">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/phrasesdefault"
+        android:minHeight="100dp"
+        android:adjustViewBounds="true"
+        android:id="@+id/img"/>
+
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="20dp"
         android:id="@+id/rvPhrases"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_below="@+id/img" />
 
 
 </RelativeLayout>
