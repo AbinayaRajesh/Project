@@ -120,22 +120,152 @@ public class LanguageMainActivity extends Fragment {
             case 0: {
                 rootView = inflater.inflate(R.layout.activity_common_phrases, container, false);
                 ArrayList<Phrase> phrases = new ArrayList<Phrase>();
-                //String s1 = "How are you? / How is it going? ";
-                //String t1 = Translate(s1);
-                //Phrase p1 = new Phrase(s1,t1);
-                //phrases.add(p1);
-                Phrase p2 = new Phrase("Where is the restroom?", "Où sont les toilettes?");
-                phrases.add(p2);
-                Phrase p3 = new Phrase("How much does the magazine cost?", "Combien coûte le magazine?");
-                phrases.add(p3);
-                Phrase p4 = new Phrase("What time is it? ", "Quelle heure est-il?");
-                phrases.add(p4);
-                Phrase p5 = new Phrase("I am visiting family. ", "Je visite la famille");
-                phrases.add(p5);
-                Phrase p6 = new Phrase("Where is the currency exchange? ", "Où est l'échange de devises?");
-                phrases.add(p6);
+                String title;
+                Phrase p;  // Phrase
+                String s;  // Text
+                String t = "Translation";  // Translation
 
-                adapter = new PhrasesAdapter(phrases);
+                p = new Phrase("Where is the restroom?", "Où sont les toilettes?");
+                phrases.add(p);
+
+                // Greetings
+
+                title = "Greetings (things that you say at the beginning of a conversation) seem " +
+                        "straightforward and easy for English learners. However, they are essential " +
+                        "to conversation. You need good greetings to be understood well while you are " +
+                        "traveling an English-speaking country. Check out these most common ones.";
+
+
+                s = "Good morning";
+                s = "Good afternoon";
+                s = "Good evening";
+                s = "Hello / Hi / Hey";
+                s = "How are you? / How is it going?";
+
+                // At the Airport
+
+                title = "When you go to an English-speaking country, your first encounters of " +
+                        "English will probably be at an airport. Check out these phrases to make " +
+                        "checking into your flight (letting the airline know you have arrived) a " +
+                        "breeze!";
+
+                s = "I would like ... ";
+                s = "What time is my flight?";
+                s = "What airline am I flying?";
+                s = "Where is my gate?";
+                s = "Where is the restroom?";
+                s = "How much does the magazine cost?";
+
+                // On the Airplane
+
+                title = "So, you’ve made it through the airport, and you’re on the airplane. " +
+                        "Check out these phrases for having a good flight.\n";
+
+                s = "Are meals included?";
+                s = "May I have something to eat/drink?";
+                s = "May I purchase headphones?";
+                s = "What time is it?";
+
+                // At Customs
+
+                title = "After the airport and the airplane comes the most stressful experiences for" +
+                        " travelers: customs. This is the part where you have to explain why you " +
+                        "have arrived in a country and tell officers what your intentions are. " +
+                        "But don’t stress! These phrases will help you out.";
+
+                s = "I have a connecting flight.";
+                s = "I am traveling for leisure.";
+                s = "I am traveling for work.";
+                s = "I will be here for ___ days.";
+                s = "I am visiting family.";
+                s = "I am staying at _____.";
+
+                // Arriving at Your Destination
+
+                title = "After the air travel comes the real fun part: your destination (the " +
+                        "place where you are visiting). These common phrases will help you get " +
+                        "around and explore.";
+
+                s = "Do you have a map?";
+                s = "Where is the currency exchange?";
+                s = "Where is the bus stop?";
+                s = "Where can I find a taxi?";
+                s = "I would like to go to _____.";
+                s = "Do you know where this hotel is?";
+                s = "I don’t understand.";
+
+                // At the hotel
+
+                title = "Aside from your flight, the next more important thing while abroad is " +
+                        "your accommodation, and if you’re staying in a hotel and not with " +
+                        "friends or family, the following phrases will come in handy.";
+                s = "Does the room have a bathroom?";
+
+                s = "How many beds are in the room?";
+                s = "I would like one queen bed, please.";
+                s = "I would like two double beds, please.";
+                s = "What floor am I on?";
+                s = "Where are the elevators?";
+                s = "How do I access the Internet?";
+                s = "Is there free breakfast?";
+                s = "My room needs towels.";
+                s = "My room is messy, and I would like it cleaned.";
+                s = "How do I call for room service?";
+                s = "How do I call down to the front desk?";
+
+                // Around Town
+
+                title = "Vocabulary for the airport and your hotel is fine, but you traveled " +
+                        "to visit a new place! Check out these phrases to help you out while " +
+                        "you’re exploring.";
+
+                s = "Where can I find a grocery store?";
+                s = "Where is the hospital?";
+                s = "Where can I find a restaurant?";
+                s = "Where is the bank?";
+                s = "How do you get to ____?";
+                s = "How far is it to _____?";
+                s = "It’s to the right.";
+                s = "It’s to the left.";
+                s = "It’s straight ahead.";
+                s = "It’s at the corner.";
+                s = "It’s two blocks ahead (or three blocks, or four ...).";
+
+                // At a restaurant
+
+                title = "After a long day exploring, food is always a welcome break. Check " +
+                        "out these helpful restaurant phrases and this post about ordering food.";
+
+                s = "A table for two/four.";
+                s = "I would like to drink ... ";
+                s = "May I see a menu?";
+                s = "I would like to order ____.";
+                s = "Fill in the blank with an item off of the menu or one of these items: ";
+                s = "I’ll have soup.";
+                s = "I’ll have a salad.";
+                s = "I’ll have a hamburger.";
+                s = "I’ll have chicken.";
+                s = "I’ll have an appetizer.";
+                s = "I would like dessert.";
+                s = "May I have the bill?";
+
+                // Common Problems
+
+                title = "Even with careful planning and these phrases, you may encounter some " +
+                        "problems. Here are some phrases to help you out if something bad happens.";
+
+                s = "I have lost my passport. ";
+                s = "Where is the embassy for _____?";
+                s = "Someone stole my money.";
+                s = "Help!";
+                s = "I feel really sick";
+                s = "Could you help me get to the hospital?";
+
+
+
+
+
+                        adapter = new PhrasesAdapter(phrases);
                 //resolve the recycler view and connect a layout manager and the adapter
                 rvPhrases = (RecyclerView) rootView.findViewById(R.id.rvPhrases);
                 rvPhrases.setLayoutManager(new LinearLayoutManager(getContext()));
