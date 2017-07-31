@@ -1,4 +1,4 @@
-package com.codepath.myapplication.Fragments;
+package com.codepath.myapplication.EventFragments;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,26 +21,20 @@ import cz.msebera.android.httpclient.Header;
  * Created by eyobtefera on 7/18/17.
  */
 
-public class MusicEventsFragment extends EventsListFragment {
+public class FestivalsEventsFragment extends EventsListFragment  {
     AsyncHttpClient client;
 
     Byte y;
-    public final static String COLUMN_EVENT_VENUE = "venue";
 
     String countryName;
-
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        client = new AsyncHttpClient();
-
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             countryName = bundle.getString("country", "");
         }
-
+        client = new AsyncHttpClient();
         filter = ((EventActivity) getActivity()).getFilter();
-
         getSportsEvents();
     }
     private void getSportsEvents(){
@@ -48,7 +42,7 @@ public class MusicEventsFragment extends EventsListFragment {
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
         params.put("keywords", countryName);
-        params.put("category", "music");
+        params.put("category", "festivals_parades");
         if(filter != null) {
             if (filter.equals("popularity")) {
                 params.put("sort_order", "popularity");
@@ -85,7 +79,9 @@ public class MusicEventsFragment extends EventsListFragment {
                 }
             }
         });
+//http://api.eventful.com/rest/events/search?app_key=95JSGDKWtDtWRRgx&keywords=fun
     }
+
 
     public boolean CheckIsDataAlreadyInDBorNot(String TableName,
                                                String dbfield, String fieldValue) {
@@ -98,12 +94,12 @@ public class MusicEventsFragment extends EventsListFragment {
 
         String Query = "Select * from " + TableName + " where " + dbfield + " = " + fieldValue;
         Cursor cursor = db.rawQuery(Query, null);
-        if(cursor.getCount() <= 0){
+        if (cursor.getCount() <= 0) {
             cursor.close();
             return false;
         }
         cursor.close();
         return true;
-    }
 
-}
+    }
+    }

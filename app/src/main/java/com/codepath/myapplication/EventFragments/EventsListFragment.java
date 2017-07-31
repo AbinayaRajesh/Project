@@ -1,4 +1,4 @@
-package com.codepath.myapplication.Fragments;
+package com.codepath.myapplication.EventFragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

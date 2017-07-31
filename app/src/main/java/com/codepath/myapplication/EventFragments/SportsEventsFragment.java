@@ -1,4 +1,4 @@
-package com.codepath.myapplication.Fragments;
+package com.codepath.myapplication.EventFragments;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,12 +21,15 @@ import cz.msebera.android.httpclient.Header;
  * Created by eyobtefera on 7/18/17.
  */
 
-public class FestivalsEventsFragment extends EventsListFragment  {
+public class SportsEventsFragment extends EventsListFragment {
     AsyncHttpClient client;
 
     Byte y;
-
     String countryName;
+
+
+    String filter;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
@@ -42,7 +45,7 @@ public class FestivalsEventsFragment extends EventsListFragment  {
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
         params.put("keywords", countryName);
-        params.put("category", "festivals_parades");
+        params.put("category", "sports");
         if(filter != null) {
             if (filter.equals("popularity")) {
                 params.put("sort_order", "popularity");
@@ -82,7 +85,6 @@ public class FestivalsEventsFragment extends EventsListFragment  {
 //http://api.eventful.com/rest/events/search?app_key=95JSGDKWtDtWRRgx&keywords=fun
     }
 
-
     public boolean CheckIsDataAlreadyInDBorNot(String TableName,
                                                String dbfield, String fieldValue) {
 
@@ -100,6 +102,6 @@ public class FestivalsEventsFragment extends EventsListFragment  {
         }
         cursor.close();
         return true;
+    }
+}
 
-    }
-    }

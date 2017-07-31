@@ -38,6 +38,8 @@
 
             <TextView
                 android:id="@+id/tvTitle"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:layout_gravity="center"
                 android:layout_width="0dp"
                 android:layout_weight="1"

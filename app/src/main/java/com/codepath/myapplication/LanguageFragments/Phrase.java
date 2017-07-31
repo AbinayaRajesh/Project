@@ -9,22 +9,22 @@ import org.parceler.Parcel;
 public class Phrase {
 
     // values from API
-    static String phrase;
-    static String translation;
+    String phrase;
+    String translation;
 
     // initialize from JSON data
-    public Phrase(String phrase, String translation) {
-        Phrase.phrase = phrase;
-        Phrase.translation = translation;
+    public Phrase(String p, String t) {
+        phrase = p;
+        translation = t;
     }
 
     public Phrase() {}
 
-    public static String getPhrase() {
+    public String getPhrase() {
         return phrase;
     }
 
-    public static String getTranslation() {
+    public String getTranslation() {
         return translation;
     }
 }

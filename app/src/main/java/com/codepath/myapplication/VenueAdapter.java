@@ -2,6 +2,7 @@ package com.codepath.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,10 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
 
 
     ArrayList<Venue> venues;
+    ViewGroup pview;
     Context context;
+    Venue curV;
+    int curI;
     public VenueAdapter(ArrayList<Venue> venues) {
         this.venues = venues;
     }
@@ -34,6 +38,7 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // get the context and create the inflater
+        pview = parent;
         context = parent.getContext();
 
 
@@ -127,7 +132,34 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
 
             // add this as the itemView's OnClickListener
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    int pos = getAdapterPosition();
+                    Venue venue = venues.get(pos);
+                    venues.remove(pos);
+                    curV = venue;
+                    curI = pos;
+                    notifyDataSetChanged();
+                    //Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(pview, R.string.snackbar_text, Snackbar.LENGTH_LONG)
+                            .setAction(R.string.snackbar_action, myOnClickListener)
+                            .show(); // Don’t forget to show!
+
+                    return true;
+                }
+            });
+
+
+
         }
+        View.OnClickListener myOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                venues.add(curI, curV);
+                notifyDataSetChanged();
+            }
+        };
     }
 }
 

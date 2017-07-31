@@ -24,36 +24,36 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.codepath.myapplication.Database.EventContract.EventEntry;
-import com.codepath.myapplication.Event.Event;
-import com.codepath.myapplication.Event.EventAdapter;
+import com.codepath.myapplication.Database.TourismContract.TourismEntry;
+import com.codepath.myapplication.Models.Venue;
 import com.codepath.myapplication.R;
+import com.codepath.myapplication.VenueAdapter;
 
 import java.util.ArrayList;
 
 /**
  * Displays list of pets that were entered and stored in the app.
  */
-public class SavedEventsActivity extends AppCompatActivity {
+public class SavedTourismActivity extends AppCompatActivity {
 
     /** Database helper that will provide us access to the database */
     private EventDbHelper mDbHelper;
 
-    EventAdapter adapter;
-    RecyclerView rvEvents;
-    ArrayList<Event> aEvent;
+    VenueAdapter adapter;
+    RecyclerView  rvTourism;
+    ArrayList<Venue> aVenue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_favourites);
-        setTitle("Saved Events");
-        aEvent = new ArrayList<>();
-        adapter = new EventAdapter(aEvent);
+        setContentView(R.layout.activity_tourism_favourites);
+        setTitle("Saved Tourist spots");
+        aVenue = new ArrayList<>();
+        adapter = new VenueAdapter(aVenue);
         adapter.notifyDataSetChanged();
 
-        rvEvents= (RecyclerView) findViewById(R.id.rvEvents);
-        rvEvents.setLayoutManager(new LinearLayoutManager(this));
-        rvEvents.setAdapter(adapter);
+        rvTourism = (RecyclerView) findViewById(R.id.rvTourism);
+        rvTourism.setLayoutManager(new LinearLayoutManager(this));
+        rvTourism.setAdapter(adapter);
 
 
         // To access our database, we instantiate our subclass of SQLiteOpenHelper
@@ -79,18 +79,18 @@ public class SavedEventsActivity extends AppCompatActivity {
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
-                EventEntry._ID,
-                EventEntry.COLUMN_EVENT_NAME,
-                EventEntry.COLUMN_EVENT_DESCRIPTION,
-                EventEntry.COLUMN_EVENT_URL,
-                EventEntry.COLUMN_EVENT_VENUE,
-                EventEntry.COLUMN_EVENT_START_TIME,
-                EventEntry.COLUMN_EVENT_STOP_TIME,
-                EventEntry.COLUMN_EVENT_UNIQUE_KEY};
+                TourismEntry._ID,
+                TourismEntry.COLUMN_TOURISM_NAME,
+                TourismEntry.COLUMN_TOURISM_URL,
+                TourismEntry.COLUMN_TOURISM_LAT,
+                TourismEntry.COLUMN_TOURISM_LNG,
+                TourismEntry.COLUMN_TOURISM_CITY,
+                TourismEntry.COLUMN_TOURISM_STATE,
+                TourismEntry.COLUMN_TOURISM_DISTANCE};
 
         // Perform a query on the pets table
         Cursor cursor = db.query(
-                EventEntry.TABLE_NAME,   // The table to query
+                TourismEntry.TABLE_NAME,   // The table to query
                 projection,            // The columns to return
                 null,                  // The columns for the WHERE clause
                 null,                  // The values for the WHERE clause
@@ -102,14 +102,14 @@ public class SavedEventsActivity extends AppCompatActivity {
         try {
 
             // Figure out the index of each column
-            int idColumnIndex = cursor.getColumnIndex(EventEntry._ID);
-            int nameColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_NAME);
-            int descriptionColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_DESCRIPTION);
-            int urlColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_URL);
-            int venueColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_VENUE);
-            int startColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_START_TIME);
-            int stopColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_STOP_TIME);
-            int keyColumnIndex = cursor.getColumnIndex(EventEntry.COLUMN_EVENT_UNIQUE_KEY);
+            int idColumnIndex = cursor.getColumnIndex(TourismEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(TourismEntry.COLUMN_TOURISM_NAME);
+            int urlColumnIndex = cursor.getColumnIndex(TourismEntry.COLUMN_TOURISM_URL);
+            int latColumnIndex = cursor.getColumnIndex(TourismEntry.COLUMN_TOURISM_LAT);
+            int lngColumnIndex = cursor.getColumnIndex(TourismEntry.COLUMN_TOURISM_LNG);
+            int cityColumnIndex = cursor.getColumnIndex(TourismEntry.COLUMN_TOURISM_CITY);
+            int stateColumnIndex = cursor.getColumnIndex(TourismEntry.COLUMN_TOURISM_STATE);
+            int distColumnIndex = cursor.getColumnIndex(TourismEntry.COLUMN_TOURISM_DISTANCE);
 
             // Iterate through all the returned rows in the cursor
             while (cursor.moveToNext()) {
@@ -117,19 +117,20 @@ public class SavedEventsActivity extends AppCompatActivity {
                 // at the current row the cursor is on.
                 int currentID = cursor.getInt(idColumnIndex);
                 String currentName = cursor.getString(nameColumnIndex);
-                String currentDescription = cursor.getString(descriptionColumnIndex);
                 String currentUrl = cursor.getString(urlColumnIndex);
-                String currentVenue = cursor.getString(venueColumnIndex);
-                String currentStart = cursor.getString(startColumnIndex);
-                String currentStop = cursor.getString(stopColumnIndex);
-                int currentKey = cursor.getInt(keyColumnIndex);
+                float currentLat = cursor.getFloat(latColumnIndex);
+                float currentLng = cursor.getFloat(lngColumnIndex);
+                String currentCity = cursor.getString(cityColumnIndex);
+                String currentState = cursor.getString(stateColumnIndex);
+                int currentDist = cursor.getInt(distColumnIndex);
 
+                Byte y = 1;
 
-                    Event e = Event.consEvent(currentName, currentDescription, currentUrl, currentVenue, currentStart,
-                            currentStop, 0, 0, (byte) 0, currentKey);
-                    aEvent.add(e);
+                    Venue v = Venue.consVenue(currentName, currentUrl, currentLat, currentLng, currentCity,
+                            currentState, currentDist, y);
+                    aVenue.add(v);
                     //notify adapter
-                    adapter.notifyItemInserted(aEvent.size() - 1);
+                    adapter.notifyItemInserted(aVenue.size() - 1);
 
             }
         } finally {

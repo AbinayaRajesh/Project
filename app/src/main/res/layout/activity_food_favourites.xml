@@ -16,27 +16,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Database.SavedEventsActivity">
+    tools:context=".Database.SavedRecipesActivity">
 
-    <!--<TextView-->
-    <!--android:id="@+id/text_view_pet"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:textColor="#FFFFFF"-->
-    <!--android:padding="@dimen/activity_margin"/>-->
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_pet"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvRecipes"
-        android:background="#FF4261"
+        android:background="#000000"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"

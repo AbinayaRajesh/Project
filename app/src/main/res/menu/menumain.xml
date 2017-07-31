@@ -15,9 +15,5 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_calendar_icon"
         android:title="TripPlanner"/>
-    <item
-        android:id="@+id/action_settings"
-        android:title="Settings"></item>
-
 
 </menu>

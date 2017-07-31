@@ -1,5 +1,7 @@
 package com.codepath.myapplication.Models;
 
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,7 +12,7 @@ import org.parceler.Parcel;
  */
 
 @Parcel
-public class Location {
+public class Location implements Parcelable {
 
     // values from API
     double lat;
@@ -19,10 +21,6 @@ public class Location {
     String city;
     String state;
     String[] formattedAddress;
-
-
-
-
 
     // initialize from JSON data
     public static Location fromJSON (JSONObject object) throws JSONException {
@@ -44,6 +42,21 @@ public class Location {
 
 
     }
+
+    public static Location consLocation (float lat, float lng,
+                                   String city, String state, int dist) {
+        Location l = new Location();
+
+        l.distance = dist;
+        l.city = city;
+        l.state =state;
+        l.lat = lat;
+        l.lng = lng;
+
+        return l;
+    }
+
+
 
     public Location() {}
 
@@ -70,6 +83,42 @@ public class Location {
     public String[] getFormattedAddress() {
         return formattedAddress;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(android.os.Parcel dest, int flags) {
+        dest.writeDouble(this.lat);
+        dest.writeDouble(this.lng);
+        dest.writeInt(this.distance);
+        dest.writeString(this.city);
+        dest.writeString(this.state);
+        dest.writeStringArray(this.formattedAddress);
+    }
+
+    protected Location(android.os.Parcel in) {
+        this.lat = in.readDouble();
+        this.lng = in.readDouble();
+        this.distance = in.readInt();
+        this.city = in.readString();
+        this.state = in.readString();
+        this.formattedAddress = in.createStringArray();
+    }
+
+    public static final Parcelable.Creator<Location> CREATOR = new Parcelable.Creator<Location>() {
+        @Override
+        public Location createFromParcel(android.os.Parcel source) {
+            return new Location(source);
+        }
+
+        @Override
+        public Location[] newArray(int size) {
+            return new Location[size];
+        }
+    };
 }
 
 //{

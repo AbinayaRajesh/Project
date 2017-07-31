@@ -14,8 +14,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.codepath.myapplication.Country.Country;
-import com.codepath.myapplication.Fragments.EventsListFragment;
-import com.codepath.myapplication.Fragments.EventsPagerAdapter;
+import com.codepath.myapplication.EventFragments.EventsListFragment;
+import com.codepath.myapplication.EventFragments.EventsPagerAdapter;
 
 import org.parceler.Parcels;
 

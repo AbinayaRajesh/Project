@@ -1,16 +1,23 @@
 package com.codepath.myapplication.LanguageFragments;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codepath.myapplication.R;
 import com.google.api.client.http.HttpTransport;
@@ -21,6 +28,10 @@ import com.google.api.services.translate.TranslateRequestInitializer;
 import com.google.api.services.translate.model.TranslateTextRequest;
 
 import java.util.ArrayList;
+import java.util.Locale;
+
+import static android.app.Activity.RESULT_OK;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class LanguageMainActivity extends Fragment {
 
@@ -30,16 +41,21 @@ public class LanguageMainActivity extends Fragment {
 
     String language;
     View rootView;
-
+    private final int REQ_CODE_SPEECH_INPUT = 100;
     EditText input;
     TextView translatedLanguage;
     Button translateButton;
     ArrayList<String> translateText;
     TranslateTextRequest queryTranslate;
     String translated;
+    TextToSpeech textTalk;
     int i;
     RecyclerView rvPhrases;
     PhrasesAdapter adapter;
+    Button tts;
+    String textToBeSpoken;
+    Button speechToText;
+    SpeechRecognizer sr;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -61,10 +77,42 @@ public class LanguageMainActivity extends Fragment {
                 input = (EditText) rootView.findViewById(R.id.etInputText);
                 translateButton = (Button) rootView.findViewById(R.id.btnTranslate);
                 translatedLanguage = (TextView) rootView.findViewById(R.id.tvTranslatedText);
+
+                tts = (Button) rootView.findViewById(R.id.btnTTS);
+                speechToText = (Button) rootView.findViewById(R.id.btnSTT);
+                textTalk = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
+                    @Override
+                    public void onInit(int i) {
+                        if(i == TextToSpeech.SUCCESS)
+                        {
+                           int result = textTalk.setLanguage(Locale.US);
+                            if(result==TextToSpeech.LANG_MISSING_DATA ||
+                                    result==TextToSpeech.LANG_NOT_SUPPORTED){
+                                Log.e("error", "This Language is not supported");
+                            }
+                            else{
+                                SpeechSynthesis();
+                            }
+                        }
+                    }
+                });
                 translateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        TranslateText(view);
+                        TranslateText();
+                    }
+                });
+                tts.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View view) {
+                        SpeechSynthesis();
+                    }
+                });
+                speechToText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        promptSpeechInput();
                     }
                 });
                 break;
@@ -72,8 +120,10 @@ public class LanguageMainActivity extends Fragment {
             case 0: {
                 rootView = inflater.inflate(R.layout.activity_common_phrases, container, false);
                 ArrayList<Phrase> phrases = new ArrayList<Phrase>();
-                Phrase p1 = new Phrase("How are you? / How is it going? ", "Comment allez-vous?");
-                phrases.add(p1);
+                //String s1 = "How are you? / How is it going? ";
+                //String t1 = Translate(s1);
+                //Phrase p1 = new Phrase(s1,t1);
+                //phrases.add(p1);
                 Phrase p2 = new Phrase("Where is the restroom?", "Où sont les toilettes?");
                 phrases.add(p2);
                 Phrase p3 = new Phrase("How much does the magazine cost?", "Combien coûte le magazine?");
@@ -84,6 +134,7 @@ public class LanguageMainActivity extends Fragment {
                 phrases.add(p5);
                 Phrase p6 = new Phrase("Where is the currency exchange? ", "Où est l'échange de devises?");
                 phrases.add(p6);
+
                 adapter = new PhrasesAdapter(phrases);
                 //resolve the recycler view and connect a layout manager and the adapter
                 rvPhrases = (RecyclerView) rootView.findViewById(R.id.rvPhrases);
@@ -95,7 +146,9 @@ public class LanguageMainActivity extends Fragment {
         return rootView;
     }
 
-    public void TranslateText(View view) {
+
+
+    public void TranslateText() {
         translateText.clear();
         String query = String.valueOf(input.getText());
         translateText.add(query);
@@ -117,6 +170,8 @@ public class LanguageMainActivity extends Fragment {
                         translated = translated.substring(translated.indexOf("t\":\""));
                         translated = translated.substring(4, translated.length()-4);
                         translatedLanguage.setText(translated);
+                        textToBeSpoken = translated;
+                        //textToBeSpoken = translatedLanguage.getText().toString();
                     }
                 }
                 catch (Exception ex) {
@@ -125,6 +180,51 @@ public class LanguageMainActivity extends Fragment {
             }
         }).start();
     }
+
+
+    public void SpeechSynthesis(){
+        textToBeSpoken = translatedLanguage.getText().toString();
+        if (textToBeSpoken==null || "".equals(textToBeSpoken)){
+            textToBeSpoken = "Type something to be translated";
+            textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
+        }
+        else{
+            textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
+        }
+    }
+    private void promptSpeechInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                "Say less");
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(),
+                    "speech not supported sorry friend",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+                    final ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    input.setText(result.get(0));
+
+                    result.clear();
+                }
+                break;
+            }
+
+        }
+    }
+
 
 
 }

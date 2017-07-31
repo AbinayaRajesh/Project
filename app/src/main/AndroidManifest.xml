@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
 
     <application
         android:allowBackup="true"
@@ -27,6 +29,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -81,19 +84,24 @@
 
         <activity android:name=".LanguageActivity" />
         <activity android:name=".Database.SavedEventsActivity" />
-        <activity android:name=".Database.EditorActivity" />
+        <activity android:name=".Database.SavedRecipesActivity" />
+        <activity android:name=".Database.SavedTourismActivity" />
         <activity android:name=".EventSearchActivity" />
         <activity android:name=".FoodSearchActivity" />
         <activity android:name=".TourismSearchActivity" />
         <activity android:name=".RestarauntSearchActivity" />
         <activity android:name=".CountrySearchActivity" />
-        <activity android:name=".LoginActivity">
 
-        </activity>
+        <activity android:name=".LoginActivity"></activity>
 
-        <provider android:authorities="com.facebook.app.FacebookContentProvider155418675023687"
+
+
+        <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
+            android:authorities="com.facebook.app.FacebookContentProvider155418675023687"
+            android:exported="true" />
+
+        <activity android:name=".Options.FavouriteActivity"></activity>
     </application>
 
 </manifest>

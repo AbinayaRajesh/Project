@@ -247,7 +247,7 @@ public class EventDetail extends AppCompatActivity {
             Toast.makeText(this, "Error with saving event", Toast.LENGTH_SHORT).show();
         } else {
             // Otherwise, the insertion was successful and we can display a toast with the row ID.
-            Toast.makeText(this, "Event saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Event saved to favourites", Toast.LENGTH_SHORT).show();
         }
 
         // pass back data

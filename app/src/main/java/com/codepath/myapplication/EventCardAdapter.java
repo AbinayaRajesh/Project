@@ -111,7 +111,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.VH> 
             Toast.makeText(mContext, "Error with saving event", Toast.LENGTH_SHORT).show();
         } else {
             // Otherwise, the insertion was successful and we can display a toast with the row ID.
-            Toast.makeText(mContext, "Event saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Event saved to favourites", Toast.LENGTH_SHORT).show();
         }
 
 //        // pass back data
@@ -169,10 +169,6 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.VH> 
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     final Event e = (Event) mEvents.get(position);
-                    if (v.getId() == R.id.add) {
-
-                    }
-                    else {
 
                         if (e != null) {
                             // Fire an intent when a option is selected
@@ -184,7 +180,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.VH> 
                             mContext.startActivityForResult(i, REQUEST_CODE);
                             // context.startActivity(i); // brings up the second activity
                         }
-                    }
+
                 }
             });
             add.setOnClickListener(new View.OnClickListener() {

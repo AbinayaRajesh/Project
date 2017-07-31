@@ -2,6 +2,7 @@ package com.codepath.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +22,17 @@ import java.util.ArrayList;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
     ArrayList<Food> recipes;
+    ViewGroup pview;
     Context context;
+    Food curE;
+    int curI;
 
     public FoodAdapter(ArrayList<Food> recipes){this.recipes = recipes;}
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
+        pview = parent;
         LayoutInflater inflater = LayoutInflater.from(context);
         View foodView = inflater.inflate(R.layout.item_view_food, parent, false);
 
@@ -62,7 +67,34 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
             tvRecipeName = (TextView) itemView.findViewById(R.id.tvRecipeName);
             ivRecipeImage = (ImageView) itemView.findViewById(R.id.ivRecipeImage);
             itemView.setOnClickListener(this);
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    int pos = getAdapterPosition();
+                    Food f = recipes.get(pos);
+                    recipes.remove(pos);
+                    curE = f;
+                    curI = pos;
+                    notifyDataSetChanged();
+                    //Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(pview, R.string.snackbar_text, Snackbar.LENGTH_LONG)
+                            .setAction(R.string.snackbar_action, myOnClickListener)
+                            .show(); // Don’t forget to show!
+
+                    return true;
+                }
+            });
+
         }
+
+        View.OnClickListener myOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recipes.add(curI, curE);
+                notifyDataSetChanged();
+            }
+        };
         public void onClick(View v) {
             // gets item position
             int position = getAdapterPosition();

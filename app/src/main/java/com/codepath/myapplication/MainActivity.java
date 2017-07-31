@@ -4,8 +4,6 @@ package com.codepath.myapplication;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.support.v4.app.NotificationCompat;
@@ -24,15 +22,12 @@ import android.widget.Toast;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Country.CountryAdapter;
+import com.codepath.myapplication.Options.FavouriteActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
-import com.facebook.share.model.SharePhoto;
-import com.facebook.share.model.SharePhotoContent;
-import com.facebook.share.widget.ShareButton;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         String url  = getIntent().getParcelableExtra("image");
-        profilePic = (ImageView) findViewById(R.id.profilePic);
+//        profilePic = (ImageView) findViewById(R.id.profilePic);
 
-        Picasso.with(getBaseContext())
-                .load(imageUrl)
-                .into(profilePic);
+//        Picasso.with(getBaseContext())
+//                .load(imageUrl)
+//                .into(profilePic);
 
 
         popularCountries = new ArrayList<>();
@@ -112,19 +107,19 @@ public class MainActivity extends AppCompatActivity {
        // eventButton = (Button) findViewById(R.id.bttnEvent);
         context = this;
 
-
-        // FACEBOOK SHARING
-
-        ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
-        Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
-                R.drawable.recipes);
-        SharePhoto photo = new SharePhoto.Builder()
-                .setBitmap(icon)
-                .build();
-        SharePhotoContent content = new SharePhotoContent.Builder()
-                .addPhoto(photo)
-                .build();
-        shareButton.setShareContent(content);
+//
+//        // FACEBOOK SHARING
+//
+//        ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
+//        Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
+//                R.drawable.recipes);
+//        SharePhoto photo = new SharePhoto.Builder()
+//                .setBitmap(icon)
+//                .build();
+//        SharePhotoContent content = new SharePhotoContent.Builder()
+//                .addPhoto(photo)
+//                .build();
+//        shareButton.setShareContent(content);
 
 
     }
@@ -226,6 +221,12 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, NearbyActivity.class);
         startActivity(i);
     }
+
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
+        startActivity(i);
+    }
+
 }
 
 

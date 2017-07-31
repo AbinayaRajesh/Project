@@ -11,7 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
+import com.codepath.myapplication.EventActivity;
 import com.codepath.myapplication.ImageAdapterSwipe;
+
 import com.codepath.myapplication.NearbyActivity;
 import com.codepath.myapplication.Photo;
 import com.codepath.myapplication.PhotoClient;
@@ -90,13 +92,23 @@ public class OptionsActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        if (id == R.id.miProfile) {
+            Intent i = new Intent(this, EventActivity.class);
+            i.putExtra("country", Parcels.wrap(country));
+            startActivity(i);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, NearbyActivity.class);
         i.putExtra("country", Parcels.wrap(country));
+        startActivity(i);
+    }
+
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
     }
 

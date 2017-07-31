@@ -57,4 +57,16 @@
         android:layout_height="match_parent"
         android:dividerHeight="5dp"></ListView>
 
+    <ImageButton
+        android:id="@+id/add"
+        android:background="@color/sea_blue"
+        android:layout_width="32dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/add_white"/>
+
+
 </RelativeLayout>

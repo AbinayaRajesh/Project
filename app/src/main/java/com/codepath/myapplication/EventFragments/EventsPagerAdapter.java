@@ -1,4 +1,4 @@
-package com.codepath.myapplication.Fragments;
+package com.codepath.myapplication.EventFragments;
 
 import android.content.Context;
 import android.os.Bundle;
