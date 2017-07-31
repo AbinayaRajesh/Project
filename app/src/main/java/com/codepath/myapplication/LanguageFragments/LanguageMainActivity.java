@@ -118,16 +118,14 @@ public class LanguageMainActivity extends Fragment {
                 break;
             }
             case 0: {
+                language=TranslateFragment.language;
                 rootView = inflater.inflate(R.layout.activity_common_phrases, container, false);
                 ArrayList<Phrase> phrases = new ArrayList<Phrase>();
+                translateText = new ArrayList<>();
+                queryTranslate = new TranslateTextRequest();
+                adapter = new PhrasesAdapter(phrases);
                 String title;
-                Phrase p;  // Phrase
                 String s;  // Text
-                String t = "Translation";  // Translation
-
-                p = new Phrase("Where is the restroom?", "Où sont les toilettes?");
-                phrases.add(p);
-
                 // Greetings
 
                 title = "Greetings (things that you say at the beginning of a conversation) seem " +
@@ -139,9 +137,13 @@ public class LanguageMainActivity extends Fragment {
                 s = "Good morning";
                 phrases.add(new Phrase(s, TranslateWord(s)));
                 s = "Good afternoon";
+                phrases.add(new Phrase(s, TranslateWord(s)));
                 s = "Good evening";
+                phrases.add(new Phrase(s, TranslateWord(s)));
                 s = "Hello / Hi / Hey";
+                phrases.add(new Phrase(s, TranslateWord(s)));
                 s = "How are you? / How is it going?";
+                phrases.add(new Phrase(s, TranslateWord(s)));
 
                 // At the Airport
 
@@ -309,7 +311,10 @@ public class LanguageMainActivity extends Fragment {
         }).start();
     }
     public String TranslateWord(String query) {
-        translateText.clear();
+        // Boolean b = true;
+        //if (translateText != null || (!translateText.equals(""))) {
+            translateText.clear();
+        //}
         String toBeReturned;
         translateText.add(query);
         queryTranslate.setQ(translateText);
@@ -320,7 +325,7 @@ public class LanguageMainActivity extends Fragment {
                 .setApplicationName("My First Project")
                 .setTranslateRequestInitializer(API_KEY)
                 .build();
-        new Thread(new Runnable(){
+        Thread t = new Thread(new Runnable(){
             @Override
             public void run() {
                 try {
@@ -328,6 +333,8 @@ public class LanguageMainActivity extends Fragment {
                     if (translated !=null ){
                         translated = translated.substring(translated.indexOf("t\":\""));
                         translated = translated.substring(4, translated.length()-4);
+
+
                         //textToBeSpoken = translatedLanguage.getText().toString();
                     }
                 }
@@ -335,7 +342,14 @@ public class LanguageMainActivity extends Fragment {
                     ex.printStackTrace();
                 }
             }
-        }).start();
+        });
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         toBeReturned = translated;
         return toBeReturned;
     }
