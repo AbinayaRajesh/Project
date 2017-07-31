@@ -3,7 +3,6 @@ package com.codepath.myapplication.LanguageFragments;
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.codepath.myapplication.R;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 
 /**
@@ -86,7 +84,7 @@ public class PhrasesAdapter extends RecyclerView.Adapter<PhrasesAdapter.ViewHold
             if (position != RecyclerView.NO_POSITION) {
 
                 Phrase phrase = mPhrases.get(position);
-                //SpeechSynthesis("hello, how are you");
+                SpeechSynthesis(phrase.getTranslation());
 
 
             }
@@ -95,72 +93,15 @@ public class PhrasesAdapter extends RecyclerView.Adapter<PhrasesAdapter.ViewHold
         }
     }
 
-    public void SpeechSynthesis(final String textToBeSpoken){
+    public void SpeechSynthesis(final String textToBeSpoken) {
 
         textTalk = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int i) {
-                if(i == TextToSpeech.SUCCESS)
-                {
-                    int result = textTalk.setLanguage(Locale.US);
-                    if(result==TextToSpeech.LANG_MISSING_DATA ||
-                            result==TextToSpeech.LANG_NOT_SUPPORTED){
-                        Log.e("error", "This Language is not supported");
-                    }
-                    else{
-
-                        if (textToBeSpoken==null || "".equals(textToBeSpoken)){
-                            textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
-                        }
-                        else{
-                            textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
-                        }
-                    }
-                }
+                textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
             }
-        });
 
+        });
     }
 
-//    public String TranslateWord(String query) {
-//        final TranslateRequestInitializer API_KEY = new TranslateRequestInitializer("AIzaSyC2FnmN0yck7fkTgtWLi1D6WfXpMZDfw30");
-//        HttpTransport httpTransport =  new com.google.api.client.http.javanet.NetHttpTransport();
-//        JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
-//        final ArrayList<String> translateText;
-//        TranslateTextRequest queryTranslate;
-//        translateText = new ArrayList<>();
-//        String translated;
-//        queryTranslate = new TranslateTextRequest();
-//        //if (translateText != null || (!translateText.equals(""))) {
-//        translateText.clear();
-//        //}
-//        String toBeReturned;
-//        translateText.add(query);
-//        queryTranslate.setQ(translateText);
-//        queryTranslate.setSource("en");
-//        queryTranslate.setTarget(language);
-//        // queryTranslate.setTarget("fr");
-//        final Translate translate = new Translate.Builder(httpTransport, jsonFactory, null)
-//                .setApplicationName("My First Project")
-//                .setTranslateRequestInitializer(API_KEY)
-//                .build();
-//        new Thread(new Runnable(){
-//            @Override
-//            public void run() {
-//                try {
-//                    translated = String.valueOf(translate.translations().list(translateText, language).execute());
-//                    if (translated !=null ){
-//                        translated = translated.substring(translated.indexOf("t\":\""));
-//                        translated = translated.substring(4, translated.length()-4);
-//                        //textToBeSpoken = translatedLanguage.getText().toString();
-//                    }
-//                }
-//                catch (Exception ex) {
-//                    ex.printStackTrace();
-//                }
-//            }
-//        }).start();
-//        toBeReturned = translated;
-//        return toBeReturned;
-//    }
 }
