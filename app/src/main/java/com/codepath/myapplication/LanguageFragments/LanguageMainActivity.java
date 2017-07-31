@@ -137,6 +137,7 @@ public class LanguageMainActivity extends Fragment {
 
 
                 s = "Good morning";
+                phrases.add(new Phrase(s, TranslateWord(s)));
                 s = "Good afternoon";
                 s = "Good evening";
                 s = "Hello / Hi / Hey";
