@@ -15,6 +15,7 @@
     <color name="editorColorPrimary">#2D3640</color>
 
     <!-- Primary dark color for the editor FF4261 -->
+    <color name="pink">#FF4261</color>
     <color name="editorColorPrimaryDark">#394450</color>
 
     <color name="sea_blue">#000000</color>

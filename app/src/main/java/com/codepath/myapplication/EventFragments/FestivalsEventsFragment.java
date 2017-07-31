@@ -1,5 +1,6 @@
 package com.codepath.myapplication.EventFragments;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -62,7 +63,7 @@ public class FestivalsEventsFragment extends EventsListFragment  {
                     JSONArray eventArray = eventsonline.getJSONArray("event");
                     for (int i = 0; i < eventArray.length(); i++){
                         Event event = Event.fromJson(i, eventArray.getJSONObject(i));
-                        if (CheckIsDataAlreadyInDBorNot("events", "venue", "\""+event.getEventVenue()+ "\"")) {
+                        if (CheckIsDataAlreadyInDBorNot("events", "venue", "\""+event.getEventVenue()+ "\"", getContext())) {
                             y = 0;
                             event.setFavourite(y);
                         }
@@ -84,10 +85,10 @@ public class FestivalsEventsFragment extends EventsListFragment  {
 
 
     public boolean CheckIsDataAlreadyInDBorNot(String TableName,
-                                               String dbfield, String fieldValue) {
+                                               String dbfield, String fieldValue, Context c) {
 
         // Create database helper
-        EventDbHelper mDbHelper = new EventDbHelper(getContext());
+        EventDbHelper mDbHelper = new EventDbHelper(c);
 
         // Gets the database in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();

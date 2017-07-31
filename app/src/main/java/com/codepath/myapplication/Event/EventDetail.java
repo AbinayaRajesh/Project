@@ -142,14 +142,7 @@ public class EventDetail extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-//                    icon = getBitmapFromURL(event.getEventUrl());
                     ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
-//                    SharePhoto photo = new SharePhoto.Builder()
-//                            .setBitmap(icon)
-//                            .build();
-////                    SharePhotoContent content = new SharePhotoContent.Builder()
-////                            .addPhoto(photo)
-////                            .build();
                     ShareLinkContent Content = new ShareLinkContent.Builder()
                             .setContentUrl(Uri.parse(event.getEventLink()))
                             .setShareHashtag(new ShareHashtag.Builder()
