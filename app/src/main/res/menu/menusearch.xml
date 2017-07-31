@@ -23,7 +23,5 @@
         android:icon="@drawable/ic_calendar_icon"
         android:onClick="onEvents"
         android:title="TripPlanner"/>
-    <item
-        android:id="@+id/action_settings"
-        android:title="Settings"></item>\
+
 </menu>

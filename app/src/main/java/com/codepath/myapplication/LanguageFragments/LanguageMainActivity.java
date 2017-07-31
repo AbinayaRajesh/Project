@@ -181,35 +181,6 @@ public class LanguageMainActivity extends Fragment {
         }).start();
     }
 
-//    public String Translate(String query) {
-//        translateText.clear();
-//        translateText.add(query);
-//        queryTranslate.setQ(translateText);
-//        queryTranslate.setSource("en");
-//        queryTranslate.setTarget(language);
-//
-//        final Translate translate = new Translate.Builder(httpTransport, jsonFactory, null)
-//                .setApplicationName("My First Project")
-//                .setTranslateRequestInitializer(API_KEY)
-//                .build();
-//        new Thread(new Runnable(){
-//            @Override
-//            public void run() {
-//                try {
-//                    translated = String.valueOf(translate.translations().list(translateText, language).execute());
-//                    if (translated !=null ){
-//                        translated = translated.substring(translated.indexOf("t\":\""));
-//                        translated = translated.substring(4, translated.length()-4);
-//                    }
-//                }
-//                catch (Exception ex) {
-//                    ex.printStackTrace();
-//                }
-//            }
-//        }).start();
-//
-//        return translated;
-//    }
 
     public void SpeechSynthesis(){
         textToBeSpoken = translatedLanguage.getText().toString();

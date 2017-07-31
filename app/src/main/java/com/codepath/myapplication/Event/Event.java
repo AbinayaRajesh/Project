@@ -96,6 +96,9 @@ public class Event implements Parcelable {
         event.latitude = (float) jsonObject.getDouble("latitude");
         event.longitude = (float) jsonObject.getDouble("longitude");
         event.eventDescription = jsonObject.getString("description");
+        if (event.eventDescription=="null") {
+            event.eventDescription = "No description available";
+        }
         event.startTime = jsonObject.getString("start_time");
         event.stopTime = jsonObject.getString("stop_time");
         event.eventLink = jsonObject.getString("url");
