@@ -178,7 +178,9 @@ public class LanguageMainActivity extends Fragment {
         }).start();
     }
     public String TranslateWord(String query) {
-        translateText.clear();
+        if (translateText != null || (!translateText.equals(""))) {
+            translateText.clear();
+        }
         String toBeReturned;
         translateText.add(query);
         queryTranslate.setQ(translateText);
