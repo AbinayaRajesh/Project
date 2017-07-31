@@ -145,9 +145,6 @@ public class LanguageMainActivity extends Fragment {
         }
         return rootView;
     }
-
-
-
     public void TranslateText() {
         translateText.clear();
         String query = String.valueOf(input.getText());
@@ -180,37 +177,47 @@ public class LanguageMainActivity extends Fragment {
             }
         }).start();
     }
-
-//    public String Translate(String query) {
-//        translateText.clear();
-//        translateText.add(query);
-//        queryTranslate.setQ(translateText);
-//        queryTranslate.setSource("en");
-//        queryTranslate.setTarget(language);
-//
-//        final Translate translate = new Translate.Builder(httpTransport, jsonFactory, null)
-//                .setApplicationName("My First Project")
-//                .setTranslateRequestInitializer(API_KEY)
-//                .build();
-//        new Thread(new Runnable(){
-//            @Override
-//            public void run() {
-//                try {
-//                    translated = String.valueOf(translate.translations().list(translateText, language).execute());
-//                    if (translated !=null ){
-//                        translated = translated.substring(translated.indexOf("t\":\""));
-//                        translated = translated.substring(4, translated.length()-4);
-//                    }
-//                }
-//                catch (Exception ex) {
-//                    ex.printStackTrace();
-//                }
-//            }
-//        }).start();
-//
-//        return translated;
-//    }
-
+    public String TranslateWord(String query) {
+        translateText.clear();
+        String toBeReturned;
+        translateText.add(query);
+        queryTranslate.setQ(translateText);
+        queryTranslate.setSource("en");
+        queryTranslate.setTarget(language);
+        // queryTranslate.setTarget("fr");
+        final Translate translate = new Translate.Builder(httpTransport, jsonFactory, null)
+                .setApplicationName("My First Project")
+                .setTranslateRequestInitializer(API_KEY)
+                .build();
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                    translated = String.valueOf(translate.translations().list(translateText, language).execute());
+                    if (translated !=null ){
+                        translated = translated.substring(translated.indexOf("t\":\""));
+                        translated = translated.substring(4, translated.length()-4);
+                        //textToBeSpoken = translatedLanguage.getText().toString();
+                    }
+                }
+                catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }).start();
+        toBeReturned = translated;
+        return toBeReturned;
+    }
+    public void SpeechSynthesis(String talk){
+        textToBeSpoken = talk;
+        if (textToBeSpoken==null || "".equals(textToBeSpoken)){
+            textToBeSpoken = "Type something to be translated";
+            textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
+        }
+        else{
+            textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
+        }
+    }
     public void SpeechSynthesis(){
         textToBeSpoken = translatedLanguage.getText().toString();
         if (textToBeSpoken==null || "".equals(textToBeSpoken)){
