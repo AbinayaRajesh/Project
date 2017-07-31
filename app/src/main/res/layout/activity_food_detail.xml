@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.codepath.myapplication.FoodDetail">
 
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:id="@+id/pvYoutube"
+        android:layout_below="@+id/rbRating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
     <ImageView
         android:id="@+id/tvRecipePic"
         android:layout_width="360dp"
@@ -42,9 +49,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp" />
 
+
     <ListView
         android:id="@+id/videos_found"
-        android:layout_below="@+id/rbRating"
+        android:layout_below="@+id/pvYoutube"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="5dp"></ListView>

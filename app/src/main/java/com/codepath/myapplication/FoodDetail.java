@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -13,9 +12,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
 
 import org.parceler.Parcels;
 
@@ -23,13 +26,13 @@ import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-public class FoodDetail extends AppCompatActivity {
+public class FoodDetail extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
     Food recipe;
     TextView tvDetailRecipeName;
     ImageView tvRecipePic;
     RatingBar rbRating;
     Context context = this;
-
+    int count = 0;
     // private EditText searchInput;
     private ListView videosFound;
     private Handler handler;
@@ -43,6 +46,8 @@ public class FoodDetail extends AppCompatActivity {
         tvDetailRecipeName = (TextView) findViewById(R.id.tvDetailRecipeName);
         tvRecipePic = (ImageView) findViewById(R.id.tvRecipePic);
         rbRating = (RatingBar) findViewById(R.id.rbRating);
+        YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.pvYoutube);
+
 
         recipe = (Food) Parcels.unwrap(getIntent().getParcelableExtra("recipe"));
 
@@ -61,6 +66,7 @@ public class FoodDetail extends AppCompatActivity {
 
         handler = new Handler();
 
+
 //        searchInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 //            @Override
 //            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -73,7 +79,11 @@ public class FoodDetail extends AppCompatActivity {
 //        });
         searchOnYoutube(recipe.getName());
 
+
+
         addClickListener();
+        playerView.initialize(YoutubeConnector.KEY, (YouTubePlayer.OnInitializedListener) context);
+
     }
 
     private void searchOnYoutube(final String keywords) {
@@ -101,19 +111,20 @@ public class FoodDetail extends AppCompatActivity {
                     convertView = getLayoutInflater().inflate(R.layout.video_item, parent, false);
                 }
 
-                ImageView thumbnail = (ImageView) convertView.findViewById(R.id.video_thumbnail);
                 TextView title = (TextView) convertView.findViewById(R.id.video_title);
                 TextView description = (TextView) convertView.findViewById(R.id.video_description);
 
                 VideoItem searchResult = searchResults.get(position);
 
-                Picasso.with(getApplicationContext()).load(searchResult.getThumbnailURL()).into(thumbnail);
                 title.setText(searchResult.getDescription());
                 description.setText(searchResult.getDescription());
+
                 return convertView;
             }
         };
         videosFound.setAdapter(adapter);
+
+
     }
 
     private void addClickListener() {
@@ -128,5 +139,15 @@ public class FoodDetail extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+        if(!b) {
+            youTubePlayer.cueVideo(searchResults.get(0).getId());
+        }
+    }
 
+    @Override
+    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+        Toast.makeText(this, "Initialization Failed", Toast.LENGTH_LONG).show();
+    }
 }
