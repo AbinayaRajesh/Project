@@ -39,6 +39,7 @@ public class SportsEventsFragment extends EventsListFragment {
         }
         client = new AsyncHttpClient();
         filter = ((EventActivity) getActivity()).getFilter();
+        ll = ((EventActivity) getActivity()).getFilter();
         getSportsEvents();
     }
     private void getSportsEvents(){

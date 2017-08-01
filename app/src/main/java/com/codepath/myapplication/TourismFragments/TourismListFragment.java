@@ -27,7 +27,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class TourismListFragment extends Fragment {
 
-    AsyncHttpClient client = new AsyncHttpClient();;
+    AsyncHttpClient client = new AsyncHttpClient();
     ArrayList<Venue> venues;
     RecyclerView rvVenues;
     ArrayList<String> venueIds;
@@ -53,52 +53,31 @@ public class TourismListFragment extends Fragment {
         rvVenues = (RecyclerView) v.findViewById(R.id.rvVenues);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            countryName = bundle.getString("country", "");
+            countryName = bundle.getString("country");
         }
-
-        //resolve the recycler view and connect a layout manager and the adapter
-        //rvMovies = (RecyclerView) findViewById(rvMovies);
         rvVenues.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         rvVenues.setAdapter(adapter);
         return v;
-        // LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//
-//        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-//            ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
-//                    MY_PERMISSION_ACCESS_COURSE_LOCATION );
-//            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//            longitude = location.getLongitude();
-//            latitude = location.getLatitude();
-//            String lat = String.valueOf((int) latitude);
-//            String lng = String.valueOf((int) longitude);
-//            ll = lat+","+lng;
-//        }
-//        else {
-//            ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
-//                    MY_PERMISSION_ACCESS_COURSE_LOCATION );
-//            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//            longitude = location.getLongitude();
-//            latitude = location.getLatitude();
-//            String lat = String.valueOf((int) latitude);
-//            String lng = String.valueOf((int) longitude);
-//            ll = lat+","+lng;
-//        }
     }
     public void getVenue(String categoryID, String query){
         // create the url
         String url = API_BASE_URL + "/venues/search";
         // set the request parameters
         RequestParams params = new RequestParams();
-        params.put("ll", ll);
+        //params.put("ll", ll);
+        //params.put("radius", 100000);
+//        params.put(API_KEY_PARAM, getString(R.string.api_key));  // Always needs API key
+//        params.put(API_SECRET_PARAM, getString(R.string.api_secret));
+//        params.put("v", "20170713");
+//        //params.put("query", countryName + " " + query);
+params.put("categoryId", categoryID);
+//        params.put("query", "Brazil");
+        params.put("ll", "40.7,-74");
         params.put("radius", 100000);
         params.put(API_KEY_PARAM, getString(R.string.api_key));  // Always needs API key
         params.put(API_SECRET_PARAM, getString(R.string.api_secret));
         params.put("v", "20170713");
-        params.put("query", countryName + " " + query);
-        params.put("categoryId", categoryID);
-        //params.put("query", country.getName());
+        params.put("query", "brazil");
         // request a GET response expecting a JSON object response
         client.get(url, params, new JsonHttpResponseHandler() {
             @Override
