@@ -82,6 +82,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/tvIngredientTitle"
+            android:lines="5"
             android:layout_marginLeft="30dp"
             android:textAlignment="textStart"
             android:textColor="@color/white" />
@@ -110,7 +111,6 @@
         <RatingBar
             android:id="@+id/rbRating"
             style="@style/Widget.AppCompat.RatingBar"
-            android:layout_below="@id/llImageIngredients"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleX="0.5"

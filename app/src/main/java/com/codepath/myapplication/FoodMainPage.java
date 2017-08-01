@@ -19,6 +19,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Country.Country;
+import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.Tourism.tempTourism;
 
 import org.parceler.Parcels;
@@ -85,6 +86,11 @@ public class FoodMainPage extends AppCompatActivity {
     }
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, NearbyActivity.class);
+        startActivity(i);
+    }
+
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
     }
 

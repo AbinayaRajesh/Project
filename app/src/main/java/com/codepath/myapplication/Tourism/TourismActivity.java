@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.NearbyActivity;
+import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.R;
 import com.codepath.myapplication.TourismFragments.TourismPagerAdapter;
 import com.codepath.myapplication.TourismSearchActivity;
@@ -70,6 +71,11 @@ public class TourismActivity extends AppCompatActivity {
     }
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, NearbyActivity.class);
+        startActivity(i);
+    }
+
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
     }
     public boolean onOptionsItemSelected(MenuItem item) {

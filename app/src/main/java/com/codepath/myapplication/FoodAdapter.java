@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -85,6 +86,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
                     //Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show();
                     Snackbar.make(pview, R.string.snackbar_text, Snackbar.LENGTH_LONG)
                             .setAction(R.string.snackbar_action, myOnClickListener)
+                            .setActionTextColor(Color.WHITE)
                             .show(); // Don’t forget to show!
 
                     return true;

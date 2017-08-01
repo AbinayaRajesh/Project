@@ -21,6 +21,7 @@ import com.codepath.myapplication.Database.SavedTourismActivity;
 import com.codepath.myapplication.Database.TourismContract.TourismEntry;
 import com.codepath.myapplication.Models.Location;
 import com.codepath.myapplication.Models.Venue;
+import com.codepath.myapplication.Options.FavouriteActivity;
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
@@ -171,6 +172,12 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menumain, menu);
         return true;
+    }
+
+
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
+        startActivity(i);
     }
 
     public void onMaps(MenuItem item) {
