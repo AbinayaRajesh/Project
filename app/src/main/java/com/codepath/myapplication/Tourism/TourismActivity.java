@@ -2,6 +2,7 @@ package com.codepath.myapplication.Tourism;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
@@ -20,13 +21,19 @@ import com.codepath.myapplication.TourismSearchActivity;
 
 import org.parceler.Parcels;
 
-public class TourismActivity extends AppCompatActivity {
+public class TourismActivity extends AppCompatActivity  {
 
     Context context;
+    LocationManager locationManager;
     ViewPager vpPager;
     Bundle bundle;
     TourismPagerAdapter pageAdapter;
     String filter;
+    Double longitude;
+    Double latitude;
+    String lat;
+    String lng;
+    String ll;
     public static Country country;
 
     @Override
@@ -46,6 +53,7 @@ public class TourismActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(vpPager);
         vpPager.setOffscreenPageLimit(3);
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menufilter, menu);
@@ -61,6 +69,7 @@ public class TourismActivity extends AppCompatActivity {
                 searchView.clearFocus();
                 return true;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
@@ -68,10 +77,12 @@ public class TourismActivity extends AppCompatActivity {
         });
         return true;
     }
+
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, NearbyActivity.class);
         startActivity(i);
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         bundle.clear();
         int id = item.getItemId();
@@ -100,7 +111,10 @@ public class TourismActivity extends AppCompatActivity {
         }
         return true;
     }
-    public String getFilter(){
+
+    public String getFilter() {
         return filter;
     }
 }
+
+

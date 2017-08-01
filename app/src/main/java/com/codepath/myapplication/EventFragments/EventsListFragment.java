@@ -22,6 +22,7 @@ public class EventsListFragment extends Fragment {
     //API key parameter name
     public final static String API_KEY_PARAM = "95JSGDKWtDtWRRgx";
     AsyncHttpClient client = new AsyncHttpClient();
+    String ll;
     //ArrayList<Event> events;
     RecyclerView rvEvents;
     //the adapter wired to the recycler view
@@ -32,7 +33,7 @@ public class EventsListFragment extends Fragment {
         View v = inflater.inflate(R.layout.activity_events_list_fragment, container, false);
         bundle = new Bundle();
         bundle = getArguments();
-
+        ll = "";
         if (bundle != null){
             filter = getArguments().getString("filter");
         }
