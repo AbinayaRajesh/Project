@@ -41,6 +41,7 @@ public class MusicEventsFragment extends EventsListFragment {
         }
 
         filter = ((EventActivity) getActivity()).getFilter();
+        ll = ((EventActivity) getActivity()).getFilter();
 
         getSportsEvents();
     }
