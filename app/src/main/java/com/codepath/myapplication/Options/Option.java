@@ -35,10 +35,10 @@ public class Option implements Serializable {
     // Returns a list of contacts
     public static List<Option> getContacts() {
         List<Option> options = new ArrayList<>();
-        options.add(new Option(1, "India", R.drawable.events1));
-        options.add(new Option(2, "India", R.drawable.food1));
-        options.add(new Option(3, "India", R.drawable.translate1));
-        options.add(new Option(4, "India", R.drawable.tourism1));
+        options.add(new Option(1, "India", R.drawable.events_icon));
+        options.add(new Option(2, "India", R.drawable.food_icon));
+        options.add(new Option(3, "India", R.drawable.translate_icon));
+        options.add(new Option(4, "India", R.drawable.tourism_icon));
         return options;
     }
 

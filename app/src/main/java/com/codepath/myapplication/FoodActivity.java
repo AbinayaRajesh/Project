@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.FoodFragments.FoodPagerAdapter;
+import com.codepath.myapplication.Maps.tempDemoActivity;
 
 import org.parceler.Parcels;
 
@@ -66,7 +67,7 @@ public class FoodActivity extends AppCompatActivity {
         return true;
     }
     public void onMaps(MenuItem item) {
-        Intent i = new Intent(this, NearbyActivity.class);
+        Intent i = new Intent(this, tempDemoActivity.class);
         startActivity(i);
     }
 

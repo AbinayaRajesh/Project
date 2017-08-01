@@ -17,6 +17,7 @@ import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Database.EventDbHelper;
+import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -105,7 +106,7 @@ public class tempFOOD extends AppCompatActivity {
         return true;
     }
     public void onMaps(MenuItem item) {
-        Intent i = new Intent(context, NearbyActivity.class);
+        Intent i = new Intent(context, tempDemoActivity.class);
         startActivity(i);
     }
 

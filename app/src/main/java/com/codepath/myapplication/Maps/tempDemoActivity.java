@@ -50,6 +50,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Event.Event;
 import com.codepath.myapplication.Event.EventDetail;
 import com.codepath.myapplication.R;
@@ -69,10 +70,20 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import cz.msebera.android.httpclient.Header;
 
 import static com.codepath.myapplication.R.drawable.arrow;
 
@@ -194,11 +205,13 @@ public class tempDemoActivity extends AppCompatActivity implements
     private LatLng[] mLikelyPlaceLatLngs = new LatLng[mMaxEntries];
 
 
-
+    public final static String API_KEY_PARAM = "95JSGDKWtDtWRRgx";
 
 
 
     private GoogleMap mMap;
+
+    Country country;
 
     private Marker mPerth;
 
@@ -223,6 +236,9 @@ public class tempDemoActivity extends AppCompatActivity implements
 
     private final List<Marker> mMarkerRainbow = new ArrayList<Marker>();
 
+    AsyncHttpClient client;
+    public final static String API_BASE_URL = "http://api.eventful.com/json/";
+
     private TextView mTopText;
 
     private SeekBar mRotationBar;
@@ -239,9 +255,13 @@ public class tempDemoActivity extends AppCompatActivity implements
         setContentView(R.layout.marker_demo);
 
 
-        Sevents = getIntent().getParcelableArrayListExtra("Sevents");
-        Mevents = getIntent().getParcelableArrayListExtra("Mevents");
-        Fevents = getIntent().getParcelableArrayListExtra("Fevents");
+
+        client = new AsyncHttpClient();
+//
+//        Sevents = getIntent().getParcelableArrayListExtra("Sevents");
+//        Mevents = getIntent().getParcelableArrayListExtra("Mevents");
+//        Fevents = getIntent().getParcelableArrayListExtra("Fevents");
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
 
 
                 if (mLastSelectedMarker != null && mLastSelectedMarker.isInfoWindowShown()) {
@@ -265,6 +285,12 @@ public class tempDemoActivity extends AppCompatActivity implements
             mCameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
 
+        Sevents = new ArrayList<Event>();
+        Mevents = new ArrayList<Event>();
+        Fevents = new ArrayList<Event>();
+
+
+        getSportsEvents();
 
 
         // Build the Play services client for use by the Fused Location Provider and the Places API.
@@ -282,6 +308,87 @@ public class tempDemoActivity extends AppCompatActivity implements
 
 
 
+    }
+
+    private void getSportsEvents(){
+        String url = API_BASE_URL + "events/search?";
+        RequestParams params = new RequestParams();
+        params.put("app_key", API_KEY_PARAM);
+        params.put("keywords", country.getName());
+        params.put("category", "sports");
+        client.get(url, params, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    JSONObject eventsonline = response.getJSONObject("events");
+                    JSONArray eventArray = eventsonline.getJSONArray("event");
+                    for (int i = 0; i < 10; i++){
+                        Event event = Event.fromJson(i, eventArray.getJSONObject(i));
+                        Sevents.add(event);
+                        //notify adapter that a row was added
+                    }
+
+                    getMusicEvents();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void getMusicEvents(){
+        String url = API_BASE_URL + "events/search?";
+        RequestParams params = new RequestParams();
+        params.put("app_key", API_KEY_PARAM);
+        params.put("keywords", country.getName());
+        params.put("category", "music");
+        client.get(url, params, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    JSONObject eventsonline = response.getJSONObject("events");
+                    JSONArray eventArray = eventsonline.getJSONArray("event");
+                    for (int i = 0; i < 10; i++){
+                        Event event = Event.fromJson(i, eventArray.getJSONObject(i));
+                        Mevents.add(event);
+                    }
+                    getFestivalsEvents();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
+    }
+
+    private void getFestivalsEvents(){
+        String url = API_BASE_URL + "events/search?";
+        RequestParams params = new RequestParams();
+        params.put("app_key", API_KEY_PARAM);
+        params.put("keywords", country.getName());
+        params.put("category", "festivals_parades");
+        client.get(url, params, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    JSONObject eventsonline = response.getJSONObject("events");
+                    JSONArray eventArray = eventsonline.getJSONArray("event");
+                    for (int i = 0; i < 10; i++){
+                        Event event = Event.fromJson(i, eventArray.getJSONObject(i));
+                        Fevents.add(event);
+                    }
+
+                    onMapReady(mMap);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 
     @Override

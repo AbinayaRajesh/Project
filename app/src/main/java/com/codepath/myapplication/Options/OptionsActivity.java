@@ -13,8 +13,7 @@ import android.view.MenuItem;
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.EventActivity;
 import com.codepath.myapplication.ImageAdapterSwipe;
-
-import com.codepath.myapplication.NearbyActivity;
+import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Photo;
 import com.codepath.myapplication.PhotoClient;
 import com.codepath.myapplication.R;
@@ -102,7 +101,7 @@ public class OptionsActivity extends AppCompatActivity {
     }
 
     public void onMaps(MenuItem item) {
-        Intent i = new Intent(this, NearbyActivity.class);
+        Intent i = new Intent(this, tempDemoActivity.class);
         i.putExtra("country", Parcels.wrap(country));
         startActivity(i);
     }

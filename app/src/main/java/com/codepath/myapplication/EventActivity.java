@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.EventFragments.EventsListFragment;
 import com.codepath.myapplication.EventFragments.EventsPagerAdapter;
+import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
 
 import org.parceler.Parcels;
@@ -90,7 +91,7 @@ public class EventActivity extends AppCompatActivity {
     }
 
     public void onMaps(MenuItem item) {
-        Intent i = new Intent(this, NearbyActivity.class);
+        Intent i = new Intent(this, tempDemoActivity.class);
         startActivity(i);
     }
 
