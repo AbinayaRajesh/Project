@@ -25,7 +25,6 @@ public class FestivalsEventsFragment extends EventsListFragment  {
     AsyncHttpClient client;
 
     Byte y;
-
     String countryName;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +40,8 @@ public class FestivalsEventsFragment extends EventsListFragment  {
         String url = API_BASE_URL + "events/search?";
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
+        params.put("ll", ll);
+        params.put("within", 100);
         params.put("keywords", countryName);
         params.put("category", "festivals_parades");
         if(filter != null) {

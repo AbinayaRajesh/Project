@@ -249,9 +249,7 @@ public class EventDetail extends AppCompatActivity {
             // Otherwise, the insertion was successful and we can display a toast with the row ID.
             Toast.makeText(this, "Event saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
         }
-
         // pass back data
-
         // Prepare data intent
         Intent data = new Intent();
         // Pass relevant data back as a result
@@ -260,30 +258,16 @@ public class EventDetail extends AppCompatActivity {
         // Activity finished ok, return the data
         setResult(RESULT_OK, data); // set result code and bundle data for response
         finish(); // closes the activity, pass data to parent
-
     }
-
     private void deleteEvent(Event event) {
-
-
         // Create a String that contains the SQL statement to create the pets table
         String SQL_CREATE_EVENTS_TABLE =  "DELETE FROM " + EventEntry.TABLE_NAME +
                 " WHERE " + EventEntry.COLUMN_EVENT_VENUE + " = \"" + event.getEventVenue() + "\";";
-
         // Create database helper
         EventDbHelper mDbHelper = new EventDbHelper(this);
-
         // Gets the database in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_EVENTS_TABLE);
-
     }
-
-
-
-
-
 }
