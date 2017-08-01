@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
@@ -31,6 +29,7 @@ public class LanguageActivity extends AppCompatActivity{
     ViewPager vpPager;
     LanguagePagerAdapter pageAdapter;
     public static Country country;
+    int option;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +53,62 @@ public class LanguageActivity extends AppCompatActivity{
         tabLayout.setupWithViewPager(vpPager);
         vpPager.setOffscreenPageLimit(2);
     }
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menumain, menu);
-        return true;
-    }
+
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_translate, menu);
+//        return true;
+//    }
+//
+//
+//    public void onMaps(MenuItem item) {
+//        Intent i = new Intent(this, tempDemoActivity.class);
+//        startActivity(i);
+//    }
+//
+//
+//    public void onEvents(MenuItem item) {
+//        Intent i = new Intent(this, FavouriteActivity.class);
+//        startActivity(i);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        switch (id) {
+//            case R.id.action_dropdown1: {
+//                option = 1;
+//                break;
+//            }
+//
+//            case R.id.action_dropdown2: {
+//                option = 2;
+//                pageAdapter.notifyDataSetChanged();
+//                break;
+//            }
+//            case R.id.action_dropdown3: {
+//                option = 3;
+//                pageAdapter.notifyDataSetChanged();
+//                break;
+//            }
+//            case R.id.action_dropdown4: {
+//                option = 4;
+//                pageAdapter.notifyDataSetChanged();
+//                break;
+//            }
+//            default:
+//                return super.onOptionsItemSelected(item);
+//
+//        }
+//        return true;
+//    }
+//
+//    public int getOption () {
+//        return option;
+//    }
+
+
+
 
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, tempDemoActivity.class);
@@ -70,6 +120,11 @@ public class LanguageActivity extends AppCompatActivity{
         Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
     }
+
+
+
+
+
 
 
 }
