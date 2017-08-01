@@ -123,8 +123,11 @@
         <com.facebook.share.widget.ShareButton
             android:layout_toRightOf="@id/rbRating"
             android:id="@+id/fb_share_button"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_height="30dp"
+            android:gravity="center"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"/>
 

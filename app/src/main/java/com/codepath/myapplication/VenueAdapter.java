@@ -1,7 +1,9 @@
 package com.codepath.myapplication;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.myapplication.Database.EventDbHelper;
+import com.codepath.myapplication.Database.TourismContract.TourismEntry;
 import com.codepath.myapplication.Models.Location;
 import com.codepath.myapplication.Models.Venue;
 
@@ -138,6 +142,7 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
                     int pos = getAdapterPosition();
                     Venue venue = venues.get(pos);
                     venues.remove(pos);
+                    deleteVenue(venue);
                     curV = venue;
                     curI = pos;
                     notifyDataSetChanged();
@@ -157,9 +162,72 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
             @Override
             public void onClick(View v) {
                 venues.add(curI, curV);
+                insertVenue(curV);
                 notifyDataSetChanged();
             }
         };
     }
+
+    private void insertVenue(Venue venue) {
+
+        deleteVenue(venue);
+
+        // Read from input fields
+        // Use trim to eliminate leading or trailing white space
+        // mNameEditText.getText().toString().trim();
+
+
+        String nameString = venue.getTitle();
+        String urlString = venue.getImageUrl();
+        String cityString = venue.getLocation().getCity();
+        String stateString = venue.getLocation().getState();
+        float lat = (float) venue.getLocation().getLat();
+        float lng = (float) venue.getLocation().getLng();
+        int dist = venue.getLocation().getDistance();
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(context);
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        // Create a ContentValues object where column names are the keys,
+        // and pet attributes from the editor are the values.
+        ContentValues values = new ContentValues();
+        values.put(TourismEntry.COLUMN_TOURISM_NAME, nameString);
+        values.put(TourismEntry.COLUMN_TOURISM_URL, urlString);
+        values.put(TourismEntry.COLUMN_TOURISM_CITY, cityString);
+        values.put(TourismEntry.COLUMN_TOURISM_STATE, stateString);
+        values.put(TourismEntry.COLUMN_TOURISM_LAT, lat);
+        values.put(TourismEntry.COLUMN_TOURISM_LNG, lng);
+        values.put(TourismEntry.COLUMN_TOURISM_DISTANCE, dist);
+
+        // Insert a new row for pet in the database, returning the ID of that new row.
+        long newRowId = db.insert(TourismEntry.TABLE_NAME, null, values);
+
+
+
+
+
+    }
+
+    private void deleteVenue(Venue venue) {
+
+        // Create a String that contains the SQL statement to create the pets table
+        String SQL_CREATE_EVENTS_TABLE =  "DELETE FROM " + TourismEntry.TABLE_NAME +
+                " WHERE " + TourismEntry.COLUMN_TOURISM_NAME + " = \"" + venue.getTitle() + "\";";
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(context);
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+
+        // Execute the SQL statement
+        db.execSQL(SQL_CREATE_EVENTS_TABLE);
+
+    }
+
 }
 

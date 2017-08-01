@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -21,6 +22,9 @@ import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.Database.FoodContract.FoodEntry;
 import com.codepath.myapplication.Database.SavedRecipesActivity;
+import com.facebook.share.model.ShareHashtag;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -130,6 +134,29 @@ public class FoodDetail extends YouTubeBaseActivity implements YouTubePlayer.OnI
                 }
             }
         });
+
+        // FACEBOOK SHARING
+
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                    ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
+                    ShareLinkContent Content = new ShareLinkContent.Builder()
+                            .setContentUrl(Uri.parse("https://www.google.com/search?site=&q="+recipe.getName()))
+                            .setShareHashtag(new ShareHashtag.Builder()
+                                    .setHashtag("#Staycation")
+                                    .build())
+
+                            .build();
+
+                    shareButton.setShareContent(Content);
+                }
+                catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }).start();
 
 
     }

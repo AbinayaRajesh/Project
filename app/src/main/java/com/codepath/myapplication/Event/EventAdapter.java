@@ -1,7 +1,9 @@
 package com.codepath.myapplication.Event;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,7 +15,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.codepath.myapplication.Database.EventContract.EventEntry;
+import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.R;
+
+import org.jsoup.Jsoup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,6 +110,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                     int pos = getAdapterPosition();
                     Event event = mEvents.get(pos);
                     mEvents.remove(pos);
+                    deleteEvent(event);
                     curE = event;
                     curI = pos;
                     notifyDataSetChanged();
@@ -123,6 +130,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                mEvents.add(curI, curE);
+                insertEvent(curE);
                 notifyDataSetChanged();
             }
         };
@@ -150,4 +158,64 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
 
         }
+
+    private void insertEvent(Event event) {
+
+        deleteEvent(event);
+
+        // Read from input fields
+        // Use trim to eliminate leading or trailing white space
+        // mNameEditText.getText().toString().trim();
+        String nameString = event.getEventName();
+        String tex = Jsoup.parse(event.getEventDescription()).text();
+        String descriptionString = tex;
+        String urlString = event.getEventUrl();
+        String venueString = event.getEventVenue();
+        String startString = event.getStartTime();
+        String stopString = event.getStopTime();
+        int key = event.getId();
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(context);
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        // Create a ContentValues object where column names are the keys,
+        // and pet attributes from the editor are the values.
+        ContentValues values = new ContentValues();
+        values.put(EventEntry.COLUMN_EVENT_NAME, nameString);
+        values.put(EventEntry.COLUMN_EVENT_DESCRIPTION, descriptionString);
+        values.put(EventEntry.COLUMN_EVENT_URL, urlString);
+        values.put(EventEntry.COLUMN_EVENT_VENUE, venueString);
+        values.put(EventEntry.COLUMN_EVENT_START_TIME, startString);
+        values.put(EventEntry.COLUMN_EVENT_STOP_TIME, stopString);
+        values.put(EventEntry.COLUMN_EVENT_UNIQUE_KEY, key);
+
+        // Insert a new row for pet in the database, returning the ID of that new row.
+        long newRowId = db.insert(EventEntry.TABLE_NAME, null, values);
+
+
+
+    }
+
+    private void deleteEvent(Event event) {
+
+
+        // Create a String that contains the SQL statement to create the pets table
+        String SQL_CREATE_EVENTS_TABLE =  "DELETE FROM " + EventEntry.TABLE_NAME +
+                " WHERE " + EventEntry.COLUMN_EVENT_VENUE + " = \"" + event.getEventVenue() + "\";";
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(context);
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+
+        // Execute the SQL statement
+        db.execSQL(SQL_CREATE_EVENTS_TABLE);
+
+    }
+
 }
