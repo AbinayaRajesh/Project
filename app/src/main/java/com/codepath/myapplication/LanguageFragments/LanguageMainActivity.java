@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,9 +53,9 @@ public class LanguageMainActivity extends Fragment {
     int i;
     RecyclerView rvPhrases;
     PhrasesAdapter adapter;
-    Button tts;
+    ImageView tts;
     String textToBeSpoken;
-    Button speechToText;
+    ImageView speechToText;
     SpeechRecognizer sr;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -78,8 +79,8 @@ public class LanguageMainActivity extends Fragment {
                 translateButton = (Button) rootView.findViewById(R.id.btnTranslate);
                 translatedLanguage = (TextView) rootView.findViewById(R.id.tvTranslatedText);
 
-                tts = (Button) rootView.findViewById(R.id.btnTTS);
-                speechToText = (Button) rootView.findViewById(R.id.btnSTT);
+                tts = (ImageView) rootView.findViewById(R.id.btnTTS);
+                speechToText = (ImageView) rootView.findViewById(R.id.btnSTT);
                 textTalk = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
                     @Override
                     public void onInit(int i) {
@@ -470,16 +471,7 @@ public class LanguageMainActivity extends Fragment {
         toBeReturned = translated;
         return toBeReturned;
     }
-    public void SpeechSynthesis(String talk){
-        textToBeSpoken = talk;
-        if (textToBeSpoken==null || "".equals(textToBeSpoken)){
-            textToBeSpoken = "Type something to be translated";
-            textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
-        }
-        else{
-            textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
-        }
-    }
+
     public void SpeechSynthesis(){
         textToBeSpoken = translatedLanguage.getText().toString();
         if (textToBeSpoken==null || "".equals(textToBeSpoken)){
