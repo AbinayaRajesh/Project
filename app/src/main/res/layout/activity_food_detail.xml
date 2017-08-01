@@ -15,43 +15,33 @@
         />
 
 
-    <TextView
-        android:id="@+id/tvDetailRecipeName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/add"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/add"
-        android:paddingBottom="20dp"
-        android:paddingTop="20dp"
+        android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tvDetailRecipeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:text="TextView"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="20dp"
+        android:textSize="32dp"
+        android:textAllCaps="true"
         android:textStyle="bold"
         tools:layout_editor_absoluteY="98dp" />
 
-    <RatingBar
-        android:id="@+id/rbRating"
-        style="@style/Widget.AppCompat.RatingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:progressBackgroundTint="@color/com_facebook_blue"
-        android:progressTint="@color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
     <ImageButton
         android:id="@+id/add"
         android:background="@color/sea_blue"
         android:layout_width="32dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_alignParentRight="true"
         android:src="@drawable/add_white"/>
 
+    </LinearLayout>
 
     <ListView
         android:id="@+id/videos_found"
@@ -61,18 +51,6 @@
         android:layout_below="@+id/pvYoutube"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"></ListView>
-
-    <com.facebook.share.widget.ShareButton
-        android:id="@+id/fb_share_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/rbRating"
-        android:layout_alignRight="@+id/add"
-        android:layout_alignEnd="@+id/add"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp" />
-
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -91,6 +69,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:text="Ingredients"
+            android:textAllCaps="true"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20dp"
@@ -99,7 +78,7 @@
         <TextView
             android:id="@+id/tvIngredients"
             android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/tvIngredientTitle"
@@ -125,6 +104,31 @@
 
 
     </RelativeLayout>
+
+
+
+        <RatingBar
+            android:id="@+id/rbRating"
+            style="@style/Widget.AppCompat.RatingBar"
+            android:layout_below="@id/llImageIngredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:progressBackgroundTint="@color/com_facebook_blue"
+            android:progressTint="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true" />
+
+        <com.facebook.share.widget.ShareButton
+            android:layout_toRightOf="@id/rbRating"
+            android:id="@+id/fb_share_button"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"/>
+
+
 
 
 
