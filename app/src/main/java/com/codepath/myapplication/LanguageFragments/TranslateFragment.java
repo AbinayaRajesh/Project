@@ -11,6 +11,7 @@ import java.security.GeneralSecurityException;
 
 
 public class TranslateFragment extends LanguageMainActivity {
+    int option;
     static String language;
     public TranslateFragment() throws GeneralSecurityException, IOException {
         setHasOptionsMenu(true);
@@ -50,7 +51,10 @@ public class TranslateFragment extends LanguageMainActivity {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_translate, menu);
+        inflater.inflate(R.menu.menumain, menu);
     }
+
+
+
 
 }

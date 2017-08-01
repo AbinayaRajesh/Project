@@ -21,7 +21,7 @@ public class LanguagePagerAdapter extends FragmentPagerAdapter {
     private CommonPhrasesFragment cpf;
     String countryCode = LanguageActivity.country.getLanguage();
 
-    private String tableTitle[] = new String[]{"Translate", "Common Phrases"};
+    private String tableTitle[] = new String[]{ "Common Phrases", "Translate"};
 
     public LanguagePagerAdapter(FragmentManager fm, Context Context) throws GeneralSecurityException, IOException {
         super(fm);

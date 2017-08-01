@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.codepath.myapplication.LanguageActivity;
 import com.codepath.myapplication.R;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -52,13 +53,14 @@ public class LanguageMainActivity extends Fragment {
     TextToSpeech textTalk;
     int i;
     RecyclerView rvPhrases;
-    PhrasesAdapter adapter;
+    static PhrasesAdapter adapter;
     ImageView tts;
     String textToBeSpoken;
     ImageView speechToText;
     SpeechRecognizer sr;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
 
 
         try {
@@ -70,7 +72,7 @@ public class LanguageMainActivity extends Fragment {
 
         switch (i)
         {
-            case 1: {
+            case 0: {
                 language=TranslateFragment.language;
                 rootView = inflater.inflate(R.layout.activity_translate, container, false);
                 translateText = new ArrayList<>();
@@ -118,7 +120,7 @@ public class LanguageMainActivity extends Fragment {
                 });
                 break;
             }
-            case 0: {
+            case 1: {
                 language=TranslateFragment.language;
                 rootView = inflater.inflate(R.layout.activity_common_phrases, container, false);
 
@@ -128,7 +130,7 @@ public class LanguageMainActivity extends Fragment {
                 String title;
                 String s;  // Text
                 // Greetings
-                int option = 1; // ((LanguageActivity) getActivity()).getOption();
+                int option = ((LanguageActivity) getActivity()).option; // ((LanguageActivity) getActivity()).getOption();
 
 
                 if (option==1) {
@@ -475,8 +477,8 @@ public class LanguageMainActivity extends Fragment {
     public void SpeechSynthesis(){
         textToBeSpoken = translatedLanguage.getText().toString();
         if (textToBeSpoken==null || "".equals(textToBeSpoken)){
-            textToBeSpoken = "Type something to be translated";
-            textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
+            //textToBeSpoken = "Type something to be translated";
+            //textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
         }
         else{
             textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);

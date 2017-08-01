@@ -29,12 +29,13 @@ public class LanguageActivity extends AppCompatActivity{
     ViewPager vpPager;
     LanguagePagerAdapter pageAdapter;
     public static Country country;
-    int option;
+    public int option;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
+        option = getIntent().getIntExtra("option", 0);
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         try {
             pageAdapter = new LanguagePagerAdapter(getSupportFragmentManager(), this);
@@ -103,9 +104,9 @@ public class LanguageActivity extends AppCompatActivity{
 //        return true;
 //    }
 //
-//    public int getOption () {
-//        return option;
-//    }
+    public int getOption () {
+        return option;
+    }
 
 
 
