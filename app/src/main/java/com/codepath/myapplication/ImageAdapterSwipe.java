@@ -1,4 +1,5 @@
 package com.codepath.myapplication;
+
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -6,15 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.codepath.myapplication.Options.OptionsActivity;
-
 /**
  * Created by emilylroth on 7/28/17.
  */
 
 public class ImageAdapterSwipe extends PagerAdapter {
     Context context;
+
     public ImageAdapterSwipe(Context context){
         this.context=context;
     }
@@ -35,9 +34,9 @@ public class ImageAdapterSwipe extends PagerAdapter {
 //        imageView.setPadding(0, padding, padding, padding);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         ((ViewPager) container).addView(imageView, 0);
-        Glide.with(context)
-                .load(OptionsActivity.urls.get(position))
-                .into(imageView);
+   //     Glide.with(context)
+       //         .load(OptionsActivity.urls.get(position))
+     //           .into(imageView);
         return imageView;
     }
 

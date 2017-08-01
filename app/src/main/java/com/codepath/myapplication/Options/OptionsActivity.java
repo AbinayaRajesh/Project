@@ -9,7 +9,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.EventActivity;
 import com.codepath.myapplication.ImageAdapterSwipe;
@@ -19,6 +21,8 @@ import com.codepath.myapplication.PhotoClient;
 import com.codepath.myapplication.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +45,8 @@ public class OptionsActivity extends AppCompatActivity {
     public static List<String> urls;
     Context context;
     ImageAdapterSwipe sAdapter;
+
+    CarouselView carouselView;
 
   //  public PhotoClient photoClient;
     String url;
@@ -73,7 +79,7 @@ public class OptionsActivity extends AppCompatActivity {
         options = Option.getContacts();
         this.client = new AsyncHttpClient();
         url = PhotoClient.createURL(country.getName());
-        getPhoto(url);
+     //   getPhoto(url);
 
         // Create an adapter
         mAdapter = new OptionsAdapter(OptionsActivity.this, options);
@@ -81,8 +87,73 @@ public class OptionsActivity extends AppCompatActivity {
 
         // Bind adapter to list
         rvOptions.setAdapter(mAdapter);
+        carouselView = (CarouselView) findViewById(R.id.carouselView);
+        carouselView.setPageCount(5);
+        carouselView.setImageListener(imageListener);
+
 
     }
+
+    ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(final int position, final ImageView imageView) {
+            client.get(url, new JsonHttpResponseHandler(){
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    try {
+                        JSONObject results = response.getJSONObject("photos");
+                        for (int i=0; i<5; i++) {
+                            JSONArray photoStream = results.getJSONArray("photo");
+                            Photo photo = Photo.fromJson(photoStream.getJSONObject(i));
+
+                            photos.add(photo);
+                            urls.add("https://farm" + photo.getFarm() + ".staticflickr.com/" + photo.getServer() + "/" + photo.getId() + "_" + photo.getSecret() + ".jpg");
+                            //notify adapter
+                            // adapter.notifyItemInserted(countries.size()-1);
+                            //      Glide.with(context)
+                            //              .load("https://farm" + photo.getFarm() + ".staticflickr.com/" + photo.getServer() + "/" + photo.getId() + "_" + photo.getSecret() + ".jpg")
+                            //              .into((ImageView) findViewById(R.id.ivOptionsImage));
+                        }
+                        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+
+                        sAdapter = new ImageAdapterSwipe(OptionsActivity.this);
+                        viewPager.setAdapter(sAdapter);
+                        Glide.with(context)
+                                .load(OptionsActivity.urls.get(position))
+                                .into(imageView);
+
+                    } catch (JSONException e) {
+                        // logError("Failed to parse now playing movies", e, true);
+                    }
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                    super.onSuccess(statusCode, headers, response);
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                    super.onSuccess(statusCode, headers, responseString);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    super.onFailure(statusCode, headers, throwable, errorResponse);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                    super.onFailure(statusCode, headers, throwable, errorResponse);
+                }
+            });
+
+        }
+    };
 
 
     @Override
@@ -138,8 +209,10 @@ public class OptionsActivity extends AppCompatActivity {
                         //              .into((ImageView) findViewById(R.id.ivOptionsImage));
                     }
                     ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+
                     sAdapter = new ImageAdapterSwipe(OptionsActivity.this);
                     viewPager.setAdapter(sAdapter);
+
                 } catch (JSONException e) {
                     // logError("Failed to parse now playing movies", e, true);
                 }
