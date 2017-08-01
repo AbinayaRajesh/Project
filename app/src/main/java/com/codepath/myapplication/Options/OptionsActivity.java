@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.EventActivity;
 import com.codepath.myapplication.ImageAdapterSwipe;
+import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Photo;
 import com.codepath.myapplication.PhotoClient;
@@ -182,6 +183,10 @@ public class OptionsActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

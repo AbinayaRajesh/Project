@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
+import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.Models.Venue;
 import com.codepath.myapplication.NearbyActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
@@ -145,6 +146,11 @@ public class tempTourism extends AppCompatActivity {
 
     public void onEvents(MenuItem item) {
         Intent i = new Intent(this, FavouriteActivity.class);
+        startActivity(i);
+    }
+
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
 

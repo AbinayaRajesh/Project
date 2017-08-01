@@ -100,6 +100,10 @@ public class EventActivity extends AppCompatActivity {
         Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
     }
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
 
 
     @Override

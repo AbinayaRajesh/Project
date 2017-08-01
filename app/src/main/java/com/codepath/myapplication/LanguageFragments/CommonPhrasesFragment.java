@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.codepath.myapplication.LanguageActivity;
+import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.R;
@@ -39,6 +40,11 @@ public class CommonPhrasesFragment extends LanguageMainActivity {
 
     public void onEvents(MenuItem item) {
         Intent i = new Intent(getContext(), FavouriteActivity.class);
+        startActivity(i);
+    }
+
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(getContext(), MainActivity.class);
         startActivity(i);
     }
 
@@ -88,11 +94,53 @@ public class CommonPhrasesFragment extends LanguageMainActivity {
                 LanguageMainActivity.adapter.notifyDataSetChanged();
                 break;
             }
+            case R.id.action_dropdown5: {
+                option = 5;
+                Intent i = new Intent(getContext(), LanguageActivity.class);
+                i.putExtra("option", option);
+                i.putExtra("country", Parcels.wrap(LanguageActivity.country));
+                startActivity(i);
+                LanguageMainActivity.adapter.notifyDataSetChanged();
+                break;
+            }
+            case R.id.action_dropdown6: {
+                option = 6;
+                Intent i = new Intent(getContext(), LanguageActivity.class);
+                i.putExtra("option", option);
+                i.putExtra("country", Parcels.wrap(LanguageActivity.country));
+                startActivity(i);
+                LanguageMainActivity.adapter.notifyDataSetChanged();
+                break;
+            }
+            case R.id.action_dropdown7: {
+                option = 7;
+                Intent i = new Intent(getContext(), LanguageActivity.class);
+                i.putExtra("option", option);
+                i.putExtra("country", Parcels.wrap(LanguageActivity.country));
+                startActivity(i);
+                LanguageMainActivity.adapter.notifyDataSetChanged();
+                break;
+            }
+            case R.id.action_dropdown8: {
+                option = 8;
+                Intent i = new Intent(getContext(), LanguageActivity.class);
+                i.putExtra("option", option);
+                i.putExtra("country", Parcels.wrap(LanguageActivity.country));
+                startActivity(i);
+                LanguageMainActivity.adapter.notifyDataSetChanged();
+                break;
+            }
+            case R.id.action_dropdown9: {
+                option = 9;
+                Intent i = new Intent(getContext(), LanguageActivity.class);
+                i.putExtra("option", option);
+                i.putExtra("country", Parcels.wrap(LanguageActivity.country));
+                startActivity(i);
+                LanguageMainActivity.adapter.notifyDataSetChanged();
+                break;
+            }
             default:
-                option=5;
-                // Arriving at Your Destination
-
-
+                option=1;
                 return super.onOptionsItemSelected(item);
 
         }

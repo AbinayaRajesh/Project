@@ -29,7 +29,7 @@ public class LanguageActivity extends AppCompatActivity{
     ViewPager vpPager;
     LanguagePagerAdapter pageAdapter;
     public static Country country;
-    public int option;
+    public int option = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +119,11 @@ public class LanguageActivity extends AppCompatActivity{
 
     public void onEvents(MenuItem item) {
         Intent i = new Intent(this, FavouriteActivity.class);
+        startActivity(i);
+    }
+
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
 

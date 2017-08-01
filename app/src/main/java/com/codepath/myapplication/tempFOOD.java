@@ -114,6 +114,11 @@ public class tempFOOD extends AppCompatActivity {
         Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
     }
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
+
     private void fetchFood(String query){
         client = new FoodClient();
         client.getRecipes(query, new JsonHttpResponseHandler(){

@@ -25,4 +25,12 @@
         android:id="@+id/action_delete_all_entries"
         android:title="@string/action_delete_all_entries"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/home"
+        android:title="HOME"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="always"
+        android:onClick="onHome"/>
+
 </menu>

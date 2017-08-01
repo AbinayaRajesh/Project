@@ -29,27 +29,33 @@
                 android:id="@+id/action_dropdown2"
                 android:title="Airport" />
             <item
-                android:id="@+id/action_dropdown4"
+                android:id="@+id/action_dropdown3"
                 android:title="Airplane" />
             <item
-                android:id="@+id/action_dropdown5"
+                android:id="@+id/action_dropdown4"
                 android:title="Customs" />
             <item
-                android:id="@+id/action_dropdown6"
+                android:id="@+id/action_dropdown5"
                 android:title="Arrival" />
             <item
-                android:id="@+id/action_dropdown7"
+                android:id="@+id/action_dropdown6"
                 android:title="Hotel" />
             <item
-                android:id="@+id/action_dropdown8"
+                android:id="@+id/action_dropdown7"
                 android:title="Town" />
             <item
-                android:id="@+id/action_dropdown9"
+                android:id="@+id/action_dropdown8"
                 android:title="Restaurant" />
             <item
-                android:id="@+id/action_dropdown10"
+                android:id="@+id/action_dropdown9"
                 android:title="Help" />
         </menu>
     </item>
+    <item
+        android:id="@+id/home"
+        android:title="HOME"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="always"
+        android:onClick="onHome"/>
 
 </menu>

@@ -40,4 +40,11 @@
         android:onClick="onEvents"
         android:title="TripPlanner"/>
 
+    <item
+        android:id="@+id/home"
+        android:title="HOME"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="always"
+        android:onClick="onHome"/>
+
 </menu>

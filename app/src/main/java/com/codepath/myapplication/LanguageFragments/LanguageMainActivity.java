@@ -133,25 +133,8 @@ public class LanguageMainActivity extends Fragment {
                 int option = ((LanguageActivity) getActivity()).option; // ((LanguageActivity) getActivity()).getOption();
 
 
-                if (option==1) {
 
-                    ArrayList<Phrase> GreetingPhrases = new ArrayList<Phrase>();
-
-                    s = "Good morning";
-                    GreetingPhrases.add(new Phrase(s, TranslateWord(s)));
-                    s = "Good afternoon";
-                    GreetingPhrases.add(new Phrase(s, TranslateWord(s)));
-                    s = "Good evening";
-                    GreetingPhrases.add(new Phrase(s, TranslateWord(s)));
-                    s = "Hello / Hi / Hey";
-                    GreetingPhrases.add(new Phrase(s, TranslateWord(s)));
-                    s = "How are you? / How is it going?";
-                    GreetingPhrases.add(new Phrase(s, TranslateWord(s)));
-
-                    adapter = new PhrasesAdapter(GreetingPhrases);
-                }
-
-                else if (option==2){
+                if (option==2){
 
 
                     // At the Airport
@@ -362,7 +345,7 @@ public class LanguageMainActivity extends Fragment {
                     adapter = new PhrasesAdapter(RestaurantPhrases);
 
                 }
-                else {
+                else if (option==9){
 
                     // Common Problems
 
@@ -385,6 +368,24 @@ public class LanguageMainActivity extends Fragment {
                     ProblemPhrases.add(new Phrase(s, TranslateWord(s)));
 
                     adapter = new PhrasesAdapter(ProblemPhrases);
+                }
+
+                else {
+
+                    ArrayList<Phrase> GreetingPhrases = new ArrayList<Phrase>();
+
+                    s = "Good morning";
+                    GreetingPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Good afternoon";
+                    GreetingPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Good evening";
+                    GreetingPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Hello / Hi / Hey";
+                    GreetingPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "How are you? / How is it going?";
+                    GreetingPhrases.add(new Phrase(s, TranslateWord(s)));
+
+                    adapter = new PhrasesAdapter(GreetingPhrases);
                 }
 
 

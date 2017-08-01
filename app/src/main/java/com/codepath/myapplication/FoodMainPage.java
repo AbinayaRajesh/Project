@@ -95,6 +95,11 @@ public class FoodMainPage extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
+
 
 
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap) {
