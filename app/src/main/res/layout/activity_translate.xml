@@ -18,14 +18,19 @@
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
+            android:hint="Eg. How are you doing?"
+            android:textColor="#FFFFFF"
             android:gravity="bottom"
             android:layout_weight="1"
+            android:backgroundTint="@color/pink"
             tools:layout_editor_absoluteX="-1dp"
-            tools:layout_editor_absoluteY="-3dp" />
+            tools:layout_editor_absoluteY="-3dp"
+            android:layout_below="@+id/btnSTT" />
 
         <Button
             android:id="@+id/btnSTT"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/pink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
