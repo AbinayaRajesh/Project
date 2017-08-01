@@ -118,36 +118,283 @@ public class LanguageMainActivity extends Fragment {
                 break;
             }
             case 0: {
+                language=TranslateFragment.language;
                 rootView = inflater.inflate(R.layout.activity_common_phrases, container, false);
-                ArrayList<Phrase> phrases = new ArrayList<Phrase>();
-                //String s1 = "How are you? / How is it going? ";
-                //String t1 = Translate(s1);
-                //Phrase p1 = new Phrase(s1,t1);
-                //phrases.add(p1);
-                Phrase p2 = new Phrase("Where is the restroom?", "Où sont les toilettes?");
-                phrases.add(p2);
-                Phrase p3 = new Phrase("How much does the magazine cost?", "Combien coûte le magazine?");
-                phrases.add(p3);
-                Phrase p4 = new Phrase("What time is it? ", "Quelle heure est-il?");
-                phrases.add(p4);
-                Phrase p5 = new Phrase("I am visiting family. ", "Je visite la famille");
-                phrases.add(p5);
-                Phrase p6 = new Phrase("Where is the currency exchange? ", "Où est l'échange de devises?");
-                phrases.add(p6);
 
-                adapter = new PhrasesAdapter(phrases);
+                translateText = new ArrayList<>();
+                queryTranslate = new TranslateTextRequest();
+
+                String title;
+                String s;  // Text
+                // Greetings
+                int option = 1;
+
+
+                if (option==1) {
+
+                    ArrayList<Phrase> GreetingPhrases = new ArrayList<Phrase>();
+
+                    s = "Good morning";
+                    GreetingPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Good afternoon";
+                    GreetingPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Good evening";
+                    GreetingPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Hello / Hi / Hey";
+                    GreetingPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "How are you? / How is it going?";
+                    GreetingPhrases.add(new Phrase(s, TranslateWord(s)));
+
+                    adapter = new PhrasesAdapter(GreetingPhrases);
+                }
+
+                else if (option==2){
+
+
+                    // At the Airport
+
+                    ArrayList<Phrase> AirportPhrases = new ArrayList<Phrase>();
+
+                    s = "I would like ... ";
+                    AirportPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "What time is my flight?";
+                    AirportPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "What airline am I flying?";
+                    AirportPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Where is my gate?";
+                    AirportPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Where is the restroom?";
+                    AirportPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "How much does the magazine cost?";
+                    AirportPhrases.add(new Phrase(s, TranslateWord(s)));
+
+                    adapter = new PhrasesAdapter(AirportPhrases);
+                }
+
+                else if (option==3) {
+
+                    // On the Airplane
+
+                    ArrayList<Phrase> AirplanePhrases = new ArrayList<Phrase>();
+
+                    s = "Are meals included?";
+                    AirplanePhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "May I have something to eat/drink?";
+                    AirplanePhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "May I purchase headphones?";
+                    AirplanePhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "What time is it?";
+                    AirplanePhrases.add(new Phrase(s, TranslateWord(s)));
+
+                    adapter = new PhrasesAdapter(AirplanePhrases);
+                }
+
+                else if (option==4) {
+
+                    // At Customs
+
+                    ArrayList<Phrase> CustomsPhrases = new ArrayList<Phrase>();
+
+                    title = "After the airport and the airplane comes the most stressful experiences for" +
+                            " travelers: customs. This is the part where you have to explain why you " +
+                            "have arrived in a country and tell officers what your intentions are. " +
+                            "But don’t stress! These GreetingPhrases will help you out.";
+
+                    s = "I have a connecting flight.";
+                    CustomsPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I am traveling for leisure.";
+                    CustomsPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I am traveling for work.";
+                    CustomsPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I will be here for ___ days.";
+                    CustomsPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I am visiting family.";
+                    CustomsPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I am staying at _____.";
+                    CustomsPhrases.add(new Phrase(s, TranslateWord(s)));
+
+                    adapter = new PhrasesAdapter(CustomsPhrases);
+
+                }
+
+                else if (option==5) {
+
+                    // Arriving at Your Destination
+
+                    ArrayList<Phrase> DestinationPhrases = new ArrayList<Phrase>();
+
+                    title = "After the air travel comes the real fun part: your destination (the " +
+                            "place where you are visiting). These common GreetingPhrases will help you get " +
+                            "around and explore.";
+
+                    s = "Do you have a map?";
+                    DestinationPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Where is the currency exchange?";
+                    DestinationPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Where is the bus stop?";
+                    DestinationPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Where can I find a taxi?";
+                    DestinationPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I would like to go to _____.";
+                    DestinationPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Do you know where this hotel is?";
+                    DestinationPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I don’t understand.";
+                    DestinationPhrases.add(new Phrase(s, TranslateWord(s)));
+
+                    adapter = new PhrasesAdapter(DestinationPhrases);
+
+                }
+
+                else if (option==6) {
+
+                    // At the hotel
+
+                    ArrayList<Phrase> HotelPhrases = new ArrayList<Phrase>();
+
+                    title = "Aside from your flight, the next more important thing while abroad is " +
+                            "your accommodation, and if you’re staying in a hotel and not with " +
+                            "friends or family, the following GreetingPhrases will come in handy.";
+
+                    s = "Does the room have a bathroom?";
+                    HotelPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "How many beds are in the room?";
+                    HotelPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I would like one queen bed, please.";
+                    HotelPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I would like two double beds, please.";
+                    HotelPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "What floor am I on?";
+                    HotelPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Where are the elevators?";
+                    HotelPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "How do I access the Internet?";
+                    HotelPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Is there free breakfast?";
+                    HotelPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "My room needs towels.";
+                    HotelPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "My room is messy, and I would like it cleaned.";
+                    HotelPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "How do I call for room service?";
+                    HotelPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "How do I call down to the front desk?";
+                    HotelPhrases.add(new Phrase(s, TranslateWord(s)));
+
+                    adapter = new PhrasesAdapter(HotelPhrases);
+
+                }
+
+                else if (option==7) {
+
+                    // Around Town
+
+                    ArrayList<Phrase> TownPhrases = new ArrayList<Phrase>();
+
+                    title = "Vocabulary for the airport and your hotel is fine, but you traveled " +
+                            "to visit a new place! Check out these GreetingPhrases to help you out while " +
+                            "you’re exploring.";
+
+                    s = "Where can I find a grocery store?";
+                    TownPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Where is the hospital?";
+                    TownPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Where can I find a restaurant?";
+                    TownPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Where is the bank?";
+                    TownPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "How do you get to ____?";
+                    TownPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "How far is it to _____?";
+                    TownPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "It’s to the right.";
+                    TownPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "It’s to the left.";
+                    TownPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "It’s straight ahead.";
+                    TownPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "It’s at the corner.";
+                    TownPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "It’s two blocks ahead (or three blocks, or four ...).";
+                    TownPhrases.add(new Phrase(s, TranslateWord(s)));
+
+                    adapter = new PhrasesAdapter(TownPhrases);
+
+                }
+
+                else if (option==8) {
+
+                    // At a restaurant
+
+                    ArrayList<Phrase> RestaurantPhrases = new ArrayList<Phrase>();
+
+                    title = "After a long day exploring, food is always a welcome break. Check " +
+                            "out these helpful restaurant GreetingPhrases and this post about ordering food.";
+
+                    s = "A table for two/four.";
+                    RestaurantPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I would like to drink ... ";
+                    RestaurantPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "May I see a menu?";
+                    RestaurantPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I would like to order ____.";
+                    RestaurantPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Fill in the blank with an item off of the menu or one of these items: ";
+                    RestaurantPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I’ll have soup.";
+                    RestaurantPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I’ll have a salad.";
+                    RestaurantPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I’ll have a hamburger.";
+                    RestaurantPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I’ll have chicken.";
+                    RestaurantPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I’ll have an appetizer.";
+                    RestaurantPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I would like dessert.";
+                    RestaurantPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "May I have the bill?";
+                    RestaurantPhrases.add(new Phrase(s, TranslateWord(s)));
+
+                    adapter = new PhrasesAdapter(RestaurantPhrases);
+
+                }
+                else {
+
+                    // Common Problems
+
+                    ArrayList<Phrase> ProblemPhrases = new ArrayList<Phrase>();
+
+                    title = "Even with careful planning and these GreetingPhrases, you may encounter some " +
+                            "problems. Here are some GreetingPhrases to help you out if something bad happens.";
+
+                    s = "I have lost my passport. ";
+                    ProblemPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Where is the embassy for _____?";
+                    ProblemPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Someone stole my money.";
+                    ProblemPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Help!";
+                    ProblemPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "I feel really sick";
+                    ProblemPhrases.add(new Phrase(s, TranslateWord(s)));
+                    s = "Could you help me get to the hospital?";
+                    ProblemPhrases.add(new Phrase(s, TranslateWord(s)));
+
+                    adapter = new PhrasesAdapter(ProblemPhrases);
+                }
+
+
                 //resolve the recycler view and connect a layout manager and the adapter
                 rvPhrases = (RecyclerView) rootView.findViewById(R.id.rvPhrases);
                 rvPhrases.setLayoutManager(new LinearLayoutManager(getContext()));
                 rvPhrases.setAdapter(adapter);
+
                 break;
             }
         }
         return rootView;
     }
-
-
-
     public void TranslateText() {
         translateText.clear();
         String query = String.valueOf(input.getText());
@@ -180,8 +427,59 @@ public class LanguageMainActivity extends Fragment {
             }
         }).start();
     }
+    public String TranslateWord(String query) {
+        // Boolean b = true;
+        //if (translateText != null || (!translateText.equals(""))) {
+            translateText.clear();
+        //}
+        String toBeReturned;
+        translateText.add(query);
+        queryTranslate.setQ(translateText);
+        queryTranslate.setSource("en");
+        queryTranslate.setTarget(language);
+        // queryTranslate.setTarget("fr");
+        final Translate translate = new Translate.Builder(httpTransport, jsonFactory, null)
+                .setApplicationName("My First Project")
+                .setTranslateRequestInitializer(API_KEY)
+                .build();
+        Thread t = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                    translated = String.valueOf(translate.translations().list(translateText, language).execute());
+                    if (translated !=null ){
+                        translated = translated.substring(translated.indexOf("t\":\""));
+                        translated = translated.substring(4, translated.length()-4);
 
 
+                        //textToBeSpoken = translatedLanguage.getText().toString();
+                    }
+                }
+                catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        toBeReturned = translated;
+        return toBeReturned;
+    }
+    public void SpeechSynthesis(String talk){
+        textToBeSpoken = talk;
+        if (textToBeSpoken==null || "".equals(textToBeSpoken)){
+            textToBeSpoken = "Type something to be translated";
+            textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
+        }
+        else{
+            textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
+        }
+    }
     public void SpeechSynthesis(){
         textToBeSpoken = translatedLanguage.getText().toString();
         if (textToBeSpoken==null || "".equals(textToBeSpoken)){

@@ -1,13 +1,16 @@
 package com.codepath.myapplication.LanguageFragments;
 
 import android.content.Context;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.myapplication.R;
 
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ public class PhrasesAdapter extends RecyclerView.Adapter<PhrasesAdapter.ViewHold
 
     private ArrayList<Phrase> mPhrases;
     Context context;
+    TextToSpeech textTalk;
 
     public PhrasesAdapter(ArrayList<Phrase> phrases) {
         this.mPhrases = phrases;
@@ -47,12 +51,6 @@ public class PhrasesAdapter extends RecyclerView.Adapter<PhrasesAdapter.ViewHold
         holder.tvPhrase.setText(phrase.getPhrase());
         holder.tvTranslation.setText(phrase.getTranslation());
 
-
-//        Glide.with(context).
-//                load(event.getEventUrl()).
-//                bitmapTransform(new RoundedCornersTransformation(context, 15, 0)).
-//                diskCacheStrategy(DiskCacheStrategy.ALL).
-//                into(holder.ivEventImage);
     }
     @Override
     public int getItemCount() {
@@ -64,7 +62,7 @@ public class PhrasesAdapter extends RecyclerView.Adapter<PhrasesAdapter.ViewHold
 
         public TextView tvPhrase;
         public TextView tvTranslation;
-       // public TextView tvEventDescription;
+        public ImageView ivPlay;
         public RelativeLayout layout;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -72,28 +70,38 @@ public class PhrasesAdapter extends RecyclerView.Adapter<PhrasesAdapter.ViewHold
             // perform findViewById lookups
             tvPhrase = (TextView) itemView.findViewById(R.id.tvPhrase);
             tvTranslation = (TextView) itemView.findViewById(R.id.tvTranslation);
-            //layout = (RelativeLayout) itemView.findViewById(R.id.detailView);
-            itemView.setOnClickListener(this);
+            ivPlay = (ImageView) itemView.findViewById(R.id.ivPlay);
+            ivPlay.setOnClickListener(this);
 
         }
         public void onClick(View v) {
+
+            Glide.with(context) .load("") .error(R.drawable.play_pressed) .into(ivPlay);
+
             // gets item position
             int position = getAdapterPosition();
             // make sure the position is valid, i.e. actually exists in the view
             if (position != RecyclerView.NO_POSITION) {
 
-//                // get the movie at the position, this won't work if the class is static
-//                Event event = mPhrases.get(position);
-//                // create intent for the new activity
-//
-//                Intent intent = new Intent(context, EventDetail.class);
-//                // serialize the movie using parceler, use its short name as a key
-//                intent.putExtra("event", event);
-//                //intent.putExtra(Food.class.getSimpleName(), Parcels.wrap(recipe));
-//                // intent.putExtra(Country.class.getName(), Parcels.wrap(country));
-//                // show the activity
-//                context.startActivity(intent);
+                Phrase phrase = mPhrases.get(position);
+                SpeechSynthesis(phrase.getTranslation());
+
+
             }
+
+            Glide.with(context) .load("") .error(R.drawable.ic_play) .into(ivPlay);
         }
     }
+
+    public void SpeechSynthesis(final String textToBeSpoken) {
+
+        textTalk = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
+            }
+
+        });
+    }
+
 }

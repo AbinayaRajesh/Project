@@ -5,10 +5,11 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_margin="5dp"
         android:gravity="center"
         android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/ivPlay"
         android:id="@+id/tvPhrase"
         android:textColor="#FF4261"
         android:textStyle="bold"
@@ -16,8 +17,9 @@
         android:text="Phrase in English"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/ivPlay"
         android:layout_below="@+id/tvPhrase"
         android:id="@+id/tvTranslation"
         android:gravity="center"
@@ -28,10 +30,12 @@
         android:text="Phrase in Language"/>
 
     <ImageView
+        android:id="@+id/ivPlay"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_margin="10dp"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/tvPhrase"
+        android:gravity="left"
         android:src="@drawable/ic_play"/>
 
 </RelativeLayout>
