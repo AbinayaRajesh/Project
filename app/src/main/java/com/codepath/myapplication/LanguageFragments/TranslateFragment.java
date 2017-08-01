@@ -1,6 +1,10 @@
 package com.codepath.myapplication.LanguageFragments;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+
+import com.codepath.myapplication.R;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -9,6 +13,7 @@ import java.security.GeneralSecurityException;
 public class TranslateFragment extends LanguageMainActivity {
     static String language;
     public TranslateFragment() throws GeneralSecurityException, IOException {
+        setHasOptionsMenu(true);
     }
 
 
@@ -42,5 +47,10 @@ public class TranslateFragment extends LanguageMainActivity {
 //        Intent i = new Intent(this, NearbyActivity.class);
 //        startActivity(i);
 //    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_translate, menu);
+    }
 
 }

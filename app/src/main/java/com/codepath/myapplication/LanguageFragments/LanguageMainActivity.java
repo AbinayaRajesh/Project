@@ -128,7 +128,7 @@ public class LanguageMainActivity extends Fragment {
                 String title;
                 String s;  // Text
                 // Greetings
-                int option = 1;
+                int option = 1; // ((LanguageActivity) getActivity()).getOption();
 
 
                 if (option==1) {
@@ -514,6 +514,7 @@ public class LanguageMainActivity extends Fragment {
 
         }
     }
+
 
 
 
