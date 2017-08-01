@@ -32,6 +32,7 @@ public class TourismListFragment extends Fragment {
     RecyclerView rvVenues;
     ArrayList<String> venueIds;
     VenueCardAdapter adapter;
+    String ll;
     String countryName;
     boolean b = false;
     int j = 0;
@@ -90,7 +91,8 @@ public class TourismListFragment extends Fragment {
         String url = API_BASE_URL + "/venues/search";
         // set the request parameters
         RequestParams params = new RequestParams();
-        params.put("ll", "40,-74");
+        params.put("ll", ll);
+        params.put("radius", 100000);
         params.put(API_KEY_PARAM, getString(R.string.api_key));  // Always needs API key
         params.put(API_SECRET_PARAM, getString(R.string.api_secret));
         params.put("v", "20170713");

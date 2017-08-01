@@ -46,6 +46,8 @@ public class SportsEventsFragment extends EventsListFragment {
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
         params.put("keywords", countryName);
+        params.put("ll", ll);
+        params.put("within", 100);
         params.put("category", "sports");
         if(filter != null) {
             if (filter.equals("popularity")) {
