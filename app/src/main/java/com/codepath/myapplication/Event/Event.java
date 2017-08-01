@@ -8,6 +8,8 @@ import org.json.JSONObject;
 
 import java.util.Random;
 
+import static com.loopj.android.http.AsyncHttpClient.log;
+
 /**
  * Created by arajesh on 7/19/17.
  */
@@ -93,8 +95,13 @@ public class Event implements Parcelable {
         event.id = i;
         event.favourite=0;
         event.eventName = jsonObject.getString("title");
-        event.latitude = (float) jsonObject.getDouble("latitude");
-        event.longitude = (float) jsonObject.getDouble("longitude");
+        try {
+            event.latitude = (float) jsonObject.getDouble("latitude");
+            event.longitude = (float) jsonObject.getDouble("longitude");
+        }
+        catch (Exception e) {
+            log.d("error", "lat lng is null");
+        }
         event.eventDescription = jsonObject.getString("description");
         if (event.eventDescription=="null") {
             event.eventDescription = "No description available";

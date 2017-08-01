@@ -28,6 +28,12 @@ public class Country {
         return country;
     }
 
+    public static Country consCountry () {
+        Country country = new Country();
+        country.name = "China";
+        return country;
+    }
+
     public String getName() {
         return name;
     }

@@ -58,6 +58,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
@@ -207,7 +208,8 @@ public class tempDemoActivity extends AppCompatActivity implements
 
     public final static String API_KEY_PARAM = "95JSGDKWtDtWRRgx";
 
-
+    LatLngBounds.Builder builder;
+    LatLngBounds bounds;
 
     private GoogleMap mMap;
 
@@ -261,7 +263,11 @@ public class tempDemoActivity extends AppCompatActivity implements
 //        Sevents = getIntent().getParcelableArrayListExtra("Sevents");
 //        Mevents = getIntent().getParcelableArrayListExtra("Mevents");
 //        Fevents = getIntent().getParcelableArrayListExtra("Fevents");
+
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+        if (country==null) {
+            country = Country.consCountry();
+        }
 
 
                 if (mLastSelectedMarker != null && mLastSelectedMarker.isInfoWindowShown()) {
@@ -412,6 +418,8 @@ public class tempDemoActivity extends AppCompatActivity implements
 //        });
 
 
+        builder = new LatLngBounds.Builder();
+
         for (int i=0; i<Sevents.size(); i++){
             Event event = Sevents.get(i);
             float lat = event.getLatitude();
@@ -422,6 +430,8 @@ public class tempDemoActivity extends AppCompatActivity implements
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_sports))
                     .title(event.getEventName()));
             m.setTag(event);
+            builder.include(m.getPosition());
+            bounds = builder.build();
         }
 
         for (int i=0; i<Fevents.size(); i++){
@@ -434,6 +444,8 @@ public class tempDemoActivity extends AppCompatActivity implements
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_festival))
                     .title(event.getEventName()));
             m.setTag(event);
+            builder.include(m.getPosition());
+            bounds = builder.build();
         }
 
         for (int i=0; i<Mevents.size(); i++){
@@ -446,7 +458,11 @@ public class tempDemoActivity extends AppCompatActivity implements
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_music))
                     .title(event.getEventName()));
             m.setTag(event);
+            builder.include(m.getPosition());
+            bounds = builder.build();
         }
+
+
 
 
         // Hide the zoom controls as the button panel will cover it.
@@ -809,6 +825,12 @@ public class tempDemoActivity extends AppCompatActivity implements
             Log.d(TAG, "Current location is null. Using defaults.");
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        }
+
+        if (bounds!=null) {
+            int padding = 0; // offset from edges of the map in pixels
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+            mMap.animateCamera(cu);
         }
     }
 
