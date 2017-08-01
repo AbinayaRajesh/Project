@@ -4,13 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +21,10 @@ import com.codepath.myapplication.Database.SavedTourismActivity;
 import com.codepath.myapplication.Database.TourismContract.TourismEntry;
 import com.codepath.myapplication.Models.Location;
 import com.codepath.myapplication.Models.Venue;
+import com.codepath.myapplication.Options.FavouriteActivity;
+import com.facebook.share.model.ShareHashtag;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -41,7 +45,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
     Context context = this;
     GoogleMap googleMap;
     MapFragment mapFragment;
-    ImageView i;
+    TextView i;
     Location location;
 
 
@@ -62,8 +66,12 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
         venue.setLocation(location);
 
         tvTitle.setText(venue.getTitle());
-        tvDistance.setText(String.valueOf(location.getDistance()));
-        tvAddress.setText(venue.getLocation().getCity());
+        // tvDistance.setText(String.valueOf(location.getDistance()));
+        String s = "";
+        for (int i=0; i<location.getFormattedAddress().length; i++) {
+            s += location.getFormattedAddress()[i] + " \n";
+        }
+        tvAddress.setText(s);
 
         Glide.with(context)
                 .load(venue.getImageUrl())
@@ -76,13 +84,13 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
 
         // Venue database stuff
 
-        i = (ImageButton) findViewById(R.id.add);
-        i.setImageResource(R.drawable.add_white);
+        i = (TextView) findViewById(R.id.add);
+        i.setText("+");
         if (venue.isFavourite()==1) {
-            Glide.with(context) .load("") .error(R.drawable.remove_white) .into(i);
+            i.setText("_");
         }
         else {
-            Glide.with(context) .load("") .error(R.drawable.add_white) .into(i);
+            i.setText("+");
         }
 
         i.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +98,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
             @Override
             public void onClick(View arg0) {
                 if(venue.isFavourite()==0){
-                    i.setImageResource(R.drawable.remove_white);
+                    i.setText("_");
                     insertVenue(venue);
                     Byte y = 1;
                     venue.setFavourite(y);
@@ -98,7 +106,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
                     startActivity(in);
                 }
                 else {
-                    i.setImageResource(R.drawable.add_white);
+                    i.setText("+");
                     deleteVenue(venue);
                     Byte y = 0;
                     venue.setFavourite(y);
@@ -107,6 +115,29 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
                 }
             }
         });
+
+        // FACEBOOK SHARING
+
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                    ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
+                    ShareLinkContent Content = new ShareLinkContent.Builder()
+                            .setContentUrl(Uri.parse("www.google.com"))
+                            .setShareHashtag(new ShareHashtag.Builder()
+                                    .setHashtag("#Staycation")
+                                    .build())
+
+                            .build();
+
+                    shareButton.setShareContent(Content);
+                }
+                catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }).start();
 
 
 
@@ -141,6 +172,12 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menumain, menu);
         return true;
+    }
+
+
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
+        startActivity(i);
     }
 
     public void onMaps(MenuItem item) {

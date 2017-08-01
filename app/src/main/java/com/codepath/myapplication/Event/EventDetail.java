@@ -25,6 +25,13 @@ import com.codepath.myapplication.R;
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.jsoup.Jsoup;
 
@@ -38,7 +45,7 @@ import java.util.logging.Handler;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 
-public class EventDetail extends AppCompatActivity {
+public class EventDetail extends AppCompatActivity implements OnMapReadyCallback {
     Event event;
     TextView tvEventName;
     ImageView ivEventImage;
@@ -49,6 +56,8 @@ public class EventDetail extends AppCompatActivity {
     ImageView ivCalender;
     ImageButton i;
     Bitmap icon;
+    GoogleMap googleMap;
+    MapFragment mapFragment;
 
     String [] date;
 
@@ -69,6 +78,9 @@ public class EventDetail extends AppCompatActivity {
         i.setImageResource(R.drawable.add_white);
 
         event = (Event) getIntent().getParcelableExtra("event");
+
+        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
 //        if (event.isFavourite()==0)  i.setImageResource(R.drawable.add_white);
 //        else i.setImageResource(R.drawable.remove_white);
@@ -142,14 +154,7 @@ public class EventDetail extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-//                    icon = getBitmapFromURL(event.getEventUrl());
                     ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
-//                    SharePhoto photo = new SharePhoto.Builder()
-//                            .setBitmap(icon)
-//                            .build();
-////                    SharePhotoContent content = new SharePhotoContent.Builder()
-////                            .addPhoto(photo)
-////                            .build();
                     ShareLinkContent Content = new ShareLinkContent.Builder()
                             .setContentUrl(Uri.parse(event.getEventLink()))
                             .setShareHashtag(new ShareHashtag.Builder()
@@ -269,5 +274,28 @@ public class EventDetail extends AppCompatActivity {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_EVENTS_TABLE);
+    }
+    @Override
+    public void onMapReady(GoogleMap gMap) {
+        googleMap = gMap;
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        try {
+            googleMap.setMyLocationEnabled(true);
+        } catch (SecurityException se) {
+
+        }
+
+        //Edit the following as per you needs
+        googleMap.setTrafficEnabled(true);
+        googleMap.setIndoorEnabled(true);
+        googleMap.setBuildingsEnabled(true);
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        //
+
+        LatLng placeLocation = new LatLng(event.getLatitude(), event.getLongitude()); //Make them global
+        Marker placeMarker = googleMap.addMarker(new MarkerOptions().position(placeLocation)
+                .title(event.getEventName()));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(placeLocation));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 1000, null);
     }
 }

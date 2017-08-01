@@ -1,6 +1,7 @@
 package com.codepath.myapplication.LanguageFragments;
 
 import android.content.Context;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ public class PhrasesAdapter extends RecyclerView.Adapter<PhrasesAdapter.ViewHold
 
     private ArrayList<Phrase> mPhrases;
     Context context;
+    TextToSpeech textTalk;
 
     public PhrasesAdapter(ArrayList<Phrase> phrases) {
         this.mPhrases = phrases;
@@ -82,10 +84,24 @@ public class PhrasesAdapter extends RecyclerView.Adapter<PhrasesAdapter.ViewHold
             if (position != RecyclerView.NO_POSITION) {
 
                 Phrase phrase = mPhrases.get(position);
+                SpeechSynthesis(phrase.getTranslation());
+
 
             }
 
             Glide.with(context) .load("") .error(R.drawable.ic_play) .into(ivPlay);
         }
     }
+
+    public void SpeechSynthesis(final String textToBeSpoken) {
+
+        textTalk = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                textTalk.speak(textToBeSpoken, TextToSpeech.QUEUE_FLUSH, null);
+            }
+
+        });
+    }
+
 }

@@ -18,6 +18,7 @@ public class Food {
     int rating;
     int id;
     Byte favourite;
+    String ingredients;
 
     public Food(JSONObject object) throws JSONException {
         name = object.getString("title");
@@ -51,6 +52,9 @@ public class Food {
             food.rating = jsonObject.getInt("rating");
             //food.imageUrl = jsonObject.getString("imageUrlsBySize");
             food.imageUrl = jsonObject.getJSONArray("smallImageUrls").getString(0);
+            for(int j = 0; j < jsonObject.getJSONArray("ingredients").length()-1; j++){
+                food.ingredients = food.ingredients + jsonObject.getJSONArray("ingredients").getString(j) + "\n";
+            }
             Byte y = 0;
             food.favourite = y;
 
@@ -103,4 +107,11 @@ public class Food {
         return rating;
     }
 
+    public Byte getFavourite() {
+        return favourite;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
 }

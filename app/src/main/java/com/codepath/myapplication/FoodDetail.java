@@ -4,9 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,7 +22,13 @@ import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.Database.FoodContract.FoodEntry;
 import com.codepath.myapplication.Database.SavedRecipesActivity;
-import com.squareup.picasso.Picasso;
+import com.facebook.share.model.ShareHashtag;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
 
 import org.parceler.Parcels;
 
@@ -30,12 +36,14 @@ import java.util.List;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-public class FoodDetail extends AppCompatActivity {
+public class FoodDetail extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
     Food recipe;
     TextView tvDetailRecipeName;
     ImageView tvRecipePic;
     RatingBar rbRating;
+    TextView tvIngredients;
     Context context = this;
+    int count = 0;
     ImageButton i;
 
     // private EditText searchInput;
@@ -51,14 +59,18 @@ public class FoodDetail extends AppCompatActivity {
         tvDetailRecipeName = (TextView) findViewById(R.id.tvDetailRecipeName);
         tvRecipePic = (ImageView) findViewById(R.id.tvRecipePic);
         rbRating = (RatingBar) findViewById(R.id.rbRating);
+        tvIngredients = (TextView) findViewById(R.id.tvIngredients);
+        YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.pvYoutube);
+
 
         recipe = (Food) Parcels.unwrap(getIntent().getParcelableExtra("recipe"));
 
         tvDetailRecipeName.setText(recipe.getName());
         rbRating.setRating(recipe.getRating());
+        tvIngredients.setText(recipe.getIngredients());
         Glide.with(context)
                 .load(recipe.getImageUrl())
-                .bitmapTransform(new RoundedCornersTransformation(context, 35, 0))
+                .bitmapTransform(new RoundedCornersTransformation(context, 10, 0))
                 .into(tvRecipePic);
 
 
@@ -68,6 +80,7 @@ public class FoodDetail extends AppCompatActivity {
         videosFound = (ListView) findViewById(R.id.videos_found);
 
         handler = new Handler();
+
 
 //        searchInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 //            @Override
@@ -81,7 +94,10 @@ public class FoodDetail extends AppCompatActivity {
 //        });
         searchOnYoutube(recipe.getName());
 
+
+
         addClickListener();
+        playerView.initialize(YoutubeConnector.KEY, (YouTubePlayer.OnInitializedListener) context);
 
 
 
@@ -119,6 +135,29 @@ public class FoodDetail extends AppCompatActivity {
             }
         });
 
+        // FACEBOOK SHARING
+
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                    ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
+                    ShareLinkContent Content = new ShareLinkContent.Builder()
+                            .setContentUrl(Uri.parse("https://www.google.com/search?site=&q="+recipe.getName()))
+                            .setShareHashtag(new ShareHashtag.Builder()
+                                    .setHashtag("#Staycation")
+                                    .build())
+
+                            .build();
+
+                    shareButton.setShareContent(Content);
+                }
+                catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }).start();
+
 
     }
 
@@ -128,7 +167,7 @@ public class FoodDetail extends AppCompatActivity {
             public void run() {
                 YoutubeConnector yc = new YoutubeConnector(FoodDetail.this);
                 searchResults = yc.search(keywords);
-                searchResults=searchResults.subList(0,3);
+                searchResults=searchResults.subList(0,1);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -146,20 +185,18 @@ public class FoodDetail extends AppCompatActivity {
                 if (convertView == null) {
                     convertView = getLayoutInflater().inflate(R.layout.video_item, parent, false);
                 }
-
-                ImageView thumbnail = (ImageView) convertView.findViewById(R.id.video_thumbnail);
-                TextView title = (TextView) convertView.findViewById(R.id.video_title);
                 TextView description = (TextView) convertView.findViewById(R.id.video_description);
 
                 VideoItem searchResult = searchResults.get(position);
 
-                Picasso.with(getApplicationContext()).load(searchResult.getThumbnailURL()).into(thumbnail);
-                title.setText(searchResult.getDescription());
                 description.setText(searchResult.getDescription());
+
                 return convertView;
             }
         };
         videosFound.setAdapter(adapter);
+
+
     }
 
     private void addClickListener() {
@@ -241,5 +278,18 @@ public class FoodDetail extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+        if(!b) {
+            for(int j = 0; j<100000000; j++){} //needed to delay to give time for youtube player to load and not crash
 
+         //   youTubePlayer.cueVideo(searchResults.get(0).getId());
+            youTubePlayer.loadVideo(searchResults.get(0).getId()); //allows autoplay rather than clicking to play
+        }
+    }
+
+    @Override
+    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+        Toast.makeText(this, "Initialization Failed", Toast.LENGTH_LONG).show();
+    }
 }

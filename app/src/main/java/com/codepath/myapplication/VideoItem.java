@@ -1,12 +1,15 @@
 package com.codepath.myapplication;
 
 
+import com.google.android.youtube.player.YouTubePlayerView;
+
 public class VideoItem {
 
     private String title;
     private String description;
     private String thumbnailURL;
     private String id;
+    private YouTubePlayerView playerView;
 
     public String getTitle() {
         return title;
@@ -38,5 +41,13 @@ public class VideoItem {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public YouTubePlayerView getPlayerView() {
+        return playerView;
+    }
+
+    public void setPlayerView(YouTubePlayerView playerView) {
+        this.playerView = playerView;
     }
 }

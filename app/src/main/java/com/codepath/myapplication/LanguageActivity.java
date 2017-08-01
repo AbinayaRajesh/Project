@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.LanguageFragments.LanguagePagerAdapter;
+import com.codepath.myapplication.Options.FavouriteActivity;
 
 import org.parceler.Parcels;
 
@@ -60,6 +61,12 @@ public class LanguageActivity extends AppCompatActivity{
 
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, NearbyActivity.class);
+        startActivity(i);
+    }
+
+
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
     }
 

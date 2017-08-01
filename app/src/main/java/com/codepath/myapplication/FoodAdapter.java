@@ -1,7 +1,10 @@
 package com.codepath.myapplication;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.myapplication.Database.EventDbHelper;
+import com.codepath.myapplication.Database.FoodContract.FoodEntry;
 
 import org.parceler.Parcels;
 
@@ -74,12 +79,14 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
                     int pos = getAdapterPosition();
                     Food f = recipes.get(pos);
                     recipes.remove(pos);
+                    deleteFood(f);
                     curE = f;
                     curI = pos;
                     notifyDataSetChanged();
                     //Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show();
                     Snackbar.make(pview, R.string.snackbar_text, Snackbar.LENGTH_LONG)
                             .setAction(R.string.snackbar_action, myOnClickListener)
+                            .setActionTextColor(Color.WHITE)
                             .show(); // Don’t forget to show!
 
                     return true;
@@ -92,6 +99,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
             @Override
             public void onClick(View v) {
                 recipes.add(curI, curE);
+                insertRecipe(curE);
                 notifyDataSetChanged();
             }
         };
@@ -115,4 +123,54 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
             }
         }
     }
+
+    private void insertRecipe(Food recipe) {
+
+        deleteFood(recipe);
+
+        String nameString = recipe.getName();
+        String urlString = recipe.getImageUrl();
+        int ratingInt = recipe.getRating();
+        int idInt = recipe.getId();
+
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(context);
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        // Create a ContentValues object where column names are the keys,
+        // and pet attributes from the editor are the values.
+        ContentValues values = new ContentValues();
+        values.put(FoodEntry.COLUMN_FOOD_NAME, nameString);
+        values.put(FoodEntry.COLUMN_FOOD_URL, urlString);
+        values.put(FoodEntry.COLUMN_FOOD_RATING, ratingInt);
+
+        // Insert a new row for pet in the database, returning the ID of that new row.
+        long newRowId = db.insert(FoodEntry.TABLE_NAME, null, values);
+
+
+
+    }
+
+    private void deleteFood(Food recipe) {
+
+
+        // Create a String that contains the SQL statement to create the pets table
+        String SQL_CREATE_FOOD_TABLE =  "DELETE FROM " + FoodEntry.TABLE_NAME +
+                " WHERE " + FoodEntry.COLUMN_FOOD_NAME + " = \"" + recipe.getName() + "\";";
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(context);
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+
+        // Execute the SQL statement
+        db.execSQL(SQL_CREATE_FOOD_TABLE);
+
+    }
+
 }

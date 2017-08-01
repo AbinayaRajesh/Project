@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Database.SavedEventsActivity;
 import com.codepath.myapplication.Database.SavedRecipesActivity;
+import com.codepath.myapplication.Database.SavedTourismActivity;
 import com.codepath.myapplication.R;
 
 import org.parceler.Parcels;
@@ -68,7 +69,7 @@ public class FavouriteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent(FavouriteActivity.this, SavedEventsActivity.class);
+                Intent i = new Intent(FavouriteActivity.this, SavedTourismActivity.class);
                 i.putExtra("country", Parcels.wrap(country));
                 startActivity(i);
             }
