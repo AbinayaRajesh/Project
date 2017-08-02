@@ -186,6 +186,11 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
         startActivity(i);
     }
 
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
+
 
     private void insertVenue(Venue venue) {
 

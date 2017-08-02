@@ -228,10 +228,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onHome(MenuItem item) {
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-    }
 
+    }
 }
 
 

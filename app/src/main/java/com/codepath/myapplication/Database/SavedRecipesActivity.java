@@ -16,6 +16,7 @@
 package com.codepath.myapplication.Database;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import android.widget.Toast;
 import com.codepath.myapplication.Database.FoodContract.FoodEntry;
 import com.codepath.myapplication.Food;
 import com.codepath.myapplication.FoodAdapter;
+import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.R;
 
 import java.util.ArrayList;
@@ -137,6 +139,12 @@ public class SavedRecipesActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_catalog, menu);
         return true;
     }
+
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

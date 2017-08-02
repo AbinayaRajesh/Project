@@ -14,9 +14,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
-import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.NearbyActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
+import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
 import com.codepath.myapplication.TourismFragments.TourismPagerAdapter;
 import com.codepath.myapplication.TourismSearchActivity;
@@ -92,7 +92,8 @@ public class TourismActivity extends AppCompatActivity  {
     }
 
     public void onHome(MenuItem item) {
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, OptionsActivity.class);
+        i.putExtra("country", Parcels.wrap(country));
         startActivity(i);
     }
 

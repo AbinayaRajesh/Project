@@ -19,6 +19,7 @@ import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
+import com.codepath.myapplication.Options.OptionsActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -115,7 +116,8 @@ public class tempFOOD extends AppCompatActivity {
         startActivity(i);
     }
     public void onHome(MenuItem item) {
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, OptionsActivity.class);
+        i.putExtra("country", Parcels.wrap(country));
         startActivity(i);
     }
 

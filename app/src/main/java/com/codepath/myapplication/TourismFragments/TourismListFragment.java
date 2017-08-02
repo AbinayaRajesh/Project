@@ -53,7 +53,7 @@ public class TourismListFragment extends Fragment {
         rvVenues = (RecyclerView) v.findViewById(R.id.rvVenues);
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            countryName = bundle.getString("country", "");
+            countryName = bundle.getString("country", "brazil");
         }
 
         //resolve the recycler view and connect a layout manager and the adapter
@@ -91,8 +91,8 @@ public class TourismListFragment extends Fragment {
         String url = API_BASE_URL + "/venues/search";
         // set the request parameters
         RequestParams params = new RequestParams();
-        params.put("ll", ll);
-        params.put("radius", 100000);
+        //params.put("ll", ll);
+        //params.put("radius", 100000);
         params.put(API_KEY_PARAM, getString(R.string.api_key));  // Always needs API key
         params.put(API_SECRET_PARAM, getString(R.string.api_secret));
         params.put("v", "20170713");

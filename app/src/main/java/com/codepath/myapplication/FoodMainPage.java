@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
+import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.Tourism.tempTourism;
 
 import org.parceler.Parcels;
@@ -96,10 +97,10 @@ public class FoodMainPage extends AppCompatActivity {
     }
 
     public void onHome(MenuItem item) {
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, OptionsActivity.class);
+        i.putExtra("country", Parcels.wrap(country));
         startActivity(i);
     }
-
 
 
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap) {

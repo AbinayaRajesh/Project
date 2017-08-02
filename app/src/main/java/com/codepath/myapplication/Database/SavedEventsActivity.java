@@ -15,6 +15,7 @@
  */
 package com.codepath.myapplication.Database;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import android.view.MenuItem;
 import com.codepath.myapplication.Database.EventContract.EventEntry;
 import com.codepath.myapplication.Event.Event;
 import com.codepath.myapplication.Event.EventAdapter;
+import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.R;
 
 import java.util.ArrayList;
@@ -147,6 +149,12 @@ public class SavedEventsActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_catalog, menu);
         return true;
     }
+
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
