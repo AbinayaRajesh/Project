@@ -25,6 +25,9 @@
             <item
                 android:id="@+id/action_dropdown3"
                 android:title="Relevance" />
+            <item
+                android:id="@+id/action_dropdown4"
+                android:title="Distance" />
         </menu>
     </item>
     <item

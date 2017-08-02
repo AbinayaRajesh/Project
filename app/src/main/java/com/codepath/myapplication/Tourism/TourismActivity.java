@@ -47,6 +47,8 @@ public class TourismActivity extends AppCompatActivity  {
         countryName = country.getName();
         pageAdapter = new TourismPagerAdapter(getSupportFragmentManager(), this);
         context = this;
+        Bundle bundleB = getIntent().getExtras();
+        ll = bundleB.getString("ll");
         // get the view pager
         vpPager = (ViewPager) findViewById(R.id.viewpager);
         // set the adapter for the pager
@@ -132,6 +134,9 @@ public class TourismActivity extends AppCompatActivity  {
     }
     public String getCountryName(){
         return countryName;
+    }
+    public String getLL() {
+        return ll;
     }
 }
 

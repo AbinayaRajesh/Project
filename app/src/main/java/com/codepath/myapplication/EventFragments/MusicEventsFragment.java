@@ -29,6 +29,7 @@ public class MusicEventsFragment extends EventsListFragment {
     public final static String COLUMN_EVENT_VENUE = "venue";
 
     String countryName;
+    Boolean distance;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,8 @@ public class MusicEventsFragment extends EventsListFragment {
         }
 
         filter = ((EventActivity) getActivity()).getFilter();
-        ll = ((EventActivity) getActivity()).getFilter();
+        ll = ((EventActivity) getActivity()).getLL();
+        distance = ((EventActivity) getActivity()).getDistance();
 
         getSportsEvents();
     }
@@ -49,8 +51,10 @@ public class MusicEventsFragment extends EventsListFragment {
         String url = API_BASE_URL + "events/search?";
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
-        params.put("ll", ll);
-        params.put("within", 100);
+        if(distance) {
+            params.put("within", 100);
+            params.put("location", ll);
+        }
         params.put("keywords", countryName);
         params.put("category", "music");
         if(filter != null) {

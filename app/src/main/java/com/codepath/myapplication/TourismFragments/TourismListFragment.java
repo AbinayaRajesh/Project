@@ -51,21 +51,18 @@ public class TourismListFragment extends Fragment {
         View v = inflater.inflate(R.layout.activity_tourism_list_fragment, container, false);
         venues = new ArrayList<>();
         venueIds = new ArrayList<>();
+        ll = ((TourismActivity) getActivity()).getLL();
         //initialize the adapter -- movies array cannot be reinitialized after this point
         adapter = new VenueCardAdapter(getActivity(), venues);
         // the recycler view
         rvVenues = (RecyclerView) v.findViewById(R.id.rvVenues);
 
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
 
-            countryName = bundle.getString("country");
-
-        if (((TourismActivity) getActivity()).getCountryName() != null) {
-            countryName = ((TourismActivity) getActivity()).getCountryName();
-        }
-        rvVenues.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        rvVenues.setAdapter(adapter);
+            if (((TourismActivity) getActivity()).getCountryName() != null) {
+                countryName = ((TourismActivity) getActivity()).getCountryName();
+            }
+            rvVenues.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+            rvVenues.setAdapter(adapter);
         return v;
     }
     public void getVenue(String categoryID){
@@ -73,20 +70,10 @@ public class TourismListFragment extends Fragment {
         String url = API_BASE_URL + "/venues/search";
         // set the request parameters
         RequestParams params = new RequestParams();
-        //params.put("ll", ll);
-        //params.put("radius", 100000);
-
-//        params.put(API_KEY_PARAM, getString(R.string.api_key));  // Always needs API key
-//        params.put(API_SECRET_PARAM, getString(R.string.api_secret));
-//        params.put("v", "20170713");
-//        //params.put("query", countryName + " " + query);
         params.put("categoryId", categoryID);
-//        params.put("query", "Brazil");
         params.put("query", countryName);
         params.put("categoryId", categoryID);
-//      params.put("query", "Brazil");
-
-        params.put("ll", "40.7,-74");
+        params.put("ll", ll);
         params.put("radius", 100000);
 
         params.put(API_KEY_PARAM, getString(R.string.api_key));  // Always needs API key

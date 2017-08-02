@@ -76,41 +76,14 @@ public class tempTourism extends AppCompatActivity {
         adapter = new VenueCardAdapter(tempTourism.this, venues);
 
         // the recycler view
-
+        Bundle bundleB = getIntent().getExtras();
+        ll = bundleB.getString("ll");
         rvVenues = (RecyclerView) findViewById(R.id.rvVenues);
 
         //resolve the recycler view and connect a layout manager and the adapter
         //rvMovies = (RecyclerView) findViewById(rvMovies);
         rvVenues.setLayoutManager(new GridLayoutManager(tempTourism.this, 2));
         rvVenues.setAdapter(adapter);
-
-
-
-
-        // LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//
-//        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-//            ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
-//                    MY_PERMISSION_ACCESS_COURSE_LOCATION );
-//            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//            longitude = location.getLongitude();
-//            latitude = location.getLatitude();
-//            String lat = String.valueOf((int) latitude);
-//            String lng = String.valueOf((int) longitude);
-//            ll = lat+","+lng;
-//        }
-//        else {
-//            ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
-//                    MY_PERMISSION_ACCESS_COURSE_LOCATION );
-//            LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//            longitude = location.getLongitude();
-//            latitude = location.getLatitude();
-//            String lat = String.valueOf((int) latitude);
-//            String lng = String.valueOf((int) longitude);
-//            ll = lat+","+lng;
-//        }
 
         getNowPlaying();
 
@@ -159,8 +132,8 @@ public class tempTourism extends AppCompatActivity {
         String url = API_BASE_URL + "/venues/search";
         // set the request parameters
         RequestParams params = new RequestParams();
-        params.put("ll", "40.7,-74");
-        //params.put("radius", 100000);
+        params.put("ll", ll);
+        params.put("radius", 100000);
         params.put(API_KEY_PARAM, getString(R.string.api_key));  // Always needs API key
         params.put(API_SECRET_PARAM, getString(R.string.api_secret));
         params.put("v", "20170713");

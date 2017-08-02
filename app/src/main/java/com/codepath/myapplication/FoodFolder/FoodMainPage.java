@@ -33,7 +33,7 @@ public class FoodMainPage extends AppCompatActivity {
 
     ImageView recipes;
     ImageView restaurants;
-
+    String ll;
     Context context;
 
     Country country;
@@ -42,7 +42,8 @@ public class FoodMainPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_main_page);
-
+        Bundle bundleB = getIntent().getExtras();
+        ll = bundleB.getString("ll");
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
 
         recipes = (ImageView) findViewById(R.id.recipesPic);
@@ -77,6 +78,7 @@ public class FoodMainPage extends AppCompatActivity {
 
                 Intent i = new Intent(FoodMainPage.this, tempTourism.class);
                 i.putExtra("country", Parcels.wrap(country));
+                i.putExtra("ll", ll);
                 startActivity(i);
 
             }

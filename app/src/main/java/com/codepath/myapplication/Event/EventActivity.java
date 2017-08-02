@@ -14,19 +14,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.EventFragments.EventsListFragment;
 import com.codepath.myapplication.EventFragments.EventsPagerAdapter;
 import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
-
 import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.LocationRequest;
-
 
 import org.parceler.Parcels;
 
@@ -39,6 +37,7 @@ public class EventActivity extends AppCompatActivity  {
    FusedLocationProviderApi fusedLocationProviderApi;
     public static Country country;
     Location mLastLocation;
+    boolean distance;
     Calendar c = Calendar.getInstance();
     private LocationRequest mLocationRequest;
     int seconds = c.get(Calendar.SECOND);
@@ -61,14 +60,18 @@ public class EventActivity extends AppCompatActivity  {
     EventsListFragment fragment;
     GoogleApiClient googleApi;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         pageAdapter = new EventsPagerAdapter(getSupportFragmentManager(), context);
+        Bundle bundleB = getIntent().getExtras();
         bundle = new Bundle();
+        ll = bundleB.getString("ll");
         fragment = new EventsListFragment();
+        distance = true;
         context = this;
         // get the view pager
         vpPager = (ViewPager) findViewById(R.id.viewpager);
@@ -164,7 +167,20 @@ public class EventActivity extends AppCompatActivity  {
                 filter = "relevance";
                 pageAdapter.notifyDataSetChanged();
                 break;
+            }case R.id.action_dropdown4: {
+                bundle.putString("filter", "relevance");
+                fragment.setArguments(bundle);
+                filter = "relevance";
+                if (distance) {
+                    distance = false;
+                }
+                else{
+                    distance = true;
+                }
+                pageAdapter.notifyDataSetChanged();
+                break;
             }
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -173,5 +189,11 @@ public class EventActivity extends AppCompatActivity  {
 
     public String getFilter() {
         return filter;
+    }
+    public String getLL() {
+        return ll;
+    }
+    public boolean getDistance(){
+        return distance;
     }
 }

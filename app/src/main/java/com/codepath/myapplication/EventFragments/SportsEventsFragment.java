@@ -27,6 +27,7 @@ public class SportsEventsFragment extends EventsListFragment {
 
     Byte y;
     String countryName;
+    Boolean distance;
 
 
     String filter;
@@ -39,7 +40,9 @@ public class SportsEventsFragment extends EventsListFragment {
         }
         client = new AsyncHttpClient();
         filter = ((EventActivity) getActivity()).getFilter();
-        ll = ((EventActivity) getActivity()).getFilter();
+        ll = ((EventActivity) getActivity()).getLL();
+        distance = ((EventActivity) getActivity()).getDistance();
+
         getSportsEvents();
     }
     private void getSportsEvents(){
@@ -47,8 +50,10 @@ public class SportsEventsFragment extends EventsListFragment {
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
         params.put("keywords", countryName);
-        params.put("ll", ll);
-        params.put("within", 100);
+        if(distance) {
+            params.put("within", 100);
+            params.put("location", ll);
+        }
         params.put("category", "sports");
         if(filter != null) {
             if (filter.equals("popularity")) {

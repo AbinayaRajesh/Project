@@ -24,7 +24,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class FestivalsEventsFragment extends EventsListFragment  {
     AsyncHttpClient client;
-
+    Boolean distance;
     Byte y;
     String countryName;
     public void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,8 @@ public class FestivalsEventsFragment extends EventsListFragment  {
         }
         client = new AsyncHttpClient();
         filter = ((EventActivity) getActivity()).getFilter();
-        ll = ((EventActivity) getActivity()).getFilter();
+        ll = ((EventActivity) getActivity()).getLL();
+        distance = ((EventActivity) getActivity()).getDistance();
 
         getSportsEvents();
     }
@@ -43,8 +44,10 @@ public class FestivalsEventsFragment extends EventsListFragment  {
         String url = API_BASE_URL + "events/search?";
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
-        params.put("ll", ll);
-        params.put("within", 100);
+        if(distance) {
+            params.put("within", 100);
+            params.put("location", ll);
+        }
         params.put("keywords", countryName);
         params.put("category", "festivals_parades");
         if(filter != null) {

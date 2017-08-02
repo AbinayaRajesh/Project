@@ -39,11 +39,12 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
     ArrayList<Country> countries;
     public final static String API_BASE_URL = "http://countryapi.gear.host/v1/Country/getCountries";
     public final static String API_KEY_PARAM = "api_key";
     public final static String TAG = "CountryList";
+
 
     RecyclerView rvCountries;
     CountryAdapter adapter;
@@ -55,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
     String imageUrl;
     ImageView i;
     ImageView profilePic;
-
+    Double longitude;
+    Double latitude;
+    public String ll;
 
     Button eventButton;
     Context context;
@@ -68,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         String url  = getIntent().getParcelableExtra("image");
 //        profilePic = (ImageView) findViewById(R.id.profilePic);
 

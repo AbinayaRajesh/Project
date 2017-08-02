@@ -24,7 +24,7 @@ import java.util.List;
 public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
     private Activity mContext;
     private List<Option> mOptions;
-
+    private String longlat;
     public OptionsActivity optionsActivity;
 
     public OptionsAdapter(Activity context, List<Option> options) {
@@ -33,6 +33,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
             throw new IllegalArgumentException("options must not be null");
         }
         mOptions = options;
+        longlat = "";
     }
 
     // Inflate the view based on the viewType provided.
@@ -82,6 +83,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
 //                            i.putExtra("country", optionsActivity.country.getName());
                             // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
+                            i.putExtra("ll", longlat);
                             context.startActivity(i); // brings up the second activity
                         }
                         else if (option.getmId()==1) {
@@ -89,18 +91,21 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
+                            i.putExtra("ll", longlat);
                             context.startActivity(i); // brings up the second activity
                         }
                         else if (option.getmId()==4) {
                             Intent i = new Intent(context, TourismActivity.class);
                             // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
+                            i.putExtra("ll", longlat);
                             context.startActivity(i); // brings up the second activity
                         }
                         else if (option.getmId()==3) {
                             Intent i = new Intent(context, LanguageActivity.class);
                             // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
+                            i.putExtra("ll", longlat);
                             context.startActivity(i); // brings up the second activity
                         }
 
@@ -109,5 +114,8 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
                 }
             });
         }
+    }
+    public void changeLL(String string){
+        longlat = string;
     }
 }
