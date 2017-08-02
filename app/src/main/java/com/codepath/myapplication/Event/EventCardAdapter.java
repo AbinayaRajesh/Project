@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.Event;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -18,8 +18,7 @@ import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Database.EventContract;
 import com.codepath.myapplication.Database.EventContract.EventEntry;
 import com.codepath.myapplication.Database.EventDbHelper;
-import com.codepath.myapplication.Event.Event;
-import com.codepath.myapplication.Event.EventDetail;
+import com.codepath.myapplication.R;
 
 import org.jsoup.Jsoup;
 

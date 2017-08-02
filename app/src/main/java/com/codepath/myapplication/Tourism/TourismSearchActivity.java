@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.Tourism;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Models.Venue;
+import com.codepath.myapplication.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;

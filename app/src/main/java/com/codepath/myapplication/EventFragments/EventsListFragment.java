@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codepath.myapplication.Event.Event;
-import com.codepath.myapplication.EventCardAdapter;
+import com.codepath.myapplication.Event.EventCardAdapter;
 import com.codepath.myapplication.R;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.loopj.android.http.AsyncHttpClient;

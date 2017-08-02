@@ -19,7 +19,6 @@ import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
 import com.codepath.myapplication.TourismFragments.TourismPagerAdapter;
-import com.codepath.myapplication.TourismSearchActivity;
 
 import org.parceler.Parcels;
 

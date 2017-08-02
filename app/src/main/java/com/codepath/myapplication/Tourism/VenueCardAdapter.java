@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.Tourism;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.Database.TourismContract.TourismEntry;
 import com.codepath.myapplication.Models.Venue;
+import com.codepath.myapplication.R;
 
 import java.util.ArrayList;
 

@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.codepath.myapplication.EventActivity;
+import com.codepath.myapplication.Event.EventActivity;
 
 /**
  * Created by eyobtefera on 7/18/17.

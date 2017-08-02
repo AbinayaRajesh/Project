@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.Event.Event;
-import com.codepath.myapplication.EventActivity;
+import com.codepath.myapplication.Event.EventActivity;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;

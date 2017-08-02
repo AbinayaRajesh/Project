@@ -29,7 +29,7 @@ import com.codepath.myapplication.Database.TourismContract.TourismEntry;
 import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.Models.Venue;
 import com.codepath.myapplication.R;
-import com.codepath.myapplication.VenueAdapter;
+import com.codepath.myapplication.Tourism.VenueAdapter;
 
 import java.util.ArrayList;
 

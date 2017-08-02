@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.codepath.myapplication.EventActivity;
+import com.codepath.myapplication.Event.EventActivity;
 import com.codepath.myapplication.FoodFolder.FoodMainPage;
 import com.codepath.myapplication.LanguageActivity;
 import com.codepath.myapplication.R;

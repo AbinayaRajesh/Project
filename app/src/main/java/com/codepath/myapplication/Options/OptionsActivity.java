@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Country.Country;
-import com.codepath.myapplication.EventActivity;
+import com.codepath.myapplication.Event.EventActivity;
 import com.codepath.myapplication.ImageAdapterSwipe;
 import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.Maps.tempDemoActivity;

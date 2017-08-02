@@ -19,7 +19,7 @@ import com.codepath.myapplication.FoodAdapter;
 import com.codepath.myapplication.FoodClient;
 import com.codepath.myapplication.Models.Venue;
 import com.codepath.myapplication.R;
-import com.codepath.myapplication.VenueCardAdapter;
+import com.codepath.myapplication.Tourism.VenueCardAdapter;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
