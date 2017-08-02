@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Country.CountryAdapter;
+import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -218,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
     public void onMaps(MenuItem item) {
-        Intent i = new Intent(this, NearbyActivity.class);
+        Intent i = new Intent(this, tempDemoActivity.class);
         startActivity(i);
     }
 

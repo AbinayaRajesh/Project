@@ -8,14 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
+import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Models.Venue;
-import com.codepath.myapplication.NearbyActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
@@ -140,7 +139,7 @@ public class tempTourism extends AppCompatActivity {
         return true;
     }
     public void onMaps(MenuItem item) {
-        Intent i = new Intent(this, NearbyActivity.class);
+        Intent i = new Intent(this, tempDemoActivity.class);
         startActivity(i);
     }
 
@@ -184,9 +183,7 @@ public class tempTourism extends AppCompatActivity {
                         //notify adapter that a row was added
                         adapter.notifyItemInserted(venues.size() - 1);
                     }
-                    // Log.i(TAG, String.format("Loaded %s movies", results.length()));
                 } catch (JSONException e) {
-                    // logError("Failed to pase now_playing endpoint", e, true);
                 }
                 Pics();
             }
@@ -195,9 +192,6 @@ public class tempTourism extends AppCompatActivity {
     }
 
     public void Pics(){
-
-
-
             for (int i = 0; i < venueIds.size(); i++) {
                 String venueUrl = API_BASE_URL + "/venues/" + venueIds.get(i);
                 RequestParams params = new RequestParams();
@@ -210,9 +204,6 @@ public class tempTourism extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        // load the results into movies list
-                        Log.d("Heree", "woww");
-
                         try {
                             JSONObject resp = response.getJSONObject("response");
                             JSONObject ven = resp.getJSONObject("venue");
@@ -231,8 +222,6 @@ public class tempTourism extends AppCompatActivity {
                             venues.get(j).setImageUrl("");
                             adapter.notifyDataSetChanged();
                             j++;
-
-                            // logError("Failed to pase now_playing endpoint", e, true);
                         }
 
 

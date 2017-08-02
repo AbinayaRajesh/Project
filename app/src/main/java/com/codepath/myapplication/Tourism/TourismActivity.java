@@ -14,7 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
-import com.codepath.myapplication.NearbyActivity;
+import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
@@ -81,7 +81,7 @@ public class TourismActivity extends AppCompatActivity  {
     }
 
     public void onMaps(MenuItem item) {
-        Intent i = new Intent(this, NearbyActivity.class);
+        Intent i = new Intent(this, tempDemoActivity.class);
         startActivity(i);
     }
 

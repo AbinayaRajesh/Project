@@ -20,12 +20,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -38,11 +35,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.BounceInterpolator;
-import android.view.animation.Interpolator;
-import android.widget.CheckBox;
 import android.widget.FrameLayout;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -63,15 +56,12 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import static com.codepath.myapplication.R.drawable.arrow;
 
 /**
  * This shows how to place markers on a map.
@@ -83,23 +73,11 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         GoogleMap.OnMarkerClickListener,
         GoogleMap.OnInfoWindowClickListener,
-        GoogleMap.OnMarkerDragListener,
         OnSeekBarChangeListener,
         GoogleMap.OnInfoWindowLongClickListener,
         GoogleMap.OnInfoWindowCloseListener,
         com.codepath.myapplication.Maps.OnMapAndViewReadyListener.OnGlobalLayoutAndMapReadyListener {
 
-    private static final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
-
-    private static final LatLng MELBOURNE = new LatLng(-37.81319, 144.96298);
-
-    private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);
-
-    private static final LatLng ADELAIDE = new LatLng(-34.92873, 138.59995);
-
-    private static final LatLng PERTH = new LatLng(-31.952854, 115.857342);
-
-    private static final LatLng ALICE_SPRINGS = new LatLng(-24.6980, 133.8807);
 
     // HERE
 
@@ -127,27 +105,8 @@ public class MarkerDemoActivity extends AppCompatActivity implements
 
     // Used for selecting the current place.
     private final int mMaxEntries = 5;
-    private String[] mLikelyPlaceNames = new String[mMaxEntries];
-    private String[] mLikelyPlaceAddresses = new String[mMaxEntries];
-    private String[] mLikelyPlaceAttributions = new String[mMaxEntries];
-    private LatLng[] mLikelyPlaceLatLngs = new LatLng[mMaxEntries];
-
-
-
-
-
 
     private GoogleMap mMap;
-
-    private Marker mPerth;
-
-    private Marker mSydney;
-
-    private Marker mBrisbane;
-
-    private Marker mAdelaide;
-
-    private Marker mMelbourne;
 
     ArrayList<Event> Sevents;
     ArrayList<Event> Mevents;
@@ -161,14 +120,6 @@ public class MarkerDemoActivity extends AppCompatActivity implements
     private Marker mLastSelectedMarker;
 
     private final List<Marker> mMarkerRainbow = new ArrayList<Marker>();
-
-    private TextView mTopText;
-
-    private SeekBar mRotationBar;
-
-    private CheckBox mFlatBox;
-
-    private RadioGroup mOptions;
 
     private final Random mRandom = new Random();
 
@@ -227,23 +178,6 @@ public class MarkerDemoActivity extends AppCompatActivity implements
     public void onMapReady(GoogleMap map) {
         mMap = map;
 
-        // if you wanna click to add a marker
-
-//        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-//
-//            @Override
-//            public void onMapClick(LatLng point) {
-//
-//                MarkerOptions marker = new MarkerOptions().position(
-//                        new LatLng(point.latitude, point.longitude)).title("New Marker");
-//
-//                mMap.addMarker(marker);
-//
-//                System.out.println(point.latitude+"---"+ point.longitude);
-//            }
-//        });
-
-
         for (int i=0; i<Sevents.size(); i++){
             Event event = Sevents.get(i);
             float lat = event.getLatitude();
@@ -287,23 +221,8 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         // Set listeners for marker events.  See the bottom of this class for their behavior.
         mMap.setOnMarkerClickListener(this);
         mMap.setOnInfoWindowClickListener(this);
-        mMap.setOnMarkerDragListener(this);
         mMap.setOnInfoWindowCloseListener(this);
         mMap.setOnInfoWindowLongClickListener(this);
-
-
-        // Override the default content description on the view, for accessibility mode.
-        // Ideally this string would be localised.
-        mMap.setContentDescription("Map with lots of markers.");
-
-        LatLngBounds bounds = new LatLngBounds.Builder()
-                .include(PERTH)
-                .include(SYDNEY)
-                .include(ADELAIDE)
-                .include(BRISBANE)
-                .include(MELBOURNE)
-                .build();
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
 
 
         // Use a custom info window adapter to handle multiple lines of text in the
@@ -341,63 +260,7 @@ public class MarkerDemoActivity extends AppCompatActivity implements
 
     }
 
-    private void addMarkersToMap() {
-        // Uses a colored icon.
-        mBrisbane = mMap.addMarker(new MarkerOptions()
-                .position(BRISBANE)
-                .title("Brisbane")
-                .snippet("Population: 2,074,200")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
-        // Uses a custom icon with the info window popping out of the center of the icon.
-        mSydney = mMap.addMarker(new MarkerOptions()
-                .position(SYDNEY)
-                .title("Sydney")
-                .snippet("Population: 4,627,300")
-                .icon(BitmapDescriptorFactory.fromResource(arrow))
-                .infoWindowAnchor(0.5f, 0.5f));
-
-        // Creates a draggable marker. Long press to drag.
-        mMelbourne = mMap.addMarker(new MarkerOptions()
-                .position(MELBOURNE)
-                .title("Melbourne")
-                .snippet("Population: 4,137,400")
-                .draggable(true));
-
-        // A few more markers for good measure.
-        mPerth = mMap.addMarker(new MarkerOptions()
-                .position(PERTH)
-                .title("Perth")
-                .snippet("Population: 1,738,800"));
-        mAdelaide = mMap.addMarker(new MarkerOptions()
-                .position(ADELAIDE)
-                .title("Adelaide")
-                .snippet("Population: 1,213,000"));
-
-        // Vector drawable resource as a marker icon.
-        mMap.addMarker(new MarkerOptions()
-                .position(ALICE_SPRINGS)
-                .icon(vectorToBitmap(R.drawable.ic_android, Color.parseColor("#A4C639")))
-                .title("Alice Springs"));
-
-        // Creates a marker rainbow demonstrating how to create default marker icons of different
-        // hues (colors).
-        float rotation = mRotationBar.getProgress();
-        boolean flat = mFlatBox.isChecked();
-
-        int numMarkersInRainbow = 12;
-        for (int i = 0; i < numMarkersInRainbow; i++) {
-            Marker marker = mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(
-                            -30 + 10 * Math.sin(i * Math.PI / (numMarkersInRainbow - 1)),
-                            135 - 10 * Math.cos(i * Math.PI / (numMarkersInRainbow - 1))))
-                    .title("Marker " + i)
-                    .icon(BitmapDescriptorFactory.defaultMarker(i * 360 / numMarkersInRainbow))
-                    .flat(flat)
-                    .rotation(rotation));
-            mMarkerRainbow.add(marker);
-        }
-    }
 
     /**
      * Demonstrates converting a {@link Drawable} to a {@link BitmapDescriptor},
@@ -451,33 +314,7 @@ public class MarkerDemoActivity extends AppCompatActivity implements
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
-        if (marker.equals(mPerth)) {
-            // This causes the marker at Perth to bounce into position when it is clicked.
-            final Handler handler = new Handler();
-            final long start = SystemClock.uptimeMillis();
-            final long duration = 1500;
 
-            final Interpolator interpolator = new BounceInterpolator();
-
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    long elapsed = SystemClock.uptimeMillis() - start;
-                    float t = Math.max(
-                            1 - interpolator.getInterpolation((float) elapsed / duration), 0);
-                    marker.setAnchor(0.5f, 1.0f + 2 * t);
-
-                    if (t > 0.0) {
-                        // Post again 16ms later.
-                        handler.postDelayed(this, 16);
-                    }
-                }
-            });
-        } else if (marker.equals(mAdelaide)) {
-            // This causes the marker at Adelaide to change color and alpha.
-            marker.setIcon(BitmapDescriptorFactory.defaultMarker(mRandom.nextFloat() * 360));
-            marker.setAlpha(mRandom.nextFloat());
-        }
 
         // Markers have a z-index that is settable and gettable.
         float zIndex = marker.getZIndex() + 1.0f;
@@ -511,27 +348,10 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         Toast.makeText(this, "Info Window long click", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onMarkerDragStart(Marker marker) {
-        mTopText.setText("onMarkerDragStart");
-    }
-
-    @Override
-    public void onMarkerDragEnd(Marker marker) {
-        mTopText.setText("onMarkerDragEnd");
-    }
-
-    @Override
-    public void onMarkerDrag(Marker marker) {
-        mTopText.setText("onMarkerDrag.  Current Position: " + marker.getPosition());
-    }
 
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-        // Return false so that we don't consume the event and the default behavior still occurs
-        // (the camera animates to the user's current position).
         return false;
     }
 
