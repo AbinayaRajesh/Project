@@ -227,7 +227,6 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
     }
-
     public void onHome(MenuItem item) {
 
     }

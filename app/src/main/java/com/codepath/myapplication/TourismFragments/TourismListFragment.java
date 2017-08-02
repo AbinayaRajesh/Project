@@ -12,7 +12,11 @@ import android.view.ViewGroup;
 
 import com.codepath.myapplication.Models.Venue;
 import com.codepath.myapplication.R;
+
 import com.codepath.myapplication.Tourism.VenueCardAdapter;
+
+import com.codepath.myapplication.Tourism.TourismActivity;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -51,17 +55,20 @@ public class TourismListFragment extends Fragment {
         adapter = new VenueCardAdapter(getActivity(), venues);
         // the recycler view
         rvVenues = (RecyclerView) v.findViewById(R.id.rvVenues);
+
         Bundle bundle = this.getArguments();
         if (bundle != null) {
 
             countryName = bundle.getString("country");
 
+        if (((TourismActivity) getActivity()).getCountryName() != null) {
+            countryName = ((TourismActivity) getActivity()).getCountryName();
         }
         rvVenues.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         rvVenues.setAdapter(adapter);
         return v;
     }
-    public void getVenue(String categoryID, String query){
+    public void getVenue(String categoryID){
         // create the url
         String url = API_BASE_URL + "/venues/search";
         // set the request parameters
@@ -75,13 +82,17 @@ public class TourismListFragment extends Fragment {
 //        //params.put("query", countryName + " " + query);
         params.put("categoryId", categoryID);
 //        params.put("query", "Brazil");
+        params.put("query", countryName);
+        params.put("categoryId", categoryID);
+//      params.put("query", "Brazil");
+
         params.put("ll", "40.7,-74");
         params.put("radius", 100000);
 
         params.put(API_KEY_PARAM, getString(R.string.api_key));  // Always needs API key
         params.put(API_SECRET_PARAM, getString(R.string.api_secret));
         params.put("v", "20170713");
-        params.put("query", "brazil");
+        //params.put("query", "brazil");
         // request a GET response expecting a JSON object response
         client.get(url, params, new JsonHttpResponseHandler() {
             @Override

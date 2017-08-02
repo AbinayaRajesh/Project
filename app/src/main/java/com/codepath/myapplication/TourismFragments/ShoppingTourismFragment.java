@@ -9,6 +9,6 @@ import android.os.Bundle;
 public class ShoppingTourismFragment extends TourismListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getVenue("4d4b7105d754a06378d81259", "Mall");
+        getVenue("4d4b7105d754a06378d81259");
     }
 }

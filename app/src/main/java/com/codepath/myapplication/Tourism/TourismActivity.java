@@ -35,6 +35,7 @@ public class TourismActivity extends AppCompatActivity  {
     String lat;
     String lng;
     String ll;
+    String countryName;
     public static Country country;
 
     @Override
@@ -43,6 +44,7 @@ public class TourismActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_tourism);
         bundle = new Bundle();
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+        countryName = country.getName();
         pageAdapter = new TourismPagerAdapter(getSupportFragmentManager(), this);
         context = this;
         // get the view pager
@@ -127,6 +129,9 @@ public class TourismActivity extends AppCompatActivity  {
 
     public String getFilter() {
         return filter;
+    }
+    public String getCountryName(){
+        return countryName;
     }
 }
 
