@@ -15,7 +15,6 @@
  */
 package com.codepath.myapplication.Database;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -25,7 +24,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.codepath.myapplication.Database.FoodContract.FoodEntry;
 import com.codepath.myapplication.Food;
@@ -148,58 +146,7 @@ public class SavedRecipesActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // User clicked on a menu option in the app bar overflow menu
-        switch (item.getItemId()) {
-            // Respond to a click on the "Insert dummy data" menu option
-            case R.id.action_insert_dummy_data:
-                // insertPet();
-                // insertEvent();
-                displayDatabaseInfo();
-                return true;
-            // Respond to a click on the "Delete all entries" menu option
-            case R.id.action_delete_all_entries:
-                // Do nothing for now
-                return true;
-        }
         return super.onOptionsItemSelected(item);
-    }
-
-
-
-    private void insertEvent() {
-
-        // Read from input fields
-        // Use trim to eliminate leading or trailing white space
-        // mNameEditText.getText().toString().trim();
-        String nameString = "NAME";
-        int ratingString = 5;
-        String urlString = "URL";
-
-        // Create database helper
-        EventDbHelper mDbHelper = new EventDbHelper(this);
-
-        // Gets the database in write mode
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-        // Create a ContentValues object where column names are the keys,
-        // and pet attributes from the editor are the values.
-        ContentValues values = new ContentValues();
-        values.put(FoodEntry.COLUMN_FOOD_NAME, nameString);
-        values.put(FoodEntry.COLUMN_FOOD_RATING, ratingString);
-        values.put(FoodEntry.COLUMN_FOOD_URL, urlString);
-
-
-        // Insert a new row for pet in the database, returning the ID of that new row.
-        long newRowId = db.insert(FoodEntry.TABLE_NAME, null, values);
-
-        // Show a toast message depending on whether or not the insertion was successful
-        if (newRowId == -1) {
-            // If the row ID is -1, then there was an error with insertion.
-            Toast.makeText(this, "Error with saving food", Toast.LENGTH_SHORT).show();
-        } else {
-            // Otherwise, the insertion was successful and we can display a toast with the row ID.
-            Toast.makeText(this, "Food saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
-        }
     }
 
 }

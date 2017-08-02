@@ -3,7 +3,6 @@ package com.codepath.myapplication.Tourism;
 import android.content.Context;
 
 import com.codepath.myapplication.R;
-import com.codepath.myapplication.YelpApii;
 import com.codepath.oauth.OAuthBaseClient;
 import com.github.scribejava.core.builder.api.BaseApi;
 import com.loopj.android.http.AsyncHttpResponseHandler;

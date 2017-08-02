@@ -31,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
 
         // FACEBOOK LOGIN
 
-
         callbackManager = CallbackManager.Factory.create();
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -65,11 +64,6 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("d","dead");
                     }
                 });
-
-
-
-        // ends here
-
 
     }
 

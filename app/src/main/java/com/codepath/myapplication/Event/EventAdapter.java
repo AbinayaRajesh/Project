@@ -66,17 +66,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         String eventName = event.getEventName();
         holder.tvEventName.setText(event.getEventName());
         holder.tvEventVenue.setText(event.getEventVenue());
-       // holder.tvEventDescription.setText(Jsoup.parse(event.eventDescription).text());
+        // holder.tvEventDescription.setText(Jsoup.parse(event.eventDescription).text());
 
-        //if (!event.getEventUrl().equals("URL")) {
-            Glide.with(context).
-                    load(event.getEventUrl()).
-                    bitmapTransform(new RoundedCornersTransformation(context, 15, 0)).
-                    diskCacheStrategy(DiskCacheStrategy.ALL).
-                    into(holder.ivEventImage);
+        Glide.with(context).
+                load(event.getEventUrl()).
+                bitmapTransform(new RoundedCornersTransformation(context, 15, 0)).
+                diskCacheStrategy(DiskCacheStrategy.ALL).
+                into(holder.ivEventImage);
 
-
-        //}
     }
     @Override
     public int getItemCount() {
@@ -100,7 +97,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             ivEventImage = (ImageView) itemView.findViewById(R.id.ivEventImage);
             tvEventName = (TextView) itemView.findViewById(R.id.tvEventName);
             tvEventVenue = (TextView) itemView.findViewById(R.id.tvEventVenue);
-           // tvEventDescription = (TextView) itemView.findViewById(R.id.tvEventDescription);
+            // tvEventDescription = (TextView) itemView.findViewById(R.id.tvEventDescription);
             layout = (RelativeLayout) itemView.findViewById(R.id.detailView);
             itemView.setOnClickListener(this);
 
@@ -115,44 +112,34 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                     curE = event;
                     curI = pos;
                     notifyDataSetChanged();
-                    //Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show();
                     Snackbar.make(pview, R.string.snackbar_text, Snackbar.LENGTH_LONG)
                             .setAction(R.string.snackbar_action, myOnClickListener)
                             .setActionTextColor(Color.WHITE)
-                            .show(); // Don’t forget to show!
-
+                            .show();
                     return true;
                 }
             });
-
-
         }
 
         View.OnClickListener myOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               mEvents.add(curI, curE);
+                mEvents.add(curI, curE);
                 insertEvent(curE);
                 notifyDataSetChanged();
             }
         };
-
 
         public void onClick(View v) {
             // gets item position
             int position = getAdapterPosition();
             // make sure the position is valid, i.e. actually exists in the view
             if (position != RecyclerView.NO_POSITION) {
-
-                // get the movie at the position, this won't work if the class is static
                 Event event = mEvents.get(position);
                 // create intent for the new activity
-
                 Intent intent = new Intent(context, EventDetail.class);
                 // serialize the movie using parceler, use its short name as a key
                 intent.putExtra("event", event);
-                //intent.putExtra(Food.class.getSimpleName(), Parcels.wrap(recipe));
-                // intent.putExtra(Country.class.getName(), Parcels.wrap(country));
                 // show the activity
                 context.startActivity(intent);
             }
@@ -165,9 +152,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
         deleteEvent(event);
 
-        // Read from input fields
-        // Use trim to eliminate leading or trailing white space
-        // mNameEditText.getText().toString().trim();
         String nameString = event.getEventName();
         String tex = Jsoup.parse(event.getEventDescription()).text();
         String descriptionString = tex;
@@ -194,7 +178,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         values.put(EventEntry.COLUMN_EVENT_STOP_TIME, stopString);
         values.put(EventEntry.COLUMN_EVENT_UNIQUE_KEY, key);
 
-        // Insert a new row for pet in the database, returning the ID of that new row.
+        // Insert a new row for event in the database, returning the ID of that new row.
         long newRowId = db.insert(EventEntry.TABLE_NAME, null, values);
 
 
@@ -213,7 +197,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
         // Gets the database in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
 
         // Execute the SQL statement
         db.execSQL(SQL_CREATE_EVENTS_TABLE);
