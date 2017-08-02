@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.FoodFolder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.codepath.myapplication.Food;
+import com.codepath.myapplication.FoodClient;
 import com.codepath.myapplication.Maps.tempDemoActivity;
+import com.codepath.myapplication.R;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;

@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.FoodFolder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +22,7 @@ import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.Options.OptionsActivity;
+import com.codepath.myapplication.R;
 import com.codepath.myapplication.Tourism.tempTourism;
 
 import org.parceler.Parcels;

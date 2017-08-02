@@ -1,12 +1,11 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.Event;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.codepath.myapplication.Event.Event;
-import com.codepath.myapplication.Event.EventAdapter;
+import com.codepath.myapplication.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;

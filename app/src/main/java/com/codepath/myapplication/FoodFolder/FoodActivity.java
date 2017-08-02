@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.FoodFolder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.FoodFragments.FoodPagerAdapter;
 import com.codepath.myapplication.Maps.tempDemoActivity;
+import com.codepath.myapplication.R;
 
 import org.parceler.Parcels;
 

@@ -76,9 +76,6 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
         }
         else {
             Glide.with(context) .load("") .error(R.drawable.ic_image_black_24dp) .into(holder.ivImg);
-//            Glide.with(context)
-//                    .load(ic_image_black_24dp.xml)
-//                    .into(holder.ivImg);
         }
 
     }
@@ -93,15 +90,12 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // track view objects
-        //@BindView(R.id.ivPosterImage) ImageView getIvPosterImage;
         ImageView ivImg;
         TextView tvTitle;
         TextView tvCity;
         TextView tvState;
         TextView tvDistance;
         TextView tvAddress;
-
-
 
         // when the user clicks on a row, show MovieDetailsActivity for the selected movie
         @Override
@@ -117,7 +111,6 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
                 Intent intent = new Intent(context, DetailPlaceActivity.class);
                 // serialize the movie using parceler, use its short name as a key
                 intent.putExtra("venue", Parcels.wrap(venue));
-
                 // show the activity
                 context.startActivity(intent);
             }
@@ -126,14 +119,12 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
         public ViewHolder(View itemView) {
             super(itemView);
             //lookup view objects by id
-
-
             ivImg = (ImageView) itemView.findViewById(R.id.ivImg);
             tvCity = (TextView) itemView.findViewById(R.id.tvCity);
             tvState = (TextView) itemView.findViewById(R.id.tvState);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
             tvDistance = (TextView) itemView.findViewById(R.id.tvDistance);
-            tvAddress = (TextView) itemView.findViewById(R.id.textView) ;
+            tvAddress = (TextView) itemView.findViewById(R.id.tvAddress) ;
 
             // add this as the itemView's OnClickListener
             itemView.setOnClickListener(this);
@@ -147,18 +138,14 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
                     curV = venue;
                     curI = pos;
                     notifyDataSetChanged();
-                    //Toast.makeText(this, "Item deleted", Toast.LENGTH_SHORT).show();
                     Snackbar.make(pview, R.string.snackbar_text, Snackbar.LENGTH_LONG)
                             .setAction(R.string.snackbar_action, myOnClickListener)
                             .setActionTextColor(Color.WHITE)
-                            .show(); // Don’t forget to show!
+                            .show();
 
                     return true;
                 }
             });
-
-
-
         }
         View.OnClickListener myOnClickListener = new View.OnClickListener() {
             @Override

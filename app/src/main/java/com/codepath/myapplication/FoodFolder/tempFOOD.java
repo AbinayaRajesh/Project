@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.FoodFolder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,9 +17,13 @@ import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Database.EventDbHelper;
+import com.codepath.myapplication.Food;
+import com.codepath.myapplication.FoodAdapter;
+import com.codepath.myapplication.FoodClient;
 import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.Options.OptionsActivity;
+import com.codepath.myapplication.R;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -58,27 +62,10 @@ public class tempFOOD extends AppCompatActivity {
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
 
         fetchFood(country.getName());
-
-        // allows for optimizations
         rvRecipes.setHasFixedSize(true);
-
-        // Define 2 column grid layout
         final GridLayoutManager layout = new GridLayoutManager(tempFOOD.this, 2);
-
-        // Unlike ListView, you have to explicitly give a LayoutManager to the RecyclerView to position items on the screen.
-        // There are three LayoutManager provided at the moment: GridLayoutManager, StaggeredGridLayoutManager and LinearLayoutManager.
         rvRecipes.setLayoutManager(layout);
-
-        // get data
-        // options = Option.getContacts();
-
-
-
-        // Create an adapter
         mAdapter = new FoodCardAdapter(tempFOOD.this, afood);
-        // mAdapter.tempFOOD = this;
-
-        // Bind adapter to list
         rvRecipes.setAdapter(mAdapter);
 
 
@@ -132,8 +119,6 @@ public class tempFOOD extends AppCompatActivity {
                         if(response != null) {
                             JSONArray results = response.getJSONArray("matches");
                             for(int i =0; i<results.length(); i++){
-                                // Country country = new Country(results.getJSONObject(i));
-                                //final ArrayList<Food> recipes = Food.fromJson(results);
                                 Food recipe = Food.fromJson(i, results.getJSONObject(i));
                                 if (CheckIsRecipeAlreadyInDBorNot("recipes", "name", "\""+recipe.getName()+ "\"")) {
                                     y = 1;
@@ -148,10 +133,6 @@ public class tempFOOD extends AppCompatActivity {
                                 mAdapter.notifyItemInserted(afood.size()-1);
                             }
                         }
-                JSONArray docs;
-
-
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -206,6 +187,4 @@ public class tempFOOD extends AppCompatActivity {
 
     }
 
-    //fetch cuisine
-    //
 }

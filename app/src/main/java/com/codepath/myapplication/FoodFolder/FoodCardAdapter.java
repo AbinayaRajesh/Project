@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.FoodFolder;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -17,6 +17,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.Database.FoodContract.FoodEntry;
+import com.codepath.myapplication.Food;
+import com.codepath.myapplication.FoodDetail;
+import com.codepath.myapplication.R;
 
 import org.parceler.Parcels;
 
@@ -40,7 +43,7 @@ public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardAdapter.VH> {
     // Inflate the view based on the viewType provided.
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_contact, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item, parent, false);
         return new VH(itemView, mContext);
     }
 

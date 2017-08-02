@@ -1,4 +1,4 @@
-package com.codepath.myapplication;
+package com.codepath.myapplication.LanguageFragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.codepath.myapplication.Maps.tempDemoActivity;
+import com.codepath.myapplication.R;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;

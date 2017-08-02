@@ -52,7 +52,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Tourism.TourismActivity" />
-        <activity android:name=".FoodActivity" />
+        <activity android:name=".FoodFolder.FoodActivity" />
         <activity android:name=".EventActivity" />
         <activity android:name=".Options.OptionsActivity" />
         <activity android:name=".Maps.MarkerDemoActivity" />
@@ -72,9 +72,9 @@
         <fragment android:name=".TourismFragments.TourismListFragment" />
 
         <activity android:name=".Event.EventDetail" />
-        <activity android:name=".tempFOOD" />
+        <activity android:name=".FoodFolder.tempFOOD" />
         <activity android:name=".Tourism.tempTourism" />
-        <activity android:name=".FoodMainPage" />
+        <activity android:name=".FoodFolder.FoodMainPage" />
 
         <fragment android:name=".LanguageFragments.CommonPhrasesFragment" />
         <fragment android:name=".LanguageFragments.TranslateFragment" />
@@ -85,7 +85,7 @@
         <activity android:name=".Database.SavedRecipesActivity" />
         <activity android:name=".Database.SavedTourismActivity" />
         <activity android:name=".EventSearchActivity" />
-        <activity android:name=".FoodSearchActivity" />
+        <activity android:name=".FoodFolder.FoodSearchActivity" />
         <activity android:name=".TourismSearchActivity" />
         <activity android:name=".RestarauntSearchActivity" />
         <activity android:name=".CountrySearchActivity" />
