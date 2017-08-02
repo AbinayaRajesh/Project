@@ -52,7 +52,6 @@ public class VenueAdapter extends RecyclerView.Adapter<VenueAdapter.ViewHolder>{
         View venueView = inflater.inflate(R.layout.item_view_place, parent, false);
         // return a new ViewHolder
         return new ViewHolder(venueView);
-
     }
 
     // binds an inflated view to a new item
