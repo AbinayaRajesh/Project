@@ -209,6 +209,7 @@ public class MainActivity extends AppCompatActivity  {
                 // perform query here
                 Intent i = new Intent(context, CountrySearchActivity.class);
                 i.putExtra("search", query);
+                i.putExtra("countries", countries);
                 startActivity(i);
                 searchView.clearFocus();
                 return true;
