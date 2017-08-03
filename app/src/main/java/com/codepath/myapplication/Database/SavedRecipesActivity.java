@@ -29,6 +29,7 @@ import com.codepath.myapplication.Database.FoodContract.FoodEntry;
 import com.codepath.myapplication.Food;
 import com.codepath.myapplication.FoodAdapter;
 import com.codepath.myapplication.MainActivity;
+import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.R;
 
 import java.util.ArrayList;
@@ -134,7 +135,7 @@ public class SavedRecipesActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_catalog.xml file.
         // This adds menu items to the app bar.
-        getMenuInflater().inflate(R.menu.menu_catalog, menu);
+        getMenuInflater().inflate(R.menu.menu_favourites, menu);
         return true;
     }
 
@@ -142,6 +143,12 @@ public class SavedRecipesActivity extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
+
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
+        startActivity(i);
+    }
+
 
 
     @Override

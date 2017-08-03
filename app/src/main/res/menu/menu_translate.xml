@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/miProfile"
+        android:id="@+id/miMaps"
         app:showAsAction="always"
         android:icon="@drawable/ic_map"
         android:onClick="onMaps"
