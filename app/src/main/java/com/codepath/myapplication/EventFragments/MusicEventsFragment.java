@@ -87,8 +87,9 @@ public class MusicEventsFragment extends EventsListFragment {
                             event.setFavourite(y);
                         }
                         events.add(event);
+                        adapter.notifyDataSetChanged();
                         //notify adapter that a row was added
-                        adapter.notifyItemChanged(events.size()-1);
+                        //adapter.notifyItemChanged(events.size()-1);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

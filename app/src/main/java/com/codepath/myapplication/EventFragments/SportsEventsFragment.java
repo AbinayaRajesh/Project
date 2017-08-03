@@ -85,14 +85,16 @@ public class SportsEventsFragment extends EventsListFragment {
                             event.setFavourite(y);
                         }
                         events.add(event);
+                        adapter.notifyDataSetChanged();
                         //notify adapter that a row was added
-                        adapter.notifyItemChanged(events.size()-1);
+                        //adapter.notifyItemChanged(events.size()-1);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
+
 //http://api.eventful.com/rest/events/search?app_key=95JSGDKWtDtWRRgx&keywords=fun
     }
 

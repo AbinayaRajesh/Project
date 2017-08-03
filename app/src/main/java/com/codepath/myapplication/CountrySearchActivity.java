@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Country.CountryAdapter;
 import com.codepath.myapplication.Maps.tempDemoActivity;
+import com.codepath.myapplication.Options.FavouriteActivity;
 import com.loopj.android.http.AsyncHttpClient;
 
 import java.util.ArrayList;
@@ -27,13 +28,12 @@ public class CountrySearchActivity extends AppCompatActivity {
     AsyncHttpClient client;
     ArrayList<Country> searchCountries;
     Context context;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country_search);
         String query = getIntent().getExtras().getString("search");
-        countries = getIntent().getExtras().getParcelable("countries");
+        countries = new ArrayList<>();
         client = new AsyncHttpClient();
         countries = new ArrayList<>();
         adapter = new CountryAdapter(countries);
@@ -79,5 +79,12 @@ public class CountrySearchActivity extends AppCompatActivity {
             }
         }
     }
-
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
+        startActivity(i);
+    }
 }
