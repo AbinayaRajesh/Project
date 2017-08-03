@@ -32,12 +32,8 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +44,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -60,7 +55,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -73,16 +67,12 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         GoogleMap.OnMarkerClickListener,
         GoogleMap.OnInfoWindowClickListener,
-        OnSeekBarChangeListener,
-        GoogleMap.OnInfoWindowLongClickListener,
         GoogleMap.OnInfoWindowCloseListener,
         com.codepath.myapplication.Maps.OnMapAndViewReadyListener.OnGlobalLayoutAndMapReadyListener {
 
 
-    // HERE
-
     private static final String TAG = MarkerDemoActivity.class.getSimpleName();
-    // private GoogleMap mMap;
+
     private CameraPosition mCameraPosition;
 
     // The entry point to Google Play services, used by the Places API and Fused Location Provider.
@@ -103,8 +93,6 @@ public class MarkerDemoActivity extends AppCompatActivity implements
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
 
-    // Used for selecting the current place.
-    private final int mMaxEntries = 5;
 
     private GoogleMap mMap;
 
@@ -119,7 +107,7 @@ public class MarkerDemoActivity extends AppCompatActivity implements
      */
     private Marker mLastSelectedMarker;
 
-    private final List<Marker> mMarkerRainbow = new ArrayList<Marker>();
+
 
     private final Random mRandom = new Random();
 
@@ -222,7 +210,7 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         mMap.setOnMarkerClickListener(this);
         mMap.setOnInfoWindowClickListener(this);
         mMap.setOnInfoWindowCloseListener(this);
-        mMap.setOnInfoWindowLongClickListener(this);
+
 
 
         // Use a custom info window adapter to handle multiple lines of text in the
@@ -277,44 +265,10 @@ public class MarkerDemoActivity extends AppCompatActivity implements
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
-    private boolean checkReady() {
-        if (mMap == null) {
-            Toast.makeText(this, "Map not ready", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
-    }
 
-
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (!checkReady()) {
-            return;
-        }
-        float rotation = seekBar.getProgress();
-        for (Marker marker : mMarkerRainbow) {
-            marker.setRotation(rotation);
-        }
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-        // Do nothing.
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-        // Do nothing.
-    }
-
-    //
-    // Marker related listeners.
-    //
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
-
 
         // Markers have a z-index that is settable and gettable.
         float zIndex = marker.getZIndex() + 1.0f;
@@ -340,13 +294,8 @@ public class MarkerDemoActivity extends AppCompatActivity implements
 
     @Override
     public void onInfoWindowClose(Marker marker) {
-        //Toast.makeText(this, "Close Info Window", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onInfoWindowLongClick(Marker marker) {
-        Toast.makeText(this, "Info Window long click", Toast.LENGTH_SHORT).show();
-    }
 
 
 
@@ -400,30 +349,6 @@ public class MarkerDemoActivity extends AppCompatActivity implements
     }
 
     /**
-     * Sets up the options menu.
-     * @param menu The options menu.
-     * @return Boolean.
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        return true;
-    }
-
-    /**
-     * Handles a click on the menu option to get a place.
-     * @param item The menu item to handle.
-     * @return Boolean.
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        return true;
-    }
-
-
-
-    /**
      * Gets the current location of the device, and positions the map's camera.
      */
     private void getDeviceLocation() {
@@ -450,18 +375,18 @@ public class MarkerDemoActivity extends AppCompatActivity implements
                     .getLastLocation(mGoogleApiClient);
         }
 
-        // Set the map's camera position to the current location of the device.
-        if (mCameraPosition != null) {
-            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(mCameraPosition));
-        } else if (mLastKnownLocation != null) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                    new LatLng(mLastKnownLocation.getLatitude(),
-                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-        } else {
-            Log.d(TAG, "Current location is null. Using defaults.");
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
-        }
+//        // Set the map's camera position to the current location of the device.
+//        if (mCameraPosition != null) {
+//            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(mCameraPosition));
+//        } else if (mLastKnownLocation != null) {
+//            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+//                    new LatLng(mLastKnownLocation.getLatitude(),
+//                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+//        } else {
+//            Log.d(TAG, "Current location is null. Using defaults.");
+//            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
+//            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+//        }
     }
 
     /**

@@ -6,10 +6,10 @@
 
     <item
         android:id="@+id/miProfile"
+        app:showAsAction="always"
         android:icon="@drawable/ic_map"
         android:onClick="onMaps"
-        android:title="Item"
-        app:showAsAction="ifRoom" />
+        android:title="Item" />
     <item
         android:id="@+id/action_refresh"
         app:showAsAction="always"

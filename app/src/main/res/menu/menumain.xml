@@ -9,7 +9,7 @@
         android:icon="@drawable/ic_map"
         android:onClick="onMaps"
         android:title="Item"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_refresh"
         app:showAsAction="always"
