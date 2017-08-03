@@ -86,8 +86,6 @@ import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
 
-import static com.codepath.myapplication.R.drawable.arrow;
-
 /**
  * This shows how to place markers on a map.
  */
@@ -525,63 +523,6 @@ public class tempDemoActivity extends AppCompatActivity implements
 
     }
 
-    private void addMarkersToMap() {
-        // Uses a colored icon.
-        mBrisbane = mMap.addMarker(new MarkerOptions()
-                .position(BRISBANE)
-                .title("Brisbane")
-                .snippet("Population: 2,074,200")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-
-        // Uses a custom icon with the info window popping out of the center of the icon.
-        mSydney = mMap.addMarker(new MarkerOptions()
-                .position(SYDNEY)
-                .title("Sydney")
-                .snippet("Population: 4,627,300")
-                .icon(BitmapDescriptorFactory.fromResource(arrow))
-                .infoWindowAnchor(0.5f, 0.5f));
-
-        // Creates a draggable marker. Long press to drag.
-        mMelbourne = mMap.addMarker(new MarkerOptions()
-                .position(MELBOURNE)
-                .title("Melbourne")
-                .snippet("Population: 4,137,400")
-                .draggable(true));
-
-        // A few more markers for good measure.
-        mPerth = mMap.addMarker(new MarkerOptions()
-                .position(PERTH)
-                .title("Perth")
-                .snippet("Population: 1,738,800"));
-        mAdelaide = mMap.addMarker(new MarkerOptions()
-                .position(ADELAIDE)
-                .title("Adelaide")
-                .snippet("Population: 1,213,000"));
-
-        // Vector drawable resource as a marker icon.
-        mMap.addMarker(new MarkerOptions()
-                .position(ALICE_SPRINGS)
-                .icon(vectorToBitmap(R.drawable.ic_android, Color.parseColor("#A4C639")))
-                .title("Alice Springs"));
-
-        // Creates a marker rainbow demonstrating how to create default marker icons of different
-        // hues (colors).
-        float rotation = mRotationBar.getProgress();
-        boolean flat = mFlatBox.isChecked();
-
-        int numMarkersInRainbow = 12;
-        for (int i = 0; i < numMarkersInRainbow; i++) {
-            Marker marker = mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(
-                            -30 + 10 * Math.sin(i * Math.PI / (numMarkersInRainbow - 1)),
-                            135 - 10 * Math.cos(i * Math.PI / (numMarkersInRainbow - 1))))
-                    .title("Marker " + i)
-                    .icon(BitmapDescriptorFactory.defaultMarker(i * 360 / numMarkersInRainbow))
-                    .flat(flat)
-                    .rotation(rotation));
-            mMarkerRainbow.add(marker);
-        }
-    }
 
     /**
      * Demonstrates converting a {@link Drawable} to a {@link BitmapDescriptor},
