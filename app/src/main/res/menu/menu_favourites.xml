@@ -23,4 +23,12 @@
         app:showAsAction="always"
         android:onClick="onHome"/>
 
+    <item
+        android:id="@+id/action_refresh"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_calendar_icon"
+        android:onClick="onEvents"
+        android:title="TripPlanner"/>
+
+
 </menu>

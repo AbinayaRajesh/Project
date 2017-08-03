@@ -399,6 +399,21 @@ public class LanguageMainActivity extends Fragment {
         }
         return rootView;
     }
+
+//    @Override
+//    public void onDestroy() {
+//
+//
+//        //Close the Text to Speech Library
+//        if(textTalk != null) {
+//
+//           textTalk.stop();
+//            textTalk.shutdown();
+//            Log.d(TAG, "TextTalk Destroyed");
+//        }
+//        super.onDestroy();
+//    }
+
     public void TranslateText() {
         translateText.clear();
         String query = String.valueOf(input.getText());

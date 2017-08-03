@@ -29,6 +29,7 @@ import com.codepath.myapplication.Database.EventContract.EventEntry;
 import com.codepath.myapplication.Event.Event;
 import com.codepath.myapplication.Event.EventAdapter;
 import com.codepath.myapplication.MainActivity;
+import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.R;
 
 import java.util.ArrayList;
@@ -144,7 +145,7 @@ public class SavedEventsActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_catalog, menu);
+        getMenuInflater().inflate(R.menu.menu_favourites, menu);
         return true;
     }
 
@@ -152,6 +153,12 @@ public class SavedEventsActivity extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
+
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
+        startActivity(i);
+    }
+
 
 
 

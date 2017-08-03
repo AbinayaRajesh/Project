@@ -28,6 +28,7 @@ import android.view.MenuItem;
 import com.codepath.myapplication.Database.TourismContract.TourismEntry;
 import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.Models.Venue;
+import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.R;
 import com.codepath.myapplication.Tourism.VenueAdapter;
 
@@ -147,12 +148,17 @@ public class SavedTourismActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_catalog.xml file.
         // This adds menu items to the app bar.
-        getMenuInflater().inflate(R.menu.menu_catalog, menu);
+        getMenuInflater().inflate(R.menu.menu_favourites, menu);
         return true;
     }
 
     public void onHome(MenuItem item) {
         Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
+
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
     }
 

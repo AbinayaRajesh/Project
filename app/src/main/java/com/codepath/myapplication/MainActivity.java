@@ -1,12 +1,10 @@
 package com.codepath.myapplication;
 
 
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -90,20 +88,20 @@ public class MainActivity extends AppCompatActivity  {
         rvCountries.setLayoutManager(new LinearLayoutManager(this));
         rvCountries.setAdapter(adapter);
         getCountryList();
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.drawable.ic_android)
-                    .setContentTitle("My notification")
-                    .setContentText("Hello World!");
-
-    // NotificationCompat.Builder mBuilder;
-
-    // Sets an ID for the notification
-    int mNotificationId = 001;
-    // Gets an instance of the NotificationManager service
-    NotificationManager mNotifyMgr =
-            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-    // Builds the notification and issues it.
-    mNotifyMgr.notify(mNotificationId, mBuilder.build());
+//        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+//                    .setSmallIcon(R.drawable.ic_android)
+//                    .setContentTitle("My notification")
+//                    .setContentText("Hello World!");
+//
+//    // NotificationCompat.Builder mBuilder;
+//
+//    // Sets an ID for the notification
+//    int mNotificationId = 001;
+//    // Gets an instance of the NotificationManager service
+//    NotificationManager mNotifyMgr =
+//            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//    // Builds the notification and issues it.
+//    mNotifyMgr.notify(mNotificationId, mBuilder.build());
 
 
 
@@ -200,7 +198,7 @@ public class MainActivity extends AppCompatActivity  {
     }// log error
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menusearch, menu);
+        inflater.inflate(R.menu.menu_home, menu);
         MenuItem searchItem = menu.findItem(R.id.searchBar);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -230,9 +228,7 @@ public class MainActivity extends AppCompatActivity  {
         Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
     }
-    public void onHome(MenuItem item) {
 
-    }
 }
 
 

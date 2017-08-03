@@ -27,6 +27,7 @@ public class FestivalsEventsFragment extends EventsListFragment  {
     Boolean distance;
     Byte y;
     String countryName;
+    Context context;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
@@ -37,8 +38,8 @@ public class FestivalsEventsFragment extends EventsListFragment  {
         filter = ((EventActivity) getActivity()).getFilter();
         ll = ((EventActivity) getActivity()).getLL();
         distance = ((EventActivity) getActivity()).getDistance();
-
         getSportsEvents();
+        context = getActivity();
     }
     private void getSportsEvents(){
         String url = API_BASE_URL + "events/search?";
@@ -69,7 +70,7 @@ public class FestivalsEventsFragment extends EventsListFragment  {
                     JSONArray eventArray = eventsonline.getJSONArray("event");
                     for (int i = 0; i < eventArray.length(); i++){
                         Event event = Event.fromJson(i, eventArray.getJSONObject(i));
-                        if (CheckIsDataAlreadyInDBorNot("events", "venue", "\""+event.getEventVenue()+ "\"", getContext())) {
+                        if (CheckIsDataAlreadyInDBorNot("events", "venue", "\""+event.getEventVenue()+ "\"")) {
                             y = 0;
                             event.setFavourite(y);
                         }
@@ -91,10 +92,10 @@ public class FestivalsEventsFragment extends EventsListFragment  {
 
 
     public boolean CheckIsDataAlreadyInDBorNot(String TableName,
-                                               String dbfield, String fieldValue, Context c) {
+                                               String dbfield, String fieldValue) {
 
         // Create database helper
-        EventDbHelper mDbHelper = new EventDbHelper(c);
+        EventDbHelper mDbHelper = new EventDbHelper(context);
 
         // Gets the database in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -106,6 +107,7 @@ public class FestivalsEventsFragment extends EventsListFragment  {
             return false;
         }
         cursor.close();
+        db.close();
         return true;
 
     }

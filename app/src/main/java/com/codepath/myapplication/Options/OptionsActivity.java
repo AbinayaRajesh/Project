@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Country.Country;
-import com.codepath.myapplication.Event.EventActivity;
 import com.codepath.myapplication.ImageAdapterSwipe;
 import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.Maps.tempDemoActivity;
@@ -181,20 +180,7 @@ public class OptionsActivity extends AppCompatActivity implements GoogleApiClien
     };
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks herAe. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.miProfile) {
-            Intent i = new Intent(this, EventActivity.class);
-            i.putExtra("country", Parcels.wrap(country));
-            startActivity(i);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
 
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, tempDemoActivity.class);
