@@ -16,7 +16,9 @@ import android.view.MenuItem;
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Food;
 import com.codepath.myapplication.FoodClient;
+import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.Maps.tempDemoActivity;
+import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.R;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -87,6 +89,16 @@ public class FoodSearchActivity extends AppCompatActivity {
         Intent i = new Intent(this, tempDemoActivity.class);
         i.putExtra("country", Parcels.wrap(country));
         i.putExtra("ll", ll);
+        startActivity(i);
+    }
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
+        i.putExtra("ll", ll);
+        startActivity(i);
+    }
+
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
     public void fetchFood(String query, String querytwo){

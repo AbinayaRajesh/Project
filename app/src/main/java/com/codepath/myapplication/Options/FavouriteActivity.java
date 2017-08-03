@@ -3,6 +3,8 @@ package com.codepath.myapplication.Options;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -11,6 +13,7 @@ import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Database.SavedEventsActivity;
 import com.codepath.myapplication.Database.SavedRecipesActivity;
 import com.codepath.myapplication.Database.SavedTourismActivity;
+import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.R;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
@@ -22,6 +25,21 @@ public class FavouriteActivity extends AppCompatActivity {
     ImageView food;
     ImageView tourism;
     String ll;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_to_home, menu);
+
+        return true;
+    }
+
+
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

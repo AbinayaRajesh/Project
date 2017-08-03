@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Models.Venue;
+import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.Tourism.VenueCardAdapter;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -178,6 +179,16 @@ public class RestarauntSearchActivity extends AppCompatActivity {
         Intent i = new Intent(this, tempDemoActivity.class);
         i.putExtra("country", Parcels.wrap(country));
         i.putExtra("ll", ll);
+        startActivity(i);
+    }
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
+        i.putExtra("ll", ll);
+        startActivity(i);
+    }
+
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
 }

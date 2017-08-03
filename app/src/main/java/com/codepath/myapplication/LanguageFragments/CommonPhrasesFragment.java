@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.LanguageActivity;
 import com.codepath.myapplication.MainActivity;
-import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.R;
 
@@ -36,15 +35,6 @@ public class CommonPhrasesFragment extends LanguageMainActivity {
 
 
 
-
-    public void onMaps(MenuItem item) {
-        Intent i = new Intent(getContext(), tempDemoActivity.class);
-        i.putExtra("country", Parcels.wrap(LanguageActivity.country));
-        i.putExtra("ll", ll);
-        startActivity(i);
-    }
-
-
     public void onEvents(MenuItem item) {
         Intent i = new Intent(getContext(), FavouriteActivity.class);
         startActivity(i);
@@ -57,7 +47,7 @@ public class CommonPhrasesFragment extends LanguageMainActivity {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_translate, menu);
+        inflater.inflate(R.menu.menu_common_phrases, menu);
     }
 
     @Override

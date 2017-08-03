@@ -14,7 +14,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
+import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.Maps.tempDemoActivity;
+import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -92,6 +94,17 @@ public class EventSearchActivity extends AppCompatActivity {
         i.putExtra("ll", ll);
         startActivity(i);
     }
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
+        i.putExtra("ll", ll);
+        startActivity(i);
+    }
+
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
+
     private void getSportsEvents(String query){
         String url = API_BASE_URL + "events/search?";
         String put = "China%20" + query;

@@ -36,6 +36,7 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -47,6 +48,8 @@ import android.widget.Toast;
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Event.Event;
 import com.codepath.myapplication.Event.EventDetail;
+import com.codepath.myapplication.MainActivity;
+import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -106,6 +109,8 @@ public class tempDemoActivity extends AppCompatActivity implements
     private static final LatLng PERTH = new LatLng(-31.952854, 115.857342);
 
     private static final LatLng ALICE_SPRINGS = new LatLng(-24.6980, 133.8807);
+
+
 
     /** Demonstrates customizing the info window and/or its contents. */
     class CustomInfoWindowAdapter implements InfoWindowAdapter {
@@ -663,12 +668,12 @@ public class tempDemoActivity extends AppCompatActivity implements
      * @param menu The options menu.
      * @return Boolean.
      */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_maps, menu);
         return true;
     }
-
     /**
      * Handles a click on the menu option to get a place.
      * @param item The menu item to handle.
@@ -676,10 +681,19 @@ public class tempDemoActivity extends AppCompatActivity implements
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         return true;
     }
 
+    public void onEvents(MenuItem item) {
+        Intent i = new Intent(this, FavouriteActivity.class);
+        i.putExtra("ll", ll);
+        startActivity(i);
+    }
+
+    public void onHome(MenuItem item) {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
 
 
     /**
@@ -783,6 +797,8 @@ public class tempDemoActivity extends AppCompatActivity implements
             mLastKnownLocation = null;
         }
     }
+
+
 
 
 }
