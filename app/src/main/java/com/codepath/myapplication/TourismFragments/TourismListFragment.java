@@ -51,18 +51,12 @@ public class TourismListFragment extends Fragment {
         View v = inflater.inflate(R.layout.activity_tourism_list_fragment, container, false);
         venues = new ArrayList<>();
         venueIds = new ArrayList<>();
-        ll = ((TourismActivity) getActivity()).getLL();
         //initialize the adapter -- movies array cannot be reinitialized after this point
         adapter = new VenueCardAdapter(getActivity(), venues);
         // the recycler view
         rvVenues = (RecyclerView) v.findViewById(R.id.rvVenues);
-
-
-            if (((TourismActivity) getActivity()).getCountryName() != null) {
-                countryName = ((TourismActivity) getActivity()).getCountryName();
-            }
-            rvVenues.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-            rvVenues.setAdapter(adapter);
+        rvVenues.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        rvVenues.setAdapter(adapter);
         return v;
     }
     public void getVenue(String categoryID){
@@ -70,6 +64,10 @@ public class TourismListFragment extends Fragment {
         String url = API_BASE_URL + "/venues/search";
         // set the request parameters
         RequestParams params = new RequestParams();
+        if (((TourismActivity) getActivity()).getCountryName() != null) {
+            countryName = ((TourismActivity) getActivity()).getCountryName();
+        }
+        ll = ((TourismActivity) getActivity()).getLL();
         params.put("categoryId", categoryID);
         params.put("query", countryName);
         params.put("categoryId", categoryID);
