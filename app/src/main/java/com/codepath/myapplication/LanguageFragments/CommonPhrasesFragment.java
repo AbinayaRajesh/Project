@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.LanguageActivity;
 import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.Maps.tempDemoActivity;
@@ -17,6 +18,8 @@ import org.parceler.Parcels;
 public class CommonPhrasesFragment extends LanguageMainActivity {
 
     int option;
+    String ll;
+    Country country;
 
 
     public CommonPhrasesFragment() {
@@ -26,6 +29,8 @@ public class CommonPhrasesFragment extends LanguageMainActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ll = LanguageActivity.ll;
+        country = LanguageActivity.country;
         //setContentView(R.layout.activity_common_phrases);
     }
 
@@ -34,6 +39,8 @@ public class CommonPhrasesFragment extends LanguageMainActivity {
 
     public void onMaps(MenuItem item) {
         Intent i = new Intent(getContext(), tempDemoActivity.class);
+        i.putExtra("country", Parcels.wrap(LanguageActivity.country));
+        i.putExtra("ll", ll);
         startActivity(i);
     }
 
@@ -62,6 +69,7 @@ public class CommonPhrasesFragment extends LanguageMainActivity {
                 Intent i = new Intent(getContext(), LanguageActivity.class);
                 i.putExtra("option", option);
                 i.putExtra("country", Parcels.wrap(LanguageActivity.country));
+                i.putExtra("ll", ll);
                 startActivity(i);
                 LanguageMainActivity.adapter.notifyDataSetChanged();
                 break;
@@ -72,6 +80,7 @@ public class CommonPhrasesFragment extends LanguageMainActivity {
                 Intent i = new Intent(getContext(), LanguageActivity.class);
                 i.putExtra("option", option);
                 i.putExtra("country", Parcels.wrap(LanguageActivity.country));
+                i.putExtra("ll", ll);
                 startActivity(i);
                 LanguageMainActivity.adapter.notifyDataSetChanged();
                 break;
@@ -81,6 +90,7 @@ public class CommonPhrasesFragment extends LanguageMainActivity {
                 Intent i = new Intent(getContext(), LanguageActivity.class);
                 i.putExtra("option", option);
                 i.putExtra("country", Parcels.wrap(LanguageActivity.country));
+                i.putExtra("ll", ll);
                 startActivity(i);
                 LanguageMainActivity.adapter.notifyDataSetChanged();
                 break;
@@ -90,6 +100,7 @@ public class CommonPhrasesFragment extends LanguageMainActivity {
                 Intent i = new Intent(getContext(), LanguageActivity.class);
                 i.putExtra("option", option);
                 i.putExtra("country", Parcels.wrap(LanguageActivity.country));
+                i.putExtra("ll", ll);
                 startActivity(i);
                 LanguageMainActivity.adapter.notifyDataSetChanged();
                 break;
@@ -99,6 +110,7 @@ public class CommonPhrasesFragment extends LanguageMainActivity {
                 Intent i = new Intent(getContext(), LanguageActivity.class);
                 i.putExtra("option", option);
                 i.putExtra("country", Parcels.wrap(LanguageActivity.country));
+                i.putExtra("ll", ll);
                 startActivity(i);
                 LanguageMainActivity.adapter.notifyDataSetChanged();
                 break;
@@ -108,6 +120,7 @@ public class CommonPhrasesFragment extends LanguageMainActivity {
                 Intent i = new Intent(getContext(), LanguageActivity.class);
                 i.putExtra("option", option);
                 i.putExtra("country", Parcels.wrap(LanguageActivity.country));
+                i.putExtra("ll", ll);
                 startActivity(i);
                 LanguageMainActivity.adapter.notifyDataSetChanged();
                 break;
@@ -117,6 +130,7 @@ public class CommonPhrasesFragment extends LanguageMainActivity {
                 Intent i = new Intent(getContext(), LanguageActivity.class);
                 i.putExtra("option", option);
                 i.putExtra("country", Parcels.wrap(LanguageActivity.country));
+                i.putExtra("ll", ll);
                 startActivity(i);
                 LanguageMainActivity.adapter.notifyDataSetChanged();
                 break;
@@ -126,6 +140,7 @@ public class CommonPhrasesFragment extends LanguageMainActivity {
                 Intent i = new Intent(getContext(), LanguageActivity.class);
                 i.putExtra("option", option);
                 i.putExtra("country", Parcels.wrap(LanguageActivity.country));
+                i.putExtra("ll", ll);
                 startActivity(i);
                 LanguageMainActivity.adapter.notifyDataSetChanged();
                 break;
@@ -135,6 +150,7 @@ public class CommonPhrasesFragment extends LanguageMainActivity {
                 Intent i = new Intent(getContext(), LanguageActivity.class);
                 i.putExtra("option", option);
                 i.putExtra("country", Parcels.wrap(LanguageActivity.country));
+                i.putExtra("ll", ll);
                 startActivity(i);
                 LanguageMainActivity.adapter.notifyDataSetChanged();
                 break;

@@ -79,9 +79,6 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
                         // first parameter is the context, second is the class of the activity to launch
                         if (option.getmId()==2) {
                             Intent i = new Intent(context, FoodMainPage.class);
-                            i.putExtra("country", Parcels.wrap(optionsActivity.country.getName()));
-//                            i.putExtra("country", optionsActivity.country.getName());
-                            // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             i.putExtra("ll", longlat);
                             context.startActivity(i); // brings up the second activity
@@ -89,21 +86,17 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.VH> {
                         else if (option.getmId()==1) {
                             Intent i = new Intent(context, EventActivity.class);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
-                            // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
-                            i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             i.putExtra("ll", longlat);
                             context.startActivity(i); // brings up the second activity
                         }
                         else if (option.getmId()==4) {
                             Intent i = new Intent(context, TourismActivity.class);
-                            // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             i.putExtra("ll", longlat);
                             context.startActivity(i); // brings up the second activity
                         }
                         else if (option.getmId()==3) {
                             Intent i = new Intent(context, LanguageActivity.class);
-                            // i.putExtra(FoodActivity.EXTRA_CONTACT, option);
                             i.putExtra("country", Parcels.wrap(optionsActivity.country));
                             i.putExtra("ll", longlat);
                             context.startActivity(i); // brings up the second activity

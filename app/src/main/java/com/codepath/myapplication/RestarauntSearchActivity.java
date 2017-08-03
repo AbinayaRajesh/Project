@@ -47,6 +47,7 @@ public class RestarauntSearchActivity extends AppCompatActivity {
     public final static String API_SECRET_PARAM = "client_secret";
 
     Country country;
+    String ll;
     RecyclerView rvVenues;
 
     double latitude;
@@ -58,6 +59,9 @@ public class RestarauntSearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaraunt_search);
+
+        ll = getIntent().getStringExtra("ll");
+
         context = getBaseContext();
         String query = getIntent().getExtras().getString("search");
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
@@ -172,6 +176,8 @@ public class RestarauntSearchActivity extends AppCompatActivity {
     }
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, tempDemoActivity.class);
+        i.putExtra("country", Parcels.wrap(country));
+        i.putExtra("ll", ll);
         startActivity(i);
     }
 }

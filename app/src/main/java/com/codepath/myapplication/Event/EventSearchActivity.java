@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.R;
 import com.loopj.android.http.AsyncHttpClient;
@@ -22,6 +23,7 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -34,6 +36,8 @@ public class EventSearchActivity extends AppCompatActivity {
     public final static String API_KEY_PARAM = "95JSGDKWtDtWRRgx";
     AsyncHttpClient client = new AsyncHttpClient();
     ArrayList<Event> events;
+    Country country;
+    String ll;
     RecyclerView rvEvents;
     //the adapter wired to the recycler view
     EventCardAdapter adapter;
@@ -41,6 +45,10 @@ public class EventSearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_search);
+
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+        ll = getIntent().getStringExtra("ll");
+
         String query = getIntent().getExtras().getString("search");
         // allows for optimizations
         rvEvents = (RecyclerView) findViewById(R.id.rvEvents);
@@ -80,6 +88,8 @@ public class EventSearchActivity extends AppCompatActivity {
     }
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, tempDemoActivity.class);
+        i.putExtra("country", Parcels.wrap(country));
+        i.putExtra("ll", ll);
         startActivity(i);
     }
     private void getSportsEvents(String query){

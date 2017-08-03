@@ -13,8 +13,6 @@ import com.codepath.myapplication.Database.SavedRecipesActivity;
 import com.codepath.myapplication.Database.SavedTourismActivity;
 import com.codepath.myapplication.R;
 
-import org.parceler.Parcels;
-
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class FavouriteActivity extends AppCompatActivity {
@@ -23,6 +21,7 @@ public class FavouriteActivity extends AppCompatActivity {
     ImageView events;
     ImageView food;
     ImageView tourism;
+    String ll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +30,9 @@ public class FavouriteActivity extends AppCompatActivity {
         events = (ImageView) findViewById(R.id.eventsPic);
         food = (ImageView) findViewById(R.id.foodPic);
         tourism = (ImageView) findViewById(R.id.TourismPic);
+
+        ll = getIntent().getStringExtra("ll");
+
 
         Glide.with(this)
                 .load(R.drawable.events_tab)
@@ -51,7 +53,7 @@ public class FavouriteActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent i = new Intent(FavouriteActivity.this, SavedEventsActivity.class);
-                i.putExtra("country", Parcels.wrap(country));
+                i.putExtra("ll", ll);
                 startActivity(i);
             }
         });
@@ -60,7 +62,7 @@ public class FavouriteActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent i = new Intent(FavouriteActivity.this, SavedRecipesActivity.class);
-                i.putExtra("country", Parcels.wrap(country));
+                i.putExtra("ll", ll);
                 startActivity(i);
             }
         });
@@ -70,7 +72,7 @@ public class FavouriteActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent i = new Intent(FavouriteActivity.this, SavedTourismActivity.class);
-                i.putExtra("country", Parcels.wrap(country));
+                i.putExtra("ll", ll);
                 startActivity(i);
             }
         });

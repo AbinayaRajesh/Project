@@ -25,6 +25,7 @@ import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
 
 public class FoodActivity extends AppCompatActivity {
     Context context;
+    String ll;
     ViewPager vpPager;
     FoodPagerAdapter pageAdapter;
     public Country country;
@@ -32,6 +33,7 @@ public class FoodActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ll = getIntent().getStringExtra("ll");
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         setContentView(R.layout.activity_food);
         pageAdapter = new FoodPagerAdapter(getSupportFragmentManager(), this);
@@ -69,6 +71,8 @@ public class FoodActivity extends AppCompatActivity {
     }
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, tempDemoActivity.class);
+        i.putExtra("country", Parcels.wrap(country));
+        i.putExtra("ll", ll);
         startActivity(i);
     }
 

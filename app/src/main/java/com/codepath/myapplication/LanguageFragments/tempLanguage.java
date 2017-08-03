@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.R;
 import com.google.api.client.http.HttpTransport;
@@ -21,6 +22,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.translate.Translate;
 import com.google.api.services.translate.TranslateRequestInitializer;
 import com.google.api.services.translate.model.TranslateTextRequest;
+
+import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -39,6 +42,8 @@ public class tempLanguage extends AppCompatActivity {
     Button translateButton;
     String translated;
     TranslateTextRequest queryTranslate;
+    Country country;
+    String ll;
 
     public tempLanguage() throws GeneralSecurityException, IOException {
     }
@@ -46,6 +51,11 @@ public class tempLanguage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
+
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+        ll = getIntent().getStringExtra("ll");
+
+
         translateText = new ArrayList<>();
         input = (EditText) findViewById(R.id.etInputText);
         translateButton = (Button) findViewById(R.id.btnTranslate);
@@ -128,6 +138,8 @@ public class tempLanguage extends AppCompatActivity {
     }
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, tempDemoActivity.class);
+        i.putExtra("country", Parcels.wrap(country));
+        i.putExtra("ll", ll);
         startActivity(i);
     }
 

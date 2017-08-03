@@ -43,6 +43,7 @@ public class tempFOOD extends AppCompatActivity {
     RecyclerView rvRecipes;
     FoodCardAdapter mAdapter;
     Country country;
+    String ll;
     Context context;
     Byte y;
     @Override
@@ -50,6 +51,7 @@ public class tempFOOD extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_temp);
         context = getBaseContext();
+        ll = getIntent().getStringExtra("ll");
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
 
         afood = new ArrayList<>();
@@ -95,6 +97,8 @@ public class tempFOOD extends AppCompatActivity {
     }
     public void onMaps(MenuItem item) {
         Intent i = new Intent(context, tempDemoActivity.class);
+        i.putExtra("country", Parcels.wrap(country));
+        i.putExtra("ll", ll);
         startActivity(i);
     }
 

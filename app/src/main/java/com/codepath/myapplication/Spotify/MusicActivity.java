@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.R;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
@@ -20,6 +21,7 @@ import com.spotify.sdk.android.authentication.AuthenticationResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.io.IOException;
 
@@ -40,6 +42,9 @@ public class MusicActivity extends AppCompatActivity {
     public static final int AUTH_TOKEN_REQUEST_CODE = 0x10;
     public static final int AUTH_CODE_REQUEST_CODE = 0x11;
 
+    Country country;
+    String ll;
+
     private final OkHttpClient mOkHttpClient = new OkHttpClient();
     private String mAccessToken;
     private String mAccessCode;
@@ -49,6 +54,8 @@ public class MusicActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+        ll = getIntent().getStringExtra("ll");
     }
 
     @Override
@@ -161,6 +168,8 @@ public class MusicActivity extends AppCompatActivity {
     }
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, tempDemoActivity.class);
+        i.putExtra("country", Parcels.wrap(country));
+        i.putExtra("ll", ll);
         startActivity(i);
     }
 

@@ -185,11 +185,13 @@ public class OptionsActivity extends AppCompatActivity implements GoogleApiClien
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, tempDemoActivity.class);
         i.putExtra("country", Parcels.wrap(country));
+        i.putExtra("ll", ll);
         startActivity(i);
     }
 
     public void onEvents(MenuItem item) {
         Intent i = new Intent(this, FavouriteActivity.class);
+        i.putExtra("ll", ll);
         startActivity(i);
     }
 
@@ -205,60 +207,7 @@ public class OptionsActivity extends AppCompatActivity implements GoogleApiClien
         return true;
     }
 
-    public void getPhoto(String url){
-        client.get(url, new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                try {
-                    JSONObject results = response.getJSONObject("photos");
-                    for (int i=0; i<5; i++) {
-                        JSONArray photoStream = results.getJSONArray("photo");
-                        Photo photo = Photo.fromJson(photoStream.getJSONObject(i));
 
-                        photos.add(photo);
-                        urls.add("https://farm" + photo.getFarm() + ".staticflickr.com/" + photo.getServer() + "/" + photo.getId() + "_" + photo.getSecret() + ".jpg");
-                        //notify adapter
-                        // adapter.notifyItemInserted(countries.size()-1);
-                        //      Glide.with(context)
-                        //              .load("https://farm" + photo.getFarm() + ".staticflickr.com/" + photo.getServer() + "/" + photo.getId() + "_" + photo.getSecret() + ".jpg")
-                        //              .into((ImageView) findViewById(R.id.ivOptionsImage));
-                    }
-                    ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
-
-                    sAdapter = new ImageAdapterSwipe(OptionsActivity.this);
-                    viewPager.setAdapter(sAdapter);
-
-                } catch (JSONException e) {
-                    // logError("Failed to parse now playing movies", e, true);
-                }
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                super.onSuccess(statusCode, headers, response);
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                super.onSuccess(statusCode, headers, responseString);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                super.onFailure(statusCode, headers, throwable, errorResponse);
-            }
-        });
-
-    }
     public void onConnected(Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling

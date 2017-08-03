@@ -24,8 +24,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -40,11 +38,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.BounceInterpolator;
-import android.view.animation.Interpolator;
-import android.widget.CheckBox;
 import android.widget.FrameLayout;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -96,7 +90,6 @@ public class tempDemoActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         GoogleMap.OnMarkerClickListener,
         GoogleMap.OnInfoWindowClickListener,
-        GoogleMap.OnMarkerDragListener,
         OnSeekBarChangeListener,
         GoogleMap.OnInfoWindowLongClickListener,
         GoogleMap.OnInfoWindowCloseListener,
@@ -213,15 +206,6 @@ public class tempDemoActivity extends AppCompatActivity implements
 
     Country country;
 
-    private Marker mPerth;
-
-    private Marker mSydney;
-
-    private Marker mBrisbane;
-
-    private Marker mAdelaide;
-
-    private Marker mMelbourne;
 
     ArrayList<Event> Sevents;
     ArrayList<Event> Mevents;
@@ -239,13 +223,8 @@ public class tempDemoActivity extends AppCompatActivity implements
     AsyncHttpClient client;
     public final static String API_BASE_URL = "http://api.eventful.com/json/";
 
-    private TextView mTopText;
-
-    private SeekBar mRotationBar;
-
-    private CheckBox mFlatBox;
-
-    private RadioGroup mOptions;
+    String ll;
+    int distance;
 
     private final Random mRandom = new Random();
 
@@ -257,21 +236,21 @@ public class tempDemoActivity extends AppCompatActivity implements
 
 
         client = new AsyncHttpClient();
-//
-//        Sevents = getIntent().getParcelableArrayListExtra("Sevents");
-//        Mevents = getIntent().getParcelableArrayListExtra("Mevents");
-//        Fevents = getIntent().getParcelableArrayListExtra("Fevents");
 
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+        ll = getIntent().getStringExtra("ll");
+        distance = getIntent().getIntExtra("distance", 20);
+
+
         if (country==null) {
             country = Country.consCountry();
         }
 
 
-                if (mLastSelectedMarker != null && mLastSelectedMarker.isInfoWindowShown()) {
-                    // Refresh the info window when the info window's content has changed.
-                    mLastSelectedMarker.showInfoWindow();
-                }
+        if (mLastSelectedMarker != null && mLastSelectedMarker.isInfoWindowShown()) {
+            // Refresh the info window when the info window's content has changed.
+            mLastSelectedMarker.showInfoWindow();
+        }
 
 
 
@@ -320,23 +299,29 @@ public class tempDemoActivity extends AppCompatActivity implements
         params.put("app_key", API_KEY_PARAM);
         params.put("keywords", country.getName());
         params.put("category", "sports");
+        params.put("within", distance);
+        params.put("location", ll);
         client.get(url, params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    JSONObject eventsonline = response.getJSONObject("events");
-                    JSONArray eventArray = eventsonline.getJSONArray("event");
-                    for (int i = 0; i < 10; i++){
-                        Event event = Event.fromJson(i, eventArray.getJSONObject(i));
-                        Sevents.add(event);
-                        //notify adapter that a row was added
-                    }
 
-                    getMusicEvents();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (response!=null) {
+                    try {
+                        JSONObject eventsonline = response.getJSONObject("events");
+                        JSONArray eventArray = eventsonline.getJSONArray("event");
+                        for (int i = 0; i < eventArray.length(); i++) {
+                            Event event = Event.fromJson(i, eventArray.getJSONObject(i));
+                            Sevents.add(event);
+                            //notify adapter that a row was added
+                        }
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
+                getMusicEvents();
+
             }
         });
     }
@@ -347,21 +332,26 @@ public class tempDemoActivity extends AppCompatActivity implements
         params.put("app_key", API_KEY_PARAM);
         params.put("keywords", country.getName());
         params.put("category", "music");
+        params.put("within", distance);
+        params.put("location", ll);
         client.get(url, params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    JSONObject eventsonline = response.getJSONObject("events");
-                    JSONArray eventArray = eventsonline.getJSONArray("event");
-                    for (int i = 0; i < 10; i++){
-                        Event event = Event.fromJson(i, eventArray.getJSONObject(i));
-                        Mevents.add(event);
+
+                if (response != null) {
+                    try {
+                        JSONObject eventsonline = response.getJSONObject("events");
+                        JSONArray eventArray = eventsonline.getJSONArray("event");
+                        for (int i = 0; i < eventArray.length(); i++) {
+                            Event event = Event.fromJson(i, eventArray.getJSONObject(i));
+                            Mevents.add(event);
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    getFestivalsEvents();
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
+                getFestivalsEvents();
 
 
             }
@@ -374,21 +364,26 @@ public class tempDemoActivity extends AppCompatActivity implements
         params.put("app_key", API_KEY_PARAM);
         params.put("keywords", country.getName());
         params.put("category", "festivals_parades");
+        params.put("within", distance);
+        params.put("location", ll);
+
         client.get(url, params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    JSONObject eventsonline = response.getJSONObject("events");
-                    JSONArray eventArray = eventsonline.getJSONArray("event");
-                    for (int i = 0; i < 10; i++){
-                        Event event = Event.fromJson(i, eventArray.getJSONObject(i));
-                        Fevents.add(event);
-                    }
 
-                    onMapReady(mMap);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (response != null) {
+                    try {
+                        JSONObject eventsonline = response.getJSONObject("events");
+                        JSONArray eventArray = eventsonline.getJSONArray("event");
+                        for (int i = 0; i < eventArray.length(); i++) {
+                            Event event = Event.fromJson(i, eventArray.getJSONObject(i));
+                            Fevents.add(event);
+                        }
+
+                        onMapReady(mMap);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
@@ -469,7 +464,6 @@ public class tempDemoActivity extends AppCompatActivity implements
         // Set listeners for marker events.  See the bottom of this class for their behavior.
         mMap.setOnMarkerClickListener(this);
         mMap.setOnInfoWindowClickListener(this);
-        mMap.setOnMarkerDragListener(this);
         mMap.setOnInfoWindowCloseListener(this);
         mMap.setOnInfoWindowLongClickListener(this);
 
@@ -576,33 +570,7 @@ public class tempDemoActivity extends AppCompatActivity implements
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
-        if (marker.equals(mPerth)) {
-            // This causes the marker at Perth to bounce into position when it is clicked.
-            final Handler handler = new Handler();
-            final long start = SystemClock.uptimeMillis();
-            final long duration = 1500;
 
-            final Interpolator interpolator = new BounceInterpolator();
-
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    long elapsed = SystemClock.uptimeMillis() - start;
-                    float t = Math.max(
-                            1 - interpolator.getInterpolation((float) elapsed / duration), 0);
-                    marker.setAnchor(0.5f, 1.0f + 2 * t);
-
-                    if (t > 0.0) {
-                        // Post again 16ms later.
-                        handler.postDelayed(this, 16);
-                    }
-                }
-            });
-        } else if (marker.equals(mAdelaide)) {
-            // This causes the marker at Adelaide to change color and alpha.
-            marker.setIcon(BitmapDescriptorFactory.defaultMarker(mRandom.nextFloat() * 360));
-            marker.setAlpha(mRandom.nextFloat());
-        }
 
         // Markers have a z-index that is settable and gettable.
         float zIndex = marker.getZIndex() + 1.0f;
@@ -636,20 +604,6 @@ public class tempDemoActivity extends AppCompatActivity implements
         Toast.makeText(this, "Info Window long click", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onMarkerDragStart(Marker marker) {
-        mTopText.setText("onMarkerDragStart");
-    }
-
-    @Override
-    public void onMarkerDragEnd(Marker marker) {
-        mTopText.setText("onMarkerDragEnd");
-    }
-
-    @Override
-    public void onMarkerDrag(Marker marker) {
-        mTopText.setText("onMarkerDrag.  Current Position: " + marker.getPosition());
-    }
 
 
     @Override
@@ -769,7 +723,7 @@ public class tempDemoActivity extends AppCompatActivity implements
         }
 
         if (bounds!=null) {
-            int padding = 0; // offset from edges of the map in pixels
+            int padding = 50; // offset from edges of the map in pixels
             CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
             mMap.animateCamera(cu);
         }

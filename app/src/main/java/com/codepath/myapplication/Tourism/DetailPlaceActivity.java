@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.Database.SavedTourismActivity;
 import com.codepath.myapplication.Database.TourismContract.TourismEntry;
@@ -36,6 +37,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.parceler.Parcels;
+
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class DetailPlaceActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -49,6 +52,8 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
     GoogleMap googleMap;
     MapFragment mapFragment;
     TextView i;
+    String ll;
+    Country country;
     Location location;
 
 
@@ -56,6 +61,9 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_place);
+
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+        ll = getIntent().getStringExtra("ll");
 
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvDistance = (TextView) findViewById(R.id.tvDistance);
@@ -185,6 +193,8 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
 
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, tempDemoActivity.class);
+        i.putExtra("country", Parcels.wrap(country));
+        i.putExtra("ll", ll);
         startActivity(i);
     }
 

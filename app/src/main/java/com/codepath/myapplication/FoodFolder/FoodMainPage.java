@@ -65,7 +65,7 @@ public class FoodMainPage extends AppCompatActivity {
 
                 Intent i = new Intent(FoodMainPage.this, tempFOOD.class);
                 i.putExtra("country", Parcels.wrap(country));
-
+                i.putExtra("ll", ll);
                 startActivity(i);
 
 
@@ -91,6 +91,8 @@ public class FoodMainPage extends AppCompatActivity {
     }
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, tempDemoActivity.class);
+        i.putExtra("country", Parcels.wrap(country));
+        i.putExtra("ll", ll);
         startActivity(i);
     }
 

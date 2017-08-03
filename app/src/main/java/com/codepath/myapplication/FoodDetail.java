@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -73,32 +72,13 @@ public class FoodDetail extends YouTubeBaseActivity implements YouTubePlayer.OnI
                 .bitmapTransform(new RoundedCornersTransformation(context, 10, 0))
                 .into(tvRecipePic);
 
-
-
-
-        // searchInput = (EditText) findViewById(R.id.search_input);
         videosFound = (ListView) findViewById(R.id.videos_found);
 
         handler = new Handler();
 
-
-//        searchInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                if(actionId == EditorInfo.IME_ACTION_DONE){
-//                    searchOnYoutube(v.getText().toString());
-//                    return false;
-//                }
-//                return true;
-//            }
-//        });
         searchOnYoutube(recipe.getName());
 
-
-
-        addClickListener();
         playerView.initialize(YoutubeConnector.KEY, (YouTubePlayer.OnInitializedListener) context);
-
 
 
         // Food database stuff
@@ -199,16 +179,7 @@ public class FoodDetail extends YouTubeBaseActivity implements YouTubePlayer.OnI
 
     }
 
-    private void addClickListener() {
-        videosFound.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplication(), PlayerActivity.class);
-                intent.putExtra("VIDEO_ID", searchResults.get(position).getId());
-                startActivity(intent);
-            }
-        });
-    }
+
 
     private void insertRecipe(Food recipe) {
 

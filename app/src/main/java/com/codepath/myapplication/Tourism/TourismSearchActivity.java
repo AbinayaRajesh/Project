@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Maps.tempDemoActivity;
 import com.codepath.myapplication.Models.Venue;
 import com.codepath.myapplication.R;
@@ -23,6 +24,7 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -36,6 +38,9 @@ public class TourismSearchActivity extends AppCompatActivity {
     ArrayList<String> venueIds;
     VenueCardAdapter adapter;
     Context context;
+    Country country;
+    String ll;
+
     boolean b = false;
     int j = 0;
     // Base Url for API
@@ -48,6 +53,10 @@ public class TourismSearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourism_search);
+
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+        ll = getIntent().getStringExtra("ll");
+
         String query = getIntent().getExtras().getString("search");
         context = getBaseContext();
         venues = new ArrayList<>();
@@ -162,6 +171,8 @@ public class TourismSearchActivity extends AppCompatActivity {
     }
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, tempDemoActivity.class);
+        i.putExtra("country", Parcels.wrap(country));
+        i.putExtra("ll", ll);
         startActivity(i);
     }
 }

@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Food;
 import com.codepath.myapplication.FoodClient;
 import com.codepath.myapplication.Maps.tempDemoActivity;
@@ -22,6 +23,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -34,10 +36,15 @@ public class FoodSearchActivity extends AppCompatActivity {
     FoodCardAdapter adapter;
     RecyclerView rvFood;
     Context context;
+    Country country;
+    String ll;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_search);
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+        ll = getIntent().getStringExtra("ll");
         String query = getIntent().getExtras().getString("search");
         // allows for optimizations
         context = getBaseContext();
@@ -78,6 +85,8 @@ public class FoodSearchActivity extends AppCompatActivity {
     }
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, tempDemoActivity.class);
+        i.putExtra("country", Parcels.wrap(country));
+        i.putExtra("ll", ll);
         startActivity(i);
     }
     public void fetchFood(String query, String querytwo){

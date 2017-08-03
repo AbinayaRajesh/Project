@@ -31,6 +31,7 @@ public class LanguageActivity extends AppCompatActivity{
     LanguagePagerAdapter pageAdapter;
     public static Country country;
     public int option = 1;
+    public static String ll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class LanguageActivity extends AppCompatActivity{
         setContentView(R.layout.activity_language);
         option = getIntent().getIntExtra("option", 0);
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+        ll = getIntent().getStringExtra("ll");
         try {
             pageAdapter = new LanguagePagerAdapter(getSupportFragmentManager(), this);
         } catch (GeneralSecurityException e) {
@@ -114,6 +116,8 @@ public class LanguageActivity extends AppCompatActivity{
 
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, tempDemoActivity.class);
+        i.putExtra("country", Parcels.wrap(country));
+        i.putExtra("ll", ll);
         startActivity(i);
     }
 
@@ -126,6 +130,7 @@ public class LanguageActivity extends AppCompatActivity{
     public void onHome(MenuItem item) {
         Intent i = new Intent(this, OptionsActivity.class);
         i.putExtra("country", Parcels.wrap(country));
+        i.putExtra("ll", ll);
         startActivity(i);
     }
 
