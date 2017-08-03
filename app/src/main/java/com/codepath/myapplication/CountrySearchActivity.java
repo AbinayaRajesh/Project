@@ -33,10 +33,11 @@ public class CountrySearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country_search);
         String query = getIntent().getExtras().getString("search");
-        countries = new ArrayList<>();
+        countries = getIntent().getExtras().getParcelableArrayList("countries");
+        context = this;
         client = new AsyncHttpClient();
-        countries = new ArrayList<>();
-        adapter = new CountryAdapter(countries);
+        searchCountries = new ArrayList<>();
+        adapter = new CountryAdapter(searchCountries);
         rvCountries = (RecyclerView) findViewById(R.id.rvCountry);
         rvCountries.setLayoutManager(new LinearLayoutManager(this));
         rvCountries.setAdapter(adapter);
@@ -54,6 +55,7 @@ public class CountrySearchActivity extends AppCompatActivity {
                 // perform query here
                 Intent i = new Intent(context, CountrySearchActivity.class);
                 i.putExtra("search", query);
+                i.putExtra("countries", countries);
                 startActivity(i);
                 searchView.clearFocus();
                 return true;
