@@ -131,7 +131,7 @@ public class TourismListFragment extends Fragment {
                         adapter.notifyDataSetChanged();
                         j++;
                     } catch (JSONException e) {
-                        venues.get(j).setImageUrl("");
+                        //venues.get(j).setImageUrl("");
                         adapter.notifyDataSetChanged();
                         j++;
                         // logError("Failed to pase now_playing endpoint", e, true);

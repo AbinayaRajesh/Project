@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Random;
+
 /**
  * Created by arajesh on 6/22/17.
  */
@@ -20,6 +22,14 @@ public class Venue implements Parcelable{
     String imageUrl;
     Byte favourite;
 
+    public static String [] alternateUrls = {
+            "http://www.westgrove.co.uk/wp-content/uploads/2013/08/shopping-centre-2.jpg",
+            "https://static.pexels.com/photos/132037/pexels-photo-132037.jpeg",
+            "http://www.floraterra.com/_data/docs/gallery/corporate-building-8-600.jpg",
+            "https://tclf.org/sites/default/files/thumbnails/image/Freeway%20Park%2C%20Seattle%2C%20WA%2C%202016.%20Photograph%20%C2%A9%20Aaron%20Leitz%2C%20courtesy%20The%20Cultural%20Landscape%20Foundation-LO%20RES.jpg"
+    };
+
+
 
     // initialize from JSON data
     public Venue(int n, JSONObject object) throws JSONException {
@@ -29,9 +39,8 @@ public class Venue implements Parcelable{
         id = object.getString("id");
         Byte y = 0;
         favourite = y;
-        //imageUrl = "https://api.foursquare.com/v2/venues/"+id;
-
-
+        int rnd = new Random().nextInt(alternateUrls.length);
+        imageUrl = alternateUrls[rnd];
     }
 
     public Byte isFavourite() {

@@ -197,7 +197,6 @@ public class tempTourism extends AppCompatActivity {
 
 
                         } catch (JSONException e) {
-                            venues.get(j).setImageUrl("");
                             adapter.notifyDataSetChanged();
                             j++;
                         }
@@ -208,7 +207,6 @@ public class tempTourism extends AppCompatActivity {
 
                 });
             }
-
 
     }
 

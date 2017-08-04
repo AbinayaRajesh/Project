@@ -29,6 +29,7 @@ public class Event implements Parcelable {
     public int id;
 
 
+
     public float latitude;
     public float longitude;
 
