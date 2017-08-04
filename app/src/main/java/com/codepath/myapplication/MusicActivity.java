@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.codepath.myapplication.Maps.tempDemoActivity;
+import com.codepath.myapplication.Maps.MapActivity;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
@@ -159,7 +159,7 @@ public class MusicActivity extends AppCompatActivity {
         return true;
     }
     public void onMaps(MenuItem item) {
-        Intent i = new Intent(this, tempDemoActivity.class);
+        Intent i = new Intent(this, MapActivity.class);
         startActivity(i);
     }
 

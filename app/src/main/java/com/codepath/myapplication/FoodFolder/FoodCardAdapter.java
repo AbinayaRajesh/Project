@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Database.EventDbHelper;
@@ -153,14 +152,6 @@ public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardAdapter.VH> {
         // Insert a new row for pet in the database, returning the ID of that new row.
         long newRowId = db.insert(FoodEntry.TABLE_NAME, null, values);
 
-        // Show a toast message depending on whether or not the insertion was successful
-        if (newRowId == -1) {
-            // If the row ID is -1, then there was an error with insertion.
-            Toast.makeText(mContext, "Error with saving event", Toast.LENGTH_SHORT).show();
-        } else {
-            // Otherwise, the insertion was successful and we can display a toast with the row ID.
-            Toast.makeText(mContext, "Event saved to favourites", Toast.LENGTH_SHORT).show();
-        }
 
 
     }

@@ -52,7 +52,6 @@
         <activity android:name=".FoodFolder.FoodActivity" />
         <activity android:name=".Event.EventActivity" />
         <activity android:name=".Options.OptionsActivity" />
-        <activity android:name=".MapsMarkerActivity" />
         <activity android:name=".FoodDetail" />
         <activity android:name=".MusicActivity" />
         <activity
@@ -80,7 +79,7 @@
         <activity android:name=".RestarauntSearchActivity" />
         <activity android:name=".CountrySearchActivity" />
         <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".Maps.tempDemoActivity"></activity>
+        <activity android:name=".Maps.MapActivity"></activity>
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider155418675023687"

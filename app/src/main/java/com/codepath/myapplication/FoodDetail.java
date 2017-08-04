@@ -207,14 +207,6 @@ public class FoodDetail extends YouTubeBaseActivity implements YouTubePlayer.OnI
         // Insert a new row for pet in the database, returning the ID of that new row.
         long newRowId = db.insert(FoodEntry.TABLE_NAME, null, values);
 
-        // Show a toast message depending on whether or not the insertion was successful
-        if (newRowId == -1) {
-            // If the row ID is -1, then there was an error with insertion.
-            Toast.makeText(this, "Error with saving recipe", Toast.LENGTH_SHORT).show();
-        } else {
-            // Otherwise, the insertion was successful and we can display a toast with the row ID.
-            Toast.makeText(this, "Recipe saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
-        }
 
         // pass back data
 

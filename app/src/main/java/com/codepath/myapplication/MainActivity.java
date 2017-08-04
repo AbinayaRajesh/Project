@@ -16,7 +16,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Country.CountryAdapter;
@@ -192,7 +191,7 @@ public class MainActivity extends AppCompatActivity  {
         //alert user to avoid silent error
         if(alertUser){
             // show long toast
-            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+            // Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
         }
     }// log error
     public boolean onCreateOptionsMenu(Menu menu) {

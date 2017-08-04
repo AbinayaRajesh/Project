@@ -86,7 +86,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * This shows how to place markers on a map.
  */
-public class tempDemoActivity extends AppCompatActivity implements
+public class MapActivity extends AppCompatActivity implements
         GoogleMap.OnMyLocationButtonClickListener,
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
@@ -172,7 +172,7 @@ public class tempDemoActivity extends AppCompatActivity implements
 
 
 
-    private static final String TAG = tempDemoActivity.class.getSimpleName();
+    private static final String TAG = MapActivity.class.getSimpleName();
     // private GoogleMap mMap;
     private CameraPosition mCameraPosition;
 
@@ -593,7 +593,7 @@ public class tempDemoActivity extends AppCompatActivity implements
     @Override
     public void onInfoWindowClick(Marker marker) {
         Event e = (Event) marker.getTag();
-        Intent i = new Intent(tempDemoActivity.this, EventDetail.class);
+        Intent i = new Intent(MapActivity.this, EventDetail.class);
         i.putExtra("event", e);
         Toast.makeText(this, "Click Info Window", Toast.LENGTH_SHORT).show();
         startActivity(i);

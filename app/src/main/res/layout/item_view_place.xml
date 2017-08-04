@@ -9,8 +9,9 @@
 
     <ImageView
         android:id="@+id/ivImg"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:scaleType="fitXY"
         android:layout_marginRight="5dp"
         android:layout_weight="1"
         android:src="@drawable/flag_af" />
@@ -24,14 +25,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             >
 
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_height="match_parent"
+                android:textSize="20sp"
+                android:layout_weight="0.93"
                 android:lines="2"
                 android:text="TextView" />
 
@@ -50,15 +55,11 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Address" />
+
 
             <TextView
                 android:id="@+id/tvCity"
+                android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -66,6 +67,7 @@
 
             <TextView
                 android:id="@+id/tvState"
+                android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

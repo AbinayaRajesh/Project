@@ -19,7 +19,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Country.Country;
-import com.codepath.myapplication.Maps.tempDemoActivity;
+import com.codepath.myapplication.Maps.MapActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
@@ -90,7 +90,7 @@ public class FoodMainPage extends AppCompatActivity {
         return true;
     }
     public void onMaps(MenuItem item) {
-        Intent i = new Intent(this, tempDemoActivity.class);
+        Intent i = new Intent(this, MapActivity.class);
         i.putExtra("country", Parcels.wrap(country));
         i.putExtra("ll", ll);
         startActivity(i);
