@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.codepath.myapplication.Country.Country;
@@ -21,7 +20,7 @@ import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.Database.SavedTourismActivity;
 import com.codepath.myapplication.Database.TourismContract.TourismEntry;
 import com.codepath.myapplication.MainActivity;
-import com.codepath.myapplication.Maps.tempDemoActivity;
+import com.codepath.myapplication.Maps.MapActivity;
 import com.codepath.myapplication.Models.Location;
 import com.codepath.myapplication.Models.Venue;
 import com.codepath.myapplication.Options.FavouriteActivity;
@@ -192,7 +191,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
     }
 
     public void onMaps(MenuItem item) {
-        Intent i = new Intent(this, tempDemoActivity.class);
+        Intent i = new Intent(this, MapActivity.class);
         i.putExtra("country", Parcels.wrap(country));
         i.putExtra("ll", ll);
         startActivity(i);
@@ -241,14 +240,7 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
         // Insert a new row for pet in the database, returning the ID of that new row.
         long newRowId = db.insert(TourismEntry.TABLE_NAME, null, values);
 
-        // Show a toast message depending on whether or not the insertion was successful
-        if (newRowId == -1) {
-            // If the row ID is -1, then there was an error with insertion.
-            Toast.makeText(this, "Error with saving venue", Toast.LENGTH_SHORT).show();
-        } else {
-            // Otherwise, the insertion was successful and we can display a toast with the row ID.
-            Toast.makeText(this, "Venue saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
-        }
+
 
         // pass back data
 

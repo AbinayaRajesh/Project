@@ -13,12 +13,11 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.EventFragments.EventsListFragment;
 import com.codepath.myapplication.EventFragments.EventsPagerAdapter;
-import com.codepath.myapplication.Maps.tempDemoActivity;
+import com.codepath.myapplication.Maps.MapActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
@@ -28,8 +27,6 @@ import com.google.android.gms.location.LocationRequest;
 import org.parceler.Parcels;
 
 import java.util.Calendar;
-
-import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
 
 
 public class EventActivity extends AppCompatActivity  {
@@ -110,7 +107,7 @@ public class EventActivity extends AppCompatActivity  {
     }
 
     public void onMaps(MenuItem item) {
-        Intent i = new Intent(this, tempDemoActivity.class);
+        Intent i = new Intent(this, MapActivity.class);
         i.putExtra("country", Parcels.wrap(country));
         i.putExtra("ll", ll);
         startActivity(i);
@@ -135,15 +132,6 @@ public class EventActivity extends AppCompatActivity  {
         p.putExtra("country", Parcels.wrap(country));
         startActivity(p);
 
-        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-            // Extract name value from result extras\
-            int i = data.getExtras().getInt("num", -1);
-
-            // Event event = data.getExtras().getParcelable("event", event);
-            // Toast the name to display temporarily on screen
-            Toast.makeText(this, String.valueOf(i), Toast.LENGTH_SHORT).show();
-
-        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

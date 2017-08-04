@@ -14,7 +14,7 @@ import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Country.CountryAdapter;
-import com.codepath.myapplication.Maps.tempDemoActivity;
+import com.codepath.myapplication.Maps.MapActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
 import com.loopj.android.http.AsyncHttpClient;
 
@@ -70,7 +70,7 @@ public class CountrySearchActivity extends AppCompatActivity {
     }
 
     public void onMaps(MenuItem item) {
-        Intent i = new Intent(this, tempDemoActivity.class);
+        Intent i = new Intent(this, MapActivity.class);
         startActivity(i);
     }
     private void getCountryList(String query) {

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -49,6 +50,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
         Food recipe = recipes.get(position);
         String name = recipe.name;
         holder.tvRecipeName.setText(name);
+        holder.rbRating.setRating(recipe.getRating());
 
         Glide.with(context)
                 .load(recipe.imageUrl)
@@ -65,12 +67,14 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.ViewHolder>{
 
         TextView tvRecipeName;
         ImageView ivRecipeImage;
+        RatingBar rbRating;
 
         public ViewHolder(View itemView) {
             super(itemView);
             // lookup view objects by id
             tvRecipeName = (TextView) itemView.findViewById(R.id.tvRecipeName);
             ivRecipeImage = (ImageView) itemView.findViewById(R.id.ivRecipeImage);
+            rbRating = (RatingBar) itemView.findViewById(R.id.rbRating);
             itemView.setOnClickListener(this);
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {

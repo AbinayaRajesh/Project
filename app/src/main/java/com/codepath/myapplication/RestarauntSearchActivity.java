@@ -14,7 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.codepath.myapplication.Country.Country;
-import com.codepath.myapplication.Maps.tempDemoActivity;
+import com.codepath.myapplication.Maps.MapActivity;
 import com.codepath.myapplication.Models.Venue;
 import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.Tourism.VenueCardAdapter;
@@ -176,7 +176,7 @@ public class RestarauntSearchActivity extends AppCompatActivity {
         return true;
     }
     public void onMaps(MenuItem item) {
-        Intent i = new Intent(this, tempDemoActivity.class);
+        Intent i = new Intent(this, MapActivity.class);
         i.putExtra("country", Parcels.wrap(country));
         i.putExtra("ll", ll);
         startActivity(i);

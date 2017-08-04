@@ -20,7 +20,7 @@ import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.Food;
 import com.codepath.myapplication.FoodAdapter;
 import com.codepath.myapplication.FoodClient;
-import com.codepath.myapplication.Maps.tempDemoActivity;
+import com.codepath.myapplication.Maps.MapActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
@@ -99,7 +99,7 @@ public class tempFOOD extends AppCompatActivity {
         return true;
     }
     public void onMaps(MenuItem item) {
-        Intent i = new Intent(context, tempDemoActivity.class);
+        Intent i = new Intent(context, MapActivity.class);
         i.putExtra("country", Parcels.wrap(country));
         i.putExtra("ll", ll);
         startActivity(i);

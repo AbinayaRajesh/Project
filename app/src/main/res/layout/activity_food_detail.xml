@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:scaleX="0.5"
             android:scaleY="0.5"
-            android:progressBackgroundTint="@color/white"
+            android:progressBackgroundTint="@color/grey"
             android:progressTint="@color/colorPrimaryDark"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true" />
