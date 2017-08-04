@@ -27,6 +27,7 @@ public class FestivalsEventsFragment extends EventsListFragment  {
     Boolean distance;
     Byte y;
     String countryName;
+    int distanceFilter;
     Context context;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,7 @@ public class FestivalsEventsFragment extends EventsListFragment  {
         filter = ((EventActivity) getActivity()).getFilter();
         ll = ((EventActivity) getActivity()).getLL();
         distance = ((EventActivity) getActivity()).getDistance();
+        distanceFilter = ((EventActivity) getActivity()).getDistanceFiltered();
         getSportsEvents();
         context = getActivity();
     }
@@ -46,7 +48,7 @@ public class FestivalsEventsFragment extends EventsListFragment  {
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
         if(distance) {
-            params.put("within", 100);
+            params.put("within", distanceFilter);
             params.put("location", ll);
         }
         params.put("keywords", countryName);
