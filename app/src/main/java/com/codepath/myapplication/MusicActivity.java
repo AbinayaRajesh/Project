@@ -33,7 +33,7 @@ public class MusicActivity extends AppCompatActivity {
     // TODO: Replace with your client ID
     private static final String CLIENT_ID = "f369e0b40d2941f585239fae425f7ec5";
     // TODO: Replace with your redirect URI
-    private static final String REDIRECT_URI = "localhost:8888/callback";
+    private static final String REDIRECT_URI = "http://localhost:8888/callback";
     private static final int REQUEST_CODE = 6666;
 
     public static final int AUTH_TOKEN_REQUEST_CODE = 0x10;
@@ -155,7 +155,7 @@ public class MusicActivity extends AppCompatActivity {
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menumain, menu);
+//        inflater.inflate(R.menu.menumain, menu);
         return true;
     }
     public void onMaps(MenuItem item) {

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-       // eventButton = (Button) findViewById(R.id.bttnEvent);
+        eventButton = (Button) findViewById(R.id.bttnEvent);
         context = this;
 
 //
@@ -123,6 +124,11 @@ public class MainActivity extends AppCompatActivity  {
 //        shareButton.setShareContent(content);
 
 
+    }
+    public void sendMessage(View view)
+    {
+        Intent intent = new Intent(MainActivity.this, MusicActivity.class);
+        startActivity(intent);
     }
     private void getCountryList(){
         String url = API_BASE_URL;
