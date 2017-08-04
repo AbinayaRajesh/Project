@@ -50,6 +50,9 @@ public class tempFOOD extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_temp);
+
+
+
         context = getBaseContext();
         ll = getIntent().getStringExtra("ll");
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));

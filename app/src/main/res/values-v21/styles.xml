@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Material">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/cast_expanded_controller_background_color</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

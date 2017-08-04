@@ -75,6 +75,7 @@ public class LanguageMainActivity extends Fragment {
             case 0: {
                 language=TranslateFragment.language;
                 rootView = inflater.inflate(R.layout.activity_translate, container, false);
+
                 translateText = new ArrayList<>();
                 queryTranslate = new TranslateTextRequest();
                 input = (EditText) rootView.findViewById(R.id.etInputText);

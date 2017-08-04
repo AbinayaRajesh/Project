@@ -14,14 +14,12 @@
         android:padding="2dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:srcCompat="@color/cardview_dark_background" />
+        android:layout_alignParentTop="true" />
 
     <TextView
         android:id="@+id/tvRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
         android:text="TextView"
         android:layout_below="@+id/tvRecipeName"
         android:layout_toRightOf="@+id/ivRecipeImage"
@@ -35,8 +33,7 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/ivRecipeImage"
         android:layout_toRightOf="@+id/ivRecipeImage"
-        android:text="TextView"
-        android:textColor="@color/white" />
+        android:text="TextView" />
 
 
 

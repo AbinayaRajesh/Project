@@ -33,9 +33,17 @@ public class FoodActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_food);
+
+//        // CHANGE TAB BACKGROUND COLOR
+//
+//        View someView = findViewById(R.id.viewpagerFood);
+//        View root = someView.getRootView();
+//        root.setBackgroundColor(getResources().getColor(R.color.food_tab));
+
         ll = getIntent().getStringExtra("ll");
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
-        setContentView(R.layout.activity_food);
+
         pageAdapter = new FoodPagerAdapter(getSupportFragmentManager(), this);
         context = this;
         // get the view pager

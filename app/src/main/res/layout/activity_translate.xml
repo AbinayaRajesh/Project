@@ -15,10 +15,8 @@
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/btnSTT"
         android:layout_weight="0.14"
-        android:backgroundTint="@color/nice_blue"
         android:gravity="bottom"
         android:hint="Eg. How are you doing today?"
-        android:textColor="@color/white"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:textSize="24sp"
@@ -39,15 +37,15 @@
         android:layout_gravity="right"
         android:background="@drawable/button"
         android:focusable="true"
-        android:text="Translate"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/white"
+        android:text="Translate" />
 
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginRight="20dp"
             android:id="@+id/btnTTS"
-            android:src="@drawable/ic_play_circle__48"
+            android:src="@drawable/ic_play_material"
 
             />
 
@@ -61,7 +59,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:gravity="center"
@@ -82,7 +79,6 @@
             android:layout_marginTop="50dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textStyle="italic" />
 
@@ -93,7 +89,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_mic_white_24px" />
+            android:src="@drawable/ic_mic" />
 
         <!--<Button-->
             <!--android:id="@+id/btnTTS"-->
@@ -114,7 +110,6 @@
             android:id="@+id/note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btnTTS"
             android:layout_alignBottom="@+id/btnSTT"
             android:layout_alignLeft="@+id/btnSTT"
             android:layout_alignStart="@+id/btnSTT"
@@ -123,10 +118,7 @@
             android:layout_marginStart="81dp"
             android:gravity="center_vertical"
             android:text="Click on the microphone if you want to translate speech"
-            android:textColor="@color/white"
-            android:textStyle="italic"
-            android:layout_toLeftOf="@+id/btnTTS"
-            android:layout_toStartOf="@+id/btnTTS" />
+            android:textStyle="italic" />
 
     </RelativeLayout>
 </LinearLayout>

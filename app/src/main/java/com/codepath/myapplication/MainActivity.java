@@ -140,9 +140,9 @@ public class MainActivity extends AppCompatActivity  {
                         countries.get(i).getName().equals("Italy") || countries.get(i).getName().equals("India") ||  countries.get(i).getName().equals("Spain")
                                 ||  countries.get(i).getName().equals("Turkey") ||  countries.get(i).getName().equals("United Kingdom") ||  countries.get(i).getName().equals("Mexico") ||
                                 countries.get(i).getName().equals("Germany") || countries.get(i).getName().equals("Brazil") ||  countries.get(i).getName().equals("Egypt") ||
-                                        countries.get(i).getName().equals("Greece") ||  countries.get(i).getName().equals("Australia") || countries.get(i).getName().equals("Vietnam")
+                                countries.get(i).getName().equals("Greece") ||  countries.get(i).getName().equals("Australia") || countries.get(i).getName().equals("Vietnam")
                                 || countries.get(i).getName().equals("Morocco") ||  countries.get(i).getName().equals("South Korea") ||  countries.get(i).getName().equals("Singapore") ||
-                                countries.get(i).getName().equals("Saudi Arabia") ||  countries.get(i).getName().equals("Austria") || countries.get(i).getName().equals("United States of America"))
+                                countries.get(i).getName().equals("Austria") || countries.get(i).getName().equals("United States of America"))
                         {
                             popularCountries.add(countries.get(i));
                             //countries.add(0,popularCountries.get(popularCountries.size()-1));

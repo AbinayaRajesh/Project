@@ -42,6 +42,8 @@ public class TourismActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourism);
+
+
         bundle = new Bundle();
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         countryName = country.getName();

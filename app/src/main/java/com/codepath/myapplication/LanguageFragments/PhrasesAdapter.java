@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.codepath.myapplication.R;
 
 import java.util.ArrayList;
@@ -76,7 +75,6 @@ public class PhrasesAdapter extends RecyclerView.Adapter<PhrasesAdapter.ViewHold
         }
         public void onClick(View v) {
 
-            Glide.with(context) .load("") .error(R.drawable.play_pressed) .into(ivPlay);
 
             // gets item position
             int position = getAdapterPosition();
@@ -89,7 +87,6 @@ public class PhrasesAdapter extends RecyclerView.Adapter<PhrasesAdapter.ViewHold
 
             }
 
-            Glide.with(context) .load("") .error(R.drawable.ic_play) .into(ivPlay);
         }
     }
 

@@ -27,7 +27,6 @@
         android:layout_weight="1"
         android:text="TextView"
         android:textAlignment="center"
-        android:textColor="@color/white"
         android:textSize="32dp"
         android:textAllCaps="true"
         android:textStyle="bold"
@@ -35,7 +34,6 @@
 
     <ImageButton
         android:id="@+id/add"
-        android:background="@color/sea_blue"
         android:layout_width="32dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
@@ -71,7 +69,6 @@
             android:text="Ingredients"
             android:textAllCaps="true"
             android:textAlignment="center"
-            android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -84,15 +81,13 @@
             android:layout_below="@+id/tvIngredientTitle"
             android:lines="5"
             android:layout_marginLeft="30dp"
-            android:textAlignment="textStart"
-            android:textColor="@color/white" />
+            android:textAlignment="textStart"/>
 
 
         <ImageView
             android:id="@+id/tvRecipePic"
             android:layout_width="150dp"
             android:layout_height="100dp"
-            app:srcCompat="@color/cardview_dark_background"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="-2dp"
             android:layout_alignParentTop="true"
@@ -115,8 +110,8 @@
             android:layout_height="wrap_content"
             android:scaleX="0.5"
             android:scaleY="0.5"
-            android:progressBackgroundTint="@color/com_facebook_blue"
-            android:progressTint="@color/white"
+            android:progressBackgroundTint="@color/white"
+            android:progressTint="@color/colorPrimaryDark"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true" />
 
@@ -130,10 +125,5 @@
             android:gravity="center"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"/>
-
-
-
-
-
 
 </RelativeLayout>

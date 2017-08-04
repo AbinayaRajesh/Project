@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#a8b2e9</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#ff4081</color>
+    <color name="colorPrimary1">#a8b2e9</color>
+    <color name="colorPrimaryDark1">#303F9F</color>
+    <color name="colorAccent1">#ff4081</color>
 
     <color name="light_purple">#E1BEE7</color>
     <color name="purple">#9C27B0</color>
@@ -14,7 +14,7 @@
     <!-- Primary color for the editor -->
     <color name="editorColorPrimary">#2D3640</color>
 
-    <!-- Primary dark color for the editor FF4261 -->
+    <!-- Primary dark color for the editor FF4261-->
     <color name="pink">#FF4261</color>
     <color name="hot_pink">#ff369b</color>
     <color name="editorColorPrimaryDark">#394450</color>
@@ -22,6 +22,68 @@
     <color name="sea_blue">#000000</color>
     <color name="nice_blue">#1da1f2</color>
     <color name="text">#FFFFFF</color>
-    <color name="grey">#909090</color>
+    <color name="grey">#d3d3d3</color>
+    <color name="black">#000000</color>
+
+
+    <color name="events_tab">#990099</color>
+    <color name="food_tab">	#006600</color>
+    <color name="translate_tab">#000066</color>
+    <color name="tourism_tab">#870000</color>
+
+
+        <!--<color name="colorPrimary">#03A9F4</color>-->
+        <!--<color name="colorPrimaryDark">#0288D1</color>-->
+        <!--<color name="primary_light">#B3E5FC</color>-->
+        <!--<color name="colorAccent">#448AFF</color>-->
+        <!--<color name="primary_text">#212121</color>-->
+        <!--<color name="secondary_text">#757575</color>-->
+        <!--<color name="icons">#FFFFFF</color>-->
+        <!--<color name="divider">#BDBDBD</color>-->
+
+
+        <!--<color name="colorPrimary">#3F51B5</color>-->
+        <!--<color name="colorPrimaryDark">#303F9F</color>-->
+        <!--<color name="primary_light">#C5CAE9</color>-->
+        <!--<color name="colorAccent">#FFC107</color>-->
+        <!--<color name="primary_text">#212121</color>-->
+        <!--<color name="secondary_text">#757575</color>-->
+        <!--<color name="icons">#FFFFFF</color>-->
+        <!--<color name="divider">#BDBDBD</color>-->
+
+    <!---->
+        <!--<color name="colorPrimary">#607D8B</color>-->
+        <!--<color name="colorPrimaryDark">#455A64</color>-->
+        <!--<color name="primary_light">#CFD8DC</color>-->
+        <!--<color name="colorAccent">#FFC107</color>-->
+        <!--<color name="primary_text">#212121</color>-->
+        <!--<color name="secondary_text">#757575</color>-->
+        <!--<color name="icons">#FFFFFF</color>-->
+        <!--<color name="divider">#BDBDBD</color>-->
+
+
+        <!--<color name="colorPrimary">#795548</color>-->
+        <!--<color name="colorPrimaryDark">#5D4037</color>-->
+        <!--<color name="primary_light">#D7CCC8</color>-->
+        <!--<color name="colorAccent">#03A9F4</color>-->
+        <!--<color name="primary_text">#212121</color>-->
+        <!--<color name="secondary_text">#757575</color>-->
+        <!--<color name="icons">#FFFFFF</color>-->
+        <!--<color name="divider">#BDBDBD</color>-->
+
+    <color name="colorPrimary">#9E9E9E</color>
+    <color name="colorPrimaryDark">#616161</color>
+    <color name="primary_light">#F5F5F5</color>
+    <color name="colorAccent">#03A9F4</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#212121</color>
+    <color name="divider">#BDBDBD</color>
+
+
+
+
+
+
 
 </resources>

@@ -61,10 +61,14 @@ public class EventActivity extends AppCompatActivity  {
     GoogleApiClient googleApi;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+
+
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         pageAdapter = new EventsPagerAdapter(getSupportFragmentManager(), context);
         Bundle bundleB = getIntent().getExtras();

@@ -33,16 +33,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:lines="2"
-                android:text="TextView"
-                android:textColor="#ffffff" />
+                android:text="TextView" />
 
             <TextView
                 android:id="@+id/tvDistance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:textColor="#ffffff"
-
                 android:text="Text" />
 
         </LinearLayout>
@@ -58,7 +55,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="#FFFFFF"
                 android:text="Address" />
 
             <TextView
@@ -66,7 +62,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="#FFFFFF"
                 android:text="TextView" />
 
             <TextView
@@ -74,7 +69,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="#FFFFFF"
                 android:text="TextView" />
 
         </LinearLayout>

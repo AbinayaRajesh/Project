@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/detailView"
-    android:background="#022220"
     android:longClickable="true"
     android:layout_width="match_parent" android:layout_height="wrap_content">
 
@@ -12,8 +11,7 @@
         android:layout_height="100dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:srcCompat="@color/colorAccent" />
+        android:layout_alignParentTop="true" />
 
     <TextView
         android:id="@+id/tvEventName"
@@ -24,7 +22,6 @@
         android:layout_toRightOf="@+id/ivEventImage"
         android:singleLine="true"
         android:text="TextView"
-        android:textColor="@color/white"
         android:textSize="25sp" />
 
     <TextView
@@ -36,7 +33,6 @@
         android:layout_toRightOf="@+id/ivEventImage"
         android:lines="1"
         android:text="TextView"
-        android:textColor="@color/white"
         android:textSize="14sp" />
 
 </RelativeLayout>
