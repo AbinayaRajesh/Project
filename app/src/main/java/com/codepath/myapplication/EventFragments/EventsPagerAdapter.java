@@ -18,7 +18,9 @@ import com.codepath.myapplication.Event.EventActivity;
 
 public class EventsPagerAdapter extends FragmentStatePagerAdapter {
 
+
     String country = EventActivity.country.getName();
+    String adjective = EventActivity.country.getAdjective();
     private Context context;
     private MusicEventsFragment mef;
     private SportsEventsFragment sef;
@@ -33,7 +35,12 @@ public class EventsPagerAdapter extends FragmentStatePagerAdapter {
         sef = new SportsEventsFragment();
         fef = new FestivalsEventsFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("country", country);
+        if (adjective == null) {
+            bundle.putString("country", country);
+        }
+        else {
+            bundle.putString("country", adjective);
+        }
         mef.setArguments(bundle);
         sef.setArguments(bundle);
         fef.setArguments(bundle);
