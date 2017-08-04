@@ -53,7 +53,7 @@ public class EventActivity extends AppCompatActivity  {
     LocationManager locationManager;
     EventsListFragment fragment;
     GoogleApiClient googleApi;
-
+    int distanceFiltered;
 
 
 
@@ -162,22 +162,30 @@ public class EventActivity extends AppCompatActivity  {
                 bundle.putString("filter", "relevance");
                 fragment.setArguments(bundle);
                 filter = "relevance";
-                if (distance) {
-                    distance = false;
-                }
-                else{
-                    distance = true;
-                }
-                pageAdapter.notifyDataSetChanged();
-                break;
-            }
-
+            }case R.id.dist1: {
+                        distanceFiltered = 5;
+                        pageAdapter.notifyDataSetChanged();
+                        break;
+                    }
+                    case R.id.dist2: {
+                        distanceFiltered = 10;
+                        pageAdapter.notifyDataSetChanged();
+                        break;
+                    }
+                    case R.id.dist3: {
+                        distanceFiltered = 15;
+                        pageAdapter.notifyDataSetChanged();
+                        break;
+                    }
+                    case R.id.dist4: {
+                        pageAdapter.notifyDataSetChanged();
+                        break;
+                    }
             default:
                 return super.onOptionsItemSelected(item);
-        }
+                }
         return true;
-    }
-
+        }
     public String getFilter() {
         return filter;
     }
@@ -186,5 +194,8 @@ public class EventActivity extends AppCompatActivity  {
     }
     public boolean getDistance(){
         return distance;
+    }
+    public int getDistanceFiltered(){
+        return distanceFiltered;
     }
 }
