@@ -43,7 +43,6 @@ public class SportsEventsFragment extends EventsListFragment {
         filter = ((EventActivity) getActivity()).getFilter();
         ll = ((EventActivity) getActivity()).getLL();
         distance = ((EventActivity) getActivity()).getDistance();
-
         context = getActivity();
         getSportsEvents();
     }

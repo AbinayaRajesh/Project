@@ -23,7 +23,6 @@ import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.LocationRequest;
 
 import org.parceler.Parcels;
@@ -34,7 +33,7 @@ import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
 
 
 public class EventActivity extends AppCompatActivity  {
-   FusedLocationProviderApi fusedLocationProviderApi;
+
     public static Country country;
     Location mLastLocation;
     boolean distance;
@@ -47,8 +46,6 @@ public class EventActivity extends AppCompatActivity  {
             c.get(Calendar.HOUR) + ":" +
             c.get(Calendar.MINUTE) + ":" +
             c.get(Calendar.SECOND);
-    Double longitude;
-    Double latitude;
     String ll;
     Context context;
     ViewPager vpPager;

@@ -138,6 +138,7 @@ public class tempTourism extends AppCompatActivity {
         // set the request parameters
         RequestParams params = new RequestParams();
         params.put("ll", ll);
+        params.put("query", country.getName());
         params.put("radius", 100000);
         params.put(API_KEY_PARAM, getString(R.string.api_key));  // Always needs API key
         params.put(API_SECRET_PARAM, getString(R.string.api_secret));
