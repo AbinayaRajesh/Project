@@ -32,7 +32,7 @@ public class PhotoClient {
         String method_type = "";
         String url = null;
         method_type = FLICKR_PHOTOS_SEARCH_STRING;
-        url = FLICKR_BASE_URL + method_type + APIKEY_SEARCH_STRING + TAGS_STRING + parameter + FORMAT_STRING + "&per_page="+NUMBER_OF_PHOTOS+"&media=photos"+"&nojsoncallback=1";
+        url = FLICKR_BASE_URL + method_type + APIKEY_SEARCH_STRING + TAGS_STRING + parameter + "&sort=relevance" + FORMAT_STRING + "&per_page="+NUMBER_OF_PHOTOS+"&media=photos"+"&nojsoncallback=1";
         //url = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=65c9d17134616d3738df5d451d59ea99&tags=china&per_page=2&format=json&nojsoncallback=1";
         return url;
     }
