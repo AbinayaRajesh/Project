@@ -16,6 +16,7 @@
 
 package com.codepath.myapplication.Maps;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -31,14 +32,18 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -112,7 +117,10 @@ public class MapActivity extends AppCompatActivity implements
 
 
 
-    /** Demonstrates customizing the info window and/or its contents. */
+
+    /**
+     * Demonstrates customizing the info window and/or its contents.
+     */
     class CustomInfoWindowAdapter implements InfoWindowAdapter {
 
         // These are both viewgroups containing an ImageView with id "badge" and two TextViews with id
@@ -170,8 +178,6 @@ public class MapActivity extends AppCompatActivity implements
     // HERE
 
 
-
-
     private static final String TAG = MapActivity.class.getSimpleName();
     // private GoogleMap mMap;
     private CameraPosition mCameraPosition;
@@ -200,6 +206,8 @@ public class MapActivity extends AppCompatActivity implements
     private String[] mLikelyPlaceAddresses = new String[mMaxEntries];
     private String[] mLikelyPlaceAttributions = new String[mMaxEntries];
     private LatLng[] mLikelyPlaceLatLngs = new LatLng[mMaxEntries];
+
+    String mText;
 
 
     public final static String API_KEY_PARAM = "95JSGDKWtDtWRRgx";
@@ -239,7 +247,6 @@ public class MapActivity extends AppCompatActivity implements
         setContentView(R.layout.marker_demo);
 
 
-
         client = new AsyncHttpClient();
 
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
@@ -247,7 +254,7 @@ public class MapActivity extends AppCompatActivity implements
         distance = getIntent().getIntExtra("distance", 20);
 
 
-        if (country==null) {
+        if (country == null) {
             country = Country.consCountry();
         }
 
@@ -258,13 +265,9 @@ public class MapActivity extends AppCompatActivity implements
         }
 
 
-
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         new OnMapAndViewReadyListener(mapFragment, this);
-
-
-
 
 
         // Retrieve location and camera position from saved instance state.
@@ -294,11 +297,9 @@ public class MapActivity extends AppCompatActivity implements
         mGoogleApiClient.connect();
 
 
-
-
     }
 
-    private void getSportsEvents(){
+    private void getSportsEvents() {
         String url = API_BASE_URL + "events/search?";
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
@@ -306,11 +307,11 @@ public class MapActivity extends AppCompatActivity implements
         params.put("category", "sports");
         params.put("within", distance);
         params.put("location", ll);
-        client.get(url, params, new JsonHttpResponseHandler(){
+        client.get(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                if (response!=null) {
+                if (response != null) {
                     try {
                         JSONObject eventsonline = response.getJSONObject("events");
                         JSONArray eventArray = eventsonline.getJSONArray("event");
@@ -331,7 +332,7 @@ public class MapActivity extends AppCompatActivity implements
         });
     }
 
-    private void getMusicEvents(){
+    private void getMusicEvents() {
         String url = API_BASE_URL + "events/search?";
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
@@ -339,7 +340,7 @@ public class MapActivity extends AppCompatActivity implements
         params.put("category", "music");
         params.put("within", distance);
         params.put("location", ll);
-        client.get(url, params, new JsonHttpResponseHandler(){
+        client.get(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
@@ -363,7 +364,7 @@ public class MapActivity extends AppCompatActivity implements
         });
     }
 
-    private void getFestivalsEvents(){
+    private void getFestivalsEvents() {
         String url = API_BASE_URL + "events/search?";
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
@@ -372,7 +373,7 @@ public class MapActivity extends AppCompatActivity implements
         params.put("within", distance);
         params.put("location", ll);
 
-        client.get(url, params, new JsonHttpResponseHandler(){
+        client.get(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
@@ -418,7 +419,7 @@ public class MapActivity extends AppCompatActivity implements
 
         builder = new LatLngBounds.Builder();
 
-        for (int i=0; i<Sevents.size(); i++){
+        for (int i = 0; i < Sevents.size(); i++) {
             Event event = Sevents.get(i);
             float lat = event.getLatitude();
             float lng = event.getLongitude();
@@ -432,7 +433,7 @@ public class MapActivity extends AppCompatActivity implements
             bounds = builder.build();
         }
 
-        for (int i=0; i<Fevents.size(); i++){
+        for (int i = 0; i < Fevents.size(); i++) {
             Event event = Fevents.get(i);
             float lat = event.getLatitude();
             float lng = event.getLongitude();
@@ -446,7 +447,7 @@ public class MapActivity extends AppCompatActivity implements
             bounds = builder.build();
         }
 
-        for (int i=0; i<Mevents.size(); i++){
+        for (int i = 0; i < Mevents.size(); i++) {
             Event event = Mevents.get(i);
             float lat = event.getLatitude();
             float lng = event.getLongitude();
@@ -459,8 +460,6 @@ public class MapActivity extends AppCompatActivity implements
             builder.include(m.getPosition());
             bounds = builder.build();
         }
-
-
 
 
         // Hide the zoom controls as the button panel will cover it.
@@ -477,14 +476,6 @@ public class MapActivity extends AppCompatActivity implements
         // Ideally this string would be localised.
         mMap.setContentDescription("Map with lots of markers.");
 
-        LatLngBounds bounds = new LatLngBounds.Builder()
-                .include(PERTH)
-                .include(SYDNEY)
-                .include(ADELAIDE)
-                .include(BRISBANE)
-                .include(MELBOURNE)
-                .build();
-        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
 
 
         // Use a custom info window adapter to handle multiple lines of text in the
@@ -501,7 +492,7 @@ public class MapActivity extends AppCompatActivity implements
             public View getInfoContents(Marker marker) {
                 // Inflate the layouts for the info window, title and snippet.
                 View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents,
-                        (FrameLayout)findViewById(R.id.map), false);
+                        (FrameLayout) findViewById(R.id.map), false);
 
                 TextView title = ((TextView) infoWindow.findViewById(R.id.title));
                 title.setText(marker.getTitle());
@@ -545,7 +536,6 @@ public class MapActivity extends AppCompatActivity implements
         }
         return true;
     }
-
 
 
     @Override
@@ -610,7 +600,6 @@ public class MapActivity extends AppCompatActivity implements
     }
 
 
-
     @Override
     public boolean onMyLocationButtonClick() {
         Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
@@ -665,24 +654,22 @@ public class MapActivity extends AppCompatActivity implements
 
     /**
      * Sets up the options menu.
+     *
      * @param menu The options menu.
      * @return Boolean.
      */
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_maps, menu);
         return true;
     }
+
     /**
      * Handles a click on the menu option to get a place.
+     *
      * @param item The menu item to handle.
      * @return Boolean.
      */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return true;
-    }
 
     public void onEvents(MenuItem item) {
         Intent i = new Intent(this, FavouriteActivity.class);
@@ -736,7 +723,7 @@ public class MapActivity extends AppCompatActivity implements
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
         }
 
-        if (bounds!=null) {
+        if (bounds != null) {
             int padding = 50; // offset from edges of the map in pixels
             CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
             mMap.animateCamera(cu);
@@ -762,7 +749,6 @@ public class MapActivity extends AppCompatActivity implements
         }
         updateLocationUI();
     }
-
 
 
     /**
@@ -797,6 +783,88 @@ public class MapActivity extends AppCompatActivity implements
             mLastKnownLocation = null;
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.action_dropdown1: {
+                distance = 5;
+                getSportsEvents();
+                onMapReady(mMap);
+                break;
+            }
+            case R.id.action_dropdown2: {
+                distance = 10;
+                getSportsEvents();
+                onMapReady(mMap);
+                break;
+            }
+            case R.id.action_dropdown3: {
+                distance = 15;
+                getSportsEvents();
+                onMapReady(mMap);
+                break;
+            }
+            case R.id.action_dropdown4: {
+//                distance = 30;
+//                Sevents = new ArrayList<Event>();
+//                Mevents = new ArrayList<Event>();
+//                Fevents = new ArrayList<Event>();
+//                getSportsEvents();
+//                onMapReady(mMap);
+////                Intent i = new Intent(this, MapActivity.class);
+////                i.putExtra("distance", 30);
+////                i.putExtra("ll", ll);
+////                i.putExtra("country", Parcels.wrap(country));
+////                startActivity(i);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Enter distance to filter:");
+
+
+                // Set up the input
+                final EditText input = new EditText(this);
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                input.setGravity(Gravity.CENTER_HORIZONTAL);
+                builder.setView(input);
+
+                // Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        distance = Integer.parseInt((input.getText().toString()));
+                        getSportsEvents();
+                        onMapReady(mMap);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                alertDialog.getWindow().setLayout(800, 600);
+
+                // builder.show();
+//                builder.getWindow().setLayout(600, 400);
+
+                break;
+            }
+            default: {
+                break;
+            }
+
+        }
+        return true;
+
+    }
+
 
 
 

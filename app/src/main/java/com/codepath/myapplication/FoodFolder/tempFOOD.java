@@ -66,7 +66,12 @@ public class tempFOOD extends AppCompatActivity {
 
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
 
-        fetchFood(country.getName());
+        if (country.getAdjective()!=null) {
+            fetchFood(country.getAdjective());
+        }
+        else {
+            fetchFood(country.getName());
+        }
         rvRecipes.setHasFixedSize(true);
         final GridLayoutManager layout = new GridLayoutManager(tempFOOD.this, 2);
         rvRecipes.setLayoutManager(layout);

@@ -32,6 +32,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity  {
 //        Picasso.with(getBaseContext())
 //                .load(imageUrl)
 //                .into(profilePic);
+
 
 
         popularCountries = new ArrayList<>();
@@ -131,6 +134,17 @@ public class MainActivity extends AppCompatActivity  {
     }
     private void getCountryList(){
         String url = API_BASE_URL;
+
+        final Map<String,String> map=new HashMap<String, String>();
+        map.put("Austria", "Austrian");
+        map.put("Brazil", "Brazilian");
+        map.put("China", "Chinese");
+        map.put("Egypt", "Egyptian");
+        map.put("France", "French");
+        map.put("Germany", "German");
+        map.put("India", "Indian");
+
+
         RequestParams params = new RequestParams();
         //params.put(API_KEY_PARAM, getString(R.string.api_key));
         client.get(url, params, new JsonHttpResponseHandler(){
@@ -140,7 +154,8 @@ public class MainActivity extends AppCompatActivity  {
                     JSONArray results = response.getJSONArray("Response");
                     for(int i =0; i<results.length(); i++){
                        // Country country = new Country(results.getJSONObject(i));
-                        Country country = Country.fromJSON(results.getJSONObject(i));
+                        Country country = Country.fromJSON( results.getJSONObject(i));
+                        country.setAdjective(map.get(country.getName()));
                         countries.add(country);
                         if (countries.get(i).getName().equals("France") || countries.get(i).getName().equals("China") || countries.get(i).getName().equals("Japan") ||
                         countries.get(i).getName().equals("Italy") || countries.get(i).getName().equals("India") ||  countries.get(i).getName().equals("Spain")

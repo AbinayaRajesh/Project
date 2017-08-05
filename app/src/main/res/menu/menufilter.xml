@@ -27,7 +27,25 @@
                 android:title="Relevance" />
             <item
                 android:id="@+id/action_dropdown4"
-                android:title="Distance" />
+                android:title="Distance"
+                app:showAsAction="always">
+            <menu>
+                <item
+                    android:id="@+id/dist1"
+                    android:title="5 miles" />
+                <item
+                    android:id="@+id/dist2"
+                    android:title="10 miles" />
+                <item
+                    android:id="@+id/dist3"
+                    android:title="15 miles" />
+                <item
+                    android:id="@+id/dist4"
+                    android:title="Custom"
+                    />
+            </menu>
+            </item>
+
         </menu>
     </item>
     <item

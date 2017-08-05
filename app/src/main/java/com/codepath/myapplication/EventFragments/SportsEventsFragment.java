@@ -29,7 +29,7 @@ public class SportsEventsFragment extends EventsListFragment {
     String countryName;
     Boolean distance;
     Context context;
-
+    int distanceFilter;
 
     String filter;
 
@@ -43,6 +43,7 @@ public class SportsEventsFragment extends EventsListFragment {
         filter = ((EventActivity) getActivity()).getFilter();
         ll = ((EventActivity) getActivity()).getLL();
         distance = ((EventActivity) getActivity()).getDistance();
+        distanceFilter = ((EventActivity) getActivity()).getDistanceFiltered();
         context = getActivity();
         getSportsEvents();
     }
@@ -52,7 +53,7 @@ public class SportsEventsFragment extends EventsListFragment {
         params.put("app_key", API_KEY_PARAM);
         params.put("keywords", countryName);
         if(distance) {
-            params.put("within", 100);
+            params.put("within", distanceFilter);
             params.put("location", ll);
         }
         params.put("category", "sports");

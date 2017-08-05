@@ -53,7 +53,7 @@ public class EventActivity extends AppCompatActivity  {
     LocationManager locationManager;
     EventsListFragment fragment;
     GoogleApiClient googleApi;
-
+    int distanceFiltered;
 
 
 
@@ -71,6 +71,7 @@ public class EventActivity extends AppCompatActivity  {
         fragment = new EventsListFragment();
         distance = true;
         context = this;
+        distanceFiltered = 50;
         // get the view pager
         vpPager = (ViewPager) findViewById(R.id.viewpager);
         // set the adapter for the pager
@@ -158,26 +159,34 @@ public class EventActivity extends AppCompatActivity  {
                 filter = "relevance";
                 pageAdapter.notifyDataSetChanged();
                 break;
-            }case R.id.action_dropdown4: {
-                bundle.putString("filter", "relevance");
-                fragment.setArguments(bundle);
-                filter = "relevance";
-                if (distance) {
-                    distance = false;
-                }
-                else{
-                    distance = true;
-                }
-                pageAdapter.notifyDataSetChanged();
-                break;
-            }
-
+            }case R.id.dist1: {
+                        distanceFiltered = 5;
+                        filter = "relevance";
+                        pageAdapter.notifyDataSetChanged();
+                        break;
+                    }
+                    case R.id.dist2: {
+                        distanceFiltered = 10;
+                        filter = "relevance";
+                        pageAdapter.notifyDataSetChanged();
+                        break;
+                    }
+                    case R.id.dist3: {
+                        distanceFiltered = 15;
+                        filter = "relevance";
+                        pageAdapter.notifyDataSetChanged();
+                        break;
+                    }
+                    case R.id.dist4: {
+                        pageAdapter.notifyDataSetChanged();
+                        filter = "relevance";
+                        break;
+                    }
             default:
                 return super.onOptionsItemSelected(item);
-        }
+                }
         return true;
-    }
-
+        }
     public String getFilter() {
         return filter;
     }
@@ -186,5 +195,8 @@ public class EventActivity extends AppCompatActivity  {
     }
     public boolean getDistance(){
         return distance;
+    }
+    public int getDistanceFiltered(){
+        return distanceFiltered;
     }
 }

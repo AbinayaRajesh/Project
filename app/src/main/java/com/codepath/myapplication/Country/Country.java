@@ -17,6 +17,9 @@ public class Country implements Parcelable {
     String language;
     String flagUrl;
     String nativeName;
+    String adjective;
+
+
     public Country(){}
 
     public static Country fromJSON(JSONObject object) throws JSONException{
@@ -33,6 +36,10 @@ public class Country implements Parcelable {
         Country country = new Country();
         country.name = "China";
         return country;
+    }
+
+    public void setAdjective(String adjective) {
+        this.adjective = adjective;
     }
 
     public String getName() {
@@ -55,6 +62,10 @@ public class Country implements Parcelable {
         return nativeName;
     }
 
+    public String getAdjective() {
+        return adjective;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -67,6 +78,7 @@ public class Country implements Parcelable {
         dest.writeString(this.language);
         dest.writeString(this.flagUrl);
         dest.writeString(this.nativeName);
+        dest.writeString(this.adjective);
     }
 
     protected Country(Parcel in) {
@@ -75,6 +87,7 @@ public class Country implements Parcelable {
         this.language = in.readString();
         this.flagUrl = in.readString();
         this.nativeName = in.readString();
+        this.adjective = in.readString();
     }
 
     public static final Parcelable.Creator<Country> CREATOR = new Parcelable.Creator<Country>() {
