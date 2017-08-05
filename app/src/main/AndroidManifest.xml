@@ -5,9 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
 
     <application
         android:allowBackup="true"
@@ -29,6 +28,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -60,15 +60,20 @@
 
         <fragment android:name=".Fragments.EventsListFragment" />
         <fragment android:name=".FoodFragments.FoodListFragment" />
+
         <activity android:name=".Tourism.DetailPlaceActivity" />
+
         <fragment android:name=".TourismFragments.TourismListFragment" />
+
         <activity android:name=".Event.EventDetail" />
         <activity android:name=".FoodFolder.tempFOOD" />
         <activity android:name=".Tourism.tempTourism" />
         <activity android:name=".FoodFolder.FoodMainPage" />
+
         <fragment android:name=".LanguageFragments.CommonPhrasesFragment" />
         <fragment android:name=".LanguageFragments.TranslateFragment" />
         <fragment android:name=".LanguageFragments.LanguageMainActivity" />
+
         <activity android:name=".LanguageActivity" />
         <activity android:name=".Database.SavedEventsActivity" />
         <activity android:name=".Database.SavedRecipesActivity" />
@@ -78,14 +83,21 @@
         <activity android:name=".Tourism.TourismSearchActivity" />
         <activity android:name=".RestarauntSearchActivity" />
         <activity android:name=".CountrySearchActivity" />
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".Maps.MapActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".Maps.MapActivity" />
+
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider155418675023687"
             android:exported="true" />
 
-        <activity android:name=".Options.FavouriteActivity"></activity>
+        <activity android:name=".Options.FavouriteActivity" />
+        <activity android:name=".TestMusic">
+
+        </activity>
+        <activity
+            android:name="com.spotify.sdk.android.authentication.LoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
     </application>
 
 </manifest>

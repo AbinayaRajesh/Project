@@ -6,16 +6,23 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.codepath.myapplication.Maps.MapActivity;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.spotify.sdk.android.authentication.AuthenticationClient;
 import com.spotify.sdk.android.authentication.AuthenticationRequest;
 import com.spotify.sdk.android.authentication.AuthenticationResponse;
+import com.spotify.sdk.android.player.ConnectionStateCallback;
+import com.spotify.sdk.android.player.Error;
+import com.spotify.sdk.android.player.Player;
+import com.spotify.sdk.android.player.PlayerEvent;
+import com.spotify.sdk.android.player.SpotifyPlayer;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,12 +35,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MusicActivity extends AppCompatActivity {
+public class MusicActivity extends AppCompatActivity implements SpotifyPlayer.NotificationCallback, ConnectionStateCallback {
+
 
     // TODO: Replace with your client ID
     private static final String CLIENT_ID = "f369e0b40d2941f585239fae425f7ec5";
     // TODO: Replace with your redirect URI
-    private static final String REDIRECT_URI = "localhost:8888/callback";
+    private static final String REDIRECT_URI = "http://localhost:8888/callback";
     private static final int REQUEST_CODE = 6666;
 
     public static final int AUTH_TOKEN_REQUEST_CODE = 0x10;
@@ -43,6 +51,13 @@ public class MusicActivity extends AppCompatActivity {
     private String mAccessToken;
     private String mAccessCode;
     private Call mCall;
+    AsyncHttpClient client;
+
+    private Player mPlayer;
+
+    public MusicActivity() {
+        this.client = new AsyncHttpClient();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +80,7 @@ public class MusicActivity extends AppCompatActivity {
         }
 
         final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me")
+                .url("https://api.spotify.com/v1/search?q=china&type=playlist")
                 .addHeader("Authorization","Bearer " + mAccessToken)
                 .build();
 
@@ -100,7 +115,7 @@ public class MusicActivity extends AppCompatActivity {
     }
 
     private AuthenticationRequest getAuthenticationRequest(AuthenticationResponse.Type type) {
-        return new AuthenticationRequest.Builder(CLIENT_ID, type, getRedirectUri().toString())
+        return new AuthenticationRequest.Builder(CLIENT_ID, type, REDIRECT_URI)
                 .setShowDialog(false)
                 .setScopes(new String[]{"user-read-email"})
                 .setCampaign("your-campaign-token")
@@ -154,8 +169,8 @@ public class MusicActivity extends AppCompatActivity {
                 .build();
     }
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menumain, menu);
+       // MenuInflater inflater = getMenuInflater();
+      // inflater.inflate(R.menu.menumain, menu);
         return true;
     }
     public void onMaps(MenuItem item) {
@@ -163,8 +178,68 @@ public class MusicActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void getSong(AsyncHttpResponseHandler handler, String q){
+        String url = getApiUrl("search?q=" + q);
 
-// Most (but not all) of the com.codepath.myapplication.Spotify Web API endpoints require authorisation.
-// If you know you'll only use the ones that don't require authorisation you can skip this step
+        client.get(url, handler);
+    }
 
+    private String getApiUrl(String relativeUrl) {
+        return "https://api.spotify.com/v1/" + relativeUrl;
+    }
+
+    @Override
+    public void onLoggedIn() {
+        Log.d("MainActivity", "User logged in");
+
+        mPlayer.playUri(null, "spotify:track:2TpxZ7JUBn3uw46aR7qd6V", 0, 0);
+    }
+
+    @Override
+    public void onPlaybackEvent(PlayerEvent playerEvent) {
+        Log.d("MusicActivity", "Playback event received: " + playerEvent.name());
+        switch (playerEvent) {
+            // Handle event type as necessary
+            default:
+                break;
+        }
+
+    }
+
+    @Override
+    public void onPlaybackError(Error error) {
+        Log.d("MainActivity", "Playback error received: " + error.name());
+        switch (error) {
+            // Handle error type as necessary
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+
+    @Override
+    public void onLoggedOut() {
+        Log.d("MainActivity", "User logged out");
+    }
+
+
+    @Override
+    public void onTemporaryError() {
+        Log.d("MainActivity", "Temporary error occurred");
+    }
+
+    @Override
+    public void onConnectionMessage(String message) {
+        Log.d("MainActivity", "Received connection message: " + message);
+    }
+
+    @Override
+    public void onLoginFailed(Error error) {
+
+    }
 }
