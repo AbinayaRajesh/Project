@@ -38,6 +38,8 @@ public SpotifyClient (){
 
 }
 
+
+
 // Most (but not all) of the com.codepath.myapplication.Spotify Web API endpoints require authorisation.
 // If you know you'll only use the ones that don't require authorisation you can skip this step
 
