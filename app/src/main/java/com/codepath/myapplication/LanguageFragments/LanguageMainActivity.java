@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
+import static com.codepath.myapplication.Options.OptionsActivity.pausePlayer;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class LanguageMainActivity extends Fragment {
@@ -62,6 +63,8 @@ public class LanguageMainActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
+
+        pausePlayer();
 
         try {
             i = getArguments().getInt("f");
@@ -401,7 +404,9 @@ public class LanguageMainActivity extends Fragment {
         return rootView;
     }
 
-//    @Override
+
+
+    //    @Override
 //    public void onDestroy() {
 //
 //

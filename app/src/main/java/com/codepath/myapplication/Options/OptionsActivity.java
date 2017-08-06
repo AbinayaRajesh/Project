@@ -210,7 +210,7 @@ public class OptionsActivity extends AppCompatActivity
 
     // public static boolean canAddItem = false;
     public static int isPlaying () {
-        if (mPlayer != null && mPlayer.getPlaybackState().isPlaying) return 1;
+        if (mPlayer != null && mPlayer.getPlaybackState()!=null && mPlayer.getPlaybackState().isPlaying) return 1;
         else return 0;
     }
 

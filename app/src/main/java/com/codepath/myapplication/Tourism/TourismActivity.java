@@ -22,6 +22,8 @@ import com.codepath.myapplication.TourismFragments.TourismPagerAdapter;
 
 import org.parceler.Parcels;
 
+import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
+
 public class TourismActivity extends AppCompatActivity  {
 
     Context context;
@@ -64,6 +66,7 @@ public class TourismActivity extends AppCompatActivity  {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menufilter, menu);
+        setMenuVolume(menu,3);
         MenuItem searchItem = menu.findItem(R.id.searchBar);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
