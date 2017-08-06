@@ -11,12 +11,7 @@
         android:title="Search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/miMaps"
-        android:icon="@drawable/ic_map"
-        android:onClick="onMaps"
-        android:title="Item"
-        app:showAsAction="always" />
+
     <item
         android:id="@+id/action_refresh"
         app:showAsAction="always"
@@ -25,17 +20,17 @@
         android:title="TripPlanner"/>
 
     <item
-        android:id="@+id/volume"
-        android:icon="@drawable/ic_volume_off_white"
-        android:title="Add New Item"
-        android:onClick="onVolume"
-        app:showAsAction="always"/>
-
-    <item
         android:id="@+id/home"
         android:title="HOME"
         android:icon="@drawable/ic_home"
         app:showAsAction="always"
         android:onClick="onHome"/>
+
+    <item
+        android:id="@+id/volume"
+        android:icon="@drawable/ic_volume_off_white"
+        android:title="Add New Item"
+        android:onClick="onVolume"
+        app:showAsAction="always"/>
 
 </menu>

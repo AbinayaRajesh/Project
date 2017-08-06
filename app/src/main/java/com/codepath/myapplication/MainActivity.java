@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -152,11 +151,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
     }
-    public void sendMusic(View view)
-    {
-        Intent intent = new Intent(MainActivity.this, MusicActivity.class);
-        startActivity(intent);
-    }
+
     private void getCountryList(){
         String url = API_BASE_URL;
 

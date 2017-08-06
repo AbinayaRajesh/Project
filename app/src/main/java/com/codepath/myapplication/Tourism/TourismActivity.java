@@ -45,6 +45,7 @@ public class TourismActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tourism);
 
+        setTitle("Tourism");
 
         bundle = new Bundle();
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
@@ -65,7 +66,7 @@ public class TourismActivity extends AppCompatActivity  {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menufilter, menu);
+        inflater.inflate(R.menu.menu_tourism, menu);
         setMenuVolume(menu,3);
         MenuItem searchItem = menu.findItem(R.id.searchBar);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);

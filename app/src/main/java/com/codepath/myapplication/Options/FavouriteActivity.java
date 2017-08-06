@@ -46,6 +46,7 @@ public class FavouriteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Favorites");
         setContentView(R.layout.activity_favourite);
         events = (ImageView) findViewById(R.id.eventsPic);
         food = (ImageView) findViewById(R.id.foodPic);

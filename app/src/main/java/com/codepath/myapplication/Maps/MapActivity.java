@@ -249,6 +249,7 @@ public class MapActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.marker_demo);
 
+        setTitle("Maps");
 
         client = new AsyncHttpClient();
 

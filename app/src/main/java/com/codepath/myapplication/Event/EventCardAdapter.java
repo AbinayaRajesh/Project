@@ -56,10 +56,10 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.VH> 
         Glide.with(mContext).load(event.getEventUrl()).centerCrop().into(holder.ivProfile);
 
         if (event.isFavourite()==1) {
-            Glide.with(mContext) .load("") .error(R.drawable.ic_add) .into(holder.add);
+            Glide.with(mContext) .load("") .error(R.drawable.ic_remove) .into(holder.add);
         }
         else {
-            Glide.with(mContext) .load("") .error(R.drawable.ic_remove) .into(holder.add);
+            Glide.with(mContext) .load("") .error(R.drawable.ic_add) .into(holder.add);
         }
     }
 

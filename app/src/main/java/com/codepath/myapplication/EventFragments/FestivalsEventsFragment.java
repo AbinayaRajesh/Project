@@ -18,6 +18,9 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.codepath.myapplication.Database.EventContract.EventEntry.COLUMN_EVENT_START_TIME;
+import static com.codepath.myapplication.Database.EventContract.EventEntry.COLUMN_EVENT_VENUE;
+
 /**
  * Created by eyobtefera on 7/18/17.
  */
@@ -47,6 +50,26 @@ public class FestivalsEventsFragment extends EventsListFragment  {
         getSportsEvents();
         context = getActivity();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        for (int i =0; i<events.size(); i++) {
+            Event event = events.get(i);
+            if (CheckIsDataAlreadyInDBorNot("events",
+                    COLUMN_EVENT_VENUE, "\""+event.getEventVenue()+ "\"",
+                    COLUMN_EVENT_START_TIME, "\""+event.getStartTime()+ "\"")) {
+                y = 1;
+                event.setFavourite(y);
+            }
+            else {
+                y = 0;
+                event.setFavourite(y);
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
+
     private void getSportsEvents(){
         String url = API_BASE_URL + "events/search?";
         RequestParams params = new RequestParams();
@@ -76,12 +99,14 @@ public class FestivalsEventsFragment extends EventsListFragment  {
                     JSONArray eventArray = eventsonline.getJSONArray("event");
                     for (int i = 0; i < eventArray.length(); i++){
                         Event event = Event.fromJson(i, eventArray.getJSONObject(i));
-                        if (CheckIsDataAlreadyInDBorNot("events", "venue", "\""+event.getEventVenue()+ "\"")) {
-                            y = 0;
+                        if (CheckIsDataAlreadyInDBorNot("events",
+                                COLUMN_EVENT_VENUE, "\""+event.getEventVenue()+ "\"",
+                                COLUMN_EVENT_START_TIME, "\""+event.getStartTime()+ "\"")) {
+                            y = 1;
                             event.setFavourite(y);
                         }
                         else {
-                            y = 1;
+                            y = 0;
                             event.setFavourite(y);
                         }
                         events.add(event);
@@ -98,7 +123,8 @@ public class FestivalsEventsFragment extends EventsListFragment  {
 
 
     public boolean CheckIsDataAlreadyInDBorNot(String TableName,
-                                               String dbfield, String fieldValue) {
+                                               String dbfield1, String fieldValue1,
+                                               String dbfield2, String fieldValue2) {
 
         // Create database helper
         EventDbHelper mDbHelper = new EventDbHelper(context);
@@ -106,15 +132,15 @@ public class FestivalsEventsFragment extends EventsListFragment  {
         // Gets the database in write mode
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-        String Query = "Select * from " + TableName + " where " + dbfield + " = " + fieldValue;
+        String Query = "Select * from " + TableName + " where " + dbfield1 + " = " + fieldValue1
+                + " and " + dbfield2 + " = " + fieldValue2;
         Cursor cursor = db.rawQuery(Query, null);
-        if (cursor.getCount() <= 0) {
+        if(cursor.getCount() <= 0){
             cursor.close();
             return false;
         }
         cursor.close();
         db.close();
         return true;
-
     }
     }

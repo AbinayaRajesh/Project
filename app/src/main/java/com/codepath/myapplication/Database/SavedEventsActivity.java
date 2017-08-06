@@ -132,7 +132,7 @@ public class SavedEventsActivity extends AppCompatActivity {
 
 
                     Event e = Event.consEvent(currentName, currentDescription, currentUrl, currentVenue, currentStart,
-                            currentStop, 0, 0, (byte) 0, currentKey);
+                            currentStop, 0, 0, (byte) 1, currentKey);
                     aEvent.add(e);
                     //notify adapter
                     adapter.notifyItemInserted(aEvent.size() - 1);

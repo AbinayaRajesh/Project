@@ -53,7 +53,7 @@ public class tempFOOD extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_temp);
 
-
+        setTitle("Recipes");
 
         context = getBaseContext();
         ll = getIntent().getStringExtra("ll");
@@ -83,7 +83,7 @@ public class tempFOOD extends AppCompatActivity {
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menufilter, menu);
+        inflater.inflate(R.menu.menu_tourism, menu);
         setMenuVolume(menu,3);
         MenuItem searchItem = menu.findItem(R.id.searchBar);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
@@ -130,6 +130,18 @@ public class tempFOOD extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         invalidateOptionsMenu();
+        for (int i =0; i<afood.size(); i++) {
+            Food recipe = afood.get(i);
+            if (CheckIsRecipeAlreadyInDBorNot("recipes", "name", "\""+recipe.getName()+ "\"")) {
+                y = 1;
+                recipe.setFavourite(y);
+            }
+            else {
+                y = 0;
+                recipe.setFavourite(y);
+            }
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     private void fetchFood(String query){

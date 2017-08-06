@@ -3,6 +3,7 @@ package com.codepath.myapplication.Event;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -86,10 +87,10 @@ public class EventDetail extends AppCompatActivity implements OnMapReadyCallback
 //        else i.setImageResource(R.drawable.remove_white);
 
         if (event.isFavourite()==1) {
-            Glide.with(context) .load("") .error(R.drawable.add_white) .into(i);
+            Glide.with(context) .load("") .error(R.drawable.remove_white) .into(i);
         }
         else {
-            Glide.with(context) .load("") .error(R.drawable.remove_white) .into(i);
+            Glide.with(context) .load("") .error(R.drawable.add_white) .into(i);
         }
 
         tvEventName.setText(event.getEventName());
@@ -297,5 +298,46 @@ public class EventDetail extends AppCompatActivity implements OnMapReadyCallback
                 .title(event.getEventName()));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(placeLocation));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 1000, null);
+    }
+
+//    Byte y;
+//
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if (CheckIsDataAlreadyInDBorNot("events", "venue", "\""+event.getEventVenue()+ "\"")) {
+//                y = 1;
+//                event.setFavourite(y);
+//            Glide.with(context) .load("") .error(R.drawable.add_white) .into(i);
+//            }
+//            else {
+//                y = 0;
+//                event.setFavourite(y);
+//            Glide.with(context) .load("") .error(R.drawable.remove_white) .into(i);
+//            }
+//
+//
+//
+//    }
+
+    public boolean CheckIsDataAlreadyInDBorNot(String TableName,
+                                               String dbfield, String fieldValue) {
+
+        // Create database helper
+        EventDbHelper mDbHelper = new EventDbHelper(context);
+
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        String Query = "Select * from " + TableName + " where " + dbfield + " = " + fieldValue;
+        Cursor cursor = db.rawQuery(Query, null);
+        if (cursor.getCount() <= 0) {
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        db.close();
+        return true;
+
     }
 }
