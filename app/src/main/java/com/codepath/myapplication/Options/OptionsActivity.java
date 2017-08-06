@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,7 +62,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class OptionsActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener, SpotifyPlayer.NotificationCallback, ConnectionStateCallback {
+public class OptionsActivity extends AppCompatActivity
+        implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        com.google.android.gms.location.LocationListener, SpotifyPlayer.NotificationCallback,
+        ConnectionStateCallback {
     private RecyclerView rvOptions;
     private OptionsAdapter mAdapter;
     private List<Option> options;
@@ -78,9 +82,11 @@ public class OptionsActivity extends AppCompatActivity implements GoogleApiClien
     Double longitude;
     Double latitude;
     String ll;
+    boolean volume;
     public final static String TAG = "CountryList";
 
 
+    public static Player mPlayer;
     //  public PhotoClient photoClient;
     String url;
 
@@ -173,29 +179,7 @@ public class OptionsActivity extends AppCompatActivity implements GoogleApiClien
                     }
                 }
 
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                    super.onSuccess(statusCode, headers, response);
-                }
 
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                    super.onSuccess(statusCode, headers, responseString);
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    super.onFailure(statusCode, headers, throwable, errorResponse);
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
-                    super.onFailure(statusCode, headers, throwable, errorResponse);
-                }
             });
 
         }
@@ -221,6 +205,84 @@ public class OptionsActivity extends AppCompatActivity implements GoogleApiClien
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
+
+
+
+    // public static boolean canAddItem = false;
+    public static int isPlaying () {
+        if (mPlayer != null && mPlayer.getPlaybackState().isPlaying) return 1;
+        else return 0;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Toast toast;
+        if(item.getItemId() == R.id.volume){
+            invalidateOptionsMenu();
+        }
+        else{
+            toast = Toast.makeText(this, item.getTitle()+" Clicked!", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public static void pausePlayer () {
+        if (mPlayer != null && mPlayer.getPlaybackState().isPlaying) {
+            mPlayer.pause(new Player.OperationCallback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(Error error) {
+
+                }
+            });
+        }
+
+    }
+
+    public static void playPlayer () {
+        if (mPlayer != null && !mPlayer.getPlaybackState().isPlaying) {
+            mPlayer.resume(new Player.OperationCallback() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onError(Error error) {
+
+                }
+            });
+        }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        if(isPlaying()==1){
+            menu.getItem(3).setIcon(R.drawable.ic_volume_off_white);
+            pausePlayer();
+        }
+        else {
+            menu.getItem(3).setIcon(R.drawable.ic_volume_up_white);
+            playPlayer();
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_options, menu);
+        return true;
+    }
+
 
 
     public void onConnected(Bundle bundle) {
@@ -324,7 +386,7 @@ public class OptionsActivity extends AppCompatActivity implements GoogleApiClien
     // Can be any integer
     private static final int REQUEST_CODE = 1337;
 
-    private Player mPlayer;
+    // public static Player mPlayer;
     private final OkHttpClient mOkHttpClient = new OkHttpClient();
     private String mAccessToken;
     private String mAccessCode;
@@ -406,9 +468,11 @@ public class OptionsActivity extends AppCompatActivity implements GoogleApiClien
         Log.d("MainActivity", "User logged in");
         //final AuthenticationRequest request = getAuthenticationRequest(AuthenticationResponse.Type.TOKEN);
 
+        String q = country.getAdjective();
+        if (q==null) q = country.getName();
 
         final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/search?q=baile%20de%20favela&type=track")
+                .url("https://api.spotify.com/v1/search?q=" + q + "%20national%20anthem&type=track")
                 .addHeader("Authorization","Bearer " + mAccessToken)
                 .build();
 
@@ -471,9 +535,18 @@ public class OptionsActivity extends AppCompatActivity implements GoogleApiClien
                     JSONObject o = text.getJSONObject("tracks");
                     JSONObject itemArray = (JSONObject) o.getJSONArray("items").get(0);
                     ID = itemArray.getString("id");
+                    mPlayer.setRepeat(new Player.OperationCallback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError(Error error) {
+
+                        }
+                    }, true);
                     mPlayer.playUri(null, "spotify:track:" + ID, 0, 0);
-
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();

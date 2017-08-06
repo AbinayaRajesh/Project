@@ -28,6 +28,10 @@ import org.parceler.Parcels;
 
 import java.util.Calendar;
 
+import static com.codepath.myapplication.Options.OptionsActivity.isPlaying;
+import static com.codepath.myapplication.Options.OptionsActivity.pausePlayer;
+import static com.codepath.myapplication.Options.OptionsActivity.playPlayer;
+
 
 public class EventActivity extends AppCompatActivity  {
 
@@ -139,6 +143,9 @@ public class EventActivity extends AppCompatActivity  {
         bundle.clear();
         int id = item.getItemId();
         switch (id) {
+            case R.id.volume: {
+                invalidateOptionsMenu();
+            }
             case R.id.action_dropdown1: {
                 bundle.putString("filter", "popularity");
                 fragment.setArguments(bundle);
@@ -198,5 +205,19 @@ public class EventActivity extends AppCompatActivity  {
     }
     public int getDistanceFiltered(){
         return distanceFiltered;
+    }
+
+
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (isPlaying()==1) {
+            menu.getItem(5).setIcon(R.drawable.ic_volume_off_white);
+            pausePlayer();
+        } else {
+            menu.getItem(5).setIcon(R.drawable.ic_volume_up_white);
+            playPlayer();
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 }

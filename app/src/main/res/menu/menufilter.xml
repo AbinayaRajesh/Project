@@ -68,4 +68,11 @@
         app:showAsAction="always"
         android:onClick="onHome"/>
 
+    <item
+        android:id="@+id/volume"
+        android:icon="@drawable/ic_volume_up_white"
+        android:title="Add New Item"
+        app:showAsAction="always"/>
+
+
 </menu>

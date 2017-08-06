@@ -66,6 +66,31 @@ public class MainActivity extends AppCompatActivity  {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//
+//        if (mPlayer != null) {
+//            pausePlayer();
+//        }
+//
+//    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        if (mPlayer != null) {
+//            playPlayer();
+//        }
+//
+//
+//    }
+
+
+
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -142,7 +167,16 @@ public class MainActivity extends AppCompatActivity  {
         map.put("Egypt", "Egyptian");
         map.put("France", "French");
         map.put("Germany", "German");
+        map.put("Greece", "Greek");
         map.put("India", "Indian");
+        map.put("Italy", "Italian");
+        map.put("Japan", "Japanese");
+        map.put("Mexico", "Mexican");
+        map.put("Morocco", "Moroccan");
+        map.put("Singapore", "Singaporean");
+        map.put("Spain", "Spanish");
+        map.put("Turkey", "Turkish");
+
 
 
         RequestParams params = new RequestParams();

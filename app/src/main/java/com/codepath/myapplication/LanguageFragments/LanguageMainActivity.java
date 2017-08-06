@@ -419,6 +419,7 @@ public class LanguageMainActivity extends Fragment {
         translateText.clear();
         String query = String.valueOf(input.getText());
         translateText.add(query);
+        // queryTranslate.setFormat("text");
         queryTranslate.setQ(translateText);
         queryTranslate.setSource("en");
         queryTranslate.setTarget(language);
@@ -428,7 +429,7 @@ public class LanguageMainActivity extends Fragment {
                 .setApplicationName("My First Project")
                 .setTranslateRequestInitializer(API_KEY)
                 .build();
-        new Thread(new Runnable(){
+        Thread t1  = new Thread(new Runnable(){
             @Override
             public void run() {
                 try {
@@ -445,7 +446,13 @@ public class LanguageMainActivity extends Fragment {
                     ex.printStackTrace();
                 }
             }
-        }).start();
+        });
+        t1.start();
+        try {
+            t1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     public String TranslateWord(String query) {
         // Boolean b = true;

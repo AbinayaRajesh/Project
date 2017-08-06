@@ -29,6 +29,10 @@ import org.parceler.Parcels;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
+import static com.codepath.myapplication.Options.OptionsActivity.isPlaying;
+import static com.codepath.myapplication.Options.OptionsActivity.pausePlayer;
+import static com.codepath.myapplication.Options.OptionsActivity.playPlayer;
+
 public class FoodMainPage extends AppCompatActivity {
 
     ImageView recipes;
@@ -39,7 +43,8 @@ public class FoodMainPage extends AppCompatActivity {
     Country country;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {;
+    protected void onCreate(Bundle savedInstanceState) {
+        ;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_main_page);
         Bundle bundleB = getIntent().getExtras();
@@ -84,11 +89,13 @@ public class FoodMainPage extends AppCompatActivity {
             }
         });
     }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menumain, menu);
         return true;
     }
+
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, MapActivity.class);
         i.putExtra("country", Parcels.wrap(country));
@@ -129,5 +136,27 @@ public class FoodMainPage extends AppCompatActivity {
 
         return output;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.volume) {
+            invalidateOptionsMenu();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (isPlaying()==1) {
+            menu.getItem(3).setIcon(R.drawable.ic_volume_off_white);
+            pausePlayer();
+
+        } else {
+            menu.getItem(3).setIcon(R.drawable.ic_volume_up_white);
+            playPlayer();
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
 
 }
