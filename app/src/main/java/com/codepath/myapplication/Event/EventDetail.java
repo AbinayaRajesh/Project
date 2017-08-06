@@ -128,18 +128,18 @@ public class EventDetail extends AppCompatActivity implements OnMapReadyCallback
 
             @Override
             public void onClick(View arg0) {
-                if(event.favourite==1){
+                if(event.isFavourite()==1){
 
-                    i.setImageResource(R.drawable.remove_white);
-                    insertEvent(event);
+                    i.setImageResource(R.drawable.add_white);
+                    deleteEvent(event);
                     Byte y = 0;
                     event.setFavourite(y);
                     Intent in = new  Intent(EventDetail.this, SavedEventsActivity.class);
                     startActivity(in);
                 }
                 else {
-                    i.setImageResource(R.drawable.add_white);
-                    deleteEvent(event);
+                    i.setImageResource(R.drawable.remove_white);
+                    insertEvent(event);
                     Byte y = 1;
                     event.setFavourite(y);
                     Intent in = new  Intent(EventDetail.this, SavedEventsActivity.class);
