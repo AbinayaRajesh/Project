@@ -24,6 +24,7 @@ import com.codepath.myapplication.Maps.MapActivity;
 import com.codepath.myapplication.Models.Location;
 import com.codepath.myapplication.Models.Venue;
 import com.codepath.myapplication.Options.FavouriteActivity;
+import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
@@ -39,6 +40,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.parceler.Parcels;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
+import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
 
 public class DetailPlaceActivity extends AppCompatActivity implements OnMapReadyCallback {
     Venue venue;
@@ -181,7 +184,18 @@ public class DetailPlaceActivity extends AppCompatActivity implements OnMapReady
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menumain, menu);
+        setMenuVolume(menu,3);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
+    }
+
+    public void onVolume (MenuItem  mi) {
+        OptionsActivity.onVolume(mi);
     }
 
 

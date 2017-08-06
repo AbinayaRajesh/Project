@@ -85,6 +85,16 @@ public class TourismActivity extends AppCompatActivity  {
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
+    }
+
+    public void onVolume (MenuItem  mi) {
+        OptionsActivity.onVolume(mi);
+    }
+
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, MapActivity.class);
         i.putExtra("country", Parcels.wrap(country));

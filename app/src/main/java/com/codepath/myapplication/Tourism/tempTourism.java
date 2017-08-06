@@ -32,6 +32,8 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
+
 public class tempTourism extends AppCompatActivity {
 
     private static final int MY_PERMISSION_ACCESS_COURSE_LOCATION = 13;
@@ -68,8 +70,6 @@ public class tempTourism extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurants_temp);
 
-
-
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         client = new AsyncHttpClient();
         venues = new ArrayList<>();
@@ -89,11 +89,11 @@ public class tempTourism extends AppCompatActivity {
         rvVenues.setAdapter(adapter);
 
         getNowPlaying();
-
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menufilter, menu);
+        inflater.inflate(R.menu.menu_tourism, menu);
+        setMenuVolume(menu,3);
         MenuItem searchItem = menu.findItem(R.id.searchBar);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -113,6 +113,13 @@ public class tempTourism extends AppCompatActivity {
         });
         return true;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
+    }
+
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, MapActivity.class);
         i.putExtra("country", Parcels.wrap(country));
@@ -209,6 +216,12 @@ public class tempTourism extends AppCompatActivity {
             }
 
     }
+
+    public void onVolume (MenuItem  mi) {
+        OptionsActivity.onVolume(mi);
+    }
+
+
 
 
 }

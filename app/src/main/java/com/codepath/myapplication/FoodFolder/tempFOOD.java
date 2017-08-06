@@ -35,6 +35,8 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
+
 
 public class tempFOOD extends AppCompatActivity {
     FoodClient client;
@@ -78,12 +80,11 @@ public class tempFOOD extends AppCompatActivity {
         mAdapter = new FoodCardAdapter(tempFOOD.this, afood);
         rvRecipes.setAdapter(mAdapter);
 
-
-
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menufilter, menu);
+        setMenuVolume(menu,3);
         MenuItem searchItem = menu.findItem(R.id.searchBar);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -110,6 +111,11 @@ public class tempFOOD extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void onVolume (MenuItem  mi) {
+        OptionsActivity.onVolume(mi);
+    }
+
+
     public void onEvents(MenuItem item) {
         Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
@@ -118,6 +124,12 @@ public class tempFOOD extends AppCompatActivity {
         Intent i = new Intent(this, OptionsActivity.class);
         i.putExtra("country", Parcels.wrap(country));
         startActivity(i);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
     }
 
     private void fetchFood(String query){

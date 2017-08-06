@@ -30,9 +30,12 @@ import com.codepath.myapplication.Event.Event;
 import com.codepath.myapplication.Event.EventAdapter;
 import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
+import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
 
 import java.util.ArrayList;
+
+import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
 
 /**
  * Displays list of pets that were entered and stored in the app.
@@ -146,6 +149,7 @@ public class SavedEventsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_favourites, menu);
+        setMenuVolume(menu,2);
         return true;
     }
 
@@ -157,6 +161,16 @@ public class SavedEventsActivity extends AppCompatActivity {
     public void onEvents(MenuItem item) {
         Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
+    }
+
+    public void onVolume (MenuItem  mi) {
+        OptionsActivity.onVolume(mi);
     }
 
 

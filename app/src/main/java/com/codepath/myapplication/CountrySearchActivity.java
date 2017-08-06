@@ -16,9 +16,12 @@ import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Country.CountryAdapter;
 import com.codepath.myapplication.Maps.MapActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
+import com.codepath.myapplication.Options.OptionsActivity;
 import com.loopj.android.http.AsyncHttpClient;
 
 import java.util.ArrayList;
+
+import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
 
 public class CountrySearchActivity extends AppCompatActivity {
 
@@ -47,6 +50,7 @@ public class CountrySearchActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menusearch, menu);
+        setMenuVolume(menu,3);
         MenuItem searchItem = menu.findItem(R.id.searchBar);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -88,5 +92,15 @@ public class CountrySearchActivity extends AppCompatActivity {
     public void onEvents(MenuItem item) {
         Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
+    }
+
+    public void onVolume (MenuItem  mi) {
+        OptionsActivity.onVolume(mi);
     }
 }

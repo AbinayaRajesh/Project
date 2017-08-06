@@ -29,9 +29,7 @@ import org.parceler.Parcels;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-import static com.codepath.myapplication.Options.OptionsActivity.isPlaying;
-import static com.codepath.myapplication.Options.OptionsActivity.pausePlayer;
-import static com.codepath.myapplication.Options.OptionsActivity.playPlayer;
+import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
 
 public class FoodMainPage extends AppCompatActivity {
 
@@ -44,9 +42,9 @@ public class FoodMainPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_main_page);
+
         Bundle bundleB = getIntent().getExtras();
         ll = bundleB.getString("ll");
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
@@ -93,7 +91,14 @@ public class FoodMainPage extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menumain, menu);
+        setMenuVolume(menu,3);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
     }
 
     public void onMaps(MenuItem item) {
@@ -137,25 +142,8 @@ public class FoodMainPage extends AppCompatActivity {
         return output;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.volume) {
-            invalidateOptionsMenu();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        if (isPlaying()==1) {
-            menu.getItem(3).setIcon(R.drawable.ic_volume_off_white);
-            pausePlayer();
-
-        } else {
-            menu.getItem(3).setIcon(R.drawable.ic_volume_up_white);
-            playPlayer();
-        }
-        return super.onPrepareOptionsMenu(menu);
+    public void onVolume (MenuItem  mi) {
+        OptionsActivity.onVolume(mi);
     }
 
 

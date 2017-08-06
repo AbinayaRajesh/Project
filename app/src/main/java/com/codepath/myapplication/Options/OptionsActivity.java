@@ -214,32 +214,15 @@ public class OptionsActivity extends AppCompatActivity
         else return 0;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Toast toast;
-        if(item.getItemId() == R.id.volume){
-            invalidateOptionsMenu();
-        }
-        else{
-            toast = Toast.makeText(this, item.getTitle()+" Clicked!", Toast.LENGTH_SHORT);
-            toast.show();
-        }
 
-        return super.onOptionsItemSelected(item);
-    }
 
     public static void pausePlayer () {
         if (mPlayer != null && mPlayer.getPlaybackState().isPlaying) {
             mPlayer.pause(new Player.OperationCallback() {
                 @Override
-                public void onSuccess() {
-
-                }
-
+                public void onSuccess() { }
                 @Override
-                public void onError(Error error) {
-
-                }
+                public void onError(Error error) { }
             });
         }
 
@@ -249,41 +232,26 @@ public class OptionsActivity extends AppCompatActivity
         if (mPlayer != null && !mPlayer.getPlaybackState().isPlaying) {
             mPlayer.resume(new Player.OperationCallback() {
                 @Override
-                public void onSuccess() {
-
-                }
-
+                public void onSuccess() { }
                 @Override
-                public void onError(Error error) {
-
-                }
+                public void onError(Error error) { }
             });
         }
     }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-
-        if(isPlaying()==1){
-            menu.getItem(3).setIcon(R.drawable.ic_volume_off_white);
-            pausePlayer();
-        }
-        else {
-            menu.getItem(3).setIcon(R.drawable.ic_volume_up_white);
-            playPlayer();
-        }
-        return super.onPrepareOptionsMenu(menu);
-    }
-
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_options, menu);
+        setMenuVolume(menu,3);
         return true;
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
+    }
 
     public void onConnected(Bundle bundle) {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -570,6 +538,25 @@ public class OptionsActivity extends AppCompatActivity
                 .setCampaign("your-campaign-token")
                 .build();
     }
+
+    public static void onVolume (MenuItem  mi) {
+        if (isPlaying()==1) {
+            mi.setIcon(R.drawable.ic_volume_off_white);
+            pausePlayer();
+
+        } else {
+            mi.setIcon(R.drawable.ic_volume_up_white);
+            playPlayer();
+        }
+    }
+
+    public static void setMenuVolume (Menu menu, int pos) {
+        int i = isPlaying();
+        if (i==1) menu.getItem(pos).setIcon(R.drawable.ic_volume_up_white);
+        else menu.getItem(pos).setIcon(R.drawable.ic_volume_off_white);
+        if (mPlayer==null) menu.getItem(pos).setIcon(R.drawable.ic_volume_up_white);
+    }
+
 }
 
 

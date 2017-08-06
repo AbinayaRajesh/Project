@@ -19,6 +19,7 @@ import com.codepath.myapplication.FoodClient;
 import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.Maps.MapActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
+import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -30,6 +31,8 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+
+import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
 
 public class FoodSearchActivity extends AppCompatActivity {
 
@@ -63,9 +66,21 @@ public class FoodSearchActivity extends AppCompatActivity {
         rvFood.setAdapter(adapter);
         fetchFood("indian", query);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
+    }
+
+    public void onVolume (MenuItem  mi) {
+        OptionsActivity.onVolume(mi);
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menusearch, menu);
+        setMenuVolume(menu,3);
         MenuItem searchItem = menu.findItem(R.id.searchBar);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

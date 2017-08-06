@@ -30,5 +30,12 @@
         android:onClick="onEvents"
         android:title="TripPlanner"/>
 
+    <item
+        android:id="@+id/volume"
+        android:icon="@drawable/ic_volume_off_white"
+        android:title="Volume"
+        android:onClick="onVolume"
+        app:showAsAction="always"/>
+
 
 </menu>

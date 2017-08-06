@@ -55,6 +55,7 @@ import com.codepath.myapplication.Event.Event;
 import com.codepath.myapplication.Event.EventDetail;
 import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
+import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -87,6 +88,8 @@ import java.util.List;
 import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
+
+import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
 
 /**
  * This shows how to place markers on a map.
@@ -661,6 +664,7 @@ public class MapActivity extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_maps, menu);
+        setMenuVolume(menu,3);
         return true;
     }
 
@@ -864,6 +868,18 @@ public class MapActivity extends AppCompatActivity implements
         return true;
 
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
+    }
+
+    public void onVolume (MenuItem  mi) {
+        OptionsActivity.onVolume(mi);
+    }
+
 
 
 

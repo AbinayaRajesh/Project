@@ -30,9 +30,12 @@ import com.codepath.myapplication.Food;
 import com.codepath.myapplication.FoodAdapter;
 import com.codepath.myapplication.MainActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
+import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
 
 import java.util.ArrayList;
+
+import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
 
 /**
  * Displays list of pets that were entered and stored in the app.
@@ -136,6 +139,7 @@ public class SavedRecipesActivity extends AppCompatActivity {
         // Inflate the menu options from the res/menu/menu_catalog.xml file.
         // This adds menu items to the app bar.
         getMenuInflater().inflate(R.menu.menu_favourites, menu);
+        setMenuVolume(menu,2);
         return true;
     }
 
@@ -147,6 +151,16 @@ public class SavedRecipesActivity extends AppCompatActivity {
     public void onEvents(MenuItem item) {
         Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
+    }
+
+    public void onVolume (MenuItem  mi) {
+        OptionsActivity.onVolume(mi);
     }
 
 

@@ -18,6 +18,8 @@ import com.codepath.myapplication.R;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
+import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
+
 public class FavouriteActivity extends AppCompatActivity {
 
     Country country;
@@ -29,7 +31,7 @@ public class FavouriteActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_to_home, menu);
-
+        setMenuVolume(menu,1);
         return true;
     }
 
@@ -99,4 +101,16 @@ public class FavouriteActivity extends AppCompatActivity {
 
 
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
+    }
+
+    public void onVolume (MenuItem  mi) {
+        OptionsActivity.onVolume(mi);
+    }
+
 }

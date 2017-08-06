@@ -28,9 +28,7 @@ import org.parceler.Parcels;
 
 import java.util.Calendar;
 
-import static com.codepath.myapplication.Options.OptionsActivity.isPlaying;
-import static com.codepath.myapplication.Options.OptionsActivity.pausePlayer;
-import static com.codepath.myapplication.Options.OptionsActivity.playPlayer;
+import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
 
 
 public class EventActivity extends AppCompatActivity  {
@@ -61,10 +59,12 @@ public class EventActivity extends AppCompatActivity  {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+        setTitle("Events");
 
 
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
@@ -91,6 +91,7 @@ public class EventActivity extends AppCompatActivity  {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menufilter, menu);
         MenuItem searchItem = menu.findItem(R.id.searchBar);
+        setMenuVolume(menu,3);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -109,6 +110,12 @@ public class EventActivity extends AppCompatActivity  {
             }
         });
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
     }
 
     public void onMaps(MenuItem item) {
@@ -143,9 +150,6 @@ public class EventActivity extends AppCompatActivity  {
         bundle.clear();
         int id = item.getItemId();
         switch (id) {
-            case R.id.volume: {
-                invalidateOptionsMenu();
-            }
             case R.id.action_dropdown1: {
                 bundle.putString("filter", "popularity");
                 fragment.setArguments(bundle);
@@ -166,7 +170,7 @@ public class EventActivity extends AppCompatActivity  {
                 filter = "relevance";
                 pageAdapter.notifyDataSetChanged();
                 break;
-            }case R.id.dist1: {
+            }       case R.id.dist1: {
                         distanceFiltered = 5;
                         filter = "relevance";
                         pageAdapter.notifyDataSetChanged();
@@ -190,8 +194,10 @@ public class EventActivity extends AppCompatActivity  {
                         break;
                     }
             default:
+
                 return super.onOptionsItemSelected(item);
                 }
+
         return true;
         }
     public String getFilter() {
@@ -207,17 +213,9 @@ public class EventActivity extends AppCompatActivity  {
         return distanceFiltered;
     }
 
-
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        if (isPlaying()==1) {
-            menu.getItem(5).setIcon(R.drawable.ic_volume_off_white);
-            pausePlayer();
-        } else {
-            menu.getItem(5).setIcon(R.drawable.ic_volume_up_white);
-            playPlayer();
-        }
-        return super.onPrepareOptionsMenu(menu);
+    public void onVolume (MenuItem  mi) {
+        OptionsActivity.onVolume(mi);
     }
+
+
 }
