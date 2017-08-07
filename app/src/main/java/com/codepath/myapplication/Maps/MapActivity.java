@@ -575,8 +575,8 @@ public class MapActivity extends AppCompatActivity implements
         // Markers have a z-index that is settable and gettable.
         float zIndex = marker.getZIndex() + 1.0f;
         marker.setZIndex(zIndex);
-        Toast.makeText(this, marker.getTitle() + " z-index set to " + zIndex,
-                Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, marker.getTitle() + " z-index set to " + zIndex,
+//                Toast.LENGTH_SHORT).show();
 
         mLastSelectedMarker = marker;
         // We return false to indicate that we have not consumed the event and that we wish
@@ -590,7 +590,7 @@ public class MapActivity extends AppCompatActivity implements
         Event e = (Event) marker.getTag();
         Intent i = new Intent(MapActivity.this, EventDetail.class);
         i.putExtra("event", e);
-        Toast.makeText(this, "Click Info Window", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Click Info Window", Toast.LENGTH_SHORT).show();
         startActivity(i);
     }
 
@@ -601,13 +601,13 @@ public class MapActivity extends AppCompatActivity implements
 
     @Override
     public void onInfoWindowLongClick(Marker marker) {
-        Toast.makeText(this, "Info Window long click", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Info Window long click", Toast.LENGTH_SHORT).show();
     }
 
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;

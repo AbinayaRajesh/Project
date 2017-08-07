@@ -55,6 +55,7 @@ public class FoodDetail extends YouTubeBaseActivity implements YouTubePlayer.OnI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_detail);
+
         tvDetailRecipeName = (TextView) findViewById(R.id.tvDetailRecipeName);
         tvRecipePic = (ImageView) findViewById(R.id.tvRecipePic);
         rbRating = (RatingBar) findViewById(R.id.rbRating);
@@ -244,7 +245,7 @@ public class FoodDetail extends YouTubeBaseActivity implements YouTubePlayer.OnI
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
         if(!b) {
-            for(int j = 0; j<200000000; j++){} //needed to delay to give time for youtube player to load and not crash
+            for(int j = 0; j<300000000; j++){} //needed to delay to give time for youtube player to load and not crash
 
          //   youTubePlayer.cueVideo(searchResults.get(0).getId());
             youTubePlayer.loadVideo(searchResults.get(0).getId()); //allows autoplay rather than clicking to play
