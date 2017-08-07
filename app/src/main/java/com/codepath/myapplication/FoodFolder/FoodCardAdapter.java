@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
 
 // Provide the underlying view for an individual list item.
+//card adapter for food, displays food as card on food page, in addition it lets you save
+//recipies you like for later
 public class FoodCardAdapter extends RecyclerView.Adapter<FoodCardAdapter.VH> {
     private Activity mContext;
     private ArrayList<Food> mFood;

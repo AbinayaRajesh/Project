@@ -33,6 +33,8 @@ public class FestivalsEventsFragment extends EventsListFragment  {
     int distanceFilter;
     Context context;
     String longlat;
+    //child class of EventsListFragment, here festival event types are looked for
+    //search for events of this type are done here as well, a database check is done
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
@@ -47,7 +49,7 @@ public class FestivalsEventsFragment extends EventsListFragment  {
         }
         distance = ((EventActivity) getActivity()).getDistance();
         distanceFilter = ((EventActivity) getActivity()).getDistanceFiltered();
-        getSportsEvents();
+        getFestivalsEvents();
         context = getActivity();
     }
 
@@ -70,7 +72,7 @@ public class FestivalsEventsFragment extends EventsListFragment  {
         adapter.notifyDataSetChanged();
     }
 
-    private void getSportsEvents(){
+    private void getFestivalsEvents(){
         String url = API_BASE_URL + "events/search?";
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
@@ -120,8 +122,6 @@ public class FestivalsEventsFragment extends EventsListFragment  {
         });
 //http://api.eventful.com/rest/events/search?app_key=95JSGDKWtDtWRRgx&keywords=fun
     }
-
-
     public boolean CheckIsDataAlreadyInDBorNot(String TableName,
                                                String dbfield1, String fieldValue1,
                                                String dbfield2, String fieldValue2) {

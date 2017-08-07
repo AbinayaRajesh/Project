@@ -419,7 +419,6 @@ public class LanguageMainActivity extends Fragment {
 //        }
 //        super.onDestroy();
 //    }
-
     public void TranslateText() {
         translateText.clear();
         String query = String.valueOf(input.getText());
@@ -498,11 +497,9 @@ public class LanguageMainActivity extends Fragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         toBeReturned = translated;
         return toBeReturned;
     }
-
     public void SpeechSynthesis(){
         textToBeSpoken = translatedLanguage.getText().toString();
         if (textToBeSpoken==null || "".equals(textToBeSpoken)){
@@ -530,7 +527,6 @@ public class LanguageMainActivity extends Fragment {
     }
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
@@ -543,13 +539,6 @@ public class LanguageMainActivity extends Fragment {
                 }
                 break;
             }
-
         }
     }
-
-
-
-
-
-
 }

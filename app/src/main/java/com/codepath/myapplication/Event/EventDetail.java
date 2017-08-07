@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -36,36 +34,27 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.jsoup.Jsoup;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.DateFormatSymbols;
-import java.util.logging.Handler;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 
 public class EventDetail extends AppCompatActivity implements OnMapReadyCallback {
+    //instance variables
     Event event;
     TextView tvEventName;
     ImageView ivEventImage;
     TextView tvDescription;
     TextView tvMonth;
-    TextView tvDay;
     String month;
     ImageView ivCalender;
     ImageButton i;
-    Bitmap icon;
     GoogleMap googleMap;
     MapFragment mapFragment;
-
     String [] date;
-
     Context context = this;
-    private Handler handler;
-
     @Override
+    //creates the event detail view and hooks up the layout
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
@@ -79,13 +68,10 @@ public class EventDetail extends AppCompatActivity implements OnMapReadyCallback
         i.setImageResource(R.drawable.add_white);
 
         event = (Event) getIntent().getParcelableExtra("event");
-
+        //creates the map to display the event
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-//        if (event.isFavourite()==0)  i.setImageResource(R.drawable.add_white);
-//        else i.setImageResource(R.drawable.remove_white);
-
+        //checks to see if the event in favourited, and display the proper icon
         if (event.isFavourite()==1) {
             Glide.with(context) .load("") .error(R.drawable.remove_white) .into(i);
         }
@@ -94,7 +80,7 @@ public class EventDetail extends AppCompatActivity implements OnMapReadyCallback
         }
 
         tvEventName.setText(event.getEventName());
-
+        //sets descriptions and other view properties
         if (event.getEventDescription()==null) {
             tvDescription.setText("No description available");
         }
@@ -107,7 +93,6 @@ public class EventDetail extends AppCompatActivity implements OnMapReadyCallback
             month = new DateFormatSymbols().getMonths()[(Integer.parseInt(date[1])) - 1];
             tvMonth.setText(month + " " + date[2] + ", " + date[0]);
         }
-
 
         Glide.with(context).
                 load(event.getEventUrl()).
@@ -123,7 +108,7 @@ public class EventDetail extends AppCompatActivity implements OnMapReadyCallback
 
             }
         });
-
+        //allows people to add and remove events from database
         i.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -150,6 +135,7 @@ public class EventDetail extends AppCompatActivity implements OnMapReadyCallback
 
 
         // FACEBOOK SHARING
+        // allows user to share event to facebook
 
         new Thread(new Runnable(){
             @Override
@@ -171,46 +157,18 @@ public class EventDetail extends AppCompatActivity implements OnMapReadyCallback
                 }
             }
         }).start();
-
-
     }
-
-
-
-    public static Bitmap getBitmapFromURL(String src) {
-        try {
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
-
-
-
+    //allows user to add event to calendar
     public void addToCalender (Event event) {
         Intent intent = new Intent(Intent.ACTION_EDIT);
         intent.setType("vnd.android.cursor.item/event");
         intent.putExtra(CalendarContract.Events.TITLE, event.getEventName());
-//        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
-//                event.getStartTime());
-//        intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
-//                event.getStopTime());
         intent.putExtra(CalendarContract.Events.ALL_DAY, false);// periodicity
         intent.putExtra(CalendarContract.Events.DESCRIPTION,event.getEventDescription());
         startActivity(intent);
 
     }
-
-
+    //inserts event into databse
     private void insertEvent(Event event) {
 
         deleteEvent(event);
@@ -277,6 +235,7 @@ public class EventDetail extends AppCompatActivity implements OnMapReadyCallback
         db.execSQL(SQL_CREATE_EVENTS_TABLE);
     }
     @Override
+    //display event on map when it is ready
     public void onMapReady(GoogleMap gMap) {
         googleMap = gMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);

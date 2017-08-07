@@ -34,6 +34,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
 
+    //instance variables
     private List<Event> mEvents;
     ViewGroup pview;
     Context context;
@@ -43,8 +44,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public EventAdapter(ArrayList<Event> events) {
         this.mEvents = events;
     }
-
     //pass in the Tweets array in the constructor
+    //event adapter class, allows event to be displayed as well as sets onclick listener
+    //to go to detailed event view
+    //also also users to delete/add events into the databse
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
