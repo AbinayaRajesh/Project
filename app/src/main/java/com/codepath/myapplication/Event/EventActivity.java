@@ -28,8 +28,6 @@ import org.parceler.Parcels;
 
 import java.util.Calendar;
 
-import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
-
 
 public class EventActivity extends AppCompatActivity  {
 
@@ -91,7 +89,7 @@ public class EventActivity extends AppCompatActivity  {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menufilter, menu);
         MenuItem searchItem = menu.findItem(R.id.searchBar);
-        setMenuVolume(menu,3);
+        // setMenuVolume(menu,3);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -115,7 +113,7 @@ public class EventActivity extends AppCompatActivity  {
     @Override
     protected void onResume() {
         super.onResume();
-        invalidateOptionsMenu();
+        // invalidateOptionsMenu();
     }
 
     public void onMaps(MenuItem item) {
@@ -213,9 +211,9 @@ public class EventActivity extends AppCompatActivity  {
         return distanceFiltered;
     }
 
-    public void onVolume (MenuItem  mi) {
-        OptionsActivity.onVolume(mi);
-    }
+    // public void onVolume (MenuItem  mi) {
+    //    OptionsActivity.onVolume(mi);
+    //}
 
 
 

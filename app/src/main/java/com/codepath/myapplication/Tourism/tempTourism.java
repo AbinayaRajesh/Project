@@ -140,7 +140,7 @@ public class tempTourism extends AppCompatActivity {
         startActivity(i);
     }
 
-    // get the list of currently playing movies from the API
+
     private void getNowPlaying() {
         // create the url
         String url = API_BASE_URL + "/venues/search";
@@ -153,12 +153,12 @@ public class tempTourism extends AppCompatActivity {
         params.put(API_SECRET_PARAM, getString(R.string.api_secret));
         params.put("v", "20170713");
         //params.put("query", country.getName());
-        // request a GET response expecting a JSON object response
+
         client.get(url, params, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                // load the results into movies list
+
                 try {
                     JSONObject resp = response.getJSONObject("response");
                     JSONArray results = resp.getJSONArray("venues");

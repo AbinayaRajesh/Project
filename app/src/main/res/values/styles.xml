@@ -24,7 +24,10 @@
         <item name="android:textColorPrimaryInverse">@android:color/holo_orange_light</item>
         <item name="android:textColorSecondary">@color/secondary_text</item>
         <item name="android:textColorSecondaryInverse">@color/cardview_light_background</item>
+
     </style>
+
+
 
 
     <style name="AppTheme.NoActionBar">

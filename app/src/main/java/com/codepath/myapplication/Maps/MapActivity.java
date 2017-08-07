@@ -398,6 +398,7 @@ public class MapActivity extends AppCompatActivity implements
 
             }
         });
+
     }
 
     @Override
@@ -797,19 +798,19 @@ public class MapActivity extends AppCompatActivity implements
             case R.id.action_dropdown1: {
                 distance = 5;
                 getSportsEvents();
-                onMapReady(mMap);
+                //onMapReady(mMap);
                 break;
             }
             case R.id.action_dropdown2: {
                 distance = 10;
                 getSportsEvents();
-                onMapReady(mMap);
+                //onMapReady(mMap);
                 break;
             }
             case R.id.action_dropdown3: {
                 distance = 15;
                 getSportsEvents();
-                onMapReady(mMap);
+                //onMapReady(mMap);
                 break;
             }
             case R.id.action_dropdown4: {
