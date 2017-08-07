@@ -27,7 +27,7 @@ import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
 public class VenueCardAdapter extends RecyclerView.Adapter<VenueCardAdapter.VH> {
     private Activity mContext;
     private ArrayList<Venue> mVenues;
-    // public tempFOOD optionsActivity;
+    // public Recipes optionsActivity;
 
     public VenueCardAdapter(Activity context, ArrayList<Venue> venues) {
         mContext = context;

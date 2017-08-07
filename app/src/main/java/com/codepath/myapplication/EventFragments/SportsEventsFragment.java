@@ -27,15 +27,14 @@ import static com.codepath.myapplication.Database.EventContract.EventEntry.COLUM
 
 public class SportsEventsFragment extends EventsListFragment {
     AsyncHttpClient client;
-
     Byte y;
     String countryName;
     Boolean distance;
     Context context;
     int distanceFilter;
-
     String filter;
-
+    //child class of EventsListFragment, here music event types are looked for
+    //search for events of this type are done here as well
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();

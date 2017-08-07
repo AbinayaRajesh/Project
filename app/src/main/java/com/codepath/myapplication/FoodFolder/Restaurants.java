@@ -1,4 +1,4 @@
-package com.codepath.myapplication.Tourism;
+package com.codepath.myapplication.FoodFolder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +19,7 @@ import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
 import com.codepath.myapplication.RestarauntSearchActivity;
+import com.codepath.myapplication.Tourism.VenueCardAdapter;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -34,7 +35,7 @@ import cz.msebera.android.httpclient.Header;
 
 import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
 
-public class tempTourism extends AppCompatActivity {
+public class Restaurants extends AppCompatActivity {
 
     private static final int MY_PERMISSION_ACCESS_COURSE_LOCATION = 13;
     AsyncHttpClient client;
@@ -78,7 +79,7 @@ public class tempTourism extends AppCompatActivity {
         venueIds = new ArrayList<>();
         context = getBaseContext();
         //initialize the adapter -- movies array cannot be reinitialized after this point
-        adapter = new VenueCardAdapter(tempTourism.this, venues);
+        adapter = new VenueCardAdapter(Restaurants.this, venues);
 
         // the recycler view
         Bundle bundleB = getIntent().getExtras();
@@ -87,7 +88,7 @@ public class tempTourism extends AppCompatActivity {
 
         //resolve the recycler view and connect a layout manager and the adapter
         //rvMovies = (RecyclerView) findViewById(rvMovies);
-        rvVenues.setLayoutManager(new GridLayoutManager(tempTourism.this, 2));
+        rvVenues.setLayoutManager(new GridLayoutManager(Restaurants.this, 2));
         rvVenues.setAdapter(adapter);
 
         getNowPlaying();

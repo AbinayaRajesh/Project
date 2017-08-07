@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
 
 // Provide the underlying view for an individual list item.
+//cardadapter so we can present events in a cardview on event homepage
+//also always users to click on event for detail view as well as add events to database and remove them from the database
 public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.VH> {
     private Activity mContext;
     private ArrayList<Event> mEvents;

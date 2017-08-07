@@ -2,8 +2,6 @@ package com.codepath.myapplication.Event;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
@@ -21,50 +19,29 @@ import com.codepath.myapplication.Maps.MapActivity;
 import com.codepath.myapplication.Options.FavouriteActivity;
 import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
 
 import org.parceler.Parcels;
-
-import java.util.Calendar;
 
 
 public class EventActivity extends AppCompatActivity  {
 
+    //instance variables used through the class
     public static Country country;
-    Location mLastLocation;
     boolean distance;
-    Calendar c = Calendar.getInstance();
-    private LocationRequest mLocationRequest;
-    int seconds = c.get(Calendar.SECOND);
-    String dateString = c.get(Calendar.YEAR) + "-" +
-            c.get(Calendar.MONTH) + "-" +
-            c.get(Calendar.DAY_OF_MONTH) + " " +
-            c.get(Calendar.HOUR) + ":" +
-            c.get(Calendar.MINUTE) + ":" +
-            c.get(Calendar.SECOND);
     String ll;
     Context context;
     ViewPager vpPager;
     EventsPagerAdapter pageAdapter;
     String filter;
     Bundle bundle;
-    Location currentLocation;
-    LocationManager locationManager;
     EventsListFragment fragment;
-    GoogleApiClient googleApi;
     int distanceFiltered;
-
-
-
-
     @Override
+    //creates the events view, passes in the country and launches all the fragments
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
         setTitle("Events");
-
-
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         pageAdapter = new EventsPagerAdapter(getSupportFragmentManager(), context);
         Bundle bundleB = getIntent().getExtras();
@@ -83,13 +60,11 @@ public class EventActivity extends AppCompatActivity  {
         tabLayout.setupWithViewPager(vpPager);
         vpPager.setOffscreenPageLimit(3);
     }
-
-
+    //sets up action bar and implments the searhc function
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menufilter, menu);
         MenuItem searchItem = menu.findItem(R.id.searchBar);
-        // setMenuVolume(menu,3);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -97,11 +72,11 @@ public class EventActivity extends AppCompatActivity  {
                 // perform query here
                 Intent i = new Intent(context, EventSearchActivity.class);
                 i.putExtra("search", query);
+                i.putExtra("country", Parcels.wrap(country));
                 startActivity(i);
                 searchView.clearFocus();
                 return true;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
@@ -109,21 +84,18 @@ public class EventActivity extends AppCompatActivity  {
         });
         return true;
     }
-
     @Override
     protected void onResume() {
         super.onResume();
         // invalidateOptionsMenu();
     }
-
+    //starts maps activity so we can see nearby events
     public void onMaps(MenuItem item) {
         Intent i = new Intent(this, MapActivity.class);
         i.putExtra("country", Parcels.wrap(country));
         i.putExtra("ll", ll);
         startActivity(i);
     }
-
-
     public void onEvents(MenuItem item) {
         Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
@@ -133,8 +105,6 @@ public class EventActivity extends AppCompatActivity  {
         i.putExtra("country", Parcels.wrap(country));
         startActivity(i);
     }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // REQUEST_CODE is defined above
@@ -143,10 +113,12 @@ public class EventActivity extends AppCompatActivity  {
         startActivity(p);
 
     }
-
+    //enables the ability to filter by distance as well as by popularity, relevance, and event date
     public boolean onOptionsItemSelected(MenuItem item) {
         bundle.clear();
         int id = item.getItemId();
+        //switch case determines which actionbar icon was pressed, then it passes in arguments
+        //to adjust for the changes/informaiton being passed in
         switch (id) {
             case R.id.action_dropdown1: {
                 bundle.putString("filter", "popularity");
@@ -168,7 +140,9 @@ public class EventActivity extends AppCompatActivity  {
                 filter = "relevance";
                 pageAdapter.notifyDataSetChanged();
                 break;
-            }       case R.id.dist1: {
+            }
+            //another case statement based on distance to filter their results
+            case R.id.dist1: {
                         distanceFiltered = 5;
                         filter = "relevance";
                         pageAdapter.notifyDataSetChanged();
@@ -198,6 +172,7 @@ public class EventActivity extends AppCompatActivity  {
 
         return true;
         }
+    //get methods from variables
     public String getFilter() {
         return filter;
     }
@@ -214,8 +189,5 @@ public class EventActivity extends AppCompatActivity  {
     // public void onVolume (MenuItem  mi) {
     //    OptionsActivity.onVolume(mi);
     //}
-
-
-
 
 }

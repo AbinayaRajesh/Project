@@ -38,7 +38,7 @@ import cz.msebera.android.httpclient.Header;
 import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
 
 
-public class tempFOOD extends AppCompatActivity {
+public class Recipes extends AppCompatActivity {
     FoodClient client;
     ArrayList<Food> afood;
     FoodAdapter adapter;
@@ -75,9 +75,9 @@ public class tempFOOD extends AppCompatActivity {
             fetchFood(country.getName());
         }
         rvRecipes.setHasFixedSize(true);
-        final GridLayoutManager layout = new GridLayoutManager(tempFOOD.this, 2);
+        final GridLayoutManager layout = new GridLayoutManager(Recipes.this, 2);
         rvRecipes.setLayoutManager(layout);
-        mAdapter = new FoodCardAdapter(tempFOOD.this, afood);
+        mAdapter = new FoodCardAdapter(Recipes.this, afood);
         rvRecipes.setAdapter(mAdapter);
 
     }

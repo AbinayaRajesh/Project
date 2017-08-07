@@ -35,6 +35,7 @@ import cz.msebera.android.httpclient.Header;
 import static com.codepath.myapplication.Options.OptionsActivity.setMenuVolume;
 
 public class EventSearchActivity extends AppCompatActivity {
+    //instance variables for event search
     Context context;
     public final static String API_BASE_URL = "http://api.eventful.com/json/";
     //API key parameter name
@@ -44,16 +45,17 @@ public class EventSearchActivity extends AppCompatActivity {
     Country country;
     String ll;
     RecyclerView rvEvents;
+    String countryName;
     //the adapter wired to the recycler view
     EventCardAdapter adapter;
     @Override
+    //allows searched events to be displayed
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_search);
-
         country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
+        countryName = country.getName();
         ll = getIntent().getStringExtra("ll");
-
         String query = getIntent().getExtras().getString("search");
         // allows for optimizations
         rvEvents = (RecyclerView) findViewById(R.id.rvEvents);
@@ -67,7 +69,7 @@ public class EventSearchActivity extends AppCompatActivity {
         adapter = new EventCardAdapter(EventSearchActivity.this, events);
         // Bind adapter to list
         rvEvents.setAdapter(adapter);
-        getSportsEvents(query);
+        getSearchEvents(query);
     }
 
     @Override
@@ -79,7 +81,7 @@ public class EventSearchActivity extends AppCompatActivity {
     public void onVolume (MenuItem  mi) {
         OptionsActivity.onVolume(mi);
     }
-
+    //allows action bar actions
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menusearch, menu);
@@ -92,6 +94,7 @@ public class EventSearchActivity extends AppCompatActivity {
                 // perform query here
                 Intent i = new Intent(context, EventSearchActivity.class);
                 i.putExtra("search", query);
+                i.putExtra("country", Parcels.wrap(country));
                 startActivity(i);
                 searchView.clearFocus();
                 return true;
@@ -119,14 +122,12 @@ public class EventSearchActivity extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
-
-    private void getSportsEvents(String query){
+    //takes in user search and searches the events
+    private void getSearchEvents(String query){
         String url = API_BASE_URL + "events/search?";
-        String put = "China%20" + query;
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
-        params.put("keywords", "china");
-        params.put("keywords", query);
+        params.put("keywords", countryName + " " + query);
         client.get(url, params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -139,7 +140,7 @@ public class EventSearchActivity extends AppCompatActivity {
                         Event event = Event.fromJson(i, eventArray.getJSONObject(i));
                         events.add(event);
                         //notify adapter that a row was added
-                        adapter.notifyItemChanged(events.size()-1);
+                        adapter.notifyItemInserted(events.size()-1);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
