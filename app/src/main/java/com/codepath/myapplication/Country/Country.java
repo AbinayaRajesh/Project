@@ -19,7 +19,9 @@ public class Country implements Parcelable {
     String nativeName;
     String adjective;
 
-
+    //country object class
+    //stores country object that we pull from country api
+    //implements parcelable so we can pass country objects between activities
     public Country(){}
 
     public static Country fromJSON(JSONObject object) throws JSONException{

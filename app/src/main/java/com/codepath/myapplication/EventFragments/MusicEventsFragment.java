@@ -26,33 +26,29 @@ import static com.codepath.myapplication.Database.EventContract.EventEntry.COLUM
 
 public class MusicEventsFragment extends EventsListFragment {
     AsyncHttpClient client;
-
     Byte y;
     public final static String COLUMN_EVENT_VENUE = "venue";
-
     String countryName;
     Boolean distance;
     Context context;
     int distanceFilter;
-
+    //child class of EventsListFragment, here music event types are looked for
+    //search for events of this type are done here as well
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client = new AsyncHttpClient();
-
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             countryName = bundle.getString("country", "");
         }
-
         filter = ((EventActivity) getActivity()).getFilter();
         ll = ((EventActivity) getActivity()).getLL();
         distance = ((EventActivity) getActivity()).getDistance();
         distanceFilter = ((EventActivity) getActivity()).getDistanceFiltered();
-
         context = getActivity();
-        getSportsEvents();
+        getMusicEvents();
     }
-    private void getSportsEvents(){
+    private void getMusicEvents(){
         String url = API_BASE_URL + "events/search?";
         RequestParams params = new RequestParams();
         params.put("app_key", API_KEY_PARAM);
@@ -121,9 +117,6 @@ public class MusicEventsFragment extends EventsListFragment {
         }
         adapter.notifyDataSetChanged();
     }
-
-
-
     public boolean CheckIsDataAlreadyInDBorNot(String TableName,
                                                String dbfield1, String fieldValue1,
                                                String dbfield2, String fieldValue2) {

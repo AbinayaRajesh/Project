@@ -14,14 +14,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.ImageView;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Country.CountryAdapter;
 import com.codepath.myapplication.Options.FavouriteActivity;
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -38,75 +34,29 @@ import cz.msebera.android.httpclient.Header;
 
 
 public class MainActivity extends AppCompatActivity  {
+    //instance variables
     ArrayList<Country> countries;
     public final static String API_BASE_URL = "http://countryapi.gear.host/v1/Country/getCountries";
     public final static String API_KEY_PARAM = "api_key";
     public final static String TAG = "CountryList";
-
-
     RecyclerView rvCountries;
     CountryAdapter adapter;
     AsyncHttpClient client;
     ArrayList<Country> popularCountries;
-    CallbackManager callbackManager;
-    String userId;
-    AccessToken t;
-    String imageUrl;
-    ImageView i;
-    ImageView profilePic;
-    Double longitude;
-    Double latitude;
     public String ll;
-
-    Button eventButton;
     Context context;
     @Override
+    //context neccesary for multidex
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
-
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//
-//        if (mPlayer != null) {
-//            pausePlayer();
-//        }
-//
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//
-//        if (mPlayer != null) {
-//            playPlayer();
-//        }
-//
-//
-//    }
-
-
-
-
+    //creates the view and populates it with countries that users can choose to vacation too
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String url  = getIntent().getParcelableExtra("image");
-//        profilePic = (ImageView) findViewById(R.id.profilePic);
-
-//        Picasso.with(getBaseContext())
-//                .load(imageUrl)
-//                .into(profilePic);
-
-
-
+        context = this;
         popularCountries = new ArrayList<>();
-//        Intent i = new  Intent(MainActivity.this, LoginActivity.class);
-//        startActivity(i);
-
         client = new AsyncHttpClient();
         countries = new ArrayList<>();
         adapter = new CountryAdapter(countries);
@@ -114,47 +64,12 @@ public class MainActivity extends AppCompatActivity  {
         rvCountries.setLayoutManager(new LinearLayoutManager(this));
         rvCountries.setAdapter(adapter);
         getCountryList();
-//        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-//                    .setSmallIcon(R.drawable.ic_android)
-//                    .setContentTitle("My notification")
-//                    .setContentText("Hello World!");
-//
-//    // NotificationCompat.Builder mBuilder;
-//
-//    // Sets an ID for the notification
-//    int mNotificationId = 001;
-//    // Gets an instance of the NotificationManager service
-//    NotificationManager mNotifyMgr =
-//            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//    // Builds the notification and issues it.
-//    mNotifyMgr.notify(mNotificationId, mBuilder.build());
-
-
-
-       // eventButton = (Button) findViewById(R.id.bttnEvent);
-        context = this;
-
-//
-//        // FACEBOOK SHARING
-//
-//        ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
-//        Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
-//                R.drawable.recipes);
-//        SharePhoto photo = new SharePhoto.Builder()
-//                .setBitmap(icon)
-//                .build();
-//        SharePhotoContent content = new SharePhotoContent.Builder()
-//                .addPhoto(photo)
-//                .build();
-//        shareButton.setShareContent(content);
-
-
-
     }
-
+    //pulls countries from an API that gets displayed
     private void getCountryList(){
         String url = API_BASE_URL;
-
+        //for popular countries we replace the name with the adjective in searches in order to
+        //better populate events
         final Map<String,String> map=new HashMap<String, String>();
         map.put("Austria", "Austrian");
         map.put("Brazil", "Brazilian");
@@ -171,11 +86,8 @@ public class MainActivity extends AppCompatActivity  {
         map.put("Singapore", "Singaporean");
         map.put("Spain", "Spanish");
         map.put("Turkey", "Turkish");
-
-
-
         RequestParams params = new RequestParams();
-        //params.put(API_KEY_PARAM, getString(R.string.api_key));
+        //actual request to pull the countries
         client.get(url, params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -186,6 +98,8 @@ public class MainActivity extends AppCompatActivity  {
                         Country country = Country.fromJSON( results.getJSONObject(i));
                         country.setAdjective(map.get(country.getName()));
                         countries.add(country);
+                        //if a country is popular based on visitors to country we add it to
+                        //the start of the list for greater convience for the user
                         if (countries.get(i).getName().equals("France") || countries.get(i).getName().equals("China") || countries.get(i).getName().equals("Japan") ||
                         countries.get(i).getName().equals("Italy") || countries.get(i).getName().equals("India") ||  countries.get(i).getName().equals("Spain")
                                 ||  countries.get(i).getName().equals("Turkey") ||  countries.get(i).getName().equals("United Kingdom") ||  countries.get(i).getName().equals("Mexico") ||
@@ -236,7 +150,7 @@ public class MainActivity extends AppCompatActivity  {
         });
 
     }
-
+    //logs error if neccesary
     private void logError(String message, Throwable error, boolean alertUser){
         Log.e(TAG, message, error);
         //alert user to avoid silent error
@@ -245,6 +159,7 @@ public class MainActivity extends AppCompatActivity  {
             // Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
         }
     }// log error
+    //option menu, allows user to use actionbar functionality, including country search
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_home, menu);
@@ -268,31 +183,8 @@ public class MainActivity extends AppCompatActivity  {
         });
         return true;
     }
-
-
     public void onEvents(MenuItem item) {
         Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
     }
-
 }
-
-
-
-// NOTIFICATION CODE
-
-//    NotificationCompat.Builder mBuilder =
-//            new NotificationCompat.Builder(this)
-//                    .setSmallIcon(R.drawable.ic_android)
-//                    .setContentTitle("My notification")
-//                    .setContentText("Hello World!");
-//
-//    // NotificationCompat.Builder mBuilder;
-//
-//    // Sets an ID for the notification
-//    int mNotificationId = 001;
-//    // Gets an instance of the NotificationManager service
-//    NotificationManager mNotifyMgr =
-//            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//    // Builds the notification and issues it.
-//    mNotifyMgr.notify(mNotificationId, mBuilder.build());

@@ -12,9 +12,7 @@ import com.codepath.myapplication.Event.EventActivity;
  * Created by eyobtefera on 7/18/17.
  */
 
-
-
-
+//creates the page adapter that allows the tabbing between fragments
 
 public class EventsPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -26,9 +24,7 @@ public class EventsPagerAdapter extends FragmentStatePagerAdapter {
     private SportsEventsFragment sef;
     private FestivalsEventsFragment fef;
     private String tableTitle[] = new String[]{"Music", "Sports", "Festivals"};
-
-
-
+    //creates everything as well as overrides a few methods to ensure fragment are created properly
     public EventsPagerAdapter(FragmentManager fm, Context Context) {
         super(fm);
         mef = new MusicEventsFragment();

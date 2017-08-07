@@ -68,8 +68,8 @@
         <fragment android:name=".TourismFragments.TourismListFragment" />
 
         <activity android:name=".Event.EventDetail" />
-        <activity android:name=".FoodFolder.tempFOOD" />
-        <activity android:name=".Tourism.tempTourism" />
+        <activity android:name=".FoodFolder.Recipes" />
+        <activity android:name=".FoodFolder.Restaurants" />
         <activity android:name=".FoodFolder.FoodMainPage" />
 
         <fragment android:name=".LanguageFragments.CommonPhrasesFragment" />

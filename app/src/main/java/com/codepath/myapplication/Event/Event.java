@@ -14,6 +14,8 @@ import static com.loopj.android.http.AsyncHttpClient.log;
  * Created by arajesh on 7/19/17.
  */
 
+//event class based on the eventful api, grabs response queries the vent details
+    //events also implement parcelable so events can be passed between activities easily
 
 public class Event implements Parcelable {
     public String eventName;
@@ -27,9 +29,6 @@ public class Event implements Parcelable {
     public String eventLink;
     byte favourite;
     public int id;
-
-
-
     public float latitude;
     public float longitude;
 
@@ -118,7 +117,6 @@ public class Event implements Parcelable {
         {
             int rnd = new Random().nextInt(alternateUrls.length);
             event.eventUrl = alternateUrls[rnd];
-        //    event.eventUrl = "https://static1.squarespace.com/static/533353a3e4b0429a548a8446/t/54a78bede4b057f9e3964d76/1420266478889/lights_events_1366x768_68503.jpg?format=1500w";
         }
 
         event.eventVenue = jsonObject.getString("venue_name");

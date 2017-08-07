@@ -24,18 +24,15 @@ import java.util.ArrayList;
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.ViewHolder>{
    ArrayList<Country> countries;
     Context context;
-
+    //view adapter for country, sets up country view on recycler view
     public CountryAdapter(ArrayList<Country> countries){this.countries = countries;}
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View countryView = inflater.inflate(R.layout.item_view_country, parent, false);
-
         return new ViewHolder(countryView);
     }
-
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Country country = countries.get(position);
@@ -78,11 +75,9 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.ViewHold
                 // get the movie at the position, this won't work if the class is static
                 Country country = countries.get(position);
                 // create intent for the new activity
-
                 Intent intent = new Intent(context, OptionsActivity.class);
-                // serialize the movie using parceler, use its short name as a key
+                // serialize the country using parceler, use its short name as a key
                 intent.putExtra("country", Parcels.wrap(country));
-                // intent.putExtra(Country.class.getName(), Parcels.wrap(country));
                 // show the activity
                 context.startActivity(intent);
             }
