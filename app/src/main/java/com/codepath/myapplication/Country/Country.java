@@ -66,6 +66,26 @@ public class Country implements Parcelable {
         return adjective;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setContinent(String continent) {
+        this.continent = continent;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public void setFlagUrl(String flagUrl) {
+        this.flagUrl = flagUrl;
+    }
+
+    public void setNativeName(String nativeName) {
+        this.nativeName = nativeName;
+    }
+
     @Override
     public int describeContents() {
         return 0;

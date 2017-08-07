@@ -519,7 +519,7 @@ public class LanguageMainActivity extends Fragment {
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                "Say less");
+                "Talk");
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
         } catch (ActivityNotFoundException a) {
@@ -537,7 +537,8 @@ public class LanguageMainActivity extends Fragment {
                     final ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     input.setText(result.get(0));
-
+                    TranslateText();
+                    SpeechSynthesis();
                     result.clear();
                 }
                 break;

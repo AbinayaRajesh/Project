@@ -14,12 +14,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Country.CountryAdapter;
 import com.codepath.myapplication.Options.FavouriteActivity;
+import com.codepath.myapplication.Options.OptionsActivity;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.loopj.android.http.AsyncHttpClient;
@@ -29,6 +31,7 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -272,6 +275,19 @@ public class MainActivity extends AppCompatActivity  {
 
     public void onEvents(MenuItem item) {
         Intent i = new Intent(this, FavouriteActivity.class);
+        startActivity(i);
+    }
+
+    public void test (View v) {
+        Intent i = new Intent(MainActivity.this, OptionsActivity.class);
+        Country country = Country.consCountry();
+
+        country.setName("Brazil");
+        country.setContinent("South America");
+        country.setLanguage("Portugese");
+        //country.flagUrl = object.getString("FlagPng");
+        //country.nativeName = object.getString("NativeName");
+        i.putExtra("country", Parcels.wrap(country));
         startActivity(i);
     }
 
