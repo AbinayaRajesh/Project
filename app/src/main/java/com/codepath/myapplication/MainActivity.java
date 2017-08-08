@@ -14,22 +14,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-<<<<<<< HEAD
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-=======
->>>>>>> Eyob
 
 import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Country.CountryAdapter;
 import com.codepath.myapplication.Options.FavouriteActivity;
-<<<<<<< HEAD
 import com.codepath.myapplication.Options.OptionsActivity;
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-=======
->>>>>>> Eyob
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -200,7 +190,7 @@ public class MainActivity extends AppCompatActivity  {
         Intent i = new Intent(this, FavouriteActivity.class);
         startActivity(i);
     }
-<<<<<<< HEAD
+
 
     public void test (View v) {
         Intent i = new Intent(MainActivity.this, OptionsActivity.class);
@@ -219,23 +209,3 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-// NOTIFICATION CODE
-
-//    NotificationCompat.Builder mBuilder =
-//            new NotificationCompat.Builder(this)
-//                    .setSmallIcon(R.drawable.ic_android)
-//                    .setContentTitle("My notification")
-//                    .setContentText("Hello World!");
-//
-//    // NotificationCompat.Builder mBuilder;
-//
-//    // Sets an ID for the notification
-//    int mNotificationId = 001;
-//    // Gets an instance of the NotificationManager service
-//    NotificationManager mNotifyMgr =
-//            (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//    // Builds the notification and issues it.
-//    mNotifyMgr.notify(mNotificationId, mBuilder.build());
-=======
-}
->>>>>>> Eyob
