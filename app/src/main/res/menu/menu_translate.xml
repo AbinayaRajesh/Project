@@ -7,7 +7,7 @@
     <item
         android:id="@+id/action_refresh"
         app:showAsAction="always"
-        android:icon="@drawable/ic_calendar_icon"
+        android:icon="@drawable/ic_bookmark_black_24dp"
         android:onClick="onEvents"
         android:title="TripPlanner"/>
     <item
