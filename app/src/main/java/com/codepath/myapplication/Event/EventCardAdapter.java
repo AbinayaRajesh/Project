@@ -21,6 +21,7 @@ import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.R;
 
 import org.jsoup.Jsoup;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -176,6 +177,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.VH> 
                             // Pass option object in the bundle and populate details activity.
                             // first parameter is the context, second is the class of the activity to launch
                             Intent i = new Intent(context, EventDetail.class);
+                            i.putExtra("country", Parcels.wrap(EventActivity.country));
                             Event event = mEvents.get(e.getId());
                             i.putExtra("event", event);
                             mContext.startActivityForResult(i, REQUEST_CODE);

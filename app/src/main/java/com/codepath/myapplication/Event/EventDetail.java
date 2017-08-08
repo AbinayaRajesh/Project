@@ -9,6 +9,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,9 +20,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.codepath.myapplication.Country.Country;
 import com.codepath.myapplication.Database.EventContract.EventEntry;
 import com.codepath.myapplication.Database.EventDbHelper;
 import com.codepath.myapplication.Database.SavedEventsActivity;
+import com.codepath.myapplication.Options.OptionsActivity;
 import com.codepath.myapplication.R;
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
@@ -33,6 +38,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.jsoup.Jsoup;
+import org.parceler.Parcels;
 
 import java.text.DateFormatSymbols;
 
@@ -48,6 +54,7 @@ public class EventDetail extends AppCompatActivity implements OnMapReadyCallback
     TextView tvMonth;
     String month;
     ImageView ivCalender;
+    Country country;
     ImageButton i;
     GoogleMap googleMap;
     MapFragment mapFragment;
@@ -63,6 +70,7 @@ public class EventDetail extends AppCompatActivity implements OnMapReadyCallback
         tvDescription = (TextView) findViewById(R.id.tvDescription);
         tvMonth = (TextView) findViewById(R.id.tvMonth);
         ivCalender = (ImageView) findViewById(R.id.calender);
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
 
         i = (ImageButton) findViewById(R.id.add);
         i.setImageResource(R.drawable.add_white);
@@ -299,4 +307,17 @@ public class EventDetail extends AppCompatActivity implements OnMapReadyCallback
         return true;
 
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_event_detail, menu);
+        return true;
+    }
+
+    public void onHome (MenuItem mi) {
+        Intent i = new Intent(EventDetail.this, OptionsActivity.class);
+        i.putExtra("country", Parcels.wrap(country));
+        startActivity(i);
+    }
+
 }

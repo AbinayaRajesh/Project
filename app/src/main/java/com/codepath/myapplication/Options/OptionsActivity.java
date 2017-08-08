@@ -95,7 +95,7 @@ public class OptionsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         photos = new ArrayList<>();
         urls = new ArrayList<>();
-
+        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         context = this;
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -105,7 +105,6 @@ public class OptionsActivity extends AppCompatActivity
         mGoogleApiClient.connect();
         mLocationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
         setContentView(R.layout.activity_options);
-        country = (Country) Parcels.unwrap(getIntent().getParcelableExtra("country"));
         setTitle(country.getName());
         // Find RecyclerView and bind to adapter
         rvOptions = (RecyclerView) findViewById(R.id.rvOptions);
